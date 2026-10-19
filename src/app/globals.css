@@ -252,4 +252,5 @@ a:hover { color: #1E3D1A; text-decoration: underline; }
 @media (max-width: 720px) {
   .oc-main { padding: 16px !important; margin: 0 4px 4px 0 !important; }
   .oc-hide-sm { display: none; }
+  .oc-search { visibility: hidden; }
 }

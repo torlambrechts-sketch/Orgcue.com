@@ -1,6 +1,6 @@
 # Orgcue — Assessment
 
-Written from `design_handoff_orgcue/` (README, Product Spec v1.0, `prototype/oc-data.js`, `prototype/oc-kit.js`, the screen prototypes and the 21 screenshots). This is the kickoff's step 1 deliverable; `docs/PLAN.md` is the milestone plan.
+Written from `design/design_handoff_orgcue/` (README, Product Spec v1.0, `prototype/oc-data.js`, `prototype/oc-kit.js`, the screen prototypes and the 21 screenshots). This is the kickoff's step 1 deliverable; `docs/PLAN.md` is the milestone plan.
 
 ## 1. Product summary
 
@@ -99,3 +99,24 @@ Text IDs match the spec (`CI-0231`, `DEC-03`, `A-015`, `HC-007`, `LIB-HC-015`). 
 | `project_state` | project_id, key, value jsonb, pk(project_id, key) — gen, loopSent, t01, gateFix, lint fixes, req024, req025, libPending, libAsked |
 
 Migrations live in `supabase/migrations/` and are applied with the Supabase management API (MCP `apply_migration`); `supabase/seed.sql` is generated from `prototype/oc-data.js` by `scripts/gen-seed.mjs` and applied the same way. Both can also be pasted into the SQL editor.
+
+## 6. Implementation notes (as built)
+
+**Approach.** Each prototype screen keeps all its logic in one class (`renderVals()`). That class turns the shared store and the seed data into plain block descriptors, which one shared template renders. The port keeps that split:
+- the screen classes are kept as written in `src/screens/*.js`, with the mount-time polling removed and edits marked `ORGCUE:`;
+- `src/oc/kit.js` is the prototype's `oc-kit.js` on a Zustand store;
+- `src/components/Blocks.tsx` re-implements the template as typed React, element for element.
+
+This keeps copy, states and layout identical to the design. The cost is that screen logic is plain JavaScript rather than typed TSX. Converting a screen to idiomatic components later is a contained change.
+
+**Persistence.** Screens never call Supabase. Every `K.set` patch goes through `persist()` in `src/oc/db.js`, which maps store keys to rows. For example `phase` maps to projects.phase, `act` and `cl` to actions, `votes` to votes, `coms` to comments, `appr` to input_items, `agree` to reviews, `dec03` and `dec07` to decisions, `locked` to spec_versions with a SHA-256 hash, `req024` and `req025` to spec_items, `conn` to integrations, `saved` to settings and `audit` to audit_events. Simulated flags go to project_state. `load()` rebuilds the prototype's data object from the tables and hydrates the store, so reloads keep state. If Supabase is unreachable, the app shows a banner and runs on the built-in seed.
+
+**Deviations from the prototype**
+- Hash routes became real paths (`/p/it-helpdesk/spec`), one catch-all App Router route.
+- CSV and the evidence pack download real files; the wizard, phone flow and customer page write real rows.
+- Demo bar: added **Reset demo** (calls `reset_demo()`), and the bar can be hidden with `NEXT_PUBLIC_DEMO_BAR=0`.
+- Phone-width screens get the 72px collapsed rail and no top-bar search, so the page never scrolls sideways.
+
+**Environment findings**
+- This cloud environment exports `NEXT_PUBLIC_SUPABASE_URL` for a Supabase project (`jmhhszsnjfqgclxzhciq`) that is not in this account's project list. The app uses the account's **Orgcue.com** project (`qlzlnsjkacjqagvxlbvq`, eu-west-3) through `.env.local` and the Vercel env vars. Shell variables override `.env.local` in Next.js, so local commands load the file first (see README).
+- The repository had no `main` branch. Vercel therefore uses `claude/relaxed-goldberg-yjnnay` as the production branch. Change it in Vercel → Settings → Git once `main` exists.

@@ -14,12 +14,17 @@ import { PagesScreen, PhoneScreen, ProjectScreen, SettingsScreen, WizardScreen }
 const DEMO_BAR = process.env.NEXT_PUBLIC_DEMO_BAR !== '0';
 
 function useOc() { return useSyncExternalStore(K.store.subscribe, K.store.getState, K.store.getState) as any; }
+const NARROW = '(max-width: 720px)';
+const subNarrow = (cb: () => void) => { const m = window.matchMedia(NARROW); m.addEventListener('change', cb); return () => m.removeEventListener('change', cb); };
+/** Phone-width screens always get the 72px rail, so the main panel keeps its room. */
+function useNarrow() { return useSyncExternalStore(subNarrow, () => window.matchMedia(NARROW).matches, () => false); }
 
 export default function Shell() {
   const router = useRouter();
   const pathname = usePathname() || '/home';
   const path = pathname === '/' ? '/home' : pathname;
   const S = useOc();
+  const narrow = useNarrow();
   const [ready, setReady] = useState(false);
 
   useEffect(() => { K.router = router; }, [router]);
@@ -33,7 +38,7 @@ export default function Shell() {
   const D: any = getD();
   if (!ready || !D) return <div style={css('min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--op-bg); color: var(--op-mut); font-size: 13.5px;')}>Loading Lumio Inc. …</div>;
 
-  const c = S.navC, role = S.role;
+  const c = S.navC || narrow, role = S.role;
   const seg = (sel: boolean): React.CSSProperties => ({ cursor: 'pointer', border: 'none', borderRadius: 7, padding: '4px 9px', fontFamily: 'inherit', fontSize: 12, fontWeight: sel ? 700 : 500, background: sel ? 'var(--op-ac)' : 'transparent', color: sel ? 'var(--op-ink)' : 'var(--op-bg)' });
   const me = D.people[K.who()];
   const top = path.split('/')[1] || 'home';
@@ -78,14 +83,14 @@ export default function Shell() {
           <span style={css('font-family: var(--font-display); font-size: 20px; font-weight: 600;')}>Orgcue</span>
           <span className="oc-hide-sm" style={css('font-size: 13px; color: var(--op-mut);')}>Lumio Inc.</span>
         </Link>
-        <span style={css('flex: 1; display: flex; justify-content: center; min-width: 0;')}><Input size="field" placeholder="Search everything" aria-label="Search everything" style={{ width: '100%', maxWidth: 420 }} onChange={() => {}} /></span>
+        <span className="oc-search" style={css('flex: 1; display: flex; justify-content: center; min-width: 0;')}><Input size="field" placeholder="Search everything" aria-label="Search everything" style={{ width: '100%', maxWidth: 420 }} onChange={() => {}} /></span>
         <button type="button" aria-label="Help and notifications" onClick={() => K.toast('2 new: Daniel asked about DEC-06 · A-016 waiting for Sam')} style={css('width: 36px; height: 36px; flex: none; cursor: pointer; border-radius: 999px; border: 1px solid var(--op-line); background: var(--op-sf); font-family: inherit; font-size: 14px; font-weight: 700; color: var(--op-ink);')}>?</button>
         {(role === 'owner' || role === 'admin') && <Button size="sm" onClick={() => K.set({ wiz: { step: 0 } })}><span style={css('white-space: nowrap;')}>＋ New project</span></Button>}
         <span title={me.name} style={css('display: flex; width: 34px; height: 34px; flex: none; align-items: center; justify-content: center; border-radius: 999px; background: var(--op-ink); color: var(--op-bg); font-size: 12px; font-weight: 700;')}>{me.ini}</span>
       </header>
       <div style={css('flex: 1; display: flex; min-height: 0;')}>
         <aside style={sideSt}>
-          <button type="button" onClick={toggleNav} aria-label={c ? 'Expand sidebar' : 'Collapse sidebar'} style={css('align-self: flex-start; height: 30px; min-width: 30px; cursor: pointer; border: 1px solid var(--op-line); border-radius: 8px; background: var(--op-sf); font-family: inherit; font-size: 14px; color: var(--op-ink);')}>{c ? '»' : '«'}</button>
+          {!narrow && <button type="button" onClick={toggleNav} aria-label={c ? 'Expand sidebar' : 'Collapse sidebar'} style={css('align-self: flex-start; height: 30px; min-width: 30px; cursor: pointer; border: 1px solid var(--op-line); border-radius: 8px; background: var(--op-sf); font-family: inherit; font-size: 14px; color: var(--op-ink);')}>{c ? '»' : '«'}</button>}
           <nav aria-label="Main" style={css('display: flex; flex-direction: column; gap: 3px;')}>
             {items.map(([k, t, icon, p]) => { const sel = k === cur; return (
               <Link key={k} href={p} aria-current={sel ? 'page' : undefined} title={t}
