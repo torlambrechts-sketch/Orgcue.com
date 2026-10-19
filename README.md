@@ -42,8 +42,10 @@ Variables already exported in your shell win over `.env.local` in Next.js. If yo
 
 ```bash
 # 1. Schema: run supabase/migrations/*.sql in order (SQL editor or `supabase db push`).
-#    0003_auth.sql links accounts to people rows and turns on row-level security: signed-in users read and write,
-#    anonymous visitors may only submit the customer page. After it, `npm run seed` needs the test account below.
+#    0003_auth.sql (applied) links accounts to people rows and turns on row-level security: signed-in users read and
+#    write, anonymous visitors may only submit the customer page. `npm run seed` now needs the test account below.
+#    0004_reset_keeps_accounts.sql is NOT applied yet: paste it into the SQL editor. Until then, Reset demo also
+#    removes accounts' People entries (the accounts themselves and their logins stay).
 # 2. Seed: load the Lumio Inc. demo (spec §25) and reset to it.
 npm run seed                      # = node scripts/gen-seed.mjs --push
 ```
@@ -60,7 +62,7 @@ npm run test:e2e                  # spec §26 walk-through in Chromium, checks t
 npm run test:auth                 # sign-up, log-in, reset and redirects; Supabase's email endpoints are intercepted
 ```
 
-`tests/e2e/mock-auth.mjs` stands in for Supabase Auth with one fixed account and forwards data requests to the real project. Build with `NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321` and run the suites with `E2E_SUPABASE_URL=http://localhost:54321 ORGCUE_TEST_EMAIL=mock@orgcue.test ORGCUE_TEST_PASSWORD=mock-password-123`. That checks the signed-in app without a real account or email. It only works before `0003_auth.sql`, while the anon role can still read.
+`tests/e2e/mock-auth.mjs` stands in for Supabase Auth with one fixed account and forwards data requests to the real project. Build with `NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321` and run the suites with `E2E_SUPABASE_URL=http://localhost:54321 ORGCUE_TEST_EMAIL=mock@orgcue.test ORGCUE_TEST_PASSWORD=mock-password-123`. That checks the signed-in app without a real account or email. It only worked before `0003_auth.sql`; now that the anon role reads nothing, use a real test account.
 
 All suites need a running app (`npm run build && npm start`) and a Chromium at `/opt/pw-browsers/chromium` (set `CHROMIUM_PATH` otherwise).
 
