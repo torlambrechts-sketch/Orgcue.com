@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/orgpuls-design-system-d91c81f2-fbc3-4646-b16a-fd3ab94db56a/styles.css">
+  <script src="_ds/orgpuls-design-system-d91c81f2-fbc3-4646-b16a-fd3ab94db56a/_ds_bundle.js"></script>
+  <script src="data.js"></script>
+  <style>
+    a { color: #2F5D2A; text-decoration: none; }
+    a:hover { color: #1E3D1A; text-decoration: underline; }
+  </style>
+</helmet>
+<div style="min-width: 0; color: var(--op-ink); font-family: var(--font-sans, 'DM Sans', system-ui, sans-serif); font-size: 14px;">
+
+<!-- 2.1 Home -->
+<sc-if value="{{ isHome }}">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 28px 28px 56px; box-sizing: border-box;">
+    <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Lumio Inc. · Thursday, November 12</span>
+    <h1 style="margin: 6px 0 0; font-family: var(--font-display); font-size: 28px; line-height: 36px; font-weight: 600; text-wrap: balance;">{{ homeGreeting }}</h1>
+    <sc-if value="{{ homeEmpty }}">
+      <div style="margin-top: 26px; border: 1px dashed var(--op-rule); border-radius: 20px; background: var(--op-sf); padding: 40px 32px; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; max-width: 640px;">
+        <span style="font-family: var(--font-display); font-size: 22px; font-weight: 600;">No briefs yet.</span>
+        <span style="font-size: 14px; line-height: 1.6; color: var(--op-mut); text-wrap: pretty;">A brief starts with two things: what the AI should do, and who knows how it should do it. Pick a template and we’ll suggest the roles to ask.</span>
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="md" onClick="{{ goTemplates }}" hint-size="160px,42px">Create a brief</x-import>
+      </div>
+    </sc-if>
+    <sc-if value="{{ homeFull }}" hint-placeholder-val="{{ true }}">
+      <p style="margin: 8px 0 0; max-width: 760px; font-size: 15px; line-height: 22px; color: var(--op-body); text-wrap: pretty;">{{ homeLead }}</p>
+      <div style="margin-top: 22px; display: grid; gap: 13px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <sc-for list="{{ counters }}" as="c" hint-placeholder-count="4">
+          <a href="#" onClick="{{ c.onClick }}" style="display: flex; flex-direction: column; gap: 4px; border: 1px solid var(--op-line); border-radius: 20px; background: var(--op-sf); padding: 18px 20px; color: var(--op-ink); text-decoration: none;">
+            <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">{{ c.label }}</span>
+            <span style="font-family: var(--font-display); font-size: 40px; line-height: 1.05; font-weight: 600; font-variant-numeric: tabular-nums;">{{ c.value }}</span>
+            <span style="{{ c.noteStyle }}">{{ c.note }}</span>
+          </a>
+        </sc-for>
+      </div>
+      <div style="margin-top: 22px; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start;">
+        <section style="flex: 3 1 460px; min-width: 0;">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 12px;">
+            <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">Needs your attention</h2>
+            <span style="font-size: 12.5px; color: var(--op-mut); font-variant-numeric: tabular-nums; white-space: nowrap;">{{ attentionCount }}</span>
+          </div>
+          <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px;">
+            <sc-for list="{{ attention }}" as="a" hint-placeholder-count="6">
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; border: 1px solid var(--op-line); border-radius: 15px; background: var(--op-sf); padding: 14px 16px 14px 14px;">
+                <span aria-hidden="true" style="{{ a.stripe }}"></span>
+                <span style="min-width: 0; flex: 1 1 260px; display: flex; flex-direction: column; gap: 4px;">
+                  <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+                    <span style="{{ a.chipStyle }}">{{ a.chip }}</span>
+                    <span style="font-size: 14.5px; font-weight: 600;">{{ a.title }}</span>
+                  </span>
+                  <span style="font-size: 12.5px; line-height: 18px; color: var(--op-mut); text-wrap: pretty;">{{ a.meta }}</span>
+                </span>
+                <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="{{ a.tone }}" onClick="{{ a.onClick }}" hint-size="140px,34px"><span style="white-space: nowrap;">{{ a.action }}</span></x-import>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+        <aside style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 18px; min-width: 0;">
+          <section style="border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px;">
+            <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Round timeline</span>
+            <a href="#" onClick="{{ goSynth }}" style="display: block; margin-top: 4px; font-family: var(--font-display); font-size: 18px; font-weight: 600; color: var(--op-ink);">IT Helpdesk Agent v1</a>
+            <ol style="margin: 14px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column;">
+              <sc-for list="{{ rounds }}" as="r" hint-placeholder-count="6">
+                <li style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px;">
+                  <span style="display: flex; flex-direction: column; align-items: center;">
+                    <span style="{{ r.dot }}">{{ r.glyph }}</span>
+                    <span style="{{ r.line }}"></span>
+                  </span>
+                  <span style="padding-bottom: 12px; min-width: 0;">
+                    <span style="display: flex; justify-content: space-between; gap: 8px; font-size: 13.5px;">
+                      <span style="{{ r.nameStyle }}">{{ r.key }} · {{ r.name }}</span>
+                      <span style="font-size: 12px; color: var(--op-mut); font-variant-numeric: tabular-nums; white-space: nowrap;">{{ r.dates }}</span>
+                    </span>
+                    <span style="display: block; margin-top: 2px; font-size: 12px; line-height: 16px; color: var(--op-mut);">{{ r.note }}</span>
+                  </span>
+                </li>
+              </sc-for>
+            </ol>
+          </section>
+          <a href="#" onClick="{{ goPlan }}" style="display: block; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px; color: var(--op-ink); text-decoration: none;">
+            <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Next milestone</span>
+            <span style="margin-top: 8px; display: flex; align-items: center; gap: 9px;"><span aria-hidden="true" style="display: inline-block; width: 9px; height: 9px; flex: none; transform: rotate(45deg); border-radius: 2px; border: 1.5px solid var(--op-ink); background: var(--op-sf);"></span><span style="font-family: var(--font-display); font-size: 18px; font-weight: 600;">Brief locked</span></span>
+            <span style="display: block; margin-top: 4px; font-size: 12.5px; color: var(--op-mut); font-variant-numeric: tabular-nums;">Nov 14 · in 2 days · completes on lock</span>
+            <span style="margin-top: 12px; display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--op-line); padding-top: 10px;">
+              <sc-for list="{{ nextMilestones }}" as="m" hint-placeholder-count="2">
+                <span style="display: flex; align-items: center; gap: 8px; font-size: 12.5px;">
+                  <span aria-hidden="true" style="{{ m.diamond }}"></span>
+                  <span style="flex: 1; min-width: 0;">{{ m.name }}</span>
+                  <span style="{{ m.pill }}">{{ m.label }}</span>
+                </span>
+              </sc-for>
+            </span>
+          </a>
+          <section style="border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px;">
+            <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Recent exports</span>
+            <div style="margin-top: 10px; display: flex; flex-direction: column;">
+              <sc-for list="{{ recentExports }}" as="x" hint-placeholder-count="3">
+                <div style="display: flex; align-items: center; gap: 11px; border-top: 1px solid var(--op-line); padding: 10px 0;">
+                  <span title="{{ x.targetName }}" style="display: flex; width: 30px; height: 30px; flex: none; align-items: center; justify-content: center; border-radius: 9px; border: 1px solid var(--op-line); background: var(--op-bg); font-size: 10.5px; font-weight: 700;">{{ x.abbr }}</span>
+                  <span style="min-width: 0; flex: 1;">
+                    <span style="display: block; font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ x.brief }} {{ x.version }}</span>
+                    <span style="display: block; font-size: 12px; color: var(--op-mut);">{{ x.targetName }} · {{ x.date }}</span>
+                  </span>
+                  <span style="{{ x.pill }}">{{ x.state }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </sc-if>
+  </div>
+</sc-if>
+
+<!-- 2.2 Briefs list -->
+<sc-if value="{{ isBriefs }}">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 28px 28px 56px; box-sizing: border-box;">
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 14px;">
+      <span>
+        <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Lumio Inc. · {{ briefCountLabel }}</span>
+        <h1 style="margin: 6px 0 0; font-family: var(--font-display); font-size: 28px; line-height: 36px; font-weight: 600;">Briefs</h1>
+      </span>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="md" onClick="{{ goTemplates }}" hint-size="140px,42px"><span style="white-space: nowrap;">＋ New brief</span></x-import>
+    </div>
+    <sc-if value="{{ briefsEmpty }}">
+      <div style="margin-top: 26px; border: 1px dashed var(--op-rule); border-radius: 20px; background: var(--op-sf); padding: 40px 32px; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; max-width: 640px;">
+        <span style="font-family: var(--font-display); font-size: 22px; font-weight: 600;">No briefs yet.</span>
+        <span style="font-size: 14px; line-height: 1.6; color: var(--op-mut); text-wrap: pretty;">Every brief you or your team starts shows up here, with its stage, open conflicts, open actions and where it exports.</span>
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="md" onClick="{{ goTemplates }}" hint-size="160px,42px">Start from a template</x-import>
+      </div>
+    </sc-if>
+    <sc-if value="{{ briefsFull }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top: 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+        <span style="font-size: 12px; font-weight: 600; color: var(--op-mut); margin-right: 4px;">Saved views</span>
+        <sc-for list="{{ views }}" as="v" hint-placeholder-count="5">
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Pill" selected="{{ v.selected }}" onClick="{{ v.onClick }}" hint-size="110px,32px"><span style="white-space: nowrap;">{{ v.text }}</span></x-import>
+        </sc-for>
+      </div>
+      <div style="margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; border: 1px solid var(--op-line); border-radius: 15px; background: var(--op-sf); padding: 12px 14px;">
+        <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px;">
+          <sc-for list="{{ stagePills }}" as="s" hint-placeholder-count="8">
+            <button type="button" onClick="{{ s.onClick }}" aria-pressed="{{ s.selected }}" style="{{ s.style }}">{{ s.label }}</button>
+          </sc-for>
+        </span>
+        <span style="display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto;">
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ tplOptions }}" value="{{ tplFilter }}" onChange="{{ onTpl }}" aria-label="Template" style="{{ selW }}" hint-size="180px,38px"></x-import>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ ownerOptions }}" value="{{ ownerFilter }}" onChange="{{ onOwner }}" aria-label="Owner" style="{{ selW }}" hint-size="180px,38px"></x-import>
+        </span>
+      </div>
+      <div style="margin-top: 14px; overflow-x: auto; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf);">
+        <div style="min-width: 1120px;">
+          <div style="display: grid; grid-template-columns: minmax(210px, 2fr) 1fr 1fr 104px 130px 104px 96px 150px 48px; gap: 14px; align-items: center; padding: 12px 20px; border-bottom: 1px solid var(--op-line); font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">
+            <span>Brief</span><span>Owner</span><span>Decider</span><span>Stage</span><span>Contributors done</span><span>Open conflicts</span><span>Open actions</span><span>Next milestone</span><span>Target</span>
+          </div>
+          <sc-for list="{{ briefRows }}" as="b" hint-placeholder-count="4">
+            <a href="#" onClick="{{ b.onClick }}" style="display: grid; grid-template-columns: minmax(210px, 2fr) 1fr 1fr 104px 130px 104px 96px 150px 48px; gap: 14px; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--op-line); color: var(--op-ink); text-decoration: none;">
+              <span style="min-width: 0;">
+                <span style="display: block; font-size: 14.5px; font-weight: 700;">{{ b.name }}</span>
+                <span style="display: block; margin-top: 2px; font-size: 12.5px; color: var(--op-mut);">{{ b.template }}</span>
+              </span>
+              <span style="font-size: 13px;">{{ b.owner }}</span>
+              <span style="font-size: 13px;">{{ b.decider }}</span>
+              <span style="display: flex; flex-direction: column; align-items: flex-start; gap: 3px;">
+                <span style="{{ b.stageStyle }}">{{ b.stageLabel }}</span>
+                <sc-if value="{{ b.blind }}"><span style="font-size: 11px; color: var(--op-mut); white-space: nowrap;">Blind round 1</span></sc-if>
+              </span>
+              <span style="display: flex; flex-direction: column; gap: 5px;">
+                <span style="font-size: 12.5px; font-variant-numeric: tabular-nums;">{{ b.progressLabel }}</span>
+                <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Meter" pct="{{ b.pct }}" height="{{ 6 }}" hint-size="100%,6px"></x-import>
+              </span>
+              <span>
+                <sc-if value="{{ b.hasConflicts }}">
+                  <span style="display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; border: 1px solid var(--op-rustbar); background: var(--op-peach); color: var(--op-dangerdeep); padding: 2px 9px; font-size: 11.5px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap;">⇄ {{ b.conflicts }} conflicts</span>
+                </sc-if>
+                <sc-if value="{{ b.noConflicts }}"><span style="font-size: 13px; color: var(--op-faint);">—</span></sc-if>
+              </span>
+              <span style="display: flex; flex-direction: column; gap: 2px; font-size: 13px; font-variant-numeric: tabular-nums;">
+                <span>{{ b.actionsLabel }}</span>
+                <sc-if value="{{ b.hasOverdue }}"><span style="font-size: 11.5px; font-weight: 700; color: var(--op-caution); white-space: nowrap;">{{ b.overdueLabel }}</span></sc-if>
+              </span>
+              <span style="display: flex; align-items: center; gap: 8px; min-width: 0;">
+                <span aria-hidden="true" style="display: inline-block; width: 9px; height: 9px; flex: none; transform: rotate(45deg); border-radius: 2px; border: 1.5px solid var(--op-ink); background: var(--op-sf);"></span>
+                <span style="min-width: 0;">
+                  <span style="display: block; font-size: 13px;">{{ b.milestone }}</span>
+                  <span style="display: block; margin-top: 1px; font-size: 11.5px; color: var(--op-mut); font-variant-numeric: tabular-nums;">{{ b.milestoneDate }}</span>
+                </span>
+              </span>
+              <span title="{{ b.targetName }}" style="display: flex; width: 32px; height: 32px; align-items: center; justify-content: center; border-radius: 9px; border: 1px solid var(--op-line); background: var(--op-bg); font-size: 10.5px; font-weight: 700;">{{ b.abbr }}</span>
+            </a>
+          </sc-for>
+          <sc-if value="{{ noMatch }}">
+            <div style="padding: 28px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+              <span style="font-size: 13.5px; color: var(--op-mut);">No briefs match these filters.</span>
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="secondary" onClick="{{ clearFilters }}" hint-size="110px,32px">Clear filters</x-import>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+</sc-if>
+
+<!-- 2.3 Template gallery -->
+<sc-if value="{{ isTemplates }}">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 28px 28px 56px; box-sizing: border-box;">
+    <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Templates</span>
+    <h1 style="margin: 6px 0 0; font-family: var(--font-display); font-size: 28px; line-height: 36px; font-weight: 600; text-wrap: balance;">Start from what your team already has to decide.</h1>
+    <p style="margin: 6px 0 0; max-width: 720px; font-size: 15px; line-height: 22px; color: var(--op-body); text-wrap: pretty;">A template sets the brief’s slots, the questions each role gets, how conflicts are settled and how the brief exports.</p>
+    <div style="margin-top: 18px; display: flex; gap: 6px;">
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Pill" selected="{{ tabLib }}" onClick="{{ goLib }}" hint-size="120px,32px"><span style="white-space: nowrap;">Lumio library · 9</span></x-import>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Pill" selected="{{ tabMarket }}" onClick="{{ goMarket }}" hint-size="120px,32px"><span style="white-space: nowrap;">Marketplace · 4</span></x-import>
+    </div>
+    <sc-if value="{{ tabLib }}" hint-placeholder-val="{{ true }}">
+      <sc-for list="{{ tplGroups }}" as="g" hint-placeholder-count="3">
+        <section style="margin-top: 26px;">
+          <div style="display: flex; align-items: baseline; gap: 10px;">
+            <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">{{ g.cat }}</h2>
+            <span style="font-size: 12.5px; color: var(--op-mut); white-space: nowrap;">{{ g.count }}</span>
+          </div>
+          <div style="margin-top: 12px; display: grid; gap: 13px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+            <sc-for list="{{ g.items }}" as="t" hint-placeholder-count="3">
+              <article style="{{ t.cardStyle }}">
+                <span style="display: flex; align-items: flex-start; justify-content: space-between; gap: 10px;">
+                  <span style="font-family: var(--font-display); font-size: 19px; line-height: 1.2; font-weight: 600;">{{ t.name }}</span>
+                  <sc-if value="{{ t.recommended }}">
+                    <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.StatusPill" tone="accent" size="small" hint-size="90px,20px">Suggested</x-import>
+                  </sc-if>
+                </span>
+                <span style="font-size: 13.5px; line-height: 1.5; color: var(--op-body); text-wrap: pretty;">{{ t.desc }}</span>
+                <span style="display: flex; flex-wrap: wrap; gap: 5px;">
+                  <sc-for list="{{ t.roles }}" as="r">
+                    <span style="border-radius: 999px; background: var(--op-track); padding: 3px 9px; font-size: 11.5px; font-weight: 600; white-space: nowrap;">{{ r }}</span>
+                  </sc-for>
+                </span>
+                <span style="display: flex; align-items: flex-start; gap: 7px; font-size: 12px; line-height: 1.5; color: var(--op-mut);"><span aria-hidden="true" style="display: inline-block; width: 9px; height: 9px; flex: none; transform: rotate(45deg); border-radius: 2px; margin-top: 4px; border: 1.5px solid var(--op-mut);"></span><span>{{ t.milestonesLabel }}</span></span>
+                <span style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--op-line);">
+                  <span style="white-space: nowrap; font-size: 12.5px; color: var(--op-mut); font-variant-numeric: tabular-nums;">{{ t.questions }} questions · ~{{ t.minutes }} min</span>
+                  <span style="display: flex; gap: 4px;">
+                    <sc-for list="{{ t.targetList }}" as="x">
+                      <span title="{{ x.name }}" style="display: flex; width: 26px; height: 26px; align-items: center; justify-content: center; border-radius: 8px; border: 1px solid var(--op-line); background: var(--op-bg); font-size: 9.5px; font-weight: 700;">{{ x.abbr }}</span>
+                    </sc-for>
+                  </span>
+                </span>
+                <span style="display: flex; gap: 8px;">
+                  <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="secondary" onClick="{{ t.onPreview }}" hint-size="90px,34px">Preview</x-import>
+                  <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="{{ t.useTone }}" onClick="{{ t.onUse }}" hint-size="120px,34px">Use template</x-import>
+                </span>
+              </article>
+            </sc-for>
+          </div>
+        </section>
+      </sc-for>
+    </sc-if>
+    <sc-if value="{{ tabMarket }}">
+      <p style="margin: 22px 0 0; font-size: 13px; color: var(--op-mut);">Built and maintained by partners. Every version is reviewed by [Product] before it’s listed, and installs into your library as a copy you can edit.</p>
+      <div style="margin-top: 14px; display: grid; gap: 13px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));">
+        <sc-for list="{{ market }}" as="m" hint-placeholder-count="4">
+          <article style="display: flex; flex-direction: column; gap: 10px; border: 1px solid var(--op-line); border-radius: 20px; background: var(--op-sf); padding: 22px;">
+            <span style="display: flex; align-items: center; gap: 8px;">
+              <span style="display: flex; width: 28px; height: 28px; align-items: center; justify-content: center; border-radius: 8px; background: var(--op-ink); color: var(--op-bg); font-family: var(--font-display); font-size: 13px; font-weight: 600;">{{ m.initial }}</span>
+              <span style="font-size: 12.5px; font-weight: 600;">{{ m.publisher }}</span>
+              <span style="{{ m.badgeStyle }}">{{ m.badgeLabel }}</span>
+            </span>
+            <span style="font-family: var(--font-display); font-size: 19px; line-height: 1.2; font-weight: 600;">{{ m.name }}</span>
+            <span style="font-size: 13.5px; line-height: 1.5; color: var(--op-body); text-wrap: pretty;">{{ m.desc }}</span>
+            <span style="display: flex; flex-wrap: wrap; gap: 5px;">
+              <sc-for list="{{ m.roles }}" as="r">
+                <span style="border-radius: 999px; background: var(--op-track); padding: 3px 9px; font-size: 11.5px; font-weight: 600; white-space: nowrap;">{{ r }}</span>
+              </sc-for>
+            </span>
+            <span style="margin-top: auto; padding-top: 12px; border-top: 1px solid var(--op-line); font-size: 12.5px; color: var(--op-mut); font-variant-numeric: tabular-nums;">v{{ m.version }} · {{ m.installs }} installs · {{ m.questions }} questions · about {{ m.minutes }} min each</span>
+            <span style="display: flex; gap: 8px;">
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="secondary" onClick="{{ goPreview }}" hint-size="90px,34px">Preview</x-import>
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="quiet" onClick="{{ m.onInstall }}" hint-size="120px,34px">Add to library</x-import>
+            </span>
+          </article>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+</sc-if>
+
+<!-- 2.4 New brief wizard -->
+<sc-if value="{{ isWizard }}">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 28px 28px 56px; box-sizing: border-box;">
+    <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">New brief · Round 0 · Frame</span>
+    <h1 style="margin: 6px 0 0; font-family: var(--font-display); font-size: 28px; line-height: 36px; font-weight: 600;">{{ wTitle }}</h1>
+    <div style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start;">
+      <nav aria-label="Steps" style="flex: 0 0 180px; position: sticky; top: 76px; display: flex; flex-direction: column; gap: 3px;">
+        <sc-for list="{{ wSteps }}" as="s" hint-placeholder-count="6">
+          <a href="#" onClick="{{ s.onClick }}" aria-current="{{ s.aria }}" style="{{ s.style }}">
+            <span aria-hidden="true" style="{{ s.dot }}">{{ s.glyph }}</span>
+            <span>{{ s.label }}</span>
+          </a>
+        </sc-for>
+      </nav>
+
+      <section style="flex: 3 1 420px; min-width: 0; box-sizing: border-box; border: 1px solid var(--op-line); border-radius: 20px; background: var(--op-sf); padding: 24px 26px;">
+        <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Step {{ wStep }} of 6</span>
+        <h2 style="margin: 4px 0 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">{{ wStepTitle }}</h2>
+        <p style="margin: 4px 0 0; font-size: 13.5px; line-height: 1.5; color: var(--op-mut); text-wrap: pretty;">{{ wStepLead }}</p>
+
+        <sc-if value="{{ s1 }}">
+          <div style="margin-top: 20px; display: flex; flex-direction: column; gap: 16px;">
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Name" hint-size="100%,62px">
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" value="{{ wName }}" onChange="{{ onWName }}" hint-size="100%,40px"></x-import>
+            </x-import>
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="What is this brief for?" hint="One or two sentences. Contributors see this as the reason they’re being asked." hint-size="100%,120px">
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" value="{{ wPurpose }}" onChange="{{ onWPurpose }}" hint-size="100%,74px"></x-import>
+            </x-import>
+            <span style="font-size: 12px; color: var(--op-mut);">Deliverable</span>
+            <div style="margin-top: -10px; display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));">
+              <sc-for list="{{ wTypes }}" as="t" hint-placeholder-count="3">
+                <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.RadioCard" name="deliverable" value="{{ t.value }}" label="{{ t.label }}" note="{{ t.note }}" checked="{{ t.checked }}" onChange="{{ t.onChange }}" hint-size="100%,64px"></x-import>
+              </sc-for>
+            </div>
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Who will use it?" hint-size="100%,62px">
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" value="{{ wAudience }}" onChange="{{ onWAudience }}" hint-size="100%,40px"></x-import>
+            </x-import>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ s2 }}">
+          <div style="margin-top: 20px; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));">
+            <sc-for list="{{ wTargets }}" as="t" hint-placeholder-count="6">
+              <button type="button" onClick="{{ t.onClick }}" aria-pressed="{{ t.selected }}" style="{{ t.style }}">
+                <span style="display: flex; width: 34px; height: 34px; align-items: center; justify-content: center; border-radius: 10px; border: 1px solid var(--op-line); background: var(--op-sf); font-size: 11px; font-weight: 700;">{{ t.abbr }}</span>
+                <span style="font-size: 14px; font-weight: 700;">{{ t.name }}</span>
+                <span style="font-size: 12px; color: var(--op-mut);">{{ t.sub }}</span>
+                <span style="{{ t.connStyle }}">{{ t.conn }}</span>
+              </button>
+            </sc-for>
+          </div>
+          <div style="margin-top: 18px; border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-bg); padding: 16px 18px;">
+            <span style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px;">
+              <span style="font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">What {{ wTargetName }} will receive</span>
+              <span style="font-size: 12px; color: var(--op-mut);">{{ wTargetFormat }}</span>
+            </span>
+            <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 4px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; line-height: 1.55;">
+              <sc-for list="{{ wTargetLines }}" as="l" hint-placeholder-count="7">
+                <span style="{{ l.style }}">{{ l.text }}<sc-if value="{{ l.verbatim }}"><span style="margin-left: 8px; font-family: var(--font-sans); border-radius: 999px; background: var(--op-mint); color: var(--op-greendeep); padding: 1px 8px; font-size: 10.5px; font-weight: 700;">Verbatim</span></sc-if></span>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ s3 }}">
+          <div style="margin-top: 20px; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Brief owner" hint-size="100%,62px">
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" options="{{ ownerPick }}" value="kari" hint-size="100%,40px"></x-import>
+            </x-import>
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Decider" hint="Settles conflicts and locks versions." hint-size="100%,80px">
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" options="{{ deciderPick }}" value="daniel" hint-size="100%,40px"></x-import>
+            </x-import>
+          </div>
+          <div style="margin-top: 18px; border: 1px solid var(--op-line); border-radius: 15px; overflow: hidden;">
+            <div style="display: grid; grid-template-columns: 1fr 1.3fr 1.4fr 90px; gap: 12px; padding: 10px 14px; background: var(--op-bg); border-bottom: 1px solid var(--op-line); font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">
+              <span>Role</span><span>Person</span><span>Authority slots</span><span>Consult step</span>
+            </div>
+            <sc-for list="{{ wRoleMap }}" as="r" hint-placeholder-count="8">
+              <div style="display: grid; grid-template-columns: 1fr 1.3fr 1.4fr 90px; gap: 12px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--op-line);">
+                <span style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600;">{{ r.role }}<sc-if value="{{ r.authority }}"><span style="border-radius: 6px; border: 1px solid var(--op-ink); padding: 0 5px; font-size: 10px; font-weight: 700;">Authority</span></sc-if></span>
+                <span style="display: flex; align-items: center; gap: 8px;">
+                  <span style="display: flex; width: 26px; height: 26px; flex: none; align-items: center; justify-content: center; border-radius: 999px; background: var(--op-track); font-size: 10px; font-weight: 700;">{{ r.initials }}</span>
+                  <span style="min-width: 0;">
+                    <span style="display: block; font-size: 13px;">{{ r.name }}</span>
+                    <span style="display: block; font-size: 11.5px; color: var(--op-mut);">{{ r.title }}</span>
+                  </span>
+                </span>
+                <span style="font-size: 12.5px; color: var(--op-body);">{{ r.slots }}</span>
+                <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Switch" on="{{ r.consult }}" onChange="{{ r.onConsult }}" label="{{ r.consultLabel }}" hint-size="38px,22px"></x-import>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px;">
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="secondary" hint-size="120px,34px">＋ Add person</x-import>
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="ghost" hint-size="190px,34px">Import from a Slack channel</x-import>
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="ghost" hint-size="190px,34px">Import from a Teams channel</x-import>
+          </div>
+          <p style="margin: 12px 0 0; font-size: 12.5px; color: var(--op-mut);">The IT helpdesk template doesn’t require a consult step. Turn it on for a role to give them a say on its slots before the decide round.</p>
+        </sc-if>
+
+        <sc-if value="{{ s4 }}">
+          <div style="margin-top: 20px; display: flex; flex-direction: column; align-items: center; gap: 6px; border: 1px dashed var(--op-rule); border-radius: 16px; background: var(--op-bg); padding: 26px 18px; text-align: center;">
+            <span style="font-size: 14.5px; font-weight: 700;">Drop policies, SOPs or ticket exports here</span>
+            <span style="font-size: 12.5px; color: var(--op-mut);">PDF, DOCX, CSV or XLSX, up to 50 MB each · stored in the US data region</span>
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="secondary" style="{{ mt8 }}" hint-size="110px,32px">Choose files</x-import>
+          </div>
+          <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px;">
+            <sc-for list="{{ wDocs }}" as="d" hint-placeholder-count="3">
+              <div style="display: grid; grid-template-columns: minmax(0, 1fr) 170px; gap: 14px; align-items: center; border: 1px solid var(--op-line); border-radius: 13px; padding: 11px 14px;">
+                <span style="min-width: 0;">
+                  <span style="display: block; font-size: 13.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ d.name }}</span>
+                  <span style="display: block; margin-top: 2px; font-size: 12px; color: var(--op-mut);">{{ d.size }} · {{ d.found }}</span>
+                </span>
+                <span style="display: flex; flex-direction: column; gap: 4px;">
+                  <span style="font-size: 11.5px; font-weight: 600; text-align: right; color: var(--op-mut);">{{ d.status }}</span>
+                  <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Meter" pct="{{ d.pct }}" height="{{ 5 }}" color="{{ d.bar }}" hint-size="100%,5px"></x-import>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top: 16px; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; border-top: 1px solid var(--op-line); padding-top: 14px;">
+            <span>
+              <span style="display: block; font-size: 14px; font-weight: 700;">Prefill the draft from these</span>
+              <span style="display: block; margin-top: 2px; font-size: 12.5px; color: var(--op-mut); text-wrap: pretty;">Contributors start by marking each prefilled point correct, needs a change, or out of date.</span>
+            </span>
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Switch" on="{{ wPrefill }}" onChange="{{ onPrefill }}" label="Prefill the draft" hint-size="38px,22px"></x-import>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ s5 }}">
+          <div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 6px;">
+            <sc-for list="{{ qRoles }}" as="r" hint-placeholder-count="6">
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Pill" selected="{{ r.selected }}" onClick="{{ r.onClick }}" hint-size="110px,32px"><span style="white-space: nowrap;">{{ r.text }}</span></x-import>
+            </sc-for>
+          </div>
+          <div style="margin-top: 14px; display: flex; align-items: baseline; justify-content: space-between; gap: 10px;">
+            <span style="font-size: 13.5px; font-weight: 700;">{{ qPerson }}</span>
+            <span style="font-size: 12.5px; color: var(--op-mut); font-variant-numeric: tabular-nums;">About {{ qMinutes }} minutes · one question at a time</span>
+          </div>
+          <ol style="margin: 10px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px;">
+            <sc-for list="{{ qList }}" as="q" hint-placeholder-count="6">
+              <li style="display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 10px; align-items: start; border: 1px solid var(--op-line); border-radius: 13px; padding: 10px 12px; background: var(--op-sf);">
+                <span style="padding-top: 10px; font-size: 12px; font-weight: 700; color: var(--op-mut); font-variant-numeric: tabular-nums;">{{ q.n }}</span>
+                <span style="display: flex; flex-direction: column; gap: 6px; min-width: 0;">
+                  <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="field" value="{{ q.text }}" onChange="{{ q.onChange }}" aria-label="{{ q.aria }}" hint-size="100%,38px"></x-import>
+                  <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 11.5px; color: var(--op-mut);">
+                    <span style="border-radius: 999px; background: var(--op-track); padding: 2px 8px; font-weight: 600; color: var(--op-ink);">{{ q.pattern }}</span>
+                    <sc-if value="{{ q.restricted }}">
+                      <span style="display: inline-flex; align-items: center; gap: 5px; color: var(--op-ink); font-weight: 600;">
+                        <span aria-hidden="true" style="display: inline-flex; flex-direction: column; align-items: center;"><span style="width: 5px; height: 4px; border: 1.5px solid currentColor; border-bottom: none; border-radius: 4px 4px 0 0;"></span><span style="width: 9px; height: 6px; border-radius: 2px; background: currentColor;"></span></span>
+                        Restricted · visible to owner, decider, {{ q.roleLower }}
+                      </span>
+                    </sc-if>
+                  </span>
+                </span>
+              </li>
+            </sc-for>
+          </ol>
+          <div style="margin-top: 10px;">
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="ghost" hint-size="130px,32px">＋ Add a question</x-import>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ s6 }}">
+          <div style="margin-top: 20px; border: 1px solid var(--op-line); border-radius: 16px; padding: 16px 18px; background: var(--op-bg);">
+            <div style="display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 8px 12px; align-items: center;">
+              <span></span>
+              <span style="display: flex; justify-content: space-between; font-size: 11px; color: var(--op-mut); font-variant-numeric: tabular-nums;"><span>Oct 5</span><span>Oct 19</span><span>Nov 2</span><span>Nov 18</span></span>
+              <sc-for list="{{ schedule }}" as="r" hint-placeholder-count="4">
+                <span style="font-size: 13px; font-weight: 600;">{{ r.key }} · {{ r.name }}</span>
+                <span style="position: relative; height: 26px; border-radius: 9px; background: var(--op-ink-a05);">
+                  <span style="{{ r.bar }}">{{ r.dates }}</span>
+                </span>
+              </sc-for>
+            </div>
+          </div>
+          <div style="margin-top: 16px; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Lock and export by" hint-size="100%,62px">
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" type="date" value="{{ wDeadline }}" onChange="{{ onDeadline }}" hint-size="100%,40px"></x-import>
+            </x-import>
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Reminders" hint-size="100%,62px">
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" options="{{ cadenceOptions }}" value="{{ wCadence }}" onChange="{{ onCadence }}" hint-size="100%,40px"></x-import>
+            </x-import>
+          </div>
+          <p style="margin: 12px 0 0; font-size: 12.5px; color: var(--op-mut); text-wrap: pretty;">Reminders stop after 3. Quiet hours and escalation to the owner are set in distribution.</p>
+          <div style="margin-top: 20px; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; border-top: 1px solid var(--op-line); padding-top: 16px;">
+            <h3 style="margin: 0; font-size: 15px; font-weight: 700;">Milestones</h3>
+            <span style="font-size: 12.5px; color: var(--op-mut);">Prefilled from the IT helpdesk template · edit any of them</span>
+          </div>
+          <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+            <sc-for list="{{ wMilestones }}" as="m" hint-placeholder-count="5">
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; border: 1px solid var(--op-line); border-radius: 13px; padding: 10px 12px;">
+                <span aria-hidden="true" style="display: inline-block; width: 9px; height: 9px; flex: none; transform: rotate(45deg); border-radius: 2px; border: 1.5px solid var(--op-ink); background: var(--op-sf);"></span>
+                <span style="flex: 1 1 180px; min-width: 0; font-size: 13.5px; font-weight: 600;">{{ m.name }}</span>
+                <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="field" type="date" defaultValue="{{ m.iso }}" style="{{ dateW }}" aria-label="{{ m.dateLabel }}" hint-size="150px,38px"></x-import>
+                <span style="flex: 0 1 220px; min-width: 0; font-size: 12.5px; color: var(--op-body);">{{ m.ownerLabel }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="margin-top: 8px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="ghost" hint-size="130px,32px"><span style="white-space: nowrap;">＋ Add milestone</span></x-import></div>
+        </sc-if>
+
+        <div style="margin-top: 24px; display: flex; justify-content: space-between; gap: 10px; border-top: 1px solid var(--op-line); padding-top: 16px;">
+          <sc-if value="{{ wCanBack }}">
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="secondary" onClick="{{ wBack }}" hint-size="90px,36px">← Back</x-import>
+          </sc-if>
+          <sc-if value="{{ wFirst }}"><span></span></sc-if>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ wNext }}" hint-size="190px,36px">{{ wNextLabel }}</x-import>
+        </div>
+      </section>
+
+      <aside style="flex: 1 1 280px; position: sticky; top: 76px; min-width: 0; box-sizing: border-box; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px;">
+        <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Brief outline · live</span>
+        <span style="display: block; margin-top: 6px; font-family: var(--font-display); font-size: 19px; line-height: 1.2; font-weight: 600;">{{ wName }}</span>
+        <span style="display: block; margin-top: 4px; font-size: 12.5px; line-height: 1.5; color: var(--op-mut); text-wrap: pretty;">{{ wPurpose }}</span>
+        <dl style="margin: 14px 0 0; display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 7px 10px; font-size: 12.5px;">
+          <sc-for list="{{ wFacts }}" as="f" hint-placeholder-count="6">
+            <dt style="color: var(--op-mut);">{{ f.k }}</dt>
+            <dd style="{{ f.style }}">{{ f.v }}</dd>
+          </sc-for>
+        </dl>
+        <span style="display: block; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--op-line); font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Slots</span>
+        <div style="margin-top: 6px; display: flex; flex-direction: column;">
+          <sc-for list="{{ wSlots }}" as="s" hint-placeholder-count="9">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 0; font-size: 12.5px;">
+              <span style="display: flex; align-items: center; gap: 6px;">
+                <span style="{{ s.dot }}"></span>
+                <span style="font-weight: 600;">{{ s.name }}</span>
+              </span>
+              <span style="color: var(--op-mut); text-align: right;">{{ s.status }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ wShowReuse }}">
+          <div style="margin-top: 12px; border-radius: 12px; background: var(--op-mint); color: var(--op-greendeep); padding: 9px 12px; font-size: 12.5px; font-weight: 600;">12 constraints reused from the org library</div>
+        </sc-if>
+      </aside>
+    </div>
+  </div>
+</sc-if>
+
+<!-- 2.5 Synthesis workspace (+ 2.6 Gaps drawer) -->
+<sc-if value="{{ isSynth }}">
+  <div style="max-width: 1440px; margin: 0 auto; padding: 22px 24px 48px; box-sizing: border-box;">
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px;">
+      <span>
+        <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Brief · IT helpdesk agent · owner Kari Nordmann · decider Daniel Reyes</span>
+        <h1 style="margin: 4px 0 0; font-family: var(--font-display); font-size: 28px; line-height: 36px; font-weight: 600;">IT Helpdesk Agent v1</h1>
+      </span>
+      <span style="display: flex; flex-wrap: wrap; gap: 6px;">
+        <sc-for list="{{ briefTabs }}" as="t" hint-placeholder-count="6">
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Pill" selected="{{ t.selected }}" onClick="{{ t.onClick }}" hint-size="100px,32px"><span style="white-space: nowrap;">{{ t.label }}</span></x-import>
+        </sc-for>
+      </span>
+    </div>
+
+    <div style="margin-top: 14px; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+      <div style="border: 1px solid var(--op-line); border-radius: 15px; background: var(--op-sf); padding: 12px 16px;">
+        <span style="display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Status</span>
+        <span style="margin-top: 5px; display: flex; align-items: center; gap: 8px;"><span style="flex: none; white-space: nowrap; border-radius: 999px; background: var(--op-viz5); padding: 3px 10px; font-size: 11.5px; font-weight: 700;">Deciding</span><span style="min-width: 0; font-size: 12.5px; color: var(--op-mut);">R3 closes Nov 13</span></span>
+      </div>
+      <a href="#" onClick="{{ goDecisions }}" style="border: 1px solid var(--op-rustbar); border-radius: 15px; background: var(--op-sf); padding: 12px 16px; color: var(--op-ink); text-decoration: none;">
+        <span style="display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Open decisions</span>
+        <span style="margin-top: 5px; display: flex; align-items: center; gap: 8px;"><span style="display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; border: 1px solid var(--op-rustbar); background: var(--op-peach); color: var(--op-dangerdeep); padding: 2px 9px; font-size: 11.5px; font-weight: 700; flex: none; white-space: nowrap;">⇄ 3 conflicts</span><span style="min-width: 0; font-size: 12.5px; color: var(--op-mut);">D-03, D-06, D-07 · 1 decided, 1 deferred</span></span>
+      </a>
+      <div style="border: 1px solid var(--op-line); border-radius: 15px; background: var(--op-sf); padding: 12px 16px;">
+        <span style="display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Export</span>
+        <span style="margin-top: 5px; display: flex; align-items: center; gap: 8px;"><span style="display: flex; width: 22px; height: 22px; align-items: center; justify-content: center; border-radius: 7px; border: 1px solid var(--op-line); background: var(--op-bg); font-size: 9px; font-weight: 700;">CS</span><span style="font-size: 12.5px;">Copilot Studio · not exported yet</span></span>
+      </div>
+      <div style="border: 1px solid var(--op-line); border-radius: 15px; background: var(--op-sf); padding: 12px 16px;">
+        <span style="display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Deadline</span>
+        <span style="margin-top: 5px; display: block; font-size: 12.5px; font-variant-numeric: tabular-nums;"><strong style="font-weight: 700;">Nov 14, 2026</strong> · brief locked · 2 days</span>
+      </div>
+      <a href="#" onClick="{{ goActions }}" style="border: 1px solid var(--op-line); border-radius: 15px; background: var(--op-sf); padding: 12px 16px; color: var(--op-ink); text-decoration: none;">
+        <span style="display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Open actions</span>
+        <span style="margin-top: 5px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-size: 12.5px;"><strong style="font-weight: 700;">7 open</strong><span style="font-weight: 700; color: var(--op-caution); white-space: nowrap;">1 overdue</span><span style="color: var(--op-mut); white-space: nowrap;">· 1 blocked · 1 owner pending</span></span>
+      </a>
+    </div>
+
+    <div style="margin-top: 14px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid var(--op-line); border-bottom: 1px solid var(--op-line); padding: 10px 0;">
+      <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; font-size: 12.5px; color: var(--op-mut); font-variant-numeric: tabular-nums; white-space: nowrap;">
+        <span style="display: inline-flex; align-items: center; gap: 6px; color: var(--op-ink);"><span style="{{ pipeDot }}"></span>{{ pipeLabel }}</span>
+        <span><strong style="color: var(--op-ink);">64</strong> context items</span>
+        <span><strong style="color: var(--op-ink);">21</strong> merged duplicates</span>
+        <span><strong style="color: var(--op-ink);">4</strong> conflicts found</span>
+        <span><strong style="color: var(--op-ink);">7 of 8</strong> contributors</span>
+      </span>
+      <span style="display: flex; gap: 8px;">
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="ghost" onClick="{{ rerun }}" hint-size="90px,32px">Run again</x-import>
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="secondary" onClick="{{ openGaps }}" hint-size="100px,32px"><span style="white-space: nowrap;">{{ gapsBtn }}</span></x-import>
+      </span>
+    </div>
+
+    <sc-if value="{{ pipeRunning }}">
+      <div style="margin: 28px auto 0; max-width: 620px; border: 1px solid var(--op-line); border-radius: 20px; background: var(--op-sf); padding: 26px;">
+        <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Round 1 closed · Oct 16</span>
+        <span style="display: block; margin-top: 6px; font-family: var(--font-display); font-size: 22px; font-weight: 600;">Reading 64 answers … labeling relations …</span>
+        <span style="display: block; margin-top: 4px; font-size: 13.5px; color: var(--op-mut);">This takes about two minutes. You can leave; we’ll email you when the brief is ready to review.</span>
+        <div style="margin-top: 18px; display: flex; flex-direction: column; gap: 12px;">
+          <sc-for list="{{ pipeSteps }}" as="p" hint-placeholder-count="5">
+            <div style="display: grid; grid-template-columns: 22px minmax(0, 1fr) 140px; gap: 10px; align-items: center;">
+              <span style="{{ p.dot }}">{{ p.glyph }}</span>
+              <span>
+                <span style="display: block; font-size: 13.5px; font-weight: 600;">{{ p.name }}</span>
+                <span style="display: block; font-size: 12px; color: var(--op-mut);">{{ p.note }}</span>
+              </span>
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Meter" pct="{{ p.pct }}" height="{{ 5 }}" hint-size="100%,5px"></x-import>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ pipeDone }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-top: 16px; display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start;">
+        <nav aria-label="Slots" style="flex: 0 0 250px; display: flex; flex-direction: column; gap: 4px;">
+          <span style="padding: 0 4px 6px; font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Slots · coverage</span>
+          <sc-for list="{{ slotList }}" as="s" hint-placeholder-count="10">
+            <button type="button" onClick="{{ s.onClick }}" aria-pressed="{{ s.selected }}" style="{{ s.style }}">
+              <span style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                <span style="display: flex; align-items: center; gap: 6px; min-width: 0; font-size: 13.5px; font-weight: 600; white-space: nowrap;">
+                  <sc-if value="{{ s.restricted }}">
+                    <span aria-label="Restricted" style="display: inline-flex; flex-direction: column; align-items: center;"><span style="width: 5px; height: 4px; border: 1.5px solid currentColor; border-bottom: none; border-radius: 4px 4px 0 0;"></span><span style="width: 9px; height: 6px; border-radius: 2px; background: currentColor;"></span></span>
+                  </sc-if>
+                  {{ s.name }}
+                </span>
+                <span style="display: flex; flex: none; align-items: center; gap: 6px; font-size: 12px; color: var(--op-mut); font-variant-numeric: tabular-nums;">
+                  <sc-if value="{{ s.hasConflict }}"><span aria-label="Conflict" style="color: var(--op-rustbar); font-weight: 700;">⇄</span></sc-if>
+                  {{ s.countLabel }}
+                </span>
+              </span>
+              <sc-if value="{{ s.hasMeter }}">
+                <span style="display: flex; align-items: center; gap: 8px;">
+                  <span style="flex: 1; min-width: 0;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Meter" pct="{{ s.coverage }}" height="{{ 5 }}" color="{{ s.bar }}" hint-size="100%,5px"></x-import></span>
+                  <span style="{{ s.covStyle }}">{{ s.covLabel }}</span>
+                </span>
+              </sc-if>
+              <sc-if value="{{ s.hasAuthority }}">
+                <span style="display: flex; flex-wrap: wrap; gap: 4px;">
+                  <sc-for list="{{ s.authority }}" as="a">
+                    <span title="{{ a.title }}" style="{{ a.style }}">{{ a.label }}</span>
+                  </sc-for>
+                </span>
+              </sc-if>
+            </button>
+          </sc-for>
+        </nav>
+
+        <section style="flex: 3 1 400px; min-width: 0;">
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px;">
+            <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">{{ slotName }}</h2>
+            <span style="font-size: 12.5px; color: var(--op-mut);">{{ slotMeta }}</span>
+          </div>
+          <sc-if value="{{ slotVisibleRestricted }}">
+            <div style="margin-top: 10px; display: flex; align-items: center; gap: 8px; border-radius: 12px; background: var(--op-track); padding: 8px 12px; font-size: 12.5px;">
+              <span aria-hidden="true" style="display: inline-flex; flex-direction: column; align-items: center;"><span style="width: 5px; height: 4px; border: 1.5px solid currentColor; border-bottom: none; border-radius: 4px 4px 0 0;"></span><span style="width: 9px; height: 6px; border-radius: 2px; background: currentColor;"></span></span>
+              <span><strong style="font-weight: 700;">Restricted slot.</strong> Visible to {{ slotRestrictedTo }}.</span>
+            </div>
+          </sc-if>
+          <sc-if value="{{ slotHidden }}">
+            <div style="margin-top: 12px; border: 1px dashed var(--op-rule); border-radius: 16px; background: var(--op-sf); padding: 26px 22px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">
+              <span aria-hidden="true" style="display: inline-flex; flex-direction: column; align-items: center; transform: scale(1.8); transform-origin: left top; margin-bottom: 10px;"><span style="width: 5px; height: 4px; border: 1.5px solid currentColor; border-bottom: none; border-radius: 4px 4px 0 0;"></span><span style="width: 9px; height: 6px; border-radius: 2px; background: currentColor;"></span></span>
+              <span style="font-size: 15px; font-weight: 700;">This slot is restricted.</span>
+              <span style="font-size: 13.5px; line-height: 1.55; color: var(--op-mut); text-wrap: pretty;">Visible to {{ slotRestrictedTo }}. It has {{ slotCount }} context items. You see its coverage, not its content.</span>
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="secondary" onClick="{{ askAccess }}" hint-size="160px,32px">Ask Mei Lin for access</x-import>
+            </div>
+          </sc-if>
+          <sc-if value="{{ slotShown }}" hint-placeholder-val="{{ true }}">
+            <div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px;">
+              <sc-for list="{{ itemFilters }}" as="f" hint-placeholder-count="4">
+                <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Pill" selected="{{ f.selected }}" onClick="{{ f.onClick }}" hint-size="90px,32px"><span style="white-space: nowrap;">{{ f.text }}</span></x-import>
+              </sc-for>
+            </div>
+            <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 10px;">
+              <sc-for list="{{ itemCards }}" as="c" hint-placeholder-count="5">
+                <article onClick="{{ c.onClick }}" style="{{ c.cardStyle }}">
+                  <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px;">
+                    <sc-if value="{{ c.isConflict }}"><span style="display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; border: 1px solid var(--op-rustbar); background: var(--op-peach); color: var(--op-dangerdeep); padding: 2px 9px; font-size: 11px; font-weight: 700;">⇄ Conflict</span></sc-if>
+                    <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">{{ c.id }} · {{ c.typeLabel }}</span>
+                    <span style="{{ c.strengthStyle }}">{{ c.strengthLabel }}</span>
+                    <sc-if value="{{ c.hasCid }}"><span style="border-radius: 6px; border: 1px solid var(--op-ink); background: var(--op-sf); padding: 1px 6px; font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums;">{{ c.cid }}</span></sc-if>
+                    <sc-if value="{{ c.hasDecision }}"><span style="border-radius: 6px; background: var(--op-viz5); padding: 2px 7px; font-size: 11px; font-weight: 700;">◆ {{ c.decisionLabel }}</span></sc-if>
+                    <sc-if value="{{ c.isRestricted }}"><span style="display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600;"><span aria-hidden="true" style="display: inline-flex; flex-direction: column; align-items: center;"><span style="width: 4px; height: 3px; border: 1.5px solid currentColor; border-bottom: none; border-radius: 3px 3px 0 0;"></span><span style="width: 8px; height: 5px; border-radius: 2px; background: currentColor;"></span></span>{{ c.visibleTo }}</span></sc-if>
+                  </span>
+                  <span style="display: block; margin-top: 8px; font-size: 14.5px; line-height: 1.5; text-wrap: pretty;">{{ c.text }}</span>
+                  <sc-if value="{{ c.hasRels }}">
+                    <span style="margin-top: 9px; display: flex; flex-wrap: wrap; gap: 6px;">
+                      <sc-for list="{{ c.rels }}" as="r">
+                        <button type="button" onClick="{{ r.onClick }}" style="{{ r.style }}">{{ r.label }}</button>
+                      </sc-for>
+                    </span>
+                  </sc-if>
+                  <span onMouseEnter="{{ c.onEnter }}" onMouseLeave="{{ c.onLeave }}" style="position: relative; margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; border-top: 1px solid var(--op-line); padding-top: 9px; font-size: 12px; color: var(--op-mut); cursor: help;">
+                    <span aria-hidden="true" style="color: var(--op-ink);">❝</span>
+                    <span style="color: var(--op-ink); font-weight: 600;">{{ c.whoName }}</span>
+                    <span>· {{ c.round }}{{ c.versionLabel }}</span>
+                    <span>· {{ c.mergedLabel }}</span>
+                    <sc-if value="{{ c.showQuote }}">
+                      <span role="tooltip" style="position: absolute; z-index: 20; left: 0; right: 0; top: calc(100% + 6px); border-radius: 14px; border: 1px solid var(--op-line); background: var(--op-sf); padding: 12px 14px; box-shadow: 0 18px 40px -24px rgba(25,21,16,.45); font-size: 13px; line-height: 1.5; color: var(--op-body);">
+                        <span style="display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Original answer · {{ c.round }}</span>
+                        <span style="display: block; margin-top: 4px; font-family: var(--font-display); font-size: 14.5px; line-height: 1.45; color: var(--op-ink);">«{{ c.quote }}»</span>
+                      </span>
+                    </sc-if>
+                  </span>
+                </article>
+              </sc-for>
+              <sc-if value="{{ noItems }}">
+                <div style="border: 1px dashed var(--op-rule); border-radius: 16px; padding: 22px; font-size: 13.5px; color: var(--op-mut);">No items match this filter.</div>
+              </sc-if>
+            </div>
+          </sc-if>
+        </section>
+
+        <aside style="flex: 1 1 320px; position: sticky; top: 76px; min-width: 0; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px; box-sizing: border-box;">
+          <sc-if value="{{ noDetail }}">
+            <span style="font-size: 13.5px; color: var(--op-mut);">Select a context item to see its original answers and history.</span>
+          </sc-if>
+          <sc-if value="{{ hasDetail }}" hint-placeholder-val="{{ true }}">
+            <span style="display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">{{ d.id }} · {{ d.typeLabel }} · {{ d.slotName }}</span>
+            <sc-if value="{{ editing }}">
+              <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+                <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" value="{{ draft }}" onChange="{{ onDraft }}" aria-label="Wording" hint-size="100%,96px"></x-import>
+                <span style="display: flex; gap: 8px;">
+                  <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" onClick="{{ onSave }}" hint-size="80px,32px">Save</x-import>
+                  <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="ghost" onClick="{{ onCancel }}" hint-size="80px,32px">Cancel</x-import>
+                </span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ notEditing }}" hint-placeholder-val="{{ true }}">
+              <span style="display: block; margin-top: 8px; font-size: 16px; line-height: 1.45; font-weight: 600; text-wrap: pretty;">{{ d.text }}</span>
+            </sc-if>
+            <span style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center;">
+              <span style="{{ d.strengthStyle }}">{{ d.strengthLabel }}</span>
+              <sc-if value="{{ d.isConflict }}"><span style="display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; border: 1px solid var(--op-rustbar); background: var(--op-peach); color: var(--op-dangerdeep); padding: 2px 9px; font-size: 11px; font-weight: 700;">⇄ Conflict</span></sc-if>
+            </span>
+
+            <sc-if value="{{ d.hasCid }}">
+              <div style="margin-top: 14px; display: grid; grid-template-columns: 86px minmax(0, 1fr); gap: 5px 10px; border: 1px solid var(--op-line); border-radius: 13px; background: var(--op-bg); padding: 11px 13px; font-size: 12.5px;">
+                <span style="color: var(--op-mut);">Constraint</span><span style="font-weight: 700;">{{ d.cid }}</span>
+                <span style="color: var(--op-mut);">Owner</span><span>{{ d.ownerName }}</span>
+                <span style="color: var(--op-mut);">Review</span><span style="font-variant-numeric: tabular-nums;">{{ d.review }}</span>
+              </div>
+            </sc-if>
+            <sc-if value="{{ d.hasDecision }}">
+              <a href="#" onClick="{{ d.onDecision }}" style="margin-top: 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; border-radius: 13px; background: var(--op-viz5); padding: 10px 13px; font-size: 13px; font-weight: 600; color: var(--op-ink); text-decoration: none;">
+                <span>◆ {{ d.decisionText }}</span><span>→</span>
+              </a>
+            </sc-if>
+            <sc-if value="{{ d.isRestricted }}">
+              <span style="margin-top: 12px; display: block; font-size: 12.5px; color: var(--op-mut);">{{ d.visibleTo }}</span>
+            </sc-if>
+
+            <span style="display: block; margin-top: 18px; font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Original answer</span>
+            <div style="margin-top: 6px; border-radius: 13px; background: var(--op-bg); padding: 12px 14px;">
+              <span style="display: block; font-family: var(--font-display); font-size: 14.5px; line-height: 1.5; text-wrap: pretty;">«{{ d.quote }}»</span>
+              <span style="display: block; margin-top: 8px; font-size: 12px; color: var(--op-mut);">{{ d.whoName }} · {{ d.round }}</span>
+            </div>
+            <sc-if value="{{ d.hasMore }}">
+              <span style="display: block; margin-top: 6px; font-size: 12.5px; color: var(--op-mut);">＋ {{ d.moreLabel }}</span>
+            </sc-if>
+
+            <sc-if value="{{ d.hasVersions }}">
+              <span style="display: block; margin-top: 18px; font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Versions</span>
+              <div style="margin-top: 6px; display: flex; flex-direction: column; gap: 6px;">
+                <sc-for list="{{ d.versions }}" as="v">
+                  <div style="{{ v.style }}">
+                    <span style="display: flex; align-items: center; gap: 6px;"><span style="flex: none; border-radius: 6px; background: var(--op-ink); color: var(--op-bg); padding: 1px 6px; font-size: 10.5px; font-weight: 700; white-space: nowrap;">{{ v.v }}</span><span style="font-size: 11.5px; color: var(--op-mut);">{{ v.note }}</span></span>
+                    <span style="{{ v.textStyle }}">{{ v.text }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <span style="display: block; margin-top: 18px; font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Merge history</span>
+            <ol style="margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px;">
+              <sc-for list="{{ d.history }}" as="h" hint-placeholder-count="2">
+                <li style="display: grid; grid-template-columns: 10px minmax(0, 1fr); gap: 8px; font-size: 12.5px; line-height: 1.45;">
+                  <span style="margin-top: 6px; width: 6px; height: 6px; border-radius: 999px; background: var(--op-rule);"></span>
+                  <span>{{ h }}</span>
+                </li>
+              </sc-for>
+            </ol>
+
+            <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--op-line); display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="secondary" onClick="{{ onEdit }}" hint-size="100%,32px">Edit wording</x-import>
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="secondary" onClick="{{ onSplit }}" hint-size="100%,32px">Split</x-import>
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="secondary" onClick="{{ onRestrict }}" hint-size="100%,32px">{{ restrictLabel }}</x-import>
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="solid" onClick="{{ onSendDecision }}" hint-size="100%,32px">{{ decisionBtn }}</x-import>
+              <span style="grid-column: 1 / -1;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="quiet" block="{{ true }}" onClick="{{ onCreateAction }}" hint-size="100%,32px"><span style="white-space: nowrap;">＋ Create action</span></x-import></span>
+            </div>
+          </sc-if>
+        </aside>
+      </div>
+    </sc-if>
+    <footer style="margin-top: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; border-top: 1px solid var(--op-line); padding-top: 12px; font-size: 12px; color: var(--op-mut);">
+      <span>IT Helpdesk Agent v1 · draft v0.9 · owner Kari Nordmann · decider Daniel Reyes</span>
+      <span style="white-space: nowrap;">Lumio Inc. · <strong style="color: var(--op-greendeep); font-weight: 700;">US data region</strong></span>
+    </footer>
+  </div>
+
+  <sc-if value="{{ isGaps }}">
+    <div style="position: fixed; inset: 0; z-index: 60; display: flex; justify-content: flex-end;">
+      <div onClick="{{ closeGaps }}" style="position: absolute; inset: 0; background: rgba(25,21,16,.42);"></div>
+      <aside role="dialog" aria-label="Gaps" style="position: relative; width: min(480px, 100%); height: 100%; overflow-y: auto; box-sizing: border-box; background: var(--op-sf); border-left: 1px solid var(--op-line); padding: 22px 24px 40px; box-shadow: 0 34px 80px rgba(25,21,16,.3);">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
+          <span>
+            <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Screen 2.6 · IT Helpdesk Agent v1</span>
+            <h2 style="margin: 4px 0 0; font-family: var(--font-display); font-size: 24px; line-height: 1.2; font-weight: 600;">{{ gapsTitle }}</h2>
+          </span>
+          <button type="button" aria-label="Close" onClick="{{ closeGaps }}" style="width: 30px; height: 30px; flex: none; cursor: pointer; border-radius: 999px; border: 1px solid var(--op-ink); background: transparent; font-size: 15px; color: var(--op-ink);">×</button>
+        </div>
+        <sc-if value="{{ gapsEmpty }}">
+          <div style="margin-top: 22px; border: 1px dashed var(--op-rule); border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 6px;">
+            <span style="font-size: 15px; font-weight: 700;">Nothing missing right now.</span>
+            <span style="font-size: 13.5px; line-height: 1.55; color: var(--op-mut);">Every required slot is covered by its authority role, and no items are flagged.</span>
+          </div>
+        </sc-if>
+        <sc-for list="{{ gapGroups }}" as="g" hint-placeholder-count="3">
+          <section style="margin-top: 22px;">
+            <span style="display: block; font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">{{ g.label }}</span>
+            <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px;">
+              <sc-for list="{{ g.items }}" as="x">
+                <div style="{{ x.cardStyle }}">
+                  <span style="display: flex; align-items: center; gap: 8px;">
+                    <span style="{{ x.chipStyle }}">{{ x.chip }}</span>
+                    <span style="font-size: 14px; font-weight: 700;">{{ x.title }}</span>
+                  </span>
+                  <span style="display: block; margin-top: 6px; font-size: 13px; line-height: 1.5; color: var(--op-body); text-wrap: pretty;">{{ x.detail }}</span>
+                  <sc-if value="{{ x.hasQuote }}">
+                    <span style="display: block; margin-top: 10px; border-radius: 12px; border: 1px dashed var(--op-rule); background: var(--op-bg); padding: 10px 12px; font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; line-height: 1.5;">«{{ x.quote }}»</span>
+                  </sc-if>
+                  <sc-if value="{{ x.hasQuestion }}">
+                    <span style="display: block; margin-top: 10px; font-size: 12.5px; color: var(--op-mut);">Suggested: <span style="color: var(--op-ink);">{{ x.question }}</span></span>
+                  </sc-if>
+                  <sc-if value="{{ x.hasFrom }}"><span style="display: block; margin-top: 8px; font-size: 12px; color: var(--op-mut);">{{ x.from }}</span></sc-if>
+                  <sc-if value="{{ x.isDone }}">
+                    <span style="margin-top: 10px; display: inline-block; border-radius: 999px; background: var(--op-mint); color: var(--op-greendeep); padding: 3px 10px; font-size: 11.5px; font-weight: 700;">✓ {{ x.doneLabel }}</span>
+                  </sc-if>
+                  <sc-if value="{{ x.showActions }}">
+                    <span style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px;">
+                      <sc-for list="{{ x.actions }}" as="b">
+                        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="{{ b.tone }}" onClick="{{ b.onClick }}" hint-size="120px,32px">{{ b.label }}</x-import>
+                      </sc-for>
+                    </span>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </section>
+        </sc-for>
+      </aside>
+    </div>
+  </sc-if>
+</sc-if>
+
+<sc-if value="{{ hasToast }}">
+  <div role="status" style="position: fixed; z-index: 80; left: 50%; bottom: 24px; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; border-radius: 12px; background: var(--op-ink); color: var(--op-bg); padding: 11px 16px; font-size: 13.5px; box-shadow: 0 18px 40px -24px rgba(25,21,16,.45);">
+    <span>{{ toast }}</span>
+    <button type="button" onClick="{{ closeToast }}" style="cursor: pointer; border: none; background: transparent; color: var(--op-ac); font-family: inherit; font-size: 13px; font-weight: 700;">Undo</button>
+  </div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1440, &quot;height&quot;: 900}}">
+class Component extends DCLogic {
+  state = {
+    view: 'all', stage: 'All', tpl: 'all', owner: 'all',
+    w: { name: 'IT Helpdesk Agent v1', purpose: 'An agent in Teams that resolves routine IT requests — resets, access, hardware and VPN — and hands the rest to the service desk with the full context.', type: 'agent', audience: 'All 1,200 Lumio employees, US offices and remote', target: 'copilot', consult: {}, prefill: true, qRole: 'Service desk', qEdits: {}, deadline: '2026-11-14', cadence: '2d' },
+    slot: 'hard', sel: 'CI-41', filter: 'all', hover: null, editing: false, draft: '', edits: {}, restricted: {}, sent: {}, gapDone: {}, toast: null,
+  };
+  componentDidMount() { if (!window.PD) this.poll = setInterval(() => { if (window.PD) { clearInterval(this.poll); this.forceUpdate(); } }, 50); }
+  componentWillUnmount() { clearInterval(this.poll); clearTimeout(this.tt); }
+  go = (p) => (e) => { if (e && e.preventDefault) e.preventDefault(); if (e && e.stopPropagation) e.stopPropagation(); this.props.go && this.props.go(p); };
+  toast(msg) { clearTimeout(this.tt); this.setState({ toast: msg }); this.tt = setTimeout(() => this.setState({ toast: null }), 3600); }
+  setW(patch) { this.setState((s) => ({ w: { ...s.w, ...patch } })); }
+
+  renderVals() {
+    const PD = window.PD;
+    const path = this.props.path || '/home';
+    if (!PD) return {};
+    const persona = this.props.persona || 'kari';
+    const vs = this.props.viewState || 'Populated';
+    const isSynth = /\/synthesis/.test(path);
+    const out = {
+      isHome: path === '/home', isBriefs: path === '/briefs', isTemplates: path.startsWith('/templates'), isWizard: path.startsWith('/briefs/new'),
+      isSynth, isGaps: /\/gaps$/.test(path),
+      goTemplates: this.go('/templates'), goSynth: this.go('/briefs/it-helpdesk-v1/synthesis'), goPreview: this.go('/templates/preview'),
+      toast: this.state.toast, hasToast: !!this.state.toast, closeToast: () => this.setState({ toast: null }),
+      mt8: { marginTop: 8 }, selW: { width: 180 }, nowrap: { whiteSpace: 'nowrap', flex: 'none' },
+    };
+    if (out.isHome) Object.assign(out, this.home(PD, persona, vs));
+    if (out.isBriefs) Object.assign(out, this.briefs(PD, vs));
+    if (out.isTemplates) Object.assign(out, this.templates(PD, path));
+    if (out.isWizard) Object.assign(out, this.wizard(PD, path));
+    if (isSynth) Object.assign(out, this.synth(PD, persona, vs));
+    return out;
+  }
+
+  chip(bg, fg, border) { return { flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 5, borderRadius: 999, background: bg, color: fg, border: border ? '1px solid ' + border : 'none', padding: '2px 9px', fontSize: 11, fontWeight: 700, whiteSpace: 'nowrap' }; }
+
+  home(PD, persona, vs) {
+    const me = PD.people[persona];
+    const daniel = persona === 'daniel';
+    const K = {
+      conflict: { stripe: 'var(--op-rustbar)', chip: '⇄ Conflict', cs: this.chip('var(--op-peach)', 'var(--op-dangerdeep)', 'var(--op-rustbar)') },
+      decision: { stripe: 'var(--op-viz5)', chip: '◆ Decision', cs: this.chip('var(--op-viz5)', 'var(--op-ink)') },
+      gap: { stripe: 'var(--op-amberbar)', chip: 'Gap', cs: this.chip('var(--op-band)', 'var(--op-cautiondeep)') },
+      overdue: { stripe: 'var(--op-amberbar)', chip: 'Overdue', cs: this.chip('var(--op-band)', 'var(--op-cautiondeep)') },
+      pending: { stripe: 'var(--op-sage)', chip: 'Owner pending', cs: this.chip('var(--op-pulse)', 'var(--op-ink)', 'var(--op-sage)') },
+      review: { stripe: 'var(--op-band)', chip: 'Review due', cs: this.chip('var(--op-sbg)', 'var(--op-cautiondeep)') },
+      deferred: { stripe: 'var(--op-rule)', chip: 'Deferred', cs: this.chip('var(--op-track)', 'var(--op-ink)') },
+    };
+    const list = daniel ? [
+      { kind: 'conflict', title: 'D-03 Password resets through chat', meta: 'Pins Item 41 v2 · touches C-07 · round 2 points are advisory · open 17 days', action: 'Open decision', to: '/decisions/D-03' },
+      { kind: 'conflict', title: 'D-06 After-hours escalation', meta: 'Touches C-12 · you asked Kari for the on-call cost · open 17 days', action: 'Open decision', to: '/decisions/D-06' },
+      { kind: 'conflict', title: 'D-07 Tone guidance', meta: 'A suggested change and the author’s original · both versions are with you · open 17 days', action: 'Open decision', to: '/decisions/D-07' },
+      { kind: 'overdue', title: 'A-017 Add personal-device question to the FAQ as out of scope', meta: 'Overdue · due Nov 10 · from your decision D-05 · owner Kari Nordmann', action: 'Open action', to: '/actions/A-017' },
+      { kind: 'deferred', title: 'D-05 Personal devices is an open question', meta: 'Rendered in the brief as “can’t help yet, opens a ticket” · revisit Q1 2027', action: 'View in brief', to: '/briefs/it-helpdesk-v1/brief' },
+    ] : PD.attention.map((x) => { const s = (window.PDStore && window.PDStore.act['A-016']) || {}; if (x.kind === 'pending' && s.accept === 'Declined') return { ...x, kind: 'overdue', title: 'Sam Okafor declined A-016', meta: '«' + (s.declineReason || 'No reason given') + '» · reassign it from the action', action: 'Reassign', to: '/actions/A-016' }; if (x.kind === 'pending' && s.accept === 'Accepted') return { ...x, kind: 'review', title: 'A-016 was accepted by Sam Okafor', action: 'Open action' }; return x; });
+    const attention = list.map((a, i) => ({ ...a, chip: K[a.kind].chip, chipStyle: K[a.kind].cs, stripe: { display: 'block', width: 7, minHeight: 38, alignSelf: 'stretch', flex: 'none', borderRadius: 999, background: K[a.kind].stripe }, tone: i === 0 ? 'primary' : 'secondary', onClick: this.go(a.to) }));
+    const note = { fontSize: 12.5, color: 'var(--op-mut)' }, warn = { fontSize: 12.5, fontWeight: 700, color: 'var(--op-caution)' };
+    const counters = [
+      { label: 'Active briefs', value: 3, note: '1 deciding · 1 in intake · 1 live', to: '/briefs', noteStyle: note },
+      { label: 'Decisions waiting on you', value: daniel ? 3 : 1, note: daniel ? 'D-03, D-06 and D-07' : 'Daniel asked you about D-06', to: daniel ? '/decisions' : '/decisions/D-06', noteStyle: note },
+      { label: 'Actions due this week', value: 1, note: 'Overdue · A-017 was due Nov 10', to: '/me/actions', noteStyle: warn },
+      { label: 'Re-attestations due', value: 3, note: 'Customer Support Agent Tier 1 · by Nov 20', to: '/briefs/support-t1/distribution/re-attestation', noteStyle: note },
+    ].map((c) => ({ ...c, onClick: this.go(c.to) }));
+    const rounds = PD.rounds.map((r, i) => {
+      const done = r.state === 'done', now = r.state === 'now';
+      return { ...r, glyph: done ? '✓' : '',
+        dot: { display: 'flex', width: 18, height: 18, flex: 'none', alignItems: 'center', justifyContent: 'center', borderRadius: 999, boxSizing: 'border-box', fontSize: 10, fontWeight: 700, background: done ? 'var(--op-mint)' : now ? 'var(--op-ac)' : 'var(--op-sf)', color: 'var(--op-greendeep)', border: done ? '1.5px solid var(--op-link)' : now ? '2px solid var(--op-ink)' : '1.5px solid var(--op-rule)' },
+        line: { display: i === PD.rounds.length - 1 ? 'none' : 'block', width: 1.5, flex: 1, minHeight: 14, background: done ? 'var(--op-link)' : 'var(--op-line)' },
+        nameStyle: { fontWeight: now ? 700 : 600 } };
+    });
+    const nextMilestones = PD.milestones.slice(1, 3).map((m) => { const risk = m.status === 'At risk'; return { name: m.name, label: risk ? 'At risk · ' + m.date.replace(', 2026', '') : m.date.replace(', 2026', ''),
+      diamond: { display: 'inline-block', width: 8, height: 8, flex: 'none', transform: 'rotate(45deg)', borderRadius: 2, border: '1.5px solid ' + (risk ? 'var(--op-amberbar)' : 'var(--op-ink)'), background: risk ? 'var(--op-band)' : 'var(--op-sf)' },
+      pill: risk ? this.chip('var(--op-band)', 'var(--op-cautiondeep)') : { fontSize: 12, color: 'var(--op-mut)', whiteSpace: 'nowrap', fontVariantNumeric: 'tabular-nums' } }; });
+    const pillFor = (s) => s === 'Live' ? this.chip('var(--op-mint)', 'var(--op-greendeep)') : this.chip('var(--op-track)', 'var(--op-mut)');
+    const recentExports = PD.exportsRecent.map((x) => ({ ...x, abbr: PD.targets[x.target].abbr, targetName: PD.targets[x.target].name, pill: pillFor(x.state) }));
+    return {
+      homeEmpty: vs === 'Empty', homeFull: vs !== 'Empty',
+      homeGreeting: vs === 'Empty' ? 'Welcome, ' + me.first + '.' : 'Good morning, ' + me.first + '.',
+      homeLead: daniel ? 'Three decisions on IT Helpdesk Agent v1 are waiting on you, and the brief locks on Saturday. Two of them touch security constraints.' : 'IT Helpdesk Agent v1 locks on Saturday. Three decisions are still open, one of your actions is overdue, and Daniel has a question for you on D-06.',
+      counters, attention, attentionCount: attention.length + ' items', rounds, recentExports, nextMilestones, goPlan: this.go('/briefs/it-helpdesk-v1/plan'),
+    };
+  }
+
+  briefs(PD, vs) {
+    const st = this.state;
+    const all = vs === 'Empty' ? [] : PD.briefs;
+    const viewDefs = [
+      { key: 'all', label: 'All briefs', f: () => true },
+      { key: 'mine', label: 'Mine', f: (b) => b.mine },
+      { key: 'conflicts', label: 'With open conflicts', f: (b) => b.conflicts > 0 },
+      { key: 'live', label: 'Live', f: (b) => b.stage === 'Live' },
+      { key: 'overdue', label: 'Overdue actions', f: (b) => b.overdue > 0 },
+    ];
+    const vf = viewDefs.find((v) => v.key === st.view).f;
+    const rows = all.filter(vf).filter((b) => st.stage === 'All' || b.stage === st.stage).filter((b) => st.tpl === 'all' || b.template === st.tpl).filter((b) => st.owner === 'all' || b.owner === st.owner);
+    const SS = {
+      Framing: ['var(--op-track)', 'var(--op-ink)'], Intake: ['var(--op-pulse)', 'var(--op-ink)'], Review: ['var(--op-pulse)', 'var(--op-ink)'],
+      Deciding: ['var(--op-viz5)', 'var(--op-ink)'], Locked: ['var(--op-ink)', 'var(--op-bg)'], Exported: ['var(--op-mint)', 'var(--op-greendeep)'], Live: ['var(--op-mint)', 'var(--op-greendeep)'],
+    };
+    return {
+      briefsEmpty: all.length === 0, briefsFull: all.length > 0, briefCountLabel: all.length + ' briefs',
+      views: viewDefs.map((v) => ({ ...v, text: v.label + ' · ' + all.filter(v.f).length, selected: st.view === v.key, onClick: () => this.setState({ view: v.key }) })),
+      stagePills: ['All', ...PD.stages].map((s) => { const sel = st.stage === s; return { label: s, selected: sel, onClick: () => this.setState({ stage: s }), style: { cursor: 'pointer', border: 'none', borderRadius: 999, padding: '6px 11px', fontFamily: 'inherit', fontSize: 12.5, fontWeight: sel ? 700 : 500, background: sel ? 'var(--op-ink)' : 'transparent', color: sel ? 'var(--op-bg)' : 'var(--op-ink)' } }; }),
+      tplOptions: [{ value: 'all', label: 'All templates' }, ...[...new Set(PD.briefs.map((b) => b.template))].map((t) => ({ value: t, label: t }))],
+      ownerOptions: [{ value: 'all', label: 'All owners' }, ...[...new Set(PD.briefs.map((b) => b.owner))].map((t) => ({ value: t, label: t }))],
+      tplFilter: st.tpl, ownerFilter: st.owner, onTpl: (e) => this.setState({ tpl: e.target.value }), onOwner: (e) => this.setState({ owner: e.target.value }),
+      clearFilters: () => this.setState({ view: 'all', stage: 'All', tpl: 'all', owner: 'all' }),
+      noMatch: all.length > 0 && rows.length === 0,
+      briefRows: rows.map((b) => ({
+        ...b, stageLabel: (b.stage === 'Live' ? '● ' : '') + b.stage,
+        stageStyle: { borderRadius: 999, padding: '3px 10px', fontSize: 11.5, fontWeight: 700, background: SS[b.stage][0], color: SS[b.stage][1] },
+        progressLabel: b.total ? b.done + ' of ' + b.total + ' finished' : 'Not sent yet', pct: b.total ? Math.round((b.done / b.total) * 100) : 0,
+        hasConflicts: b.conflicts > 0, noConflicts: !b.conflicts, actionsLabel: b.actions ? b.actions + ' open' : '—', hasOverdue: b.overdue > 0, overdueLabel: b.overdue + ' overdue', abbr: PD.targets[b.target].abbr, targetName: PD.targets[b.target].name,
+        onClick: this.go(b.id === 'it-helpdesk-v1' ? '/briefs/it-helpdesk-v1/synthesis' : '/briefs/' + b.id),
+      })),
+    };
+  }
+
+  templates(PD, path) {
+    const market = path.endsWith('/marketplace');
+    const cats = [...new Set(PD.templates.map((t) => t.cat))];
+    const tplGroups = cats.map((cat) => {
+      const items = PD.templates.filter((t) => t.cat === cat).map((t) => ({
+        ...t, targetList: t.targets.map((k) => PD.targets[k]), milestonesLabel: 'Default milestones: ' + (t.milestones || ['Brief locked', 'Exported', 'Go-live', 'First re-attestation']).join(' · '), useTone: t.recommended ? 'primary' : 'quiet',
+        cardStyle: { display: 'flex', flexDirection: 'column', gap: 10, border: '1px solid ' + (t.recommended ? 'var(--op-ink)' : 'var(--op-line)'), borderRadius: 20, background: 'var(--op-sf)', padding: 22 },
+        onUse: this.go('/briefs/new/1'), onPreview: this.go('/templates/preview'),
+      }));
+      return { cat, count: items.length + ' templates', items };
+    });
+    return {
+      tabLib: !market, tabMarket: market, goLib: this.go('/templates'), goMarket: this.go('/templates/marketplace'), tplGroups,
+      market: PD.marketplace.map((m) => ({ ...m, initial: m.publisher[0], badgeLabel: m.badge === 'Verified partner' ? '✓ Verified partner' : 'Partner',
+        badgeStyle: m.badge === 'Verified partner' ? this.chip('var(--op-mint)', 'var(--op-greendeep)') : this.chip('var(--op-track)', 'var(--op-ink)'),
+        onInstall: () => this.toast(m.name + ' added to the Lumio library as a draft copy') })),
+    };
+  }
+
+  wizard(PD, path) {
+    const w = this.state.w;
+    const step = Math.min(6, Math.max(1, parseInt(path.split('/')[3], 10) || 1));
+    const T = PD.targets;
+    const titles = {
+      1: ['What is this brief for?', 'The goal frames every question your team gets. Keep it about the work.'],
+      2: ['Where will it run?', 'Pick the platform. The brief compiles to its format, with hard constraints inserted word for word.'],
+      3: ['Who knows how this should work?', 'Map each role to a person. Authority roles confirm the hard constraints in their slots.'],
+      4: ['What’s already written down?', 'Existing policies, SOPs and tickets prefill the draft so people react instead of starting from blank.'],
+      5: ['What will each person be asked?', 'Five to eight questions per role, one at a time. Edit the wording; the pattern stays.'],
+      6: ['When does each round run, and what follows?', 'Four rounds, one deadline, and the milestones that take the brief to go-live.'],
+    };
+    const wSteps = PD.wizardSteps.map((s) => {
+      const done = s.n < step, cur = s.n === step;
+      return { ...s, glyph: done ? '✓' : String(s.n), aria: cur ? 'step' : undefined, onClick: this.go('/briefs/new/' + s.n),
+        style: { display: 'flex', alignItems: 'center', gap: 10, borderRadius: 11, padding: '8px 10px', fontSize: 13.5, whiteSpace: 'nowrap', color: 'var(--op-ink)', textDecoration: 'none', background: cur ? 'var(--op-sbg)' : 'transparent', fontWeight: cur ? 700 : 500 },
+        dot: { display: 'flex', width: 22, height: 22, flex: 'none', alignItems: 'center', justifyContent: 'center', borderRadius: 999, boxSizing: 'border-box', fontSize: 11, fontWeight: 700, background: done ? 'var(--op-mint)' : cur ? 'var(--op-ink)' : 'transparent', color: done ? 'var(--op-greendeep)' : cur ? 'var(--op-bg)' : 'var(--op-mut)', border: done ? '1.5px solid var(--op-link)' : cur ? 'none' : '1.5px solid var(--op-rule)' } };
+    });
+    const types = [
+      { value: 'agent', label: 'AI agent', note: 'Instructions for an assistant' },
+      { value: 'policy', label: 'Policy', note: 'Rules people follow' },
+      { value: 'playbook', label: 'Playbook', note: 'Steps for a team' },
+    ].map((t) => ({ ...t, checked: w.type === t.value, onChange: () => this.setW({ type: t.value }) }));
+    const connected = { copilot: true, markdown: true };
+    const wTargets = Object.values(T).map((t) => { const sel = w.target === t.key; return { ...t, selected: sel, onClick: () => this.setW({ target: t.key }),
+      conn: connected[t.key] ? '✓ Connected' : 'Not connected', connStyle: connected[t.key] ? this.chip('var(--op-mint)', 'var(--op-greendeep)') : this.chip('var(--op-track)', 'var(--op-mut)'),
+      style: { display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 6, cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit', color: 'var(--op-ink)', borderRadius: 13, padding: 14, border: '1px solid ' + (sel ? 'var(--op-ink)' : 'var(--op-line)'), background: sel ? 'var(--op-sbg)' : 'var(--op-bg)' } }; });
+    const fmt = { copilot: 'Agent instructions · topics · knowledge sources · 8,000 characters', agentforce: 'Topics · actions · guardrails', servicenow: 'Virtual Agent topics · instructions', claude: 'Project instructions · knowledge files', chatgpt: 'GPT instructions · knowledge · 8,000 characters', markdown: 'brief.md · constraints.md · decisions.md' };
+    const head = { copilot: '# Agent instructions', agentforce: '# Agent topic: IT helpdesk', servicenow: '# Virtual Agent: IT helpdesk', claude: '# Project instructions', chatgpt: '# GPT instructions', markdown: '# brief.md' };
+    const lines = [
+      { text: head[w.target] + ' — ' + w.name, k: 'h' }, { text: '## Hard constraints', k: 'h2' },
+      { text: 'C-07  The agent never asks for or accepts a password.', k: 'c' }, { text: 'C-12  Suspected security incidents escalate to on-call within 15 minutes.', k: 'c' },
+      { text: '## Scope', k: 'h2' }, { text: 'Password and MFA resets · software access · hardware orders · VPN and Wi-Fi', k: 'p' },
+      { text: '## Escalation', k: 'h2' }, { text: 'Hand off after two failed attempts, with the full chat attached.', k: 'p' },
+    ];
+    const wTargetLines = lines.map((l) => ({ text: l.text, verbatim: l.k === 'c', style: { color: l.k === 'p' ? 'var(--op-body)' : 'var(--op-ink)', fontWeight: l.k === 'h' || l.k === 'h2' ? 700 : 400, marginTop: l.k === 'h2' ? 6 : 0 } }));
+    const wRoleMap = PD.roleMap.map((r) => { const p = PD.people[r.person]; return { ...r, name: p.name, title: p.title, initials: p.initials, consult: !!w.consult[r.role], consultLabel: 'Consult step for ' + r.role, onConsult: () => this.setW({ consult: { ...w.consult, [r.role]: !w.consult[r.role] } }) }; });
+    const wDocs = PD.documents.map((d) => ({ ...d, status: d.pct === 100 ? '✓ Read' : 'Reading · ' + d.pct + ' %', bar: d.pct === 100 ? 'var(--op-greenbar)' : 'var(--op-amberbar)' }));
+    const qRoleNames = Object.keys(PD.questions);
+    const roleToPerson = { 'Service desk': 'sam', Security: 'priya', Finance: 'lena', 'Data protection': 'mei', Legal: 'tom', 'Employee experience': 'grace' };
+    const qp = PD.people[roleToPerson[w.qRole]];
+    const qList = PD.questions[w.qRole].map((q, i) => { const key = w.qRole + i; return { n: i + 1, pattern: q.pattern, restricted: !!q.restricted, roleLower: w.qRole.toLowerCase(), aria: 'Question ' + (i + 1),
+      text: w.qEdits[key] ?? q.q, onChange: (e) => this.setW({ qEdits: { ...this.state.w.qEdits, [key]: e.target.value } }) }; });
+    const total = 44;
+    const span = (a, b) => ({ position: 'absolute', top: 0, bottom: 0, left: (a / total * 100) + '%', width: ((b - a) / total * 100) + '%', display: 'flex', alignItems: 'center', boxSizing: 'border-box', borderRadius: 9, padding: '0 8px', background: 'var(--op-sbg)', border: '1px solid var(--op-ink)', fontSize: 11, fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden' });
+    const schedule = [
+      { key: 'R1', name: 'Intake', dates: 'Oct 5 – 16', bar: span(0, 11) }, { key: 'R2', name: 'Review', dates: 'Oct 19 – 23', bar: span(14, 18) },
+      { key: 'R3', name: 'Decide', dates: 'Oct 26 – Nov 13', bar: span(21, 39) }, { key: 'R4', name: 'Validate', dates: 'Nov 16 – 17', bar: span(41, 43) },
+    ];
+    const muted = { margin: 0, color: 'var(--op-faint)' }, ink = { margin: 0, color: 'var(--op-ink)', fontWeight: 600 };
+    const typeLabel = { agent: 'AI agent', policy: 'Policy', playbook: 'Playbook' }[w.type];
+    const facts = [
+      { k: 'Deliverable', v: typeLabel, on: true }, { k: 'Audience', v: w.audience, on: true },
+      { k: 'Export target', v: T[w.target].name, on: step >= 2 }, { k: 'People', v: '8 people · 3 authority roles', on: step >= 3 },
+      { k: 'Documents', v: '3 documents · 20 items prefilled', on: step >= 4 }, { k: 'Questions', v: '33 questions · 8–14 min each', on: step >= 5 },
+      { k: 'Schedule', v: 'R1 opens Oct 5 · lock Nov 14', on: step >= 6 }, { k: 'Milestones', v: '5 · go-live Jan 12, 2027', on: step >= 6 },
+    ].map((f) => ({ k: f.k, v: f.on ? f.v : 'Not set yet', style: f.on ? ink : muted }));
+    const pre = { objective: 2, scope: 6, hard: 3, escalation: 4, data: 1, personal: 0, tone: 0, examples: 2, acceptance: 0 };
+    const auth = { scope: 'Service desk', hard: 'Security, Finance', escalation: 'Service desk', data: 'Security', personal: 'Data protection', tone: 'Employee experience', examples: 'Service desk' };
+    const wSlots = PD.slots.filter((s) => s.key !== 'open').map((s) => {
+      const n = pre[s.key]; const filled = step >= 4 && n > 0;
+      const status = step >= 5 && auth[s.key] ? (filled ? n + ' prefilled · asks ' + auth[s.key] : 'Asks ' + auth[s.key]) : filled ? n + ' prefilled' : step >= 3 && auth[s.key] ? auth[s.key] : 'Empty';
+      return { name: s.name, status, dot: { width: 8, height: 8, borderRadius: 999, flex: 'none', boxSizing: 'border-box', background: filled ? 'var(--op-greenbar)' : 'transparent', border: filled ? 'none' : '1.5px solid var(--op-rule)' } };
+    });
+    return {
+      wStep: step, wTitle: w.name || 'Untitled brief', wStepTitle: titles[step][0], wStepLead: titles[step][1], wSteps,
+      s1: step === 1, s2: step === 2, s3: step === 3, s4: step === 4, s5: step === 5, s6: step === 6,
+      wName: w.name, wPurpose: w.purpose, wAudience: w.audience, wTypes: types,
+      onWName: (e) => this.setW({ name: e.target.value }), onWPurpose: (e) => this.setW({ purpose: e.target.value }), onWAudience: (e) => this.setW({ audience: e.target.value }),
+      wTargets, wTargetName: T[w.target].name, wTargetFormat: fmt[w.target], wTargetLines,
+      ownerPick: [{ value: 'kari', label: 'Kari Nordmann · IT Service Manager' }], deciderPick: [{ value: 'daniel', label: 'Daniel Reyes · CIO' }, { value: 'priya', label: 'Priya Shah · Security Lead' }],
+      wRoleMap, wDocs, wPrefill: w.prefill, onPrefill: () => this.setW({ prefill: !w.prefill }),
+      qRoles: qRoleNames.map((r) => ({ text: r + ' · ' + PD.questions[r].length, selected: w.qRole === r, onClick: () => this.setW({ qRole: r }) })),
+      qPerson: w.qRole + ' · ' + qp.name, qMinutes: PD.minutesByRole[w.qRole], qList,
+      schedule, wDeadline: w.deadline, onDeadline: (e) => this.setW({ deadline: e.target.value }), wCadence: w.cadence, onCadence: (e) => this.setW({ cadence: e.target.value }),
+      cadenceOptions: [{ value: '2d', label: '2 days before close, then on close day' }, { value: 'daily', label: 'Daily in the last 3 days' }, { value: 'none', label: 'No reminders' }],
+      wFacts: facts, wSlots, wShowReuse: step >= 4, dateW: { width: 150 },
+      wMilestones: PD.milestones.map((m) => ({ ...m, dateLabel: m.name + ' date', ownerLabel: m.owner === 'auto' ? 'Automatic · ' + m.auto.toLowerCase() : 'Owner ' + PD.people[m.owner].name + (m.approve ? ' · decider approves' : '') })),
+      wCanBack: step > 1, wFirst: step === 1, wBack: this.go('/briefs/new/' + (step - 1)),
+      wNext: this.go(step < 6 ? '/briefs/new/' + (step + 1) : '/briefs/it-helpdesk-v1/distribution/invite'), wNextLabel: step < 6 ? 'Continue' : 'Continue to distribution',
+    };
+  }
+
+  synth(PD, persona, vs) {
+    const st = this.state;
+    const people = PD.people;
+    const running = vs === 'Pipeline running';
+    const reviews = { 'C-07': 'Mar 1, 2027', 'C-12': 'Mar 1, 2027', 'C-15': 'Apr 1, 2027 · revisit with Q2 spend data', 'C-19': 'Jan 15, 2027' };
+    const restrictedTo = (sl, it) => sl.restricted || (st.restricted[it && it.id] ? 'owner, decider, ' + people[it.who].short.toLowerCase() : null);
+    const openDecision = (it) => it.decision || st.sent[it.id];
+    const isConflict = (it) => !!it.decision;
+    const slotList = PD.slots.map((sl) => {
+      const its = PD.items.filter((i) => i.slot === sl.key);
+      const sel = st.slot === sl.key;
+      const hidden = (sl.hiddenFor || []).includes(persona);
+      const thin = sl.coverage != null && sl.coverage < 50;
+      return {
+        key: sl.key, name: sl.name, selected: sel, restricted: !!sl.restricted, hasConflict: its.some(isConflict),
+        countLabel: String(its.length), coverage: sl.coverage || 0, hasMeter: sl.coverage != null,
+        bar: sl.coverage >= 70 ? 'var(--op-greenbar)' : 'var(--op-amberbar)', meterStyle: { flex: 1 },
+        covLabel: thin ? 'Thin' : sl.coverage + ' %', covStyle: { fontSize: 11, fontWeight: 700, minWidth: 34, textAlign: 'right', color: thin ? 'var(--op-caution)' : 'var(--op-mut)', fontVariantNumeric: 'tabular-nums' },
+        hasAuthority: sl.authority.length > 0,
+        authority: sl.authority.map((a) => ({ label: (a.ok ? '✓ ' : '○ ') + people[a.who].short, title: people[a.who].name + (a.ok ? ' answered and confirmed' : ' has not confirmed yet'),
+          style: { whiteSpace: 'nowrap', borderRadius: 999, padding: '1px 7px', fontSize: 10.5, fontWeight: 700, background: a.ok ? 'var(--op-mint)' : 'transparent', color: a.ok ? 'var(--op-greendeep)' : 'var(--op-caution)', border: a.ok ? '1px solid transparent' : '1px dashed var(--op-amberbar)' } })),
+        onClick: () => { const first = its[0]; this.setState({ slot: sl.key, sel: hidden || !first ? null : first.id, filter: 'all', editing: false }); },
+        style: { display: 'flex', flexDirection: 'column', gap: 7, cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit', color: hidden ? 'var(--op-mut)' : 'var(--op-ink)', borderRadius: 13, padding: '10px 12px', border: '1px solid ' + (sel ? 'var(--op-ink)' : 'var(--op-line)'), background: sel ? 'var(--op-sbg)' : 'var(--op-sf)' },
+      };
+    });
+    const slot = PD.slots.find((s) => s.key === st.slot);
+    const hidden = (slot.hiddenFor || []).includes(persona);
+    const slotItems = PD.items.filter((i) => i.slot === slot.key);
+    const filters = [
+      { key: 'all', label: 'All', f: () => true }, { key: 'conflict', label: 'Conflicts', f: isConflict },
+      { key: 'constraint', label: 'Constraints', f: (i) => i.type === 'constraint' }, { key: 'must', label: 'Must-haves', f: (i) => i.strength === 'must' },
+    ];
+    const ff = filters.find((f) => f.key === st.filter).f;
+    const SL = { must: 'Must-have', nice: 'Nice-to-have', idea: 'Just an idea' };
+    const sStyle = (s) => s === 'must' ? this.chip('var(--op-ink)', 'var(--op-bg)') : s === 'nice' ? this.chip('var(--op-sbg)', 'var(--op-cautiondeep)') : this.chip('transparent', 'var(--op-mut)', 'var(--op-rule)');
+    const TL = { fact: 'Fact', constraint: 'Constraint', risk: 'Risk', idea: 'Idea' };
+    const find = (id) => PD.items.find((i) => i.id === id);
+    const select = (id) => (e) => { if (e && e.stopPropagation) e.stopPropagation(); const it = find(id); if (it) this.setState({ slot: it.slot, sel: id, editing: false, filter: 'all' }); };
+    const relView = (r) => {
+      if (r.ref.startsWith('D-')) return { label: 'Deferred · ' + r.ref, style: { ...this.chip('var(--op-track)', 'var(--op-ink)'), cursor: 'default', fontFamily: 'inherit' }, onClick: (e) => e.stopPropagation() };
+      const s = r.kind === 'conflicts' ? this.chip('var(--op-peach)', 'var(--op-dangerdeep)', 'var(--op-rustbar)') : r.kind === 'refines' ? this.chip('var(--op-mint)', 'var(--op-greendeep)') : this.chip('var(--op-track)', 'var(--op-ink)');
+      const label = r.kind === 'conflicts' ? '⇄ Conflicts with ' + r.ref : r.kind === 'refines' ? 'Refines ' + r.ref : 'Duplicate of ' + r.ref;
+      return { label, style: { ...s, cursor: 'pointer', fontFamily: 'inherit' }, onClick: select(r.ref) };
+    };
+    const decLabel = (it) => it.decision ? it.decision + ' open' : st.sent[it.id] ? st.sent[it.id] + ' open' : it.decided === 'D-05' ? 'D-05 deferred' : it.decided ? it.decided + ' decided' : '';
+    const itemCards = slotItems.filter(ff).map((it) => {
+      const sel = st.sel === it.id; const p = people[it.who]; const rt = restrictedTo(slot, it) && st.restricted[it.id];
+      return {
+        id: it.id, text: st.edits[it.id] || it.text, typeLabel: TL[it.type], strengthLabel: SL[it.strength], strengthStyle: sStyle(it.strength),
+        cid: it.cid, hasCid: !!it.cid, hasDecision: !!decLabel(it), decisionLabel: decLabel(it), isConflict: isConflict(it),
+        isRestricted: !!rt, visibleTo: 'Visible to: ' + restrictedTo(slot, it),
+        rels: it.rel.map(relView), hasRels: it.rel.length > 0,
+        whoName: p.group, versionLabel: it.version ? ' · ' + it.version : '', round: it.round === 'R1' ? 'Round 1' : it.round === 'R2' ? 'Round 2' : 'Round 3',
+        mergedLabel: it.suggestion ? 'suggested change' : it.merged ? 'merged from ' + (it.merged + 1) + ' answers' : '1 answer', quote: it.quote,
+        showQuote: st.hover === it.id, onEnter: () => this.setState({ hover: it.id }), onLeave: () => this.setState({ hover: null }),
+        onClick: () => this.setState({ sel: it.id, editing: false }),
+        cardStyle: { position: 'relative', cursor: 'pointer', borderRadius: 16, padding: '14px 16px', background: 'var(--op-sf)', border: (sel ? '1.5px solid ' : '1px solid ') + (sel ? 'var(--op-ink)' : isConflict(it) ? 'var(--op-rustbar)' : 'var(--op-line)') },
+      };
+    });
+    const selItem = !hidden && st.sel ? find(st.sel) : null;
+    let d = {}; let hasDetail = false;
+    if (selItem && selItem.slot === slot.key) {
+      hasDetail = true; const p = people[selItem.who];
+      const dec = selItem.decision || st.sent[selItem.id];
+      d = {
+        id: selItem.id, typeLabel: TL[selItem.type], slotName: slot.name, text: st.edits[selItem.id] || selItem.text,
+        strengthLabel: SL[selItem.strength], strengthStyle: sStyle(selItem.strength), isConflict: isConflict(selItem),
+        hasCid: !!selItem.cid, cid: selItem.cid, review: reviews[selItem.cid] || 'Not set', whoName: p.group, ownerName: p.name,
+        hasVersions: !!PD.versions[selItem.id], versions: (PD.versions[selItem.id] || []).map((v, i, a) => { const cur = i === a.length - 1; return { ...v, v: v.v + (cur ? ' · current' : ''), style: { borderRadius: 12, padding: '9px 11px', border: '1px solid ' + (cur ? 'var(--op-ink)' : 'var(--op-line)'), background: cur ? 'var(--op-sf)' : 'var(--op-bg)', display: 'flex', flexDirection: 'column', gap: 5 }, textStyle: { fontSize: 13, lineHeight: 1.45, color: cur ? 'var(--op-ink)' : 'var(--op-mut)', textDecoration: cur ? 'none' : 'line-through' } }; }),
+        round: selItem.round === 'R1' ? 'Round 1' : selItem.round === 'R2' ? 'Round 2' : 'Round 3', quote: selItem.quote,
+        hasMore: selItem.merged > 0, moreLabel: selItem.merged + (selItem.merged === 1 ? ' more answer' : ' more answers') + ' merged into this item',
+        hasDecision: !!(dec || selItem.decided), decisionText: dec ? 'In decision ' + dec + (PD.versions[selItem.id] ? ' · pinned as Item ' + selItem.id.slice(3) + ' ' + selItem.version : '') + ' · waiting on Daniel Reyes' : selItem.decided === 'D-05' ? 'D-05 deferred as an open question · Daniel Reyes · Oct 28' : 'Settled by ' + selItem.decided + ' · Daniel Reyes · Oct 28',
+        onDecision: this.go('/decisions/' + (dec || selItem.decided)),
+        isRestricted: !!restrictedTo(slot, selItem), visibleTo: 'Visible to: ' + restrictedTo(slot, selItem),
+        history: PD.mergeHistory[selItem.id] || [selItem.merged ? 'Merged ' + (selItem.merged + 1) + ' answers · pipeline · Oct 17' : 'Created from 1 answer · pipeline · Oct 17'].concat(st.edits[selItem.id] ? ['Wording edited by Kari Nordmann · just now'] : []),
+      };
+    }
+    const selDec = selItem && (selItem.decision || st.sent[selItem.id]);
+    const gapsVals = this.gaps(PD, vs);
+    return {
+      pipeRunning: running, pipeDone: !running,
+      pipeLabel: running ? 'Pipeline running · started 40 s ago' : 'Pipeline last run 2 min ago',
+      pipeDot: { width: 8, height: 8, borderRadius: 999, background: running ? 'var(--op-amberbar)' : 'var(--op-greenbar)' },
+      pipeSteps: [
+        { name: 'Read answers', note: '64 answers from 7 contributors', pct: 100, s: 'done' },
+        { name: 'Atomize into context items', note: '64 answers → 87 candidate items', pct: 100, s: 'done' },
+        { name: 'Label relations', note: 'duplicate · refines · conflicts — 51 of 87', pct: 58, s: 'now' },
+        { name: 'Merge duplicates', note: 'Waiting', pct: 0, s: 'next' },
+        { name: 'Draft decision cards', note: 'Waiting', pct: 0, s: 'next' },
+      ].map((p) => ({ ...p, glyph: p.s === 'done' ? '✓' : '', dot: { display: 'flex', width: 18, height: 18, alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box', borderRadius: 999, fontSize: 10, fontWeight: 700, color: 'var(--op-greendeep)', background: p.s === 'done' ? 'var(--op-mint)' : p.s === 'now' ? 'var(--op-ac)' : 'transparent', border: p.s === 'done' ? '1.5px solid var(--op-link)' : p.s === 'now' ? '2px solid var(--op-ink)' : '1.5px solid var(--op-rule)' } })),
+      rerun: () => this.toast('Pipeline queued · your edits and decisions are kept'),
+      openGaps: this.go('/briefs/it-helpdesk-v1/synthesis/gaps'), goActions: this.go('/actions'),
+      onCreateAction: () => selItem && this.toast('A-022 drafted from ' + selItem.id + ' · pick an owner to send the request'), closeGaps: this.go('/briefs/it-helpdesk-v1/synthesis'), goDecisions: this.go('/decisions'),
+      briefTabs: [
+        { label: 'Synthesis', selected: true, to: '/briefs/it-helpdesk-v1/synthesis' }, { label: 'Decisions · 3', to: '/decisions' }, { label: 'Actions · 7', to: '/actions' }, { label: 'Plan', to: '/briefs/it-helpdesk-v1/plan' }, { label: 'Distribution', to: '/briefs/it-helpdesk-v1/distribution/tracking' },
+        { label: 'Brief', to: '/briefs/it-helpdesk-v1/brief' }, { label: 'Export', to: '/briefs/it-helpdesk-v1/export' }, { label: 'Validation', to: '/briefs/it-helpdesk-v1/validation' },
+      ].map((t) => ({ ...t, selected: !!t.selected, onClick: this.go(t.to) })),
+      slotList, slotName: slot.name,
+      slotMeta: hidden ? 'Restricted' : slotItems.length + ' items · ' + slotItems.filter(isConflict).length + ' in conflict' + (slot.coverage != null ? ' · coverage ' + slot.coverage + ' %' : ''),
+      slotHidden: hidden, slotShown: !hidden, slotVisibleRestricted: !hidden && !!slot.restricted, slotRestrictedTo: slot.restricted, slotCount: slotItems.length,
+      askAccess: () => this.toast('Access request sent to Mei Lin · Data Protection Officer'),
+      itemFilters: filters.map((f) => ({ text: f.label + ' · ' + slotItems.filter(f.f).length, selected: st.filter === f.key, onClick: () => this.setState({ filter: f.key }) })),
+      itemCards, noItems: !hidden && itemCards.length === 0,
+      d, hasDetail, noDetail: !hasDetail,
+      editing: st.editing && hasDetail, notEditing: !(st.editing && hasDetail), draft: st.draft,
+      onDraft: (e) => this.setState({ draft: e.target.value }),
+      onEdit: () => selItem && this.setState({ editing: true, draft: st.edits[selItem.id] || selItem.text }),
+      onSave: () => { this.setState((s) => ({ editing: false, edits: { ...s.edits, [s.sel]: s.draft } })); this.toast('Wording updated · the original answers stay attached'); },
+      onCancel: () => this.setState({ editing: false }),
+      onSplit: () => selItem && this.toast(selItem.id + ' split into 2 items · both keep the original answers'),
+      restrictLabel: selItem && st.restricted[selItem.id] ? 'Remove restriction' : 'Mark as restricted',
+      onRestrict: () => { if (!selItem) return; const on = !st.restricted[selItem.id]; this.setState((s) => ({ restricted: { ...s.restricted, [selItem.id]: on } })); this.toast(on ? selItem.id + ' is now restricted' : selItem.id + ' is visible to everyone on the brief again'); },
+      decisionBtn: selDec ? 'Open ' + selDec + ' →' : 'Send to decision',
+      onSendDecision: () => { if (!selItem) return; if (selDec) { this.props.go && this.props.go('/decisions/' + selDec); return; } this.setState((s) => ({ sent: { ...s.sent, [selItem.id]: 'D-07' } })); this.toast('Sent to decision D-07 · Daniel Reyes is notified'); },
+      ...gapsVals,
+    };
+  }
+
+  gaps(PD, vs) {
+    const done = this.state.gapDone;
+    const empty = vs === 'No gaps';
+    const K = {
+      thin: ['Thin slot', this.chip('var(--op-band)', 'var(--op-cautiondeep)')], rule: ['Rule failed', this.chip('var(--op-band)', 'var(--op-cautiondeep)')],
+      person: ['About a person', this.chip('var(--op-track)', 'var(--op-ink)')], inject: ['Possible injection', this.chip('var(--op-sbg)', 'var(--op-cautiondeep)', 'var(--op-amberbar)')],
+    };
+    const view = (g, i) => {
+      const dn = done[i];
+      const actions = g.kind === 'inject'
+        ? [{ label: 'Ignore', tone: 'secondary', onClick: () => this.setState((s) => ({ gapDone: { ...s.gapDone, [i]: 'Ignored by Kari Nordmann · just now' } })) }, { label: 'Keep as data', tone: 'ghost', onClick: () => this.setState((s) => ({ gapDone: { ...s.gapDone, [i]: 'Kept as data · it will never be read as an instruction' } })) }]
+        : g.kind === 'person' ? []
+        : [{ label: 'Send targeted question', tone: i === 0 ? 'primary' : 'secondary', onClick: this.go('/briefs/it-helpdesk-v1/distribution/follow-up') }, { label: 'Create action', tone: 'secondary', onClick: () => this.setState((s) => ({ gapDone: { ...s.gapDone, [i]: 'Action A-022 created · owner pending' } })) }, { label: 'Open slot', tone: 'ghost', onClick: (e) => { this.setState({ slot: g.slot, sel: null, filter: 'all' }); this.go('/briefs/it-helpdesk-v1/synthesis')(e); } }];
+      return { ...g, chip: K[g.kind][0], chipStyle: K[g.kind][1], hasQuote: !!g.quote, hasQuestion: !!g.question, hasFrom: !!g.from || g.kind === 'person',
+        from: g.kind === 'person' ? g.from + ' · waiting for the writer to restate it' : g.from,
+        isDone: !!dn, doneLabel: dn, showActions: !dn && actions.length > 0, actions,
+        cardStyle: { border: '1px solid ' + (dn ? 'var(--op-line)' : 'var(--op-line)'), borderRadius: 16, background: dn ? 'var(--op-bg)' : 'var(--op-sf)', padding: '14px 16px' } };
+    };
+    const all = empty ? [] : PD.gaps.map(view);
+    const groups = [
+      { label: 'Thin or missing slots', items: all.filter((g) => g.kind === 'thin') },
+      { label: 'Failed coverage rules', items: all.filter((g) => g.kind === 'rule') },
+      { label: 'Flagged items', items: all.filter((g) => g.kind === 'person' || g.kind === 'inject') },
+    ].filter((g) => g.items.length);
+    const open = all.filter((g) => !g.isDone).length;
+    return { gapGroups: groups, gapsEmpty: empty, gapsBtn: 'Gaps · ' + (empty ? 0 : open), gapsTitle: empty ? 'No gaps' : open + ' gaps to look at' };
+  }
+}
+</script>
+</body>
+</html>

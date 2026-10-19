@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/orgpuls-design-system-d91c81f2-fbc3-4646-b16a-fd3ab94db56a/styles.css">
+  <script src="_ds/orgpuls-design-system-d91c81f2-fbc3-4646-b16a-fd3ab94db56a/_ds_bundle.js"></script>
+  <script src="data.js"></script>
+  <style>
+    html, body { margin: 0; background: #FCF6E9; color: #191510; font-family: var(--font-sans, 'DM Sans', system-ui, sans-serif); font-size: 14px; }
+    a { color: #2F5D2A; text-decoration: none; }
+    a:hover { color: #1E3D1A; text-decoration: underline; }
+    *:focus-visible { outline: 3px solid #191510; outline-offset: 2px; border-radius: 6px; }
+    @keyframes ht-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+  </style>
+</helmet>
+<div style="{{ gridStyle }}">
+  <sc-if value="{{ showChrome }}" hint-placeholder-val="{{ true }}">
+    <aside style="position: sticky; top: 0; height: 100vh; box-sizing: border-box; display: flex; flex-direction: column; border-right: 1px solid var(--op-line); background: var(--op-sf); padding: 14px 12px; overflow-y: auto;">
+      <button type="button" aria-label="Switch workspace" style="display: flex; align-items: center; gap: 10px; border: 1px solid var(--op-line); border-radius: 13px; background: var(--op-bg); padding: 8px 10px; cursor: pointer; font-family: inherit; color: var(--op-ink); text-align: left;">
+        <span aria-hidden="true" style="display: flex; width: 32px; height: 32px; flex: none; align-items: center; justify-content: center; border-radius: 9px; background: var(--op-ink); color: var(--op-bg); font-family: var(--font-display); font-size: 15px; font-weight: 600;">P</span>
+        <span style="min-width: 0; flex: 1;">
+          <span style="display: block; font-size: 13.5px; font-weight: 700;">Lumio Inc.</span>
+          <span style="display: block; font-size: 11.5px; color: var(--op-mut);">[Product] workspace</span>
+        </span>
+        <span aria-hidden="true" style="font-size: 11px; color: var(--op-mut);">▾</span>
+      </button>
+      <nav aria-label="Main" style="margin-top: 18px; display: flex; flex-direction: column; gap: 3px;">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="9">
+          <a href="{{ n.href }}" aria-current="{{ n.aria }}" onClick="{{ n.onClick }}" style="{{ n.style }}">
+            <span aria-hidden="true" style="{{ n.tileStyle }}">{{ n.icon }}</span>
+            <span style="flex: 1;">{{ n.label }}</span>
+            <sc-if value="{{ n.badge }}">
+              <span aria-label="{{ n.badgeLabel }}" style="display: inline-flex; min-width: 20px; height: 20px; align-items: center; justify-content: center; border-radius: 999px; background: var(--op-rustbar); color: var(--op-sf); font-size: 11px; font-weight: 700; padding: 0 6px; box-sizing: border-box;">{{ n.badge }}</span>
+            </sc-if>
+          </a>
+        </sc-for>
+      </nav>
+      <div style="margin-top: auto; padding-top: 16px; display: flex; flex-direction: column; gap: 8px;">
+        <a href="#/platform/tenants" onClick="{{ goPlatform }}" style="display: flex; align-items: center; gap: 8px; border-radius: 11px; padding: 7px 10px; font-size: 12.5px; font-weight: 600; color: var(--op-mut); text-decoration: none;">
+          <span aria-hidden="true">◇</span><span>Platform admin (staff)</span>
+        </a>
+        <a href="#/index" onClick="{{ goIndex }}" style="display: flex; align-items: center; gap: 8px; border: 1px dashed var(--op-rule); border-radius: 11px; padding: 9px 11px; font-size: 12.5px; font-weight: 600; color: var(--op-mut); text-decoration: none;">
+          <span aria-hidden="true">⌗</span><span>Prototype screen index</span>
+        </a>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; border-top: 1px solid var(--op-line); padding: 12px 4px 0;">
+          <span style="display: flex; flex-direction: column; gap: 2px;">
+            <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Data region</span>
+            <span style="font-size: 13px; font-weight: 700;">United States</span>
+          </span>
+          <span style="border-radius: 999px; background: var(--op-mint); color: var(--op-greendeep); padding: 4px 10px; font-size: 11px; font-weight: 700;">US</span>
+        </div>
+      </div>
+    </aside>
+  </sc-if>
+
+  <div style="min-width: 0; display: flex; flex-direction: column;">
+    <sc-if value="{{ showChrome }}" hint-placeholder-val="{{ true }}">
+      <header style="position: sticky; top: 0; z-index: 40; height: 56px; box-sizing: border-box; display: flex; align-items: center; gap: 16px; border-bottom: 1px solid var(--op-line); background: var(--op-sf); padding: 0 24px;">
+        <span style="min-width: 0; flex: 1; display: flex; align-items: baseline; gap: 10px; overflow: hidden;">
+          <span style="font-family: var(--font-display); font-size: 17px; font-weight: 600; white-space: nowrap;">{{ pageTitle }}</span>
+          <span style="font-size: 12.5px; color: var(--op-mut); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ crumb }}</span>
+        </span>
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--op-mut);">
+          <span style="white-space: nowrap;">Active role</span>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="role" options="{{ personaOptions }}" value="{{ persona }}" onChange="{{ onPersona }}" aria-label="Active role" hint-size="230px,34px"></x-import>
+        </label>
+        <span title="{{ personaName }}" style="display: flex; width: 32px; height: 32px; flex: none; align-items: center; justify-content: center; border-radius: 999px; background: var(--op-ink); color: var(--op-bg); font-size: 12px; font-weight: 700;">{{ personaInitials }}</span>
+      </header>
+    </sc-if>
+
+    <sc-if value="{{ showAnnot }}" hint-placeholder-val="{{ true }}">
+      <div style="position: relative; z-index: 30; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; border-bottom: 1px dashed var(--op-rule); background: var(--op-track); padding: 7px 24px; font-size: 12px; color: var(--op-body);">
+        <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; min-width: 0; flex: 1;">
+          <sc-if value="{{ chromeless }}">
+            <a href="#/home" onClick="{{ goHome }}" style="font-weight: 700; white-space: nowrap;">← App</a>
+            <a href="#/index" onClick="{{ goIndex }}" style="font-weight: 700; white-space: nowrap;">Index</a>
+          </sc-if>
+          <span style="border-radius: 6px; background: var(--op-ink); color: var(--op-bg); padding: 2px 7px; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap;">{{ annotId }}</span>
+          <span style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px;">{{ annotRoute }}</span>
+          <span style="color: var(--op-mut);">Opens for: <strong style="color: var(--op-ink); font-weight: 600;">{{ annotRoles }}</strong></span>
+        </span>
+        <sc-if value="{{ hasStates }}">
+          <span style="display: flex; align-items: center; gap: 8px;">
+            <span style="color: var(--op-mut);">State</span>
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Segmented" options="{{ stateOptions }}" value="{{ viewState }}" onChange="{{ onState }}" ariaLabel="Screen state" hint-size="200px,30px"></x-import>
+          </span>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <main style="min-width: 0; flex: 1; animation: ht-in .25s ease;">
+      <sc-if value="{{ isFile1 }}"><dc-import name="Marketing" path="{{ path }}" go="{{ go }}" persona="{{ persona }}" view-state="{{ viewState }}" hint-size="100%,900px"></dc-import></sc-if>
+      <sc-if value="{{ isFile2 }}"><dc-import name="OwnerWorkspace" path="{{ path }}" go="{{ go }}" persona="{{ persona }}" view-state="{{ viewState }}" hint-size="100%,900px"></dc-import></sc-if>
+      <sc-if value="{{ isFile3 }}"><dc-import name="Distribution" path="{{ path }}" go="{{ go }}" persona="{{ persona }}" view-state="{{ viewState }}" hint-size="100%,900px"></dc-import></sc-if>
+      <sc-if value="{{ isFile4 }}"><dc-import name="Contributor" path="{{ path }}" go="{{ go }}" persona="{{ persona }}" view-state="{{ viewState }}" hint-size="100%,900px"></dc-import></sc-if>
+      <sc-if value="{{ isFile5 }}"><dc-import name="DecideBrief" path="{{ path }}" go="{{ go }}" persona="{{ persona }}" view-state="{{ viewState }}" hint-size="100%,900px"></dc-import></sc-if>
+      <sc-if value="{{ isFile6 }}"><dc-import name="Actions" path="{{ path }}" go="{{ go }}" persona="{{ persona }}" view-state="{{ viewState }}" hint-size="100%,900px"></dc-import></sc-if>
+      <sc-if value="{{ isFile7 }}"><dc-import name="Admin" path="{{ path }}" go="{{ go }}" persona="{{ persona }}" view-state="{{ viewState }}" hint-size="100%,900px"></dc-import></sc-if>
+
+      <sc-if value="{{ isMissing }}">
+        <div style="max-width: 640px; margin: 0 auto; padding: 72px 24px;">
+          <div style="border: 1px dashed var(--op-rule); border-radius: 20px; background: var(--op-sf); padding: 32px;">
+            <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">{{ path }}</span>
+            <h1 style="margin: 10px 0 0; font-family: var(--font-display); font-size: 26px; line-height: 1.2; font-weight: 600;">This page doesn’t exist.</h1>
+            <p style="margin: 10px 0 0; font-size: 14px; line-height: 1.6; color: var(--op-mut);">The link may be old. Every screen in the prototype is listed in the index.</p>
+            <div style="margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px;">
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="secondary" onClick="{{ goBack }}" hint-size="90px,36px">← Back</x-import>
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ goIndex }}" hint-size="130px,36px">Screen index</x-import>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isIndex }}">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 32px 28px 56px; box-sizing: border-box;">
+          <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Prototype · IT Helpdesk Agent v1 · Lumio Inc. · Nov 12, 2026</span>
+          <h1 style="margin: 8px 0 0; font-family: var(--font-display); font-size: 28px; line-height: 1.2; font-weight: 600;">Screen index</h1>
+          <p style="margin: 8px 0 0; max-width: 640px; font-size: 14px; line-height: 1.6; color: var(--op-mut); text-wrap: pretty;">{{ indexLead }}</p>
+          <div style="margin-top: 24px; display: grid; gap: 13px; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));">
+            <sc-for list="{{ fileGroups }}" as="f" hint-placeholder-count="7">
+              <div style="border: 1px solid var(--op-line); border-radius: 20px; background: var(--op-sf); padding: 22px 24px;">
+                <span style="display: block; font-family: var(--font-display); font-size: 19px; font-weight: 600;">{{ f.label }}</span>
+                <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 6px;">
+                  <sc-for list="{{ f.screens }}" as="s">
+                    <a href="{{ s.href }}" onClick="{{ s.onClick }}" style="display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 8px; font-size: 13.5px;">
+                      <span style="font-weight: 700; color: var(--op-ink); font-variant-numeric: tabular-nums;">{{ s.id }}</span>
+                      <span style="min-width: 0;">{{ s.title }} <span style="font-family: ui-monospace, Menlo, monospace; font-size: 11px; color: var(--op-mut);">{{ s.route }}</span></span>
+                    </a>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+    </main>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showAnnotations&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Prototype&quot;}}">
+class Component extends DCLogic {
+  state = { path: this.readPath(), persona: 'kari', states: {} };
+  readPath() { const h = (window.location.hash || '').replace(/^#/, ''); return h && h.startsWith('/') ? h.split('?')[0] : '/home'; }
+  componentDidMount() {
+    this.onHash = () => { this.setState({ path: this.readPath() }); window.scrollTo(0, 0); };
+    window.addEventListener('hashchange', this.onHash);
+    if (!window.PD) this.poll = setInterval(() => { if (window.PD) { clearInterval(this.poll); this.forceUpdate(); } }, 50);
+  }
+  componentWillUnmount() { window.removeEventListener('hashchange', this.onHash); clearInterval(this.poll); }
+  go = (p) => { if (window.location.hash === '#' + p) return; window.location.hash = p; };
+  nav = (p) => (e) => { if (e && e.preventDefault) e.preventDefault(); this.go(p); };
+  renderVals() {
+    const PD = window.PD;
+    const path = this.state.path;
+    if (!PD) return { navItems: [], path, go: this.go, showChrome: true, gridStyle: { display: 'grid', gridTemplateColumns: '240px minmax(0, 1fr)', minHeight: '100vh' } };
+    const screen = PD.screens.find((s) => s.match.test(path));
+    const isIndex = path === '/index';
+    const chromeless = !!screen && screen.chrome === false;
+    const navKey = screen ? screen.nav : null;
+    const showAnnot = this.props.showAnnotations ?? true;
+    const viewState = screen ? (this.state.states[screen.id] || screen.states[0]) : '';
+    const p = PD.people[this.state.persona];
+    const navItems = PD.nav.map((n) => {
+      const cur = n.key === navKey;
+      return {
+        ...n, href: '#' + n.path, aria: cur ? 'page' : undefined, badgeLabel: n.badge + ' open', onClick: this.nav(n.path),
+        style: { display: 'flex', alignItems: 'center', gap: 11, borderRadius: 11, padding: '8px 10px', fontSize: 14, color: 'var(--op-ink)', textDecoration: 'none', background: cur ? 'var(--op-sbg)' : 'transparent', fontWeight: cur ? 700 : 500 },
+        tileStyle: { display: 'flex', height: 26, width: 26, flex: 'none', alignItems: 'center', justifyContent: 'center', borderRadius: 8, fontSize: 13, fontWeight: 700, background: cur ? 'var(--op-ac)' : 'var(--op-track)' },
+      };
+    });
+    const bm = path.match(/^\/briefs\/([\w-]+)/); const bObj = bm && PD.briefs.find((b) => b.id === bm[1]);
+    const file = screen ? screen.file : 0;
+    const fileGroups = Object.entries(PD.fileNames).map(([n, name]) => ({
+      label: n + ' · ' + name,
+      screens: PD.screens.filter((s) => s.file === +n).map((s) => ({ ...s, href: '#' + s.example, onClick: this.nav(s.example) })),
+    }));
+    return {
+      navItems, path, go: this.go, persona: this.state.persona,
+      gridStyle: chromeless ? { minHeight: '100vh', background: 'var(--op-bg)' } : { display: 'grid', gridTemplateColumns: '240px minmax(0, 1fr)', minHeight: '100vh', background: 'var(--op-bg)' },
+      showChrome: !chromeless, chromeless,
+      personaOptions: PD.personas, onPersona: (e) => this.setState({ persona: e.target.value }),
+      personaName: p.name + ' · ' + p.title, personaInitials: p.initials,
+      pageTitle: isIndex ? 'Screen index' : screen ? screen.title : 'Not found',
+      crumb: path.startsWith('/briefs/new') ? 'Round 0 · Frame' : bObj ? bObj.name + ' · ' + bObj.stage : path.startsWith('/platform') ? '[Product] staff · no customer content' : 'Lumio Inc.',
+      showAnnot: showAnnot && !!screen,
+      annotId: screen ? 'Screen ' + screen.id : '', annotRoute: screen ? screen.route : '', annotRoles: screen ? screen.roles : '',
+      hasStates: !!screen && screen.states.length > 1,
+      stateOptions: screen ? screen.states.map((s) => ({ value: s, label: s })) : [],
+      viewState, onState: (v) => this.setState((s) => ({ states: { ...s.states, [screen.id]: v } })),
+      isFile1: file === 1, isFile2: file === 2, isFile3: file === 3, isFile4: file === 4, isFile5: file === 5, isFile6: file === 6, isFile7: file === 7,
+      isMissing: !screen && !isIndex, isIndex,
+      indexLead: PD.screens.length + ' screens across 7 files. Every link in the prototype opens one of them; state toggles sit in the strip under the header.',
+      fileGroups,
+      goBack: () => window.history.back(), goIndex: this.nav('/index'), goHome: this.nav('/home'), goPlatform: this.nav('/platform/tenants'),
+    };
+  }
+}
+</script>
+</body>
+</html>

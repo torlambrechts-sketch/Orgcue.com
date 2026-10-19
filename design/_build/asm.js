@@ -1,0 +1,6 @@
+async function ASM(file, js, top = '', bottom = '') {
+  const head = await readFile('_build/head.html'), hel = await readFile('_build/helmet.html'), main = await readFile('_build/kit-main.html'), over = await readFile('_build/kit-over.html');
+  const tpl = hel + '\n<div style="min-width: 0; color: var(--op-ink); display: flex; flex-direction: column; gap: 16px;">' + top + main + bottom + over + '</div>';
+  await saveFile(file, head + '\n' + tpl + '\n</x-dc>\n<script type="text/x-dc" data-dc-script>\n' + js + '\n</script>\n</body>\n</html>\n');
+}
+const BASE = (state, body) => 'class Component extends DCLogic {\n  state = ' + state + ';\n  componentDidMount() { this.poll = setInterval(() => { if (window.OCK && window.OCD && window.React) { clearInterval(this.poll); this.un = window.OCK.sub(this); this.forceUpdate(); } }, 40); }\n  componentWillUnmount() { clearInterval(this.poll); this.un && this.un(); }\n  renderVals() { const K = window.OCK, D = window.OCD; if (!K || !D || !window.React) return { blocks: [], drawer: { open: false, blocks: [], btns: [] }, modal: { open: false, blocks: [], btns: [] }, bulk: { open: false, btns: [] } }; return K.page(this.build(K, D)); }\n' + body + '\n}';

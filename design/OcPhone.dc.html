@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/orgpuls-design-system-d91c81f2-fbc3-4646-b16a-fd3ab94db56a/styles.css">
+  <script src="_ds/orgpuls-design-system-d91c81f2-fbc3-4646-b16a-fd3ab94db56a/_ds_bundle.js"></script>
+  <script src="oc-kit.js"></script>
+  <script src="oc-data.js"></script>
+  <style>
+    html, body { margin: 0; background: #FCF6E9; color: #191510; font-family: var(--font-sans, 'DM Sans', system-ui, sans-serif); font-size: 14px; }
+    a { color: #2F5D2A; text-decoration: none; }
+    a:hover { color: #1E3D1A; text-decoration: underline; }
+    *:focus-visible { outline: 3px solid #191510; outline-offset: 2px; border-radius: 6px; }
+    @keyframes ht-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+  </style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 28px; padding: 8px 0 24px;">
+  <aside style="flex: 1 1 260px; max-width: 340px; display: flex; flex-direction: column; gap: 12px;">
+    <span style="font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">{{ eyebrow }}</span>
+    <h1 style="margin: 0; font-family: var(--font-display); font-size: 26px; line-height: 1.2; font-weight: 600;">{{ heading }}</h1>
+    <p style="margin: 0; font-size: 14px; line-height: 1.55; color: var(--op-body);">{{ note }}</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 6px;"><sc-for list="{{ jumps }}" as="j"><button type="button" onClick="{{ j.on }}" style="{{ j.st }}">{{ j.t }}</button></sc-for></div>
+    <a href="#/p/it-helpdesk/overview" onClick="{{ back }}" style="font-weight: 700;">← Back to the project</a>
+  </aside>
+  <div style="flex: none; width: 390px; height: 844px; box-sizing: border-box; border: 7px solid var(--op-ink); border-radius: 48px; background: var(--op-bg); overflow: hidden; box-shadow: 0 18px 40px -28px rgba(25,21,16,.35);">
+    <div style="height: 100%; overflow-y: auto; box-sizing: border-box; padding: 14px 20px 20px; display: flex; flex-direction: column; gap: 14px;">
+      <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700;"><span>9:41</span><span>{{ host }}</span></div>
+      <sc-if value="{{ s.brand }}"><div style="display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--op-line); padding-bottom: 10px;"><span style="display: flex; width: 34px; height: 34px; align-items: center; justify-content: center; border-radius: 10px; background: var(--op-ink); color: var(--op-bg); font-family: var(--font-display); font-weight: 600;">L</span><span style="font-size: 15px; font-weight: 700;">Lumio</span></div></sc-if>
+      <sc-if value="{{ s.hasProg }}"><div style="display: flex; flex-direction: column; gap: 6px;"><span style="display: flex; justify-content: space-between; font-size: 12.5px; color: var(--op-mut);"><span>{{ s.progLabel }}</span><span>{{ s.progRight }}</span></span><span style="display: block; height: 6px; border-radius: 999px; background: var(--op-ink-a08); overflow: hidden;"><span style="{{ s.progFill }}"></span></span></div></sc-if>
+      <sc-if value="{{ s.hasEyebrow }}"><span style="font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--op-mut);">{{ s.eyebrow }}</span></sc-if>
+      <span style="font-family: var(--font-display); font-size: 25px; line-height: 1.25; font-weight: 600; text-wrap: balance;">{{ s.title }}</span>
+      <sc-for list="{{ s.lines }}" as="l"><p style="{{ l.st }}">{{ l.t }}</p></sc-for>
+      <sc-for list="{{ s.facts }}" as="f"><div style="border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-sf); padding: 12px; display: flex; flex-direction: column; gap: 8px;"><span style="font-size: 15px; font-weight: 600; line-height: 1.45;">{{ f.t }}</span><div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;"><sc-for list="{{ f.ch }}" as="c"><button type="button" onClick="{{ c.on }}" aria-pressed="{{ c.sel }}" style="{{ c.st }}">{{ c.t }}</button></sc-for></div></div></sc-for>
+      <sc-if value="{{ s.hasTa }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" size="open" value="{{ s.ta }}" onChange="{{ s.onTa }}" placeholder="{{ s.taPh }}" aria-label="Your answer" hint-size="100%,130px"></x-import></sc-if>
+      <sc-if value="{{ s.hasChips }}"><div style="display: flex; flex-wrap: wrap; gap: 8px;"><sc-for list="{{ s.chips }}" as="c"><button type="button" onClick="{{ c.on }}" aria-pressed="{{ c.sel }}" style="{{ c.st }}">{{ c.t }}</button></sc-for></div></sc-if>
+      <sc-if value="{{ s.hasOpts }}"><div style="display: flex; flex-direction: column; gap: 8px;"><sc-for list="{{ s.opts }}" as="c"><button type="button" onClick="{{ c.on }}" aria-pressed="{{ c.sel }}" style="{{ c.st }}">{{ c.t }}</button></sc-for></div></sc-if>
+      <sc-if value="{{ s.hasNotes }}"><div style="display: flex; flex-direction: column; gap: 10px;"><sc-for list="{{ s.notes }}" as="n"><div style="{{ n.st }}">{{ n.t }}</div></sc-for></div></sc-if>
+      <sc-if value="{{ s.hasConsent }}"><button type="button" onClick="{{ s.onConsent }}" aria-pressed="{{ s.consent }}" style="display: flex; align-items: flex-start; gap: 12px; min-height: 50px; border: 1px solid var(--op-line); border-radius: 14px; background: var(--op-sf); padding: 12px; cursor: pointer; font-family: inherit; text-align: left; color: var(--op-ink);"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Mark" checked="{{ s.consent }}" size="{{ 22 }}" hint-size="22px,22px"></x-import><span style="font-size: 14px; line-height: 1.45;">{{ s.consentText }}</span></button></sc-if>
+      <div style="margin-top: auto; display: flex; flex-direction: column; gap: 8px; padding-top: 8px;">
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" block="{{ true }}" onClick="{{ s.primary.on }}" disabled="{{ s.primary.dis }}" hint-size="100%,48px">{{ s.primary.t }}</x-import>
+        <sc-if value="{{ s.hasSecondary }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" tone="ghost" block="{{ true }}" onClick="{{ s.secondary.on }}" hint-size="100%,48px">{{ s.secondary.t }}</x-import></sc-if>
+        <sc-if value="{{ s.hasFoot }}"><span style="text-align: center; font-size: 12px; color: var(--op-mut);">{{ s.foot }}</span></sc-if>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { i: 0, c: 0, pf: {}, str: 'Must-have', ans: 'Push to the phone they registered, then reset only after they approve.', fu: 'Only reset after the push is approved on the registered phone.', idea: '', ideas: ['A weekly digest of what the agent couldn’t answer.'], consent: false, pick: {}, txt: '' };
+  componentDidMount() { this.poll = setInterval(() => { if (window.OCK) { clearInterval(this.poll); this.un = window.OCK.sub(this); this.forceUpdate(); } }, 40); }
+  componentWillUnmount() { clearInterval(this.poll); this.un && this.un(); }
+  btn(sel, h) { return { minHeight: h || 44, cursor: 'pointer', borderRadius: 14, padding: '10px 12px', fontFamily: 'inherit', fontSize: 14, fontWeight: sel ? 700 : 500, border: (sel ? '2px solid var(--op-ink)' : '1px solid var(--op-rule)'), background: sel ? 'var(--op-sbg)' : 'var(--op-sf)', color: 'var(--op-ink)', textAlign: 'left' }; }
+  sc(o) { const s = { brand: false, hasProg: false, progLabel: '', progRight: '', progFill: {}, hasEyebrow: false, eyebrow: '', title: '', lines: [], facts: [], hasTa: false, ta: '', onTa: () => {}, taPh: '', hasChips: false, chips: [], hasOpts: false, opts: [], hasNotes: false, notes: [], hasConsent: false, consent: false, onConsent: () => {}, consentText: '', primary: { t: 'Next', on: () => {}, dis: false }, hasSecondary: false, secondary: { t: '', on: () => {} }, hasFoot: false, foot: '', ...o };
+    s.lines = (o.lines || []).map((l) => (typeof l === 'string' ? { t: l, st: { margin: 0, fontSize: 15, lineHeight: 1.55, color: 'var(--op-body)' } } : { t: l.t, st: { margin: 0, fontSize: l.small ? 13 : 15, lineHeight: 1.55, color: l.mut ? 'var(--op-mut)' : 'var(--op-ink)', fontWeight: l.b ? 700 : 400, display: 'flex', gap: 8 } }));
+    if (o.prog != null) { s.hasProg = true; s.progFill = { display: 'block', height: '100%', width: o.prog + '%', background: 'var(--op-ac)' }; }
+    s.hasEyebrow = !!o.eyebrow; s.hasTa = o.ta != null; s.hasChips = !!(o.chips && o.chips.length); s.hasOpts = !!(o.opts && o.opts.length); s.hasNotes = !!(o.notes && o.notes.length); s.hasConsent = o.consentText != null; s.hasSecondary = !!o.secondary; s.hasFoot = !!o.foot; return s; }
+  renderVals() {
+    const K = window.OCK; const st = this.state, cust = (this.props.path || '').startsWith('/customer');
+    if (!K) return { s: this.sc({}), jumps: [] };
+    const go = (n) => () => this.setState(cust ? { c: n } : { i: n });
+    const strength = ['Must-have', 'Nice-to-have', 'Just an idea'].map((t) => ({ t, sel: st.str === t, on: () => this.setState({ str: t }), st: { ...this.btn(st.str === t), borderRadius: 999, padding: '10px 14px' } }));
+    const P = [
+      this.sc({ eyebrow: 'Kari Nordmann · IT Service Manager asked you', title: 'Sam, we need what you know about escalations.', lines: ['We’re writing the rules for the IT helpdesk agent. You know when a person has to take over better than anyone.', { t: '6 questions · about 12 min · Due Nov 14', b: true }, { t: '✓ Your answers stay private until everyone has answered.' }, { t: '✓ You’ll see what happened to your input.' }, { t: '✓ This is about the work, not about people.' }], primary: { t: 'Start', on: go(1) }, foot: 'No account needed' }),
+      this.sc({ prog: 8, progLabel: 'Before you start', progRight: 'About 1 min', title: 'Here’s what we already know.', lines: [{ t: 'From the IT service catalogue and the library. Mark each one.', small: true, mut: true }], facts: ['Resets need the employee ID and a manager’s name.', 'The on-call rota lives in PagerDuty.', 'Approvals take about 3 days.'].map((t, j) => ({ t, ch: ['Correct', 'Needs a change', 'Out of date'].map((c) => ({ t: c, sel: st.pf[j] === c, on: () => this.setState({ pf: { ...st.pf, [j]: c } }), st: { ...this.btn(st.pf[j] === c), padding: '8px 6px', fontSize: 13, textAlign: 'center' } })) })), primary: { t: 'Continue', on: go(2) } }),
+      this.sc({ prog: 33, progLabel: 'Escalation rules · question 2 of 6', progRight: 'About 9 min left', title: 'When must a person take over, day or night?', lines: [{ t: 'Think of a real ticket. One example beats a rule.', small: true, mut: true }], ta: st.ans, onTa: (e) => this.setState({ ans: e.target.value }), taPh: 'Your answer', chips: strength, primary: { t: 'Next', on: go(3) }, secondary: { t: 'Skip · not my area', on: go(3) } }),
+      this.sc({ prog: 50, progLabel: 'Follow-up · 1 of 3', progRight: 'About 1 min', title: 'You mentioned “secure”. Which check must happen before a reset?', lines: [{ t: 'You wrote: “Make sure resets are secure and fast.”', small: true, mut: true }], ta: st.fu, onTa: (e) => this.setState({ fu: e.target.value }), chips: strength, primary: { t: 'Next', on: go(4) }, secondary: { t: 'Skip', on: go(4) } }),
+      this.sc({ prog: 90, progLabel: 'Almost done', progRight: st.ideas.length + ' of 3 ideas', title: 'Anything else we should consider?', lines: [{ t: 'Up to 3 private ideas. Nobody sees them until collection closes.', small: true, mut: true }], notes: st.ideas.map((t, j) => ({ t, st: { background: 'var(--op-ac)', borderRadius: 6, padding: 14, fontFamily: 'var(--font-display)', fontSize: 16, lineHeight: 1.4, transform: 'rotate(' + (j % 2 ? 1 : -1) + 'deg)' } })), ta: st.ideas.length < 3 ? st.idea : null, onTa: (e) => this.setState({ idea: e.target.value }), taPh: 'Write an idea',
+        primary: st.idea.trim() ? { t: 'Add idea', on: () => this.setState({ ideas: st.ideas.concat(st.idea.trim()), idea: '' }) } : { t: 'Finish', on: go(5) }, secondary: st.idea.trim() ? { t: 'Finish', on: go(5) } : null }),
+      this.sc({ title: 'Thanks, Sam.', lines: ['Your answers are saved and stay private until everyone has answered.', { t: 'You’ll get one message when it’s time to review.', b: true }], primary: { t: 'Done', on: K.nav('/p/it-helpdesk/my-input') }, secondary: { t: 'Start again', on: go(0) } }),
+    ];
+    const opt = (q, list) => list.map((t) => ({ t, sel: st.pick[q] === t, on: () => this.setState({ pick: { ...st.pick, [q]: t } }), st: this.btn(st.pick[q] === t, 50) }));
+    const C = [
+      this.sc({ brand: true, title: 'Help us build a better support assistant', lines: [{ t: '4 short questions · About 3 minutes · No account needed', b: true }, 'Your answers shape how our assistant works. We’ll tell you what changed because of them.'], consentText: 'I agree that Lumio may use my answers to improve support. Personal details are removed before analysis.', consent: st.consent, onConsent: () => this.setState({ consent: !st.consent }), primary: { t: 'Start', on: go(1), dis: !st.consent }, foot: 'Powered by Orgcue' }),
+      this.sc({ brand: true, prog: 25, progLabel: 'Question 1 of 4', title: 'When you last needed help with your account, what happened?', ta: st.txt, onTa: (e) => this.setState({ txt: e.target.value }), taPh: 'Tell us in your own words', primary: { t: 'Next', on: go(2) }, foot: 'Powered by Orgcue' }),
+      this.sc({ brand: true, prog: 50, progLabel: 'Question 2 of 4', title: 'How do you prefer to get help?', opts: opt('q2', ['Chat', 'Email', 'Phone', 'Help article']), primary: { t: 'Next', on: go(3), dis: !st.pick.q2 }, foot: 'Powered by Orgcue' }),
+      this.sc({ brand: true, prog: 75, progLabel: 'Question 3 of 4', title: 'How long is it OK to wait for a person?', opts: opt('q3', ['Under 5 minutes', 'Under 1 hour', 'Same day', 'Next day']), primary: { t: 'Next', on: go(4), dis: !st.pick.q3 }, foot: 'Powered by Orgcue' }),
+      this.sc({ brand: true, prog: 100, progLabel: 'Question 4 of 4', title: 'Would you trust a chat assistant to reset your password?', opts: opt('q4', ['Yes', 'Only with extra checks', 'No']), primary: { t: 'Send answers', on: go(5), dis: !st.pick.q4 }, foot: 'Powered by Orgcue' }),
+      this.sc({ brand: true, title: 'Thank you.', lines: ['We will let you know what changed because of your answers.'], primary: { t: 'Close', on: go(0) }, foot: 'Powered by Orgcue' }),
+    ];
+    const list = cust ? C : P, idx = cust ? st.c : st.i;
+    const names = cust ? ['Intro', 'Q1', 'Q2', 'Q3', 'Q4', 'Thanks'] : ['Invite', 'Prefill', 'Question', 'Follow-up', 'Ideas', 'Thanks'];
+    return { s: list[idx], host: cust ? 'help.lumio.com' : 'orgcue.com/r/sam', eyebrow: cust ? 'Customer answer page · external respondent' : 'Contributor phone flow · Sam Okafor',
+      heading: cust ? 'What a customer sees' : 'Answering on the phone', note: cust ? 'Branded, in the respondent’s language, consent first. Answers never reach internal names or project content, and never set constraints.' : 'Six screens, every target at least 44 px. Answers stay private until the owner closes collection.',
+      jumps: names.map((t, j) => ({ t: (j + 1) + ' ' + t, on: go(j), st: { cursor: 'pointer', borderRadius: 999, padding: '6px 11px', fontFamily: 'inherit', fontSize: 12.5, fontWeight: 700, border: 'none', background: j === idx ? 'var(--op-ink)' : 'var(--op-track)', color: j === idx ? 'var(--op-bg)' : 'var(--op-ink)' } })),
+      back: K.nav(cust ? '/p/it-helpdesk/members' : '/p/it-helpdesk/overview') };
+  }
+}
+</script>
+</body>
+</html>

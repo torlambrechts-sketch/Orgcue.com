@@ -1,0 +1,87 @@
+/* eslint-disable */
+// Screen logic ported from design/design_handoff_orgcue/prototype/OcPages.dc.html (the <script data-dc-script> class).
+// Kept as written in the design file so layout, copy and behavior match; edits are marked "ORGCUE:".
+// The markup it feeds is rendered by src/components/Blocks.tsx.
+import { DCLogic, win as window } from '@/oc/dc';
+export default class OcPages extends DCLogic {
+  state = {};
+  componentWillUnmount() { clearInterval(this.poll); this.un && this.un(); }
+  renderVals() { const K = window.OCK, D = window.OCD; if (!K || !D || !window.React) return { blocks: [], drawer: { open: false, blocks: [], btns: [] }, modal: { open: false, blocks: [], btns: [] }, bulk: { open: false, btns: [] } }; return K.page(this.build(K, D)); }
+
+  build(K, D) { const page = (this.props.path || '/home').split('/')[1] || 'home'; return this[page] ? this[page](K, D) : this.home(K, D); }
+  ph(K, p) { return p.phase || K.S.phase; }
+  projRows(K, D) { return D.projects.map((p) => ({ p, phase: this.ph(K, p) })); }
+  col(K, ph) { return K.stc(ph)[0] === 'var(--op-track)' ? 'var(--op-mut)' : K.stc(ph)[0]; }
+  home(K, D) {
+    const r = K.S.role, me = D.people[K.who()], n = K.next();
+    const out = [K.head({ eyebrow: 'Lumio Inc. · Thursday, November 12', title: 'Good morning, ' + me.first })];
+    out.push(K.panel({ w: 520, strong: true, fill: 'var(--op-sbg)', title: 'Next step', chip: K.S.phase + ' · ' + { owner: 'Owner', decider: 'Decider', contributor: 'Contributor', admin: 'Org admin' }[r], chipTone: 'ink' }, [K.i.t(n.t, { size: 24 }), K.i.p(n.why), n.cta ? K.i.btns(K.nextBtns(n)) : null]));
+    const shades = ['var(--op-track)', 'var(--op-mint)', 'var(--op-sage)', 'var(--op-link)'];
+    const cells = []; for (let d = 0; d < 7; d++) { cells.push({ k: 'text', t: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][d], mut: true }); for (let c = 0; c < 14; c++) { const v = d > 4 ? ((c * 7 + d) % 5 === 0 ? 1 : 0) : ((c * 13 + d * 7) % 11) % 4; cells.push({ k: 'chip', t: '', st: { display: 'block', width: '100%', height: 16, borderRadius: 4, background: shades[c > 9 && d < 5 ? Math.min(3, v + 1) : v] } }); } }
+    out.push(K.panel({ w: 420, title: 'Input received', note: 'last 14 days · IT Helpdesk Agent v1' }, [K.i.grid('34px repeat(14, minmax(0, 1fr))', cells), K.i.pills([['None', 0], ['A few', 1], ['Some', 2], ['Many', 3]].map(([t, i]) => ({ t, st: { ...K.tone('line'), background: shades[i], color: i === 3 ? 'var(--op-sf)' : 'var(--op-ink)' } })))]));
+    const FY = { owner: [['Nudge', 'Tom Becker hasn’t started', 'Opened the invite Nov 3 · 2 reminders sent', 'Nudged Tom Becker'], ['Review', '3 ideas ready to promote', 'N-03, N-07, N-11', '/p/it-helpdesk/brainstorm'], ['Open', 'A-017 is overdue', 'Add personal-device question to the FAQ · due Nov 10', '/p/it-helpdesk/actions'], ['Read', 'Daniel asked you about DEC-06', '“What does a 15-minute on-call page cost us per month?”', '/p/it-helpdesk/spec']],
+      decider: [['Decide', 'DEC-03 Password resets through chat', 'Pins CI-0231 v2 · open 17 days', '/p/it-helpdesk/spec'], ['Decide', 'DEC-07 Tone wording', 'Sam kept his wording · both versions are with you', '/p/it-helpdesk/spec'], ['Review', 'Generation diff waiting', 'Copilot Studio · 42 instructions', '/p/it-helpdesk/generate']],
+      contributor: [['Accept', 'A-016 Write on-call escalation runbook', 'Requested by Daniel Reyes · due Nov 21', '/p/it-helpdesk/actions'], ['Review', 'Agree or Object on 3 items', 'Escalation rules and Examples', '/p/it-helpdesk/spec'], ['Read', 'What happened to your input', '2 used · 1 sent to a decision', '/p/it-helpdesk/my-input']],
+      admin: [['Open', 'ServiceNow isn’t connected', '2 actions reference ServiceNow change requests', '/settings/integrations'], ['Review', '12 seats left', '48 of 60 used', '/settings/billing']] }[r];
+    out.push(K.panel({ w: 520, title: 'For you', note: FY.length + ' items' }, FY.map(([kind, t, s, to]) => K.i.row({ chips: [K.chip(kind, kind === 'Decide' ? 'dec' : kind === 'Accept' ? 'warn' : 'mut')], title: t, sub: s, btns: [K.b(kind, to.startsWith('/') ? K.nav(to) : () => K.toast(to))] }))));
+    if (r === 'owner' && !K.S.all) { const p = K.pi(); out.push(K.panel({ w: 420, title: 'Getting started' }, [['Project created', true], ['Questions reviewed', p >= 1], ['3+ members sent', p >= 1], ['First input in', p >= 1], ['Spec generated', p >= 4]].map(([t, on]) => K.i.check(t, on, () => {})))); }
+    return { blocks: out.concat(this.projViews(K, D, 'home-projects', 'Your projects', 'Projects you own, decide or contribute to.')) };
+  }
+  projCells(K, p, ph) { return [{ k: 'text', t: p.name, b: true, sub: p.template || '' }, p.type, { k: 'avatar', t: p.owner }, { k: 'status', t: ph }, p.answered, { k: 'text', t: String(p.conflicts), warn: p.conflicts > 0 }, String(p.actions), p.next, p.target]; }
+  projTable(K, D, title) { const rows = this.projRows(K, D);
+    return K.table({ title, cols: ['Project', 'Type', 'Owner', 'Phase', 'Answered', 'Conflicts', 'Actions', 'Next milestone', 'Target'], grid: 'minmax(220px, 2fr) 110px 170px 110px 90px 90px 80px minmax(160px, 1.2fr) 150px', minW: 1200, noun: 'projects',
+      groups: K.PH.filter((ph) => rows.some((x) => x.phase === ph)).map((ph) => ({ title: ph, color: this.col(K, ph), rows: rows.filter((x) => x.phase === ph).map(({ p }) => ({ on: K.nav('/p/' + p.id + '/overview'), status: ph, cells: this.projCells(K, p, ph) })) })) }); }
+  projects(K, D) { return { blocks: this.projViews(K, D, 'projects', 'Projects', 'Every project at Lumio, from framing to live.') }; }
+  projViews(K, D, key, title, sub) {
+    const rows = this.projRows(K, D), can = K.S.role === 'owner' || K.S.role === 'admin';
+    return K.views({ key, title, sub, groupBy: 'Phase', boardBy: 'Phase', noun: 'projects', add: can ? 'project' : null,
+      primary: can ? [K.b('＋ New project', () => K.set({ wiz: { step: 0 } }), 'primary')] : [],
+      cols: ['Project', 'Type', 'Owner', 'Phase', 'Answered', 'Conflicts', 'Actions', 'Next milestone', 'Target'], grid: 'minmax(220px, 2fr) 110px 170px 110px 90px 90px 80px minmax(160px, 1.2fr) 150px', minW: 1200,
+      groups: K.PH.map((ph) => ({ title: ph, color: this.col(K, ph), onAdd: () => K.set({ wiz: { step: 0 } }), rows: rows.filter((x) => x.phase === ph).map(({ p }) => ({ search: p.name + ' ' + p.owner, status: ph, on: K.nav('/p/' + p.id + '/overview'), cells: this.projCells(K, p, ph) })) })).filter((g) => g.rows.length),
+      board: K.PH.map((ph) => ({ title: ph, color: this.col(K, ph), cards: rows.filter((x) => x.phase === ph).map(({ p }) => ({ search: p.name, tag: p.type, id: p.target, title: p.name, desc: 'Answered ' + p.answered, person: p.owner, role: '· owner', warn: p.conflicts ? p.conflicts + ' conflicts' : '', left: p.next, right: p.actions + ' actions', on: K.nav('/p/' + p.id + '/overview') })) })),
+      timeline: { start: '2026-05-01', end: '2027-02-28', foot: 'Bars span start date → target date. The red line is today, Nov 12.', rows: rows.map(({ p, phase }) => ({ search: p.name, label: p.name, sub: phase + ' · ' + p.owner, color: p.color, from: p.start, to: p.end, status: phase, barLabel: phase, on: K.nav('/p/' + p.id + '/overview') })) } }, this);
+  }
+  tq(D, t) { const n = (D.presets[t.type] || []).length; const q = n * 2 - 1; return { q, min: Math.min(q, 8) * 2 }; }
+  templates(K, D) {
+    const cats = ['AI agents', 'Software', 'Policies', 'Processes'], C = { 'AI agents': 'var(--op-ink)', Software: 'var(--op-link)', Policies: 'var(--op-caution)', Processes: 'var(--op-dangerdeep)' };
+    const who = { 'AI agent': 'Service desk, Security, Finance, Legal', Software: 'Engineering, Product, Security', Policy: 'Legal, Security, People', Process: 'Process owner, performers' };
+    const use = (t) => K.esc(() => K.set({ wiz: { step: 1, tpl: t.name, type: t.type } }));
+    const add6 = (s) => { const d = K.date(s); d.setMonth(d.getMonth() + 6); return d.toISOString().slice(0, 10); };
+    const row = (t) => { const c = this.tq(D, t); return { search: t.name, status: t.status, cells: [{ k: 'text', t: t.name + (t.isNew ? ' · New' : ''), b: true, sub: t.desc }, { k: 'status', t: t.status }, String(c.q), '~' + c.min + ' min', { k: 'text', t: who[t.type], mut: true }, t.output, t.used + ' projects', { k: 'avatar', t: t.owner }, { k: 'btn', t: 'Use', on: use(t), tone: 'primary' }] }; };
+    return { blocks: K.views({ key: 'templates', title: 'Templates', sub: 'Start a project with sections, questions and frameworks already set.', groupBy: 'Category', boardBy: 'Status', noun: 'templates', add: 'template',
+      primary: [K.b('＋ Custom project', () => K.set({ wiz: { step: 0, scratch: true } }), 'primary'), K.b('New template', () => K.toast('Template builder opens with an empty section list'))],
+      cols: ['Template', 'Status', 'Questions', 'Time', 'Who answers', 'Output', 'Used in', 'Owner', ''], grid: 'minmax(240px, 2.2fr) 110px 90px 80px minmax(150px, 1.2fr) minmax(150px, 1.2fr) 100px 160px 80px', minW: 1200,
+      groups: cats.map((c) => ({ title: c, color: C[c], rows: D.templates.filter((t) => t.cat === c).map(row) })),
+      board: ['Draft', 'In review', 'Published'].map((s) => ({ title: s, color: K.stc(s)[0], cards: D.templates.filter((t) => t.status === s).map((t) => ({ search: t.name, tag: t.cat, id: this.tq(D, t).q + ' questions', title: t.name, desc: t.desc, person: t.owner, left: t.output, right: 'Used in ' + t.used, on: use(t) })) })),
+      timeline: { start: '2026-06-01', end: '2027-05-31', foot: 'Bars span last update → next review (6 months).', rows: D.templates.map((t) => ({ search: t.name, label: t.name, sub: t.cat + ' · ' + t.status, color: C[t.cat], from: t.updated, to: add6(t.updated), status: t.status, barLabel: t.status, on: use(t) })) } }, this) };
+  }
+  library(K, D) {
+    const S = K.S, pend = S.libPending, asked = S.libAsked || {};
+    const status = (x) => (x.id === 'LIB-HC-015' && pend ? 'Change pending' : asked[x.id] ? 'Fresh' : x.status);
+    const text = (x) => (x.id === 'LIB-HC-015' && pend ? 'MUST NOT order hardware above $400 without manager approval. (proposed · was $250)' : x.text);
+    const act = (x) => x.kind === 'Shared constraints' ? { k: 'btn', t: x.id === 'LIB-HC-015' && pend ? 'Withdraw' : 'Propose change', on: K.esc(() => { if (x.id !== 'LIB-HC-015') return K.toast('Change proposed for ' + x.id + ' · owner asked to confirm'); K.set({ libPending: !pend }); K.toast(pend ? 'Change withdrawn · LIB-HC-015 back to $250' : 'Change proposed · 3 projects get a review prompt'); }) } : { k: 'btn', t: 'Still true?', on: K.esc(() => { K.set({ libAsked: { ...asked, [x.id]: true } }); K.toast('Asked ' + x.owner + ' whether ' + x.id + ' is still true'); }) };
+    const fmt = (s) => K.date(s).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const row = (x) => ({ search: x.id + ' ' + x.text, status: status(x), cells: [{ k: 'text', t: x.id, mono: true, b: true }, text(x), { k: 'avatar', t: x.owner }, { k: 'text', t: x.source, mut: true }, { k: 'status', t: status(x) }, x.used + ' projects', fmt(x.to), act(x)] });
+    const ban = pend ? K.banner('Change pending on LIB-HC-015 ($250 → $400). Nothing changes until each owner confirms: IT Helpdesk Agent v1 (Kari Nordmann) · Customer Support Agent Tier 1 (Grace Kim) · Expense Approval Service (Raj Patel).', 'warn', [K.b('Withdraw', () => { K.set({ libPending: false }); K.toast('Change withdrawn'); })]) : null;
+    return { blocks: K.views({ key: 'library', title: 'Library', sub: 'Shared constraints and known facts. Every project that uses a topic inherits them.', groupBy: 'Kind', boardBy: 'Status', noun: 'items', add: 'item', banner: ban,
+      kpis: [{ label: 'Reuses', value: '126', note: 'across 5 projects' }, { label: 'Member time saved', value: '31 h', note: 'this quarter', good: true }, { label: 'Facts due', value: '2', note: 'for a “still true?” check', warn: true }],
+      primary: [K.b('＋ Add constraint', () => K.toast('New shared constraint drafted · pick an owner'), 'primary'), K.b('＋ Add fact', () => K.toast('New known fact drafted'))],
+      extra: [K.panel({ title: 'How reuse works', w: 'full' }, [K.i.grid('repeat(auto-fit, minmax(220px, 1fr))', [{ k: 'text', t: 'Frame', b: true, sub: 'Matching questions are removed or pre-filled before anyone is asked.' }, { k: 'text', t: 'Collect', b: true, sub: 'Facts appear as prefill cards for members to confirm.' }, { k: 'text', t: 'After a project', b: true, sub: 'Finished projects suggest new library items. An owner approves each one.' }])])],
+      cols: ['ID', 'Item', 'Owner', 'Source', 'Status', 'Used in', 'Next review', ''], grid: '120px minmax(260px, 2.4fr) 160px minmax(130px, 1fr) 130px 100px 120px 140px', minW: 1180,
+      groups: ['Shared constraints', 'Known facts'].map((k, i) => ({ title: k, color: i ? 'var(--op-link)' : 'var(--op-dangerdeep)', rows: D.library.filter((x) => x.kind === k).map(row) })),
+      board: ['Confirmed', 'Fresh', 'Check due', 'Change pending'].map((s) => ({ title: s, color: K.stc(s)[0], cards: D.library.filter((x) => status(x) === s).map((x) => ({ search: x.id, tag: x.kind === 'Known facts' ? 'Fact' : 'Constraint', id: x.id, title: text(x), person: x.owner, left: 'Used in ' + x.used, right: 'Review ' + fmt(x.to) })) })),
+      timeline: { start: '2026-01-01', end: '2027-05-31', foot: 'Bars span confirmed → next review.', rows: D.library.map((x) => ({ search: x.id, label: x.id, sub: x.owner, color: x.kind === 'Known facts' ? 'var(--op-link)' : 'var(--op-dangerdeep)', from: x.from, to: x.to, status: status(x), barLabel: status(x) })) } }, this) };
+  }
+  portfolio(K, D) {
+    if (K.S.role === 'contributor') return { blocks: [K.banner('Portfolio is for owners, deciders and admins.', 'info')] };
+    const PC = [['Frame', 'var(--op-track)'], ['Collect', 'var(--op-ac)'], ['Review', 'var(--op-mint)'], ['Decide', 'var(--op-viz5)'], ['Validate', 'var(--op-link)']];
+    const R = [['IT Helpdesk Agent v1', [5, 10, 5, 9, 0], 29, 74, 4, 38, 0], ['Expense Approval Service', [3, 7, 4, 3, 6], 23, 61, 1, 44, 1], ['AI Acceptable Use Policy 2027', [6, 4, 0, 0, 0], 10, 52, 0, 22, 0], ['Customer Support Agent Tier 1', [4, 6, 3, 2, 5], 20, 88, 2, 12, 2], ['Customer Refund Agent', [3, 5, 3, 2, 4], 17, 70, 3, 0, 1]];
+    const seg = (days) => { const tot = days.reduce((a, b) => a + b, 0) || 1; return { k: 'chips', list: days.map((d, i) => ({ t: d ? String(d) : '', st: { display: d ? 'flex' : 'none', alignItems: 'center', justifyContent: 'center', width: 'calc(' + (d / tot * 100) + '% - 4px)', height: 20, borderRadius: 4, background: PC[i][1], color: i === 4 ? 'var(--op-sf)' : 'var(--op-ink)', fontSize: 11, fontWeight: 700 } })) }; };
+    return { blocks: [K.head({ eyebrow: 'Lumio Inc. · Q4 2026', title: 'Portfolio', sub: 'How projects move, and where time goes. Counts only — nobody is ranked.' }),
+      K.kpis([{ label: 'Median days, Frame to Live', value: '23', note: '−9 vs Q2', good: true }, { label: 'Member minutes per project', value: '74', note: '−18 with library reuse', good: true }, { label: 'Questions skipped automatically', value: '31 %', note: '212 questions · 318 min saved' }, { label: 'Conflicts per project', value: '2.0', note: 'median' }, { label: 'Regenerations after lock', value: '0.8', note: 'down from 2.1 since the linter', good: true }]),
+      K.table({ title: 'Days per phase', note: 'Frame · Collect · Review · Decide · Validate', cols: ['Project', 'Days per phase', 'Total', 'Member min', 'Conflicts', 'Reused', 'Regenerations'], grid: 'minmax(220px, 1.4fr) minmax(260px, 2fr) 70px 100px 90px 80px 120px', minW: 1000, rows: R.map((x) => [{ k: 'text', t: x[0], b: true }, seg(x[1]), x[2] + ' d', String(x[3]), String(x[4]), x[5] + ' %', String(x[6])]) }),
+      K.panel({ w: 'full', plain: true }, [K.i.pills(PC.map(([t, c], i) => ({ t, st: { ...K.tone('line'), background: c, color: i === 4 ? 'var(--op-sf)' : 'var(--op-ink)' } })))]),
+      K.panel({ w: 520, title: 'Repeat questions', actions: [K.b('Add the missing to the library', () => K.toast('2 questions sent to owners as library suggestions'), 'primary')] }, [['Which verification is required before a reset?', 4, 'In library · LIB-HC-007'], ['Up to what amount may hardware be ordered?', 3, 'In library · LIB-HC-015'], ['Which systems may the AI read?', 3, 'Not in library'], ['How long is it OK to wait for a person?', 2, 'Not in library']].map(([q, n, s]) => K.i.row({ title: q, sub: 'Asked in ' + n + ' projects', chips: [K.chip(s, s.startsWith('In') ? 'ok' : 'warn')] }))),
+      K.panel({ w: 520, title: 'Where time is lost' }, [['Legal and risk answers 6 days after the deadline on average', 'Adjust template'], ['Customer Support Agent Tier 1 regenerated 3× after lock', 'Run linter'], ['Collect runs 10 days when 3+ authority members are invited', 'Shorten window'], ['Finance questions are asked again in every project', 'Add to library']].map(([t, a]) => K.i.row({ title: t, btns: [K.b(a, () => K.toast(a + ' · opened'))] })))] };
+  }
+}

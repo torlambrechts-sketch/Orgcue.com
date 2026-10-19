@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/orgpuls-design-system-d91c81f2-fbc3-4646-b16a-fd3ab94db56a/styles.css">
+  <script src="_ds/orgpuls-design-system-d91c81f2-fbc3-4646-b16a-fd3ab94db56a/_ds_bundle.js"></script>
+  <script src="data.js"></script>
+  <style>
+    a { color: #2F5D2A; text-decoration: none; }
+    a:hover { color: #1E3D1A; text-decoration: underline; }
+  </style>
+</helmet>
+<div style="min-width: 0; color: var(--op-ink); font-family: var(--font-sans, 'DM Sans', system-ui, sans-serif); font-size: 14px;">
+<div style="max-width: 1200px; margin: 0 auto; padding: 28px 28px 56px; box-sizing: border-box;">
+  <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px;">
+    <span style="min-width: 0; max-width: 760px;"><span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">{{ eyebrow }}</span><h1 style="margin: 4px 0 0; font-family: var(--font-display); font-size: 28px; line-height: 36px; font-weight: 600; text-wrap: balance;">{{ title }}</h1><sc-if value="{{ lead }}"><p style="margin: 6px 0 0; font-size: 14.5px; line-height: 1.55; color: var(--op-body); text-wrap: pretty;">{{ lead }}</p></sc-if></span>
+    <span style="display: flex; flex-wrap: wrap; gap: 8px;"><sc-for list="{{ headActions }}" as="h"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="{{ h.tone }}" onClick="{{ h.onClick }}" hint-size="140px,36px"><span style="white-space: nowrap;">{{ h.label }}</span></x-import></sc-for></span>
+  </div>
+  <sc-if value="{{ hasTabs }}"><div style="margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px;"><sc-for list="{{ tabs }}" as="t"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Pill" selected="{{ t.selected }}" onClick="{{ t.onClick }}" hint-size="90px,32px"><span style="white-space: nowrap;">{{ t.label }}</span></x-import></sc-for></div></sc-if>
+  <sc-if value="{{ hasSubTabs }}"><div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 4px;"><sc-for list="{{ subTabs }}" as="t"><button type="button" onClick="{{ t.onClick }}" aria-pressed="{{ t.selected }}" style="{{ t.style }}">{{ t.label }}</button></sc-for></div></sc-if>
+  <div style="margin-top: 16px; display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start;">
+    <sc-for list="{{ blocks }}" as="b" hint-placeholder-count="3">
+      <section style="{{ b.style }}">
+        <sc-if value="{{ b.hasHead }}">
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 10px;">
+            <span style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; min-width: 0;"><h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">{{ b.title }}</h2><sc-if value="{{ b.chip }}"><span style="{{ b.chipStyle }}">{{ b.chip }}</span></sc-if><span style="font-size: 12.5px; color: var(--op-mut);">{{ b.note }}</span></span>
+            <span style="display: flex; flex-wrap: wrap; gap: 6px;"><sc-for list="{{ b.actions }}" as="a"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="{{ a.tone }}" onClick="{{ a.onClick }}" disabled="{{ a.disabled }}" hint-size="110px,32px"><span style="white-space: nowrap;">{{ a.label }}</span></x-import></sc-for></span>
+          </div>
+        </sc-if>
+        <sc-if value="{{ b.isBanner }}"><div style="{{ b.bannerStyle }}"><span style="flex: 1 1 280px; min-width: 0;">{{ b.text }}</span><sc-for list="{{ b.bannerActions }}" as="a"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="{{ a.tone }}" onClick="{{ a.onClick }}" hint-size="110px,32px"><span style="white-space: nowrap;">{{ a.label }}</span></x-import></sc-for></div></sc-if>
+        <sc-if value="{{ b.isTable }}">
+          <div style="overflow-x: auto; border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-sf);">
+            <div style="{{ b.minW }}">
+              <div style="{{ b.headStyle }}"><sc-for list="{{ b.cols }}" as="h"><span>{{ h }}</span></sc-for></div>
+              <sc-for list="{{ b.rows }}" as="r"><div onClick="{{ r.onClick }}" style="{{ r.style }}"><sc-for list="{{ r.cells }}" as="c"><span style="{{ c.wrap }}">
+  <sc-if value="{{ c.isText }}"><span style="{{ c.textStyle }}">{{ c.text }}</span><sc-if value="{{ c.sub }}"><span style="display: block; margin-top: 2px; font-size: 12px; color: var(--op-mut);">{{ c.sub }}</span></sc-if></sc-if>
+  <sc-if value="{{ c.isChip }}"><span style="{{ c.chipStyle }}">{{ c.text }}</span></sc-if>
+  <sc-if value="{{ c.isBtn }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="{{ c.tone }}" onClick="{{ c.onClick }}" disabled="{{ c.disabled }}" hint-size="110px,32px"><span style="white-space: nowrap;">{{ c.label }}</span></x-import></sc-if>
+  <sc-if value="{{ c.isSwitch }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Switch" on="{{ c.on }}" onChange="{{ c.onChange }}" label="{{ c.label }}" hint-size="38px,22px"></x-import></sc-if>
+  <sc-if value="{{ c.isSelect }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ c.options }}" value="{{ c.value }}" onChange="{{ c.onChange }}" aria-label="{{ c.label }}" style="{{ c.selStyle }}" hint-size="150px,38px"></x-import></sc-if>
+  <sc-if value="{{ c.isInput }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="field" value="{{ c.value }}" onChange="{{ c.onChange }}" aria-label="{{ c.label }}" hint-size="100%,38px"></x-import></sc-if>
+  <sc-if value="{{ c.isMeter }}"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 80px;"><span style="font-size: 12px; font-variant-numeric: tabular-nums;">{{ c.label }}</span><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Meter" pct="{{ c.pct }}" height="{{ 5 }}" color="{{ c.color }}" hint-size="100%,5px"></x-import></span></sc-if>
+</span></sc-for></div></sc-for>
+              <sc-if value="{{ b.empty }}"><div style="padding: 22px 16px; font-size: 13.5px; color: var(--op-mut);">{{ b.empty }}</div></sc-if>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ b.isKv }}">
+          <div style="border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-sf); padding: 6px 16px;">
+            <sc-for list="{{ b.kv }}" as="r"><div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; border-bottom: 1px solid var(--op-line); padding: 11px 0;"><span style="flex: 1 1 220px; min-width: 0;"><span style="display: block; font-size: 13.5px; font-weight: 600;">{{ r.k }}</span><sc-if value="{{ r.sub }}"><span style="display: block; margin-top: 2px; font-size: 12px; color: var(--op-mut);">{{ r.sub }}</span></sc-if></span><span style="{{ r.v.wrap }}">
+  <sc-if value="{{ r.v.isText }}"><span style="{{ r.v.textStyle }}">{{ r.v.text }}</span><sc-if value="{{ r.v.sub }}"><span style="display: block; margin-top: 2px; font-size: 12px; color: var(--op-mut);">{{ r.v.sub }}</span></sc-if></sc-if>
+  <sc-if value="{{ r.v.isChip }}"><span style="{{ r.v.chipStyle }}">{{ r.v.text }}</span></sc-if>
+  <sc-if value="{{ r.v.isBtn }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="{{ r.v.tone }}" onClick="{{ r.v.onClick }}" disabled="{{ r.v.disabled }}" hint-size="110px,32px"><span style="white-space: nowrap;">{{ r.v.label }}</span></x-import></sc-if>
+  <sc-if value="{{ r.v.isSwitch }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Switch" on="{{ r.v.on }}" onChange="{{ r.v.onChange }}" label="{{ r.v.label }}" hint-size="38px,22px"></x-import></sc-if>
+  <sc-if value="{{ r.v.isSelect }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ r.v.options }}" value="{{ r.v.value }}" onChange="{{ r.v.onChange }}" aria-label="{{ r.v.label }}" style="{{ r.v.selStyle }}" hint-size="150px,38px"></x-import></sc-if>
+  <sc-if value="{{ r.v.isInput }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="field" value="{{ r.v.value }}" onChange="{{ r.v.onChange }}" aria-label="{{ r.v.label }}" hint-size="100%,38px"></x-import></sc-if>
+  <sc-if value="{{ r.v.isMeter }}"><span style="display: flex; flex-direction: column; gap: 4px; min-width: 80px;"><span style="font-size: 12px; font-variant-numeric: tabular-nums;">{{ r.v.label }}</span><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Meter" pct="{{ r.v.pct }}" height="{{ 5 }}" color="{{ r.v.color }}" hint-size="100%,5px"></x-import></span></sc-if>
+</span></div></sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ b.isChart }}">
+          <div style="border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-sf); padding: 16px 18px 12px;">
+            <div style="display: flex; align-items: flex-end; gap: 10px; height: 140px; border-bottom: 1px solid var(--op-line);"><sc-for list="{{ b.bars }}" as="x"><span style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 4px; height: 100%;"><span style="font-size: 11.5px; font-weight: 700; font-variant-numeric: tabular-nums;">{{ x.v }}</span><span style="{{ x.style }}"></span></span></sc-for></div>
+            <div style="display: flex; gap: 10px; margin-top: 6px;"><sc-for list="{{ b.bars }}" as="x"><span style="flex: 1; text-align: center; font-size: 11.5px; color: var(--op-mut);">{{ x.l }}</span></sc-for></div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ b.isCode }}"><div style="border-radius: 14px; background: var(--op-bg); border: 1px solid var(--op-line); padding: 14px 16px; display: flex; flex-direction: column; gap: 4px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; line-height: 1.55;"><sc-for list="{{ b.lines }}" as="l"><span style="{{ l.style }}">{{ l.text }}</span></sc-for></div></sc-if>
+        <sc-if value="{{ b.isCards }}">
+          <div style="display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));">
+            <sc-for list="{{ b.cards }}" as="k"><div style="{{ k.style }}"><span style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-size: 14.5px; font-weight: 700;">{{ k.title }}</span><span style="{{ k.chipStyle }}">{{ k.chip }}</span></span><span style="font-size: 12.5px; line-height: 1.45; color: var(--op-mut);">{{ k.sub }}</span><span style="display: flex; flex-wrap: wrap; gap: 6px;"><sc-for list="{{ k.actions }}" as="a"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="tiny" tone="{{ a.tone }}" onClick="{{ a.onClick }}" hint-size="80px,30px"><span style="white-space: nowrap;">{{ a.label }}</span></x-import></sc-for></span></div></sc-for>
+          </div>
+        </sc-if>
+      </section>
+    </sc-for>
+  </div>
+  <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Modal" open="{{ modalOpen }}" onClose="{{ closeModal }}" title="{{ modalTitle }}" sub="{{ modalSub }}" closeLabel="Close" width="{{ 500 }}" hint-size="0px,0px">
+    <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 10px;">
+      <sc-if value="{{ modalHasSelect }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="control" options="{{ modalOptions }}" value="{{ modalValue }}" onChange="{{ onModalValue }}" aria-label="Choose" hint-size="100%,40px"></x-import></sc-if>
+      <span style="font-size: 13px; line-height: 1.5; color: var(--op-body);">{{ modalBody }}</span>
+      <span style="display: flex; justify-content: flex-end; gap: 8px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="ghost" onClick="{{ closeModal }}" hint-size="90px,36px"><span style="white-space: nowrap;">Cancel</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ confirmModal }}" hint-size="130px,36px"><span style="white-space: nowrap;">{{ modalConfirm }}</span></x-import></span>
+    </div>
+  </x-import>
+  <footer style="margin-top: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; border-top: 1px solid var(--op-line); padding-top: 12px; font-size: 12px; color: var(--op-mut);">
+    <span>{{ footer }}</span>
+    <span style="white-space: nowrap;">{{ footerRegion }}</span>
+  </footer>
+</div>
+<sc-if value="{{ hasToast }}">
+  <div role="status" style="position: fixed; z-index: 80; left: 50%; bottom: 24px; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; border-radius: 12px; background: var(--op-ink); color: var(--op-bg); padding: 11px 16px; font-size: 13.5px; box-shadow: 0 18px 40px -24px rgba(25,21,16,.45);">
+    <span>{{ toast }}</span>
+    <button type="button" onClick="{{ closeToast }}" style="cursor: pointer; border: none; background: transparent; color: var(--op-ac); font-family: inherit; font-size: 13px; font-weight: 700;">Undo</button>
+  </div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1440, &quot;height&quot;: 900}}">
+class Component extends DCLogic {
+  state = { ctxTab: 'Constraints', selC: null, cDraft: '', cSaved: {}, roles: {}, deact: {}, retention: '180', models: {}, restr: { r1: true, r2: true, r3: false }, siem: 'https://siem.lumio.com/hooks/product', tbTab: 'Output schema', slots: {}, renderer: 'copilot', rules: {}, auditF: 'All', modal: null, modalValue: '', mkt: {}, rollout: 25, rolled: false, rerun: false, retried: {}, toast: null };
+  componentDidMount() { if (!window.PD) this.poll = setInterval(() => { if (window.PD) { clearInterval(this.poll); this.forceUpdate(); } }, 50); }
+  componentWillUnmount() { clearInterval(this.poll); clearTimeout(this.tt); }
+  go = (p) => (e) => { if (e && e.preventDefault) e.preventDefault(); this.props.go && this.props.go(p); };
+  toast(m) { clearTimeout(this.tt); this.setState({ toast: m }); this.tt = setTimeout(() => this.setState({ toast: null }), 3600); }
+  chip(bg, fg, b) { return { flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 5, borderRadius: 999, background: bg, color: fg, border: b ? '1px solid ' + b : 'none', padding: '2px 9px', fontSize: 11, fontWeight: 700, whiteSpace: 'nowrap' }; }
+  get C() { return { mint: this.chip('var(--op-mint)', 'var(--op-greendeep)'), warn: this.chip('var(--op-band)', 'var(--op-cautiondeep)'), track: this.chip('var(--op-track)', 'var(--op-ink)'), mut: this.chip('var(--op-track)', 'var(--op-mut)'), dec: this.chip('var(--op-viz5)', 'var(--op-ink)'), pulse: this.chip('var(--op-pulse)', 'var(--op-ink)', 'var(--op-sage)'), ink: this.chip('var(--op-ink)', 'var(--op-bg)') }; }
+  // cells
+  cell(x) { const base = { isText: false, isChip: false, isBtn: false, isSwitch: false, isSelect: false, isInput: false, isMeter: false, sub: '', wrap: { minWidth: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center' } };
+    if (x == null) return { ...base, isText: true, text: '', textStyle: {} };
+    if (typeof x === 'string' || typeof x === 'number') return { ...base, isText: true, text: String(x), textStyle: { fontSize: 13 } };
+    const k = x.k || 'text';
+    if (k === 'text') return { ...base, isText: true, text: x.t, sub: x.sub || '', textStyle: { fontSize: 13, fontWeight: x.b ? 700 : 400, fontFamily: x.mono ? 'ui-monospace, Menlo, monospace' : 'inherit', color: x.mut ? 'var(--op-mut)' : x.warn ? 'var(--op-caution)' : 'var(--op-ink)', fontVariantNumeric: 'tabular-nums' } };
+    if (k === 'chip') return { ...base, isChip: true, text: x.t, chipStyle: this.C[x.c || 'track'], wrap: { ...base.wrap, alignItems: 'flex-start' } };
+    if (k === 'btn') return { ...base, isBtn: true, label: x.t, tone: x.tone || 'secondary', onClick: x.on, disabled: !!x.disabled, wrap: { ...base.wrap, alignItems: x.left ? 'flex-start' : 'flex-end' } };
+    if (k === 'switch') return { ...base, isSwitch: true, on: !!x.on, onChange: x.ch, label: x.label || 'Toggle', wrap: { ...base.wrap, alignItems: 'flex-start' } };
+    if (k === 'select') return { ...base, isSelect: true, options: x.opts.map((o) => typeof o === 'string' ? { value: o, label: o } : o), value: x.v, onChange: x.ch, label: x.label || 'Choose', selStyle: { width: x.w || '100%' } };
+    if (k === 'input') return { ...base, isInput: true, value: x.v, onChange: x.ch, label: x.label || 'Value' };
+    if (k === 'meter') return { ...base, isMeter: true, pct: x.pct, label: x.t, color: x.color || 'var(--op-greenbar)' };
+    return { ...base, isText: true, text: '' };
+  }
+  table(title, cols, grid, rows, o = {}) { const minW = o.minW || 760;
+    return { isTable: true, hasHead: !!title, title, note: o.note || '', chip: o.chip || '', chipStyle: this.C[o.chipC || 'mint'], actions: o.actions || [], cols, minW: { minWidth: minW }, empty: rows.length ? '' : (o.empty || 'Nothing here.'),
+      headStyle: { display: 'grid', gridTemplateColumns: grid, gap: 12, alignItems: 'center', padding: '10px 16px', borderBottom: '1px solid var(--op-line)', fontSize: 10.5, fontWeight: 700, letterSpacing: '.09em', textTransform: 'uppercase', color: 'var(--op-mut)' },
+      rows: rows.map((r) => { const cells = r.cells || r; return { cells: cells.map((c) => this.cell(c)), onClick: r.on || undefined, style: { display: 'grid', gridTemplateColumns: grid, gap: 12, alignItems: 'center', padding: '11px 16px', borderBottom: '1px solid var(--op-line)', cursor: r.on ? 'pointer' : 'default', background: r.sel ? 'var(--op-sbg)' : r.warn ? 'var(--op-sbg)' : 'transparent' } }; }),
+      style: { flex: o.flex || '1 1 100%', minWidth: 0 } }; }
+  kv(title, rows, o = {}) { return { isKv: true, hasHead: !!title, title, note: o.note || '', chip: o.chip || '', chipStyle: this.C[o.chipC || 'mint'], actions: o.actions || [], kv: rows.map(([k, v, sub]) => ({ k, sub: sub || '', v: { ...this.cell(v), wrap: { flex: '0 1 auto', minWidth: 0, display: 'flex', alignItems: 'center' } } })), style: { flex: o.flex || '1 1 420px', minWidth: 0 } }; }
+  banner(text, tone, actions, flex) { const t = { warn: ['var(--op-sbg)', 'var(--op-amberbar)'], ok: ['var(--op-mint)', 'transparent'], info: ['var(--op-track)', 'transparent'] }[tone || 'info'];
+    return { isBanner: true, text, bannerActions: actions || [], bannerStyle: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '8px 12px', borderRadius: 15, padding: '12px 16px', background: t[0], border: '1px solid ' + t[1], fontSize: 13.5, lineHeight: 1.5, color: tone === 'ok' ? 'var(--op-greendeep)' : 'var(--op-ink)' }, style: { flex: flex || '1 1 100%', minWidth: 0 } }; }
+  code(title, lines, o = {}) { return { isCode: true, hasHead: !!title, title, note: o.note || '', chip: o.chip || '', chipStyle: this.C[o.chipC || 'mint'], actions: o.actions || [], lines: lines.map((l) => { const t = typeof l === 'string' ? l : l.t; return { text: t, style: { fontWeight: t.startsWith('#') ? 700 : 400, color: (l.mut ? 'var(--op-mut)' : 'var(--op-ink)'), background: l.add ? 'var(--op-mint)' : 'transparent', borderRadius: 6, padding: l.add ? '0 6px' : 0 } }; }), style: { flex: o.flex || '1 1 420px', minWidth: 0 } }; }
+  cards(title, cards, o = {}) { return { isCards: true, hasHead: !!title, title, note: o.note || '', chip: '', actions: o.actions || [], cards: cards.map((k) => ({ ...k, chipStyle: this.C[k.c || 'mut'], actions: k.actions || [], style: { display: 'flex', flexDirection: 'column', gap: 8, borderRadius: 16, border: '1px solid ' + (k.on ? 'var(--op-ink)' : 'var(--op-line)'), background: 'var(--op-sf)', padding: 14 } })), style: { flex: o.flex || '1 1 100%', minWidth: 0 } }; }
+  chart(title, bars, o = {}) { const max = Math.max(...bars.map((b) => b[1])); return { isChart: true, hasHead: !!title, title, note: o.note || '', chip: '', actions: [], bars: bars.map(([l, v]) => ({ l, v, style: { width: '100%', maxWidth: 46, height: (v / max * 100) + '%', minHeight: 4, borderRadius: '8px 8px 0 0', background: 'var(--op-sage)' } })), style: { flex: o.flex || '1 1 420px', minWidth: 0 } }; }
+  A(label, on, tone, disabled) { return { label, onClick: on, tone: tone || 'secondary', disabled: !!disabled }; }
+
+  renderVals() {
+    const PD = window.PD; if (!PD) return { blocks: [] };
+    const path = this.props.path || '/settings', vs = this.props.viewState || '', persona = this.props.persona || 'kari', st = this.state;
+    const platform = path.startsWith('/platform');
+    const out = { toast: st.toast, hasToast: !!st.toast, closeToast: () => this.setState({ toast: null }), headActions: [], hasTabs: false, tabs: [], hasSubTabs: false, subTabs: [], lead: '',
+      footer: platform ? '[Product] platform admin · staff only · no customer answer content is ever shown here' : 'Lumio Inc. · admin changes are written to the audit log', footerRegion: platform ? 'Regions: US · EU' : 'Lumio Inc. · US data region',
+      modalOpen: !!st.modal, closeModal: () => this.setState({ modal: null }), modalTitle: '', modalSub: '', modalBody: '', modalConfirm: 'Confirm', modalHasSelect: false, modalOptions: [], modalValue: st.modalValue, onModalValue: (e) => this.setState({ modalValue: e.target.value }), confirmModal: () => this.setState({ modal: null }) };
+    const settingsTabs = [['Security and data', '/settings'], ['Members and roles', '/settings/members'], ['Integrations', '/settings/integrations'], ['Work tools', '/actions/sync'], ['Billing', '/settings/billing']];
+    const platTabs = [['Tenants', '/platform/tenants'], ['Marketplace', '/platform/marketplace'], ['Model and prompt versions', '/platform/models'], ['Golden-set runs', '/platform/golden-set'], ['System health', '/platform/health']];
+    if (path.startsWith('/settings')) { out.hasTabs = true; out.tabs = settingsTabs.map(([l, p]) => ({ label: l, selected: p === path, onClick: this.go(p) })); }
+    if (platform) { out.hasTabs = true; out.tabs = platTabs.map(([l, p]) => ({ label: l, selected: p === path, onClick: this.go(p) })); }
+    const fn = { '/org-context': this.context, '/settings/members': this.members, '/settings': this.security, '/settings/integrations': this.integrations, '/templates/builder': this.builder, '/templates/preview': this.builder, '/audit': this.audit, '/settings/billing': this.billing, '/platform/tenants': this.tenants, '/platform/marketplace': this.market, '/platform/models': this.models, '/platform/golden-set': this.golden, '/platform/health': this.health }[path] || this.security;
+    Object.assign(out, fn.call(this, PD, vs, persona));
+    return out;
+  }
+
+  context(PD, vs) {
+    const st = this.state, C = this.C;
+    const CS = [['C-07', 'The agent never asks for or accepts a password.', 'Priya Shah', 'Hard constraints', 2, 'Mar 1, 2027', 'Current'], ['C-12', 'Suspected security incidents escalate to on-call within 15 minutes.', 'Priya Shah', 'Escalation rules', 2, 'Mar 1, 2027', 'Current'], ['C-15', 'No hardware order above $250 without manager approval.', 'Lena Ortiz', 'Hard constraints', 1, 'Apr 1, 2027', 'Current'], ['C-19', 'The agent never reads or summarizes HR records.', 'Mei Lin', 'Scope', 3, 'Jan 15, 2027', 'Current'], ['C-21', 'Verify identity with an MFA push before any account change.', 'Priya Shah', 'Hard constraints', 1, 'Mar 1, 2027', 'Current'], ['C-29', 'The agent never shares another customer’s order details.', 'Mei Lin', 'Data', 1, 'Feb 12, 2027', 'Current'], ['C-31', 'Refunds above $150 need a supervisor’s approval.', 'Lena Ortiz', 'Hard constraints', 1, 'Nov 20, 2026', 'Changed'], ['C-33', 'The agent never promises a delivery date.', 'Marcus Hill', 'Hard constraints', 1, 'Nov 20, 2026', 'Due'], ['C-36', 'Order history older than 24 months is never shown.', 'Mei Lin', 'Data', 1, 'Nov 20, 2026', 'Due']];
+    const tabs = ['Constraints', 'Glossary', 'Standards', 'Decisions'];
+    const out = { eyebrow: 'Lumio Inc. · shared across every brief', title: 'Org context library', lead: 'New briefs pull from this library, so the IT helpdesk wizard started with 12 constraints reused.', headActions: [this.A('＋ Add constraint', () => this.toast('New constraint drafted · pick an owner'), 'primary')],
+      hasSubTabs: true, subTabs: tabs.map((t) => { const on = st.ctxTab === t; return { label: t, selected: on, onClick: () => this.setState({ ctxTab: t }), style: { cursor: 'pointer', border: 'none', borderRadius: 999, padding: '6px 12px', fontFamily: 'inherit', fontSize: 13, fontWeight: on ? 700 : 500, background: on ? 'var(--op-ink)' : 'transparent', color: on ? 'var(--op-bg)' : 'var(--op-ink)' } }; }) };
+    if (vs === 'Empty') { out.blocks = [this.banner('The library is empty. Constraints, terms and standards land here when a brief is locked, or you can add them yourself. Start with the constraint every agent must follow.', 'info', [this.A('Add the first constraint', () => this.toast('New constraint drafted'), 'primary')])]; return out; }
+    const stc = (s) => ({ k: 'chip', t: s, c: s === 'Current' ? 'mint' : 'warn' });
+    if (st.ctxTab === 'Constraints') {
+      const blocks = [this.table('', ['ID', 'Statement', 'Owner', 'Slot', 'Briefs', 'Review', 'Status'], '64px minmax(240px, 2.4fr) 120px 130px 60px 110px 90px', CS.map((c) => ({ sel: st.selC === c[0], on: () => this.setState({ selC: c[0], cDraft: st.cSaved[c[0]] || c[1] }), cells: [{ k: 'text', t: c[0], b: true }, st.cSaved[c[0]] || c[1], c[2], { k: 'text', t: c[3], mut: true }, String(c[4]), c[5], stc(st.cSaved[c[0]] ? 'Changed' : c[6])] })), { minW: 900, flex: '3 1 640px', note: 'Click a constraint to change it' })];
+      if (st.selC) { const c = CS.find((x) => x[0] === st.selC); const affected = c[4] > 1 ? ['IT Helpdesk Agent v1 · locks Nov 14', 'Customer Support Agent Tier 1 · live on Agentforce'] : [c[0].startsWith('C-3') ? 'Customer Support Agent Tier 1 · live on Agentforce' : 'IT Helpdesk Agent v1 · locks Nov 14'];
+        blocks.push(this.kv('Change ' + c[0], [['Statement', { k: 'input', v: st.cDraft, ch: (e) => this.setState({ cDraft: e.target.value }), label: 'Statement' }], ['Owner', c[2]], ['Affects', { k: 'text', t: affected.length + (affected.length === 1 ? ' brief' : ' briefs') }, affected.join(' · ')]], { flex: '1 1 340px', actions: [this.A('Save change', () => { this.setState({ cSaved: { ...st.cSaved, [c[0]]: st.cDraft } }); this.toast(c[0] + ' changed · affected briefs flagged “Policy changed since export”'); }, 'solid', st.cDraft === (st.cSaved[c[0]] || c[1])), this.A('Create actions for affected briefs', () => this.toast(affected.length + ' actions created · each brief owner gets a request'), 'secondary')] }));
+      }
+      out.blocks = blocks; return out;
+    }
+    if (st.ctxTab === 'Glossary') { out.blocks = [this.table('', ['Term', 'Meaning at Lumio', 'Owner', 'Used in'], 'minmax(140px, 1fr) minmax(260px, 2.6fr) 130px 90px', [['Reset', 'Setting a new password or MFA method after identity is verified.', 'Priya Shah', '2 briefs'], ['Incident', 'Any suspected compromise of an account, device or data.', 'Priya Shah', '3 briefs'], ['Manager', 'The person in the org chart an employee reports to directly.', 'Grace Kim', '4 briefs'], ['Contractor', 'Anyone not on Lumio payroll; served by the vendor desk.', 'Kari Nordmann', '2 briefs']].map((r) => [{ k: 'text', t: r[0], b: true }, r[1], r[2], { k: 'text', t: r[3], mut: true }]))]; return out; }
+    if (st.ctxTab === 'Standards') { out.blocks = [this.table('', ['Standard', 'Version', 'Owner', 'Review'], 'minmax(240px, 2fr) 90px 140px 120px', [['Information security policy', 'v4.1', 'Priya Shah', 'Mar 1, 2027'], ['Data retention schedule', 'v2.0', 'Mei Lin', 'Jan 15, 2027'], ['Hardware purchasing policy 2026', 'v1.3', 'Lena Ortiz', 'Apr 1, 2027'], ['Lumio tone of voice', 'v3', 'Grace Kim', 'Jun 1, 2027']].map((r) => [{ k: 'text', t: r[0], b: true }, r[1], r[2], r[3]]))]; return out; }
+    out.blocks = [this.table('', ['ID', 'Decision', 'Brief', 'Decided', 'Reused by'], '64px minmax(240px, 2.2fr) minmax(160px, 1.2fr) 120px 100px', [['D-04', '$250 hardware limit, revisit in Q2', 'IT Helpdesk Agent v1', 'Oct 28, 2026', '1 brief', '/decisions/D-04'], ['D-03', 'MFA push before any account change', 'IT Helpdesk Agent v1', 'Nov 12, 2026', '—', '/decisions/D-03'], ['D-11', 'Returns within 30 days of delivery', 'Customer Support Agent Tier 1', 'Sep 22, 2026', '—', '/decisions/D-04']].map((r) => ({ on: this.go(r[5]), cells: [{ k: 'chip', t: '◆ ' + r[0], c: 'dec' }, r[1], r[2], r[3], { k: 'text', t: r[4], mut: true }] })))];
+    return out;
+  }
+
+  members(PD) {
+    const st = this.state;
+    const M = [['kari', 'kari.nordmann@lumio.com', 'Org admin', 'Today', '3 briefs'], ['daniel', 'daniel.reyes@lumio.com', 'Member', 'Today', '2 briefs'], ['priya', 'priya.shah@lumio.com', 'Template author', 'Yesterday', '2 briefs'], ['sam', 'sam.okafor@lumio.com', 'Member', 'Nov 10', '1 brief'], ['lena', 'lena.ortiz@lumio.com', 'Member', 'Nov 11', '2 briefs'], ['mei', 'mei.lin@lumio.com', 'Member', 'Nov 9', '2 briefs'], ['tom', 'tom.becker@lumio.com', 'Member', 'Oct 14', '2 briefs'], ['grace', 'grace.kim@lumio.com', 'Template author', 'Nov 12', '2 briefs'], ['marcus', 'marcus.hill@lumio.com', 'Member', 'Nov 12', '1 brief']];
+    return { eyebrow: 'Settings · Lumio Inc.', title: 'Members and roles', lead: 'Roles on a brief are set per brief. These are organization roles. Contributors are free and unlimited, and don’t need an account.',
+      headActions: [this.A('Transfer ownership', () => this.setState({ modal: 'transfer', modalValue: 'priya' })), this.A('＋ Invite', () => this.toast('Invite sent · they sign in with Microsoft SSO'), 'primary')],
+      blocks: [
+        this.table('People', ['Name', 'Org role', 'SSO', 'Last active', 'Briefs', ''], 'minmax(200px, 1.6fr) 170px 110px 100px 90px 110px', M.map(([k, email, role, last, briefs]) => { const p = PD.people[k]; const off = st.deact[k];
+          return [{ k: 'text', t: p.name, sub: email, b: true }, { k: 'select', opts: ['Org admin', 'Template author', 'Member'], v: st.roles[k] || role, ch: (e) => { const v = e.target.value; this.setState((s) => ({ roles: { ...s.roles, [k]: v } })); this.toast(p.name + ' is now ' + v); }, label: 'Org role' }, { k: 'chip', t: off ? 'Deactivated' : 'Entra ID', c: off ? 'mut' : 'mint' }, last, briefs, { k: 'btn', t: off ? 'Reactivate' : 'Deactivate', tone: 'ghost', on: () => this.setState((s) => ({ deact: { ...s.deact, [k]: !s.deact[k] } })) }]; }), { minW: 860 }),
+        this.table('Groups synced from Entra ID', ['Group', 'Members', 'Maps to', 'Last sync'], 'minmax(200px, 1.6fr) 100px 160px 140px', [['IT-ServiceDesk', '14', 'Member', '12 min ago'], ['Security-Team', '6', 'Member', '12 min ago'], ['Product-Admins', '2', 'Org admin', '12 min ago']].map((r) => [{ k: 'text', t: r[0], b: true }, r[1], r[2], { k: 'text', t: r[3], mut: true }]), { minW: 620, flex: '1 1 520px', note: 'SCIM on · Okta also supported' }),
+      ],
+      modalTitle: 'Transfer ownership from Kari Nordmann', modalSub: 'Briefs, milestones and open actions move to the new owner.', modalHasSelect: true, modalOptions: ['priya', 'sam', 'grace', 'marcus'].map((k) => ({ value: k, label: PD.people[k].name })),
+      modalBody: 'Kari owns 1 brief and 4 open actions. The actions go back to acceptance: the new owner gets a request for each one and nothing changes until they accept.', modalConfirm: 'Transfer',
+      confirmModal: () => { this.setState({ modal: null }); this.toast('Ownership request sent to ' + PD.people[st.modalValue].name + ' · 4 actions waiting for acceptance'); } };
+  }
+
+  security(PD) {
+    const st = this.state;
+    const steps = [['Atomize', 'Answers → context items'], ['Relate', 'Duplicates, refines, conflicts'], ['Merge', 'Merged wording'], ['Render', 'Export to each target']];
+    const prov = ['Anthropic Claude · US · zero retention', 'Azure OpenAI · US East · zero retention', 'AWS Bedrock · us-east-1 · zero retention'];
+    return { eyebrow: 'Settings · Lumio Inc.', title: 'Security and data', blocks: [
+      this.kv('Data region', [['United States', { k: 'chip', t: 'Read-only', c: 'ink' }, 'Chosen Sep 14, 2026 by Kari Nordmann during setup. It can’t be changed; moving regions means a new workspace.']], { flex: '1 1 380px' }),
+      this.kv('Sign-in', [['SSO · SAML with Microsoft Entra ID', { k: 'chip', t: '✓ On', c: 'mint' }, 'Everyone except contributors signs in with SSO'], ['SCIM provisioning', { k: 'chip', t: '✓ On', c: 'mint' }, 'Users and groups sync every 15 minutes'], ['Contributor links', '14-day expiry', 'One link per person; wrong-person links ask for a code']], { flex: '1 1 380px' }),
+      this.kv('Retention', [['Raw answers', { k: 'select', opts: [{ value: '90', label: '90 days' }, { value: '180', label: '180 days' }, { value: '365', label: '1 year' }], v: st.retention, ch: (e) => this.setState({ retention: e.target.value }), label: 'Raw answers', w: 150 }, 'After this, only context items and their provenance remain'], ['Locked briefs', 'Indefinitely'], ['Action history', 'Indefinitely']], { flex: '1 1 380px' }),
+      this.kv('Restricted-slot defaults', [['New restricted slots are visible to owner, decider and the slot’s authority role', { k: 'switch', on: st.restr.r1, ch: () => this.setState({ restr: { ...st.restr, r1: !st.restr.r1 } }) }], ['Org admins can’t read restricted answer content', { k: 'switch', on: st.restr.r2, ch: () => this.setState({ restr: { ...st.restr, r2: !st.restr.r2 } }) }], ['Require a reason to mark an item restricted', { k: 'switch', on: st.restr.r3, ch: () => this.setState({ restr: { ...st.restr, r3: !st.restr.r3 } }) }]], { flex: '1 1 380px' }),
+      this.table('Model providers', ['Pipeline step', 'Does', 'Provider and endpoint'], '160px minmax(160px, 1fr) minmax(260px, 1.4fr)', steps.map(([s, d]) => [{ k: 'text', t: s, b: true }, { k: 'text', t: d, mut: true }, { k: 'select', opts: prov, v: st.models[s] || prov[0], ch: (e) => { const v = e.target.value; this.setState((x) => ({ models: { ...x.models, [s]: v } })); }, label: s + ' provider' }]), { minW: 640, note: 'In-region, zero-retention endpoints only · no training on your data' }),
+      this.kv('Audit export', [['CSV', { k: 'btn', t: 'Export last 90 days', on: () => this.toast('audit-2026-11-12.csv · downloading') }], ['SIEM webhook', { k: 'input', v: st.siem, ch: (e) => this.setState({ siem: e.target.value }), label: 'Webhook URL' }], ['', { k: 'btn', t: 'Send test event', on: () => this.toast('Test event delivered · 200 OK') }]], { flex: '1 1 100%' }),
+    ] };
+  }
+
+  integrations() {
+    const row = (name, on, by, extra) => [{ k: 'text', t: name, b: true, sub: extra || '' }, { k: 'chip', t: on ? '✓ Connected' : 'Not connected', c: on ? 'mint' : 'mut' }, { k: 'text', t: by || '—', mut: true }, { k: 'btn', t: on ? 'Test' : 'Connect', tone: on ? 'secondary' : 'quiet', on: () => this.toast(on ? name + ' responded · OK' : name + ' would open its sign-in') }];
+    const g = '1.6fr 130px 1.2fr 100px';
+    return { eyebrow: 'Settings · Lumio Inc.', title: 'Integrations', blocks: [
+      this.table('Channels', ['Channel', 'Status', 'Connected by', ''], g, [row('Slack', true, 'Kari Nordmann · Sep 14', 'lumio.slack.com'), row('Microsoft Teams', true, 'Kari Nordmann · Sep 14', 'Lumio tenant'), row('Email domain', true, 'Kari Nordmann · Sep 14', 'lumio.com · SPF and DKIM verified')], { minW: 640 }),
+      this.table('Export targets', ['Target', 'Status', 'Connected by', ''], g, [row('Copilot Studio', true, 'Kari Nordmann · Sep 14', 'Lumio environment'), row('Employee Self-Service agent', true, 'Kari Nordmann · Sep 14'), row('Agentforce', true, 'Marcus Hill · Aug 2'), row('ServiceNow', true, 'Kari Nordmann · Sep 14', 'lumio.service-now.com'), row('Claude', false), row('ChatGPT', false), row('Markdown', true, 'Built in'), row('Webhook', false)], { minW: 640 }),
+      this.table('Work tools', ['Tool', 'Status', 'Connected by', ''], g, [row('ServiceNow', true, 'Kari Nordmann · Sep 14', '2 actions tracked'), row('Jira', false), row('Microsoft Planner', false), row('Asana', false)], { minW: 640, actions: [this.A('Sync settings →', this.go('/actions/sync'))] }),
+    ] };
+  }
+
+  builder(PD) {
+    const st = this.state;
+    const tabs = ['Output schema', 'Question bank', 'Synthesis rules', 'Renderers', 'Plan defaults'];
+    const out = { eyebrow: 'Templates · IT helpdesk agent · v3.2 draft · Template author', title: 'Template builder', lead: 'Everything a template defines is data: slots, questions, roles, rules, renderers and plan defaults.',
+      headActions: [this.A('Save draft', () => this.toast('Draft saved'), 'ghost'), this.A('Test with sample answers', () => this.toast('Ran 64 sample answers · 4 conflicts, 21 merges, all gates pass'), 'secondary'), this.A('Publish version', () => this.toast('v3.2 published · new briefs use it; live briefs keep their version'), 'primary'), this.A('Submit to marketplace', () => this.toast('Submitted for [Product] review'), 'ghost')],
+      hasSubTabs: true, subTabs: tabs.map((t) => { const on = st.tbTab === t; return { label: t, selected: on, onClick: () => this.setState({ tbTab: t }), style: { cursor: 'pointer', border: 'none', borderRadius: 999, padding: '6px 12px', fontFamily: 'inherit', fontSize: 13, fontWeight: on ? 700 : 500, background: on ? 'var(--op-ink)' : 'transparent', color: on ? 'var(--op-bg)' : 'var(--op-ink)' } }; }) };
+    const roles = ['—', 'Security', 'Finance', 'Service desk', 'Data protection', 'Employee experience'];
+    const tog = (k) => () => this.setState((s) => ({ slots: { ...s.slots, [k]: !(s.slots[k] ?? (k.endsWith('req'))) } }));
+    if (st.tbTab === 'Output schema') {
+      const S = [['Objective', 'Text', 600, '—'], ['Scope', 'List', 1200, 'Service desk'], ['Hard constraints', 'Constraint list', 1500, 'Security'], ['Escalation rules', 'Rule list', 1200, 'Service desk'], ['Data the agent may use', 'Rule list', 800, 'Security', true], ['Personal data', 'Rule list', 800, 'Data protection', true], ['Tone', 'Text', 500, 'Employee experience'], ['Examples', 'Example pairs', 1500, 'Service desk'], ['Acceptance criteria', 'Checklist', 600, '—']];
+      out.blocks = [this.table('', ['#', 'Slot', 'Type', 'Required', 'Length budget', 'Authority role', 'Restricted', 'Consult step'], '30px minmax(160px, 1.4fr) 130px 80px 110px 170px 90px 100px', S.map(([n, t, len, role, r], i) => [{ k: 'text', t: String(i + 1), mut: true }, { k: 'text', t: n, b: true }, t, { k: 'switch', on: st.slots[n + 'req'] ?? true, ch: tog(n + 'req') }, { k: 'text', t: len + ' chars', mut: true }, { k: 'select', opts: roles, v: role, ch: () => {}, label: 'Authority role' }, { k: 'switch', on: st.slots[n + 'res'] ?? !!r, ch: () => this.setState((s) => ({ slots: { ...s.slots, [n + 'res']: !(s.slots[n + 'res'] ?? !!r) } })) }, { k: 'switch', on: st.slots[n + 'con'] ?? false, ch: () => this.setState((s) => ({ slots: { ...s.slots, [n + 'con']: !(s.slots[n + 'con'] ?? false) } })) }]), { minW: 1000, actions: [this.A('＋ Add slot', () => this.toast('Slot added at the end'))] })];
+    } else if (st.tbTab === 'Question bank') {
+      const Q = PD.questions['Security'];
+      out.blocks = [this.table('Security · Hard constraints and Data', ['Question', 'Answer type', 'Follow-up triggers', 'Prefill source'], 'minmax(260px, 2.4fr) 110px minmax(160px, 1.2fr) 150px', Q.map((q, i) => [{ k: 'text', t: q.q, sub: q.pattern + (q.restricted ? ' · restricted' : '') }, 'Free text', { k: 'text', t: ['missing number', 'system name', 'example', 'reason'].slice(0, 1 + (i % 3)).join(' · '), mut: true }, { k: 'text', t: i < 2 ? 'Password reset SOP' : '—', mut: true }]), { minW: 820, flex: '3 1 600px' }),
+        this.code('Contributor preview', ['Question 2 of 6 · Non-negotiables', 'Which checks must happen before a password or MFA reset?', 'Think of what you’d refuse even if your manager asked.', '[ free text · voice · attach ]', 'Must-have · Nice-to-have · Just an idea'], { flex: '1 1 300px' })];
+    } else if (st.tbTab === 'Synthesis rules') {
+      const R = [['Objective', 'Merge similar', 'Decider', '—'], ['Hard constraints', 'Never merge across owners', 'Decider', 'Security, Finance'], ['Escalation rules', 'Merge similar', 'Decider', 'Service desk, Security'], ['Tone', 'Merge similar', 'Vote', 'Employee experience'], ['Examples', 'Keep separate', 'Auto', 'Service desk'], ['Acceptance criteria', 'Merge similar', 'Auto', '—']];
+      out.blocks = [this.table('', ['Slot', 'Merge rule', 'Conflict rule', 'Authority roles'], 'minmax(160px, 1.2fr) 210px 150px minmax(160px, 1.2fr)', R.map(([s, m, c, a]) => [{ k: 'text', t: s, b: true }, { k: 'select', opts: ['Merge similar', 'Never merge across owners', 'Keep separate'], v: st.rules[s + 'm'] || m, ch: (e) => { const v = e.target.value; this.setState((x) => ({ rules: { ...x.rules, [s + 'm']: v } })); }, label: 'Merge rule' }, { k: 'select', opts: ['Auto', 'Vote', 'Decider'], v: st.rules[s + 'c'] || c, ch: (e) => { const v = e.target.value; this.setState((x) => ({ rules: { ...x.rules, [s + 'c']: v } })); }, label: 'Conflict rule' }, { k: 'text', t: a, mut: true }]), { minW: 760, note: 'Constraints never go to a vote' })];
+    } else if (st.tbTab === 'Renderers') {
+      const T = [['copilot', 'Copilot Studio', 'v7'], ['ess', 'Employee Self-Service agent', 'v3'], ['servicenow', 'ServiceNow Virtual Agent', 'v4'], ['claude', 'Claude project', 'v2'], ['markdown', 'Markdown files', 'v5']];
+      out.blocks = [this.table('', ['Renderer', 'Version', ''], 'minmax(200px, 1.6fr) 80px 110px', T.map(([k, n, v]) => ({ sel: st.renderer === k, on: () => this.setState({ renderer: k }), cells: [{ k: 'text', t: n, b: true }, v, { k: 'chip', t: st.renderer === k ? 'Previewing' : 'Preview', c: st.renderer === k ? 'ink' : 'mut' }] })), { minW: 420, flex: '1 1 380px' }),
+        this.code('Live preview · sample data', ['# ' + (T.find((t) => t[0] === st.renderer) || T[0])[1] + ' — sample brief', '## Hard constraints (verbatim)', 'C-07  The agent never asks for or accepts a password.', 'C-12  Suspected security incidents escalate to on-call within 15 minutes.', '## Topics', 'Password reset · Software access · Hardware order', '## Escalation', 'Hand off after two failed attempts, with the chat attached.'], { flex: '2 1 460px' })];
+    } else {
+      out.blocks = [this.table('Default milestones', ['Milestone', 'Offset from brief start', 'Owner role', 'Completes'], 'minmax(180px, 1.4fr) 170px 150px 160px', [['Brief locked', '+47 days', 'Decider', 'On lock'], ['Exported', '+51 days', 'Brief owner', 'On export'], ['Validated', '+50 days', 'Brief owner', 'When R4 passes'], ['Pilot live', '+64 days', 'Brief owner', 'Owner marks done'], ['Go-live', '+106 days', 'Brief owner', 'Decider approves'], ['First re-attestation', '+154 days', 'Constraint owners', 'Owner marks done']].map((r) => [{ k: 'text', t: r[0], b: true }, r[1], r[2], { k: 'text', t: r[3], mut: true }]), { minW: 700, actions: [this.A('＋ Add milestone', () => this.toast('Milestone added'))] }),
+        this.table('Default actions', ['When', 'Action', 'Owner role', 'Due'], '160px minmax(240px, 2fr) 150px 110px', [['After export', 'Schedule pilot review', 'Brief owner', '+14 days'], ['After lock', 'Brief the service desk on the new rules', 'Service desk lead', '+5 days'], ['After a constraint changes', 'Re-run validation for affected scenarios', 'Brief owner', '+7 days']].map((r) => [{ k: 'text', t: r[0], b: true }, r[1], r[2], r[3]]), { minW: 700 })];
+    }
+    return out;
+  }
+
+  audit(PD) {
+    const st = this.state;
+    const F = ['All', 'Decisions', 'Actions', 'Suggestions', 'Points', 'Exports', 'Permissions', 'Re-attestations'];
+    const E = [['Nov 12 · 10:42', 'Kari Nordmann', 'Sent a follow-up to Security', 'IT Helpdesk Agent v1 · 3.5', 'Actions', '/briefs/it-helpdesk-v1/distribution/tracking', '9f3c41ab'], ['Nov 12 · 09:15', 'Daniel Reyes', 'Recorded D-03 · option B · pinned Item 41 v2', 'D-03', 'Decisions', '/decisions/D-03', '7d21e0c4'], ['Nov 11 · 16:20', 'Lena Ortiz', 'Ticked a checklist step on A-014', 'A-014', 'Actions', '/actions/A-014', 'c40b9a12'], ['Nov 10 · 14:05', 'Lena Ortiz', 'C-31 needs change · created A-023', 'Customer Support Agent Tier 1', 'Re-attestations', '/briefs/support-t1/distribution/re-attestation', '18aa73fe'], ['Nov 9 · 11:02', 'Mei Lin', 'Marked A-019 blocked: waiting on A-015', 'A-019', 'Actions', '/actions/A-019', 'e5f1b830'], ['Oct 23 · 17:58', 'Priya Shah', 'Allocated 100 points in round 2 (attributed here, anonymous to peers)', 'IT Helpdesk Agent v1 · R2', 'Points', '/c/review', '2b6d0f97'], ['Oct 22 · 10:11', 'Sam Okafor', 'Kept his wording on CI-48 · both versions sent to D-07', 'CI-48', 'Suggestions', '/c/suggestions', 'aa09c5d2'], ['Oct 21 · 15:40', 'Priya Shah', 'Accepted a suggestion on Item 41 → v2', 'Item 41', 'Suggestions', '/briefs/it-helpdesk-v1/synthesis', '61e2b4c8'], ['Sep 30 · 09:00', 'Marcus Hill', 'Exported v2.3 to Agentforce · diff approved by Rachel Moore', 'Customer Support Agent Tier 1', 'Exports', '/briefs/support-t1/versions', '0c7fd3a9'], ['Sep 14 · 08:30', 'Kari Nordmann', 'Gave Priya Shah the Template author role', 'Members', 'Permissions', '/settings/members', '4e98b1d0']];
+    const rows = E.filter((e) => st.auditF === 'All' || e[4] === st.auditF);
+    return { eyebrow: 'Lumio Inc. · append-only', title: 'Audit log', headActions: [this.A('Export evidence pack', this.go('/briefs/it-helpdesk-v1/evidence'), 'primary')],
+      hasSubTabs: true, subTabs: F.map((t) => { const on = st.auditF === t; return { label: t, selected: on, onClick: () => this.setState({ auditF: t }), style: { cursor: 'pointer', border: 'none', borderRadius: 999, padding: '6px 12px', fontFamily: 'inherit', fontSize: 13, fontWeight: on ? 700 : 500, background: on ? 'var(--op-ink)' : 'transparent', color: on ? 'var(--op-bg)' : 'var(--op-ink)' } }; }),
+      blocks: [this.banner('✓ Chain verified · 1,284 entries · every entry carries the hash of the one before it · last checked Nov 12, 10:45', 'ok'),
+        this.table('', ['When', 'Who', 'What', 'Object', 'Hash'], '120px 130px minmax(260px, 2.4fr) minmax(160px, 1.2fr) 90px', rows.map((e) => ({ on: this.go(e[5]), cells: [{ k: 'text', t: e[0], mut: true }, e[1], e[2], { k: 'text', t: e[3] + ' →', b: true }, { k: 'text', t: e[6], mono: true, mut: true }] })), { minW: 900, empty: 'No entries of this type yet.' })] };
+  }
+
+  billing() {
+    return { eyebrow: 'Settings · Lumio Inc.', title: 'Billing', lead: 'Business plan, billed yearly. Contributors are always free and unlimited, and actions and project management are included.', blocks: [
+      this.kv('Plan', [['Business · annual', '$28,800 / year', 'Renews Sep 14, 2027'], ['Live briefs', { k: 'meter', t: '2 of 10', pct: 20 }], ['Contributors', 'Free and unlimited · 22 this year'], ['Actions', 'Included · 13 open']], { flex: '1 1 380px' }),
+      this.chart('Live briefs per month', [['Jun', 1], ['Jul', 1], ['Aug', 1], ['Sep', 2], ['Oct', 2], ['Nov', 2]], { flex: '1 1 380px' }),
+      this.table('Template packs', ['Pack', 'Templates', 'Price', ''], 'minmax(200px, 1.6fr) 100px 120px 110px', [['IT and security', '4', 'Included', { k: 'chip', t: 'Owned', c: 'mint' }], ['HR and policy', '5', '$2,400 / year', { k: 'btn', t: 'Add pack', on: () => this.toast('HR and policy pack added · prorated $1,980') }]].map((r) => [{ k: 'text', t: r[0], b: true }, r[1], r[2], r[3]]), { minW: 560, flex: '1 1 480px' }),
+      this.table('Invoices', ['Date', 'Amount', 'Status', ''], '130px 120px 100px 100px', [['Sep 14, 2026', '$28,800.00', 'Paid'], ['Sep 14, 2025', '$24,000.00', 'Paid']].map((r) => [r[0], r[1], { k: 'chip', t: r[2], c: 'mint' }, { k: 'btn', t: 'PDF', tone: 'ghost', on: () => this.toast('Invoice PDF · downloading') }]), { minW: 480, flex: '1 1 400px' }),
+    ] };
+  }
+
+  tenants() {
+    const T = [['Lumio Inc.', 'Business', 'US', 2, 22, 98, 'None in 90 days'], ['Nordvik Logistics', 'Enterprise', 'EU', 7, 140, 95, 'Oct 30 · export retry'], ['Halden Health', 'Enterprise', 'US', 4, 61, 91, 'Nov 4 · sync delay'], ['Brightline Retail', 'Team', 'EU', 1, 9, 99, 'None in 90 days'], ['Cobalt Finance', 'Business', 'US', 3, 38, 87, 'Nov 11 · queue backlog']];
+    return { eyebrow: '[Product] staff · platform admin', title: 'Tenants', blocks: [this.banner('Tenant detail shows configuration and usage only. Staff never see answer content, context items or briefs, and this view can’t open them.', 'info'),
+      this.table('', ['Organization', 'Plan', 'Region', 'Live briefs', 'Active contributors', 'Health', 'Last incident'], 'minmax(180px, 1.6fr) 100px 70px 90px 130px 120px minmax(140px, 1.2fr)', T.map((t) => [{ k: 'text', t: t[0], b: true }, t[1], { k: 'chip', t: t[2], c: 'track' }, String(t[3]), String(t[4]), { k: 'meter', t: t[5] + ' / 100', pct: t[5], color: t[5] >= 90 ? 'var(--op-greenbar)' : 'var(--op-amberbar)' }, { k: 'text', t: t[6], mut: t[6].startsWith('None') }]), { minW: 900 })] };
+  }
+
+  market() {
+    const st = this.state;
+    const M = [['SOC 2 evidence assistant', 'Halden Advisory', '2.2', 'In review', 312, '4.7'], ['Retail store ops agent', 'Brightline Partners', '1.3', 'Published', 148, '4.5'], ['Clinical intake policy (US)', 'Meridian Health Labs', '1.1', 'Changes requested', 57, '4.2'], ['Procurement intake agent', 'Cobalt & Finch', '3.0', 'In review', 203, '4.6']];
+    const c = (s) => s === 'Published' ? 'mint' : s === 'Unpublished' ? 'mut' : s === 'Changes requested' ? 'warn' : 'pulse';
+    return { eyebrow: '[Product] staff · platform admin', title: 'Marketplace review', blocks: [this.table('', ['Template', 'Publisher', 'Version', 'Status', 'Installs', 'Rating', '', ''], 'minmax(200px, 1.6fr) minmax(140px, 1.1fr) 70px 140px 70px 60px 100px 130px', M.map((m) => { const s = st.mkt[m[0]] || m[3];
+      return [{ k: 'text', t: m[0], b: true }, m[1], 'v' + m[2], { k: 'chip', t: s, c: c(s) }, String(m[4]), m[5], { k: 'btn', t: s === 'Published' ? 'Unpublish' : 'Approve', tone: s === 'Published' ? 'ghost' : 'solid', on: () => { this.setState((x) => ({ mkt: { ...x.mkt, [m[0]]: s === 'Published' ? 'Unpublished' : 'Published' } })); } }, { k: 'btn', t: 'Request changes', tone: 'secondary', on: () => this.setState((x) => ({ mkt: { ...x.mkt, [m[0]]: 'Changes requested' } })) }]; }), { minW: 1000 })] };
+  }
+
+  models() {
+    const st = this.state;
+    const S = [['Atomize', 'claude-sonnet-4.5', 'atomize-p12', 100], ['Relate', 'claude-sonnet-4.5', 'relate-p14', st.rolled ? 0 : st.rollout], ['Merge', 'claude-sonnet-4.5', 'merge-p9', 100], ['Decision-card draft', 'claude-opus-4.1', 'card-p6', 100], ['Render', 'claude-sonnet-4.5', 'render-p11', 100]];
+    return { eyebrow: '[Product] staff · platform admin', title: 'Model and prompt versions', lead: 'Each pipeline step runs a pinned model and prompt version. A new version rolls out by percentage, and every change runs the golden set first.', blocks: [
+      st.rolled ? this.banner('relate-p14 rolled back to relate-p13 for all tenants.', 'ok') : this.banner('relate-p14 is rolling out at ' + st.rollout + ' %. Golden-set run #418 failed on this change, so wider release is blocked.', 'warn', [this.A('Open run #418', this.go('/platform/golden-set'), 'primary')]),
+      this.table('', ['Step', 'Model', 'Prompt version', 'Rollout', '', ''], '170px 170px 140px minmax(140px, 1fr) 140px 110px', S.map(([s, m, p, pct]) => [{ k: 'text', t: s, b: true }, { k: 'text', t: m, mono: true }, { k: 'text', t: s === 'Relate' && st.rolled ? 'relate-p13' : p, mono: true }, { k: 'meter', t: pct + ' %' + (s === 'Relate' && !st.rolled ? ' · from relate-p13' : ''), pct, color: pct === 100 ? 'var(--op-greenbar)' : 'var(--op-amberbar)' },
+        s === 'Relate' && !st.rolled ? { k: 'btn', t: 'Roll out to 50 %', tone: 'secondary', disabled: true } : { k: 'text', t: '' }, s === 'Relate' && !st.rolled ? { k: 'btn', t: 'Roll back', tone: 'solid', on: () => { this.setState({ rolled: true }); this.toast('Rolled back to relate-p13'); } } : { k: 'btn', t: 'Roll back', tone: 'ghost', on: () => this.toast('Nothing to roll back to') }]), { minW: 880 })] };
+  }
+
+  golden(PD, vs) {
+    const st = this.state; const pass = vs === 'All passing' || st.rerun;
+    const R = [[pass ? '#419' : '#418', 'relate-p14' + (pass ? ' (fixed)' : ''), '41 of 42', pass ? '0' : '3', pass ? '0' : '1', pass], ['#417', 'render-p11', '42 of 42', '0', '0', true], ['#416', 'claude-sonnet-4.5 on merge', '42 of 42', '1', '0', true], ['#415', 'card-p6', '40 of 42', '0', '0', true]];
+    return { eyebrow: '[Product] staff · platform admin', title: 'Golden-set runs', lead: 'A seeded set of 42 known conflicts, merges and constraints. Thresholds: catch at least 40 conflicts, at most 1 false merge, zero dropped constraints.', blocks: [
+      pass ? this.banner('✓ All runs pass. Release is open.', 'ok') : this.banner('Release blocked. Run #418 on relate-p14 dropped 1 hard constraint and made 3 false merges.', 'warn', [this.A('Re-run after fix', () => { this.setState({ rerun: true }); this.toast('Run #419 passed · release unblocked'); }, 'primary')]),
+      this.table('', ['Run', 'Change', 'Conflicts caught', 'False merges', 'Constraints dropped', 'Result'], '70px minmax(180px, 1.4fr) 130px 110px 150px 100px', R.map((r) => ({ warn: !r[5], cells: [{ k: 'text', t: r[0], b: true }, { k: 'text', t: r[1], mono: true }, r[2], { k: 'text', t: r[3], warn: r[3] !== '0' && +r[3] > 1 }, { k: 'text', t: r[4], warn: r[4] !== '0' }, { k: 'chip', t: r[5] ? 'Pass' : 'Fail', c: r[5] ? 'mint' : 'warn' }] })), { minW: 800 })] };
+  }
+
+  health() {
+    const st = this.state;
+    const Q = [['Atomize', 12, '1.8 s'], ['Relate', 48, '6.2 s'], ['Merge', 9, '2.1 s'], ['Decision-card draft', 3, '4.4 s'], ['Render', 2, '1.2 s']];
+    const J = [['job 88213', 'Render → Copilot Studio', 'Nordvik Logistics', 'Target unreachable'], ['job 88190', 'Sync → ServiceNow', 'Halden Health', 'Timeout after 30 s']];
+    return { eyebrow: '[Product] staff · platform admin', title: 'System health', blocks: [
+      this.table('Pipeline queues', ['Stage', 'Queue depth', 'p95 latency'], '200px minmax(160px, 1fr) 120px', Q.map((q) => [{ k: 'text', t: q[0], b: true }, { k: 'meter', t: String(q[1]), pct: Math.min(100, q[1] * 2), color: q[1] > 30 ? 'var(--op-amberbar)' : 'var(--op-greenbar)' }, q[2]]), { minW: 500, flex: '1 1 460px' }),
+      this.table('Export and sync success · 7 days', ['Target', 'Success'], 'minmax(160px, 1fr) minmax(140px, 1fr)', [['Copilot Studio', 99.4], ['Agentforce', 99.8], ['ServiceNow export', 98.9], ['ServiceNow sync', 97.6], ['Jira sync', 99.1], ['Markdown', 100]].map((r) => [{ k: 'text', t: r[0], b: true }, { k: 'meter', t: r[1] + ' %', pct: r[1], color: r[1] >= 99 ? 'var(--op-greenbar)' : 'var(--op-amberbar)' }]), { minW: 360, flex: '1 1 380px' }),
+      this.table('Failed jobs', ['Job', 'Step', 'Tenant', 'Error', ''], '100px minmax(160px, 1.3fr) 150px minmax(140px, 1fr) 90px', J.map((j) => [{ k: 'text', t: j[0], mono: true }, j[1], j[2], { k: 'text', t: st.retried[j[0]] ? 'Retried · delivered' : j[3], warn: !st.retried[j[0]] }, st.retried[j[0]] ? { k: 'chip', t: '✓ Done', c: 'mint' } : { k: 'btn', t: 'Retry', on: () => this.setState((x) => ({ retried: { ...x.retried, [j[0]]: true } })) }]), { minW: 720 }),
+      this.table('Incidents', ['When', 'What', 'Status'], '140px minmax(260px, 2fr) 110px', [['Nov 11 · 14:10', 'Relate queue backlog in US region · 22 min', 'Resolved'], ['Nov 4 · 09:30', 'ServiceNow sync delays for one tenant', 'Resolved'], ['Oct 30 · 18:02', 'Copilot Studio export retries in EU', 'Resolved']].map((r) => [{ k: 'text', t: r[0], mut: true }, r[1], { k: 'chip', t: r[2], c: 'mint' }]), { minW: 560 }),
+    ] };
+  }
+}
+</script>
+</body>
+</html>

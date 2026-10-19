@@ -1,0 +1,255 @@
+@import "tailwindcss";
+
+/* Orgpuls design tokens (design/_ds/.../tokens), the visual system the handoff README binds to Orgcue.
+   Fonts come from next/font/google (src/app/layout.tsx), exposed as --font-dm-sans and --font-playfair. */
+/* Orgpuls colour tokens — transcribed verbatim from tailwind.config.ts (which itself transcribes the design bundle).
+   Base palette first, then semantic aliases. Do not add a colour the bundle does not contain. */
+:root{
+  /* surfaces */
+  --op-bg:#FCF6E9;            /* app canvas, inset field background */
+  --op-sf:#FFFDF6;            /* card surface */
+  /* ink / text */
+  --op-ink:#191510;           /* text, hard border, active pill fill */
+  --op-body:#3A342A;          /* document body text */
+  --op-mut:#5F5849;           /* muted text, labels, leads */
+  --op-faint:#8A8272;         /* faintest text, placeholders */
+  --op-disabled:#A39A88;      /* disabled text */
+  /* lines */
+  --op-line:#E8DFC9;          /* hairline border */
+  --op-rule:#C4BCA8;          /* dashed border, inactive dot, unselected pill border */
+  /* accent (yellow) */
+  --op-ac:#F5C64A;            /* primary CTA fill */
+  --op-sbg:#FBEBBE;           /* soft yellow: selected chip, accent panel, Tuva note */
+  --op-band:#F5DC96;          /* middle risk band */
+  --op-sand:#EFE6D2;          /* the playbook's Lederpraksis pill */
+  --op-track:#F2EAD6;         /* the Enkel/Full track, a side-rail icon at rest */
+  --op-cream:#F7EDD2;         /* Prioritet's "Følg med" quadrant */
+  --op-amberbar:#E0A21F;      /* middle-band bar */
+  --op-caution:#8A6A00;       /* caution text */
+  --op-cautiondeep:#5C4600;   /* ink on a yellow fill */
+  /* green */
+  --op-link:#2F5D2A;          /* link, done ring */
+  --op-linkhover:#1E3D1A;
+  --op-greendeep:#20431C;     /* ink on a mint fill */
+  --op-greenbar:#5C9A55;      /* low-risk bar, participation bar */
+  --op-mint:#CFE7E4;          /* positive fill */
+  --op-mint2:#B5DAD4;         /* top distribution segment, 72+ heat */
+  --op-mint3:#8FC7BE;         /* Segmentprofil "over resten" bar */
+  --op-teal:#A8D5D2;          /* puls dot */
+  --op-pulse:#E4EEEC;         /* a puls — its chip, type pill, summary card */
+  --op-sage:#9DB8B3;          /* a puls chip's border, a puls bar, the compared year */
+  --op-stone:#D9CFB8;         /* a grunnlinje bar on the time line */
+  /* warm / risk */
+  --op-peach:#FBD5C4;
+  --op-peach2:#F0B9A0;        /* high-risk fill */
+  --op-orange:#E38258;        /* under-40 heat, masked-cell border */
+  --op-orange2:#EC9B77;       /* 40–49 heat */
+  --op-rustbar:#D4633A;       /* high-risk bar, nav badge */
+  --op-danger:#A33A16;        /* danger text, negative delta */
+  --op-dangerdeep:#6B240C;    /* ink on a peach fill */
+  --op-rustdeep:#5A2410;      /* ink on a peach fill — the varsel notice */
+  /* heat-map ink (lib/results/tone.ts) */
+  --op-heat-ink-1:#4A1706;    /* on orange, <40 */
+  --op-heat-ink-2:#5E1F09;    /* on orange2, 40–49 */
+  /* Sentral (admin) chart palette — one per pipeline stage, in order */
+  --op-viz1:#F6D9C6;--op-viz2:#DCEBD3;--op-viz3:#CFE0F5;--op-viz4:#F3E2C9;--op-viz5:#E7DAF2;
+  /* translucent inks used by the bundle */
+  --op-ink-a05:rgba(25,21,16,.05);
+  --op-ink-a06:rgba(25,21,16,.06);
+  --op-ink-a07:rgba(25,21,16,.07);
+  --op-ink-a08:rgba(25,21,16,.08);
+  --op-ink-a10:rgba(25,21,16,.10);
+  --op-ink-a15:rgba(25,21,16,.15);
+  --op-ink-a42:rgba(25,21,16,.42);
+  --op-bg-a35:rgba(252,246,233,.35);
+
+  /* ---- semantic aliases ---- */
+  --surface-canvas:var(--op-bg);
+  --surface-card:var(--op-sf);
+  --surface-inset:var(--op-bg);
+  --surface-accent:var(--op-sbg);
+  --surface-positive:var(--op-mint);
+  --surface-warning:var(--op-band);
+  --surface-danger:var(--op-peach2);
+  --surface-ink:var(--op-ink);
+  --surface-track:var(--op-track);
+  --surface-pulse:var(--op-pulse);
+  --text-primary:var(--op-ink);
+  --text-body:var(--op-body);
+  --text-muted:var(--op-mut);
+  --text-faint:var(--op-faint);
+  --text-disabled:var(--op-disabled);
+  --text-on-ink:var(--op-bg);
+  --text-on-accent:var(--op-ink);
+  --text-on-positive:var(--op-greendeep);
+  --text-on-warning:var(--op-cautiondeep);
+  --text-on-danger:var(--op-dangerdeep);
+  --text-link:var(--op-link);
+  --text-link-hover:var(--op-linkhover);
+  --text-danger:var(--op-danger);
+  --text-caution:var(--op-caution);
+  --border-hairline:var(--op-line);
+  --border-rule:var(--op-rule);
+  --border-strong:var(--op-ink);
+  --accent:var(--op-ac);
+  --focus-ring:var(--op-ink);
+  --bar-low:var(--op-greenbar);
+  --bar-mid:var(--op-amberbar);
+  --bar-high:var(--op-rustbar);
+  --badge-count:var(--op-rustbar);
+}
+
+/* Orgpuls type tokens. Root is 14px (not 16). Display face is Playfair Display, UI face is DM Sans.
+   Sizes are the bundle's own — transcribed, not rounded to a scale. */
+:root{
+  --font-sans:var(--font-dm-sans),system-ui,sans-serif;
+  --font-display:var(--font-playfair),serif;
+  /* body / UI sizes */
+  --text-2xs:10.5px;   /* step labels under a bar, year-rail months */
+  --text-xs:11px;      /* eyebrow (uppercase, .11em), pill, badge */
+  --text-xs-plus:11.5px;/* meta, legal line */
+  --text-sm:12px;      /* field label, segmented control */
+  --text-sm-plus:12.5px;/* pill, small button, muted meta */
+  --text-md:13px;      /* list text, help steps */
+  --text-md-plus:13.5px;/* control text, card list */
+  --text-base:14px;    /* body (root) */
+  --text-base-plus:14.5px;/* row title, lg button, lead */
+  --text-lg:15px;      /* panel title, site body */
+  --text-lg-plus:15.5px;/* sign-in CTA */
+  --text-xl:16px;      /* measure title, site button */
+  --text-xl-plus:16.5px;/* plan name */
+  --text-2xl:17.5px;   /* site hero lead */
+  --text-3xl:18px;     /* role card title */
+  /* display sizes (Playfair) */
+  --display-xs:17px;   /* side-layout page title */
+  --display-sm:19px;   /* wordmark */
+  --display-md:21px;   /* panel heading (Oversikt cards) */
+  --display-md-plus:22px;/* "Venter på deg" */
+  --display-lg:24px;   /* respondent statement, teaser card */
+  --display-lg-plus:26px;/* respondent intro / thanks */
+  --display-xl:28px;   /* hero stat, price band */
+  --display-xl-plus:30px;/* Oversikt sentence */
+  --display-2xl:32px;  /* Deltakelse %, StartBand title */
+  --display-3xl:34px;  /* Innsikt h1 */
+  --display-4xl:36px;  /* site h2 */
+  --display-5xl:38px;  /* plan price */
+  --display-hero:56px; /* site h1 */
+  --display-index:62px;/* the index figure */
+  /* weights */
+  --weight-regular:400;--weight-medium:500;--weight-semibold:600;--weight-bold:700;
+  /* leading */
+  --leading-none:1;--leading-index:.85;--leading-display:1.04;--leading-tight:1.1;--leading-heading:1.15;--leading-snug:1.3;--leading-body:1.5;--leading-relaxed:1.6;--leading-loose:1.65;--leading-prose:1.7;
+  /* tracking */
+  --tracking-display:-0.01em;   /* wordmark, display headings */
+  --tracking-eyebrow:.11em;     /* uppercase eyebrow in the app */
+  --tracking-eyebrow-site:.12em;/* uppercase eyebrow on the site */
+  --tracking-table:.09em;       /* table head */
+  --tracking-badge:.04em;       /* uppercase factor pill */
+}
+
+/* Orgpuls has no single corner radius — it has a scale, and which value a component uses is part of its identity.
+   Transcribed from tailwind.config.ts borderRadius, every value observed in the bundle. */
+:root{
+  --radius-focus:6px;   /* focus ring, mint tick (18px) */
+  --radius-tick:5px;    /* 16px tick, check mark square */
+  --radius-chip:7px;    /* segmented inner button, heat score tile, 20px Tuva face */
+  --radius-tab:8px;     /* header-panel tab, side-rail icon tile */
+  --radius-bar:9px;     /* stacked bar, brand mark, small CTA, site nav link */
+  --radius-ctl:10px;    /* nav button, Hjelp button, role select, row CTA, 38–40px fields */
+  --radius-btn:11px;    /* checklist button, avatar 26–38px, md button */
+  --radius-cta:12px;    /* primary CTA (lg), two-line report button, 48px sign-in fields */
+  --radius-tile:13px;   /* Deltakelse group row, factor card, todo row, site 50–52px CTA */
+  --radius-opt:14px;    /* respondent option, comment box, primary answer button, mint law line */
+  --radius-row:15px;    /* task/worklist row */
+  --radius-note:16px;   /* Tuva note card, rounds-list table, measure card */
+  --radius-panel:18px;  /* Målinger/Oversikt panel card, menus, team face */
+  --radius-plan:19px;   /* pricing plan card */
+  --radius-card:20px;   /* panel card (Card) — the container almost every screen is built from */
+  --radius-modal:22px;  /* modal, ink price band, product shot frame */
+  --radius-band:24px;   /* StartBand ("Prøv det på deres egen virksomhet") */
+  --radius-phone:34px;  /* phone mock outer */
+  --radius-pill:999px;  /* pills, dots, avatar chip */
+}
+/* Orgpuls spacing. The bundle does not snap to a 4/8 grid — paddings are instance values (13, 15, 17, 22, 26 …).
+   These are the recurring ones, plus the page columns and control heights. Use the literal the source uses; never round. */
+:root{
+  --space-1:2px;--space-2:3px;--space-3:4px;--space-4:6px;--space-5:7px;--space-6:8px;--space-7:9px;--space-8:10px;--space-9:11px;--space-10:12px;--space-11:13px;--space-12:14px;--space-13:16px;--space-14:18px;--space-15:20px;--space-16:22px;--space-17:24px;--space-18:26px;--space-19:28px;--space-20:30px;--space-21:34px;--space-22:36px;--space-23:40px;--space-24:44px;--space-25:60px;--space-26:80px;
+  /* card paddings, by container */
+  --pad-card:26px;            /* Card (radius 20) */
+  --pad-panel:22px 24px;      /* Section / Oversikt panel (radius 18) */
+  --pad-note:16px 18px;       /* NoteCard (radius 16) */
+  --pad-row:15px 18px;        /* Row (radius 15) */
+  --pad-measure:20px 22px;    /* MeasureCard (radius 16) */
+  --pad-site-card:22px 20px;  /* site role card (radius 20) */
+  /* page columns */
+  --page-w:1180px;            /* app page column, top layout (lifted in the side layout) */
+  --overview-w:880px;         /* Oversikt's narrower column (1040px beside the rail) */
+  --site-w:1120px;            /* marketing site column */
+  --page-x:28px;              /* app page horizontal padding (16px on a phone) */
+  --site-x:26px;              /* site horizontal padding */
+  --rail-open:220px;--rail-closed:62px;
+  /* control heights (Button scale) */
+  --h-tiny:30px;--h-xxs:32px;--h-xs:34px;--h-sm:36px;--h-field:38px;--h-panel:40px;--h-md:42px;--h-lg:44px;--h-respond:46px;--h-signin:48px;--h-site:50px;--h-band:52px;
+  /* gaps */
+  --gap-nav:2px;--gap-chip:7px;--gap-list:8px;--gap-card:13px;--gap-grid:18px;
+}
+/* Orgpuls shadows, motion and focus. Shadows are rare: flat hairline cards everywhere; a shadow marks only a floating layer or a framed screenshot. */
+:root{
+  --shadow-menu:0 18px 40px -24px rgba(25,21,16,.45);   /* account menu, sub-menu, phone mock */
+  --shadow-shot:0 18px 40px -28px rgba(25,21,16,.35);   /* product-shot browser frame */
+  --shadow-modal:0 34px 80px rgba(25,21,16,.3);         /* modal */
+  --scrim-modal:rgba(25,21,16,.42);
+  --ease-entry:ease; /* @kind other */ --dur-entry:.25s; /* @kind other */ /* every screen root enters with ht-in */
+  --dur-rail:180ms; /* @kind other */ --ease-rail:ease-in-out; /* @kind other */ /* side rail width */
+  --dur-knob:150ms; /* @kind other */ /* switch knob */
+  --focus-outline:3px solid #191510; /* @kind other */ --focus-offset:2px;--focus-radius:6px;
+  --border-hair:1px solid #E8DFC9; /* @kind other */
+  --border-mark:1.5px solid #191510; /* @kind other */ /* logo mark, sign-in fields */
+  --border-strong:1px solid #191510; /* @kind other */
+  --border-dashed:1px dashed #C4BCA8; /* @kind other */
+}
+@keyframes ht-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* Orgpuls base — the bundle's own resets (app/globals.css). No line-height on html: elements inherit `normal` (~1.2). Root is 14px. */
+*{box-sizing:border-box}
+html{line-height:normal}
+html,body{margin:0;padding:0}
+body{min-height:100vh;background:var(--op-bg);color:var(--op-ink);font-family:var(--font-sans);font-size:14px;-webkit-font-smoothing:antialiased}
+a{color:var(--op-link);text-decoration:none}
+a:hover{color:var(--op-linkhover);text-decoration:underline}
+input,select,textarea,button{font-family:inherit}
+input::placeholder,textarea::placeholder{color:var(--op-faint)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--op-ink);outline-offset:2px;border-radius:6px}
+.animate-entry{animation:ht-in .25s ease}
+@media (prefers-reduced-motion:reduce){.animate-entry{animation:none}}
+.op-display{font-family:var(--font-display)}
+.op-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.11em;color:var(--op-mut)}
+
+/* Tailwind theme bridge: the same tokens as utilities (bg-op-bg, text-op-ink, font-display …). */
+@theme inline {
+  --color-op-bg: var(--op-bg);
+  --color-op-sf: var(--op-sf);
+  --color-op-ink: var(--op-ink);
+  --color-op-body: var(--op-body);
+  --color-op-mut: var(--op-mut);
+  --color-op-line: var(--op-line);
+  --color-op-ac: var(--op-ac);
+  --color-op-sbg: var(--op-sbg);
+  --color-op-link: var(--op-link);
+  --color-op-mint: var(--op-mint);
+  --color-op-peach: var(--op-peach);
+  --color-op-dangerdeep: var(--op-dangerdeep);
+  --font-sans: var(--font-dm-sans), system-ui, sans-serif;
+  --font-display: var(--font-playfair), serif;
+}
+
+/* Prototype globals (Orgcue.dc.html helmet) */
+html, body { background: #FCF6E9; color: #191510; font-size: 14px; }
+a { color: #2F5D2A; text-decoration: none; }
+a:hover { color: #1E3D1A; text-decoration: underline; }
+*:focus-visible { outline: 3px solid #191510; outline-offset: 2px; border-radius: 6px; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+@media (max-width: 720px) {
+  .oc-main { padding: 16px !important; margin: 0 4px 4px 0 !important; }
+  .oc-hide-sm { display: none; }
+}

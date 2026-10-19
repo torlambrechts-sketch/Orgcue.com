@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/orgpuls-design-system-d91c81f2-fbc3-4646-b16a-fd3ab94db56a/styles.css">
+  <script src="_ds/orgpuls-design-system-d91c81f2-fbc3-4646-b16a-fd3ab94db56a/_ds_bundle.js"></script>
+  <script src="data.js"></script>
+  <style>
+    a { color: #2F5D2A; text-decoration: none; }
+    a:hover { color: #1E3D1A; text-decoration: underline; }
+  </style>
+</helmet>
+<div style="min-width: 0; color: var(--op-ink); font-family: var(--font-sans, 'DM Sans', system-ui, sans-serif); font-size: 14px;">
+<div style="max-width: 1200px; margin: 0 auto; padding: 28px 28px 56px; box-sizing: border-box;">
+
+<sc-if value="{{ showRoundHeader }}" hint-placeholder-val="{{ true }}">
+  <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px;">
+    <span style="min-width: 0;">
+      <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Distribution · Round 1 · Intake · Oct 5 – Oct 16</span>
+      <h1 style="margin: 4px 0 0; font-family: var(--font-display); font-size: 28px; line-height: 36px; font-weight: 600;">IT Helpdesk Agent v1</h1>
+    </span>
+    <span style="display: flex; flex-wrap: wrap; gap: 6px;">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Pill" selected="{{ t.selected }}" onClick="{{ t.onClick }}" hint-size="100px,32px"><span style="white-space: nowrap;">{{ t.label }}</span></x-import>
+      </sc-for>
+    </span>
+  </div>
+</sc-if>
+
+<!-- 3.1 Invite builder -->
+<sc-if value="{{ isInvite }}">
+  <sc-if value="{{ inviteSent }}">
+    <div style="margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; border-radius: 15px; background: var(--op-mint); padding: 12px 16px;">
+      <span style="font-size: 13.5px; color: var(--op-greendeep);"><strong style="font-weight: 700;">✓ 8 invites sent</strong> · Oct 5 · 9:00 am Central · each from Kari Nordmann</span>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="quiet" onClick="{{ goTracking }}" hint-size="120px,32px"><span style="white-space: nowrap;">Open tracking →</span></x-import>
+    </div>
+  </sc-if>
+  <div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start;">
+    <section style="flex: 3 1 560px; min-width: 0;">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px;">
+        <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">Contributors</h2>
+        <span style="font-size: 12.5px; color: var(--op-mut); font-variant-numeric: tabular-nums;">{{ inviteSummary }}</span>
+      </div>
+      <sc-if value="{{ hasSelection }}">
+        <div style="margin-top: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; border-radius: 13px; background: var(--op-ink); color: var(--op-bg); padding: 8px 10px 8px 14px;">
+          <span style="font-size: 13px; font-weight: 700; margin-right: auto;">{{ selectionLabel }}</span>
+          <sc-for list="{{ bulkChannels }}" as="c">
+            <button type="button" onClick="{{ c.onClick }}" style="cursor: pointer; border: 1px solid rgba(252,246,233,.35); border-radius: 9px; background: transparent; color: var(--op-bg); padding: 6px 10px; font-family: inherit; font-size: 12px; font-weight: 600; white-space: nowrap;">{{ c.label }}</button>
+          </sc-for>
+          <button type="button" onClick="{{ bulkResend }}" style="cursor: pointer; border: 1px solid rgba(252,246,233,.35); border-radius: 9px; background: transparent; color: var(--op-bg); padding: 6px 10px; font-family: inherit; font-size: 12px; font-weight: 600;">Resend</button>
+          <button type="button" onClick="{{ bulkRemove }}" style="cursor: pointer; border: none; border-radius: 9px; background: var(--op-sf); color: var(--op-ink); padding: 6px 10px; font-family: inherit; font-size: 12px; font-weight: 700;">Remove</button>
+        </div>
+      </sc-if>
+      <div style="margin-top: 10px; overflow-x: auto; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf);">
+        <div style="min-width: 640px;">
+          <div style="display: grid; grid-template-columns: 30px minmax(170px, 1.6fr) minmax(110px, 1fr) 132px 58px 96px; gap: 12px; align-items: center; padding: 11px 16px; border-bottom: 1px solid var(--op-line); font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">
+            <button type="button" aria-label="Select all" onClick="{{ toggleAll }}" style="display: flex; padding: 0; border: none; background: transparent; cursor: pointer;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Mark" checked="{{ allSelected }}" size="{{ 18 }}" hint-size="18px,18px"></x-import></button>
+            <span>Contributor</span><span>Role</span><span>Channel</span><span>Min</span><span>Status</span>
+          </div>
+          <sc-for list="{{ inviteRows }}" as="r" hint-placeholder-count="8">
+            <div style="{{ r.rowStyle }}">
+              <button type="button" aria-label="{{ r.selLabel }}" onClick="{{ r.onToggle }}" style="display: flex; padding: 0; border: none; background: transparent; cursor: pointer;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Mark" checked="{{ r.selected }}" size="{{ 18 }}" hint-size="18px,18px"></x-import></button>
+              <span style="display: flex; align-items: center; gap: 9px; min-width: 0;">
+                <span style="display: flex; width: 28px; height: 28px; flex: none; align-items: center; justify-content: center; border-radius: 999px; background: var(--op-track); font-size: 10.5px; font-weight: 700;">{{ r.initials }}</span>
+                <span style="min-width: 0;">
+                  <span style="display: block; font-size: 13.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ r.name }}</span>
+                  <span style="display: block; font-size: 11.5px; color: var(--op-mut); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ r.title }}</span>
+                </span>
+              </span>
+              <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 5px; font-size: 13px;">
+                <span>{{ r.role }}</span>
+                <sc-if value="{{ r.authority }}"><span style="flex: none; border-radius: 6px; border: 1px solid var(--op-ink); padding: 0 5px; font-size: 10px; font-weight: 700; white-space: nowrap;">Authority</span></sc-if>
+              </span>
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ channelOptions }}" value="{{ r.channel }}" onChange="{{ r.onChannel }}" aria-label="{{ r.chLabel }}" hint-size="132px,38px"></x-import>
+              <span style="font-size: 13px; font-variant-numeric: tabular-nums;">{{ r.minutes }}</span>
+              <span style="{{ r.statusStyle }}">{{ r.status }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;">
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="ghost" hint-size="150px,34px"><span style="white-space: nowrap;">＋ Add contributor</span></x-import>
+        <span style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="secondary" onClick="{{ goPreviews }}" hint-size="170px,36px"><span style="white-space: nowrap;">Preview in channels</span></x-import>
+          <sc-if value="{{ inviteDraft }}" hint-placeholder-val="{{ true }}">
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ openSend }}" disabled="{{ purposeMissing }}" hint-size="150px,36px"><span style="white-space: nowrap;">{{ sendLabel }}</span></x-import>
+          </sc-if>
+        </span>
+      </div>
+    </section>
+
+    <aside style="flex: 1 1 340px; min-width: 0; box-sizing: border-box; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px; display: flex; flex-direction: column; gap: 14px;">
+      <span style="font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Invite message</span>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Subject" hint-size="100%,62px">
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="field" value="{{ subject }}" onChange="{{ onSubject }}" hint-size="100%,38px"></x-import>
+      </x-import>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Message" hint-size="100%,220px">
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" minHeight="{{ 190 }}" value="{{ body }}" onChange="{{ onBody }}" hint-size="100%,190px"></x-import>
+      </x-import>
+      <span style="display: flex; flex-wrap: wrap; gap: 5px;">
+        <sc-for list="{{ mergeFields }}" as="m" hint-placeholder-count="6">
+          <button type="button" onClick="{{ m.onClick }}" title="Insert into message" style="flex: none; cursor: pointer; border: 1px solid var(--op-line); border-radius: 7px; background: var(--op-bg); padding: 3px 7px; font-family: ui-monospace, Menlo, monospace; font-size: 11.5px; color: var(--op-ink); white-space: nowrap;">{{ m.label }}</button>
+        </sc-for>
+      </span>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Why we’re asking you · required" hint="Shown on the first screen every contributor sees." hint-size="100%,140px">
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" value="{{ purpose }}" onChange="{{ onPurpose }}" hint-size="100%,74px"></x-import>
+      </x-import>
+      <sc-if value="{{ purposeMissing }}">
+        <span style="margin-top: -6px; font-size: 12.5px; font-weight: 600; color: var(--op-caution);">Add a purpose before sending. People answer better when they know why.</span>
+      </sc-if>
+      <div style="border-radius: 13px; background: var(--op-track); padding: 12px 14px; font-size: 12.5px; line-height: 1.55; color: var(--op-body);">
+        <strong style="display: block; font-weight: 700; color: var(--op-ink);">Round 1 is blind.</strong>
+        Each person answers alone and can’t see anyone else’s answers. Kari (owner) and Daniel (decider) read them; restricted questions are visible only to the roles named on them.
+      </div>
+      <div style="border-top: 1px solid var(--op-line); padding-top: 14px;">
+        <span style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+          <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">As {{ previewName }} sees it</span>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="role" options="{{ previewOptions }}" value="{{ previewWho }}" onChange="{{ onPreviewWho }}" aria-label="Preview as" hint-size="150px,34px"></x-import>
+        </span>
+        <span style="display: block; margin-top: 10px; font-size: 13.5px; font-weight: 700;">{{ renderedSubject }}</span>
+        <p style="margin: 6px 0 0; font-size: 13px; line-height: 1.6; color: var(--op-body); white-space: pre-wrap; text-wrap: pretty;"><sc-for list="{{ renderedBody }}" as="seg"><span style="{{ seg.style }}">{{ seg.text }}</span></sc-for></p>
+      </div>
+    </aside>
+  </div>
+  <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Modal" open="{{ sendOpen }}" onClose="{{ closeSend }}" title="{{ sendTitle }}" sub="Round 1 opens now and closes Oct 16. Reminders follow the schedule." closeLabel="Close" width="{{ 500 }}" hint-size="0px,0px">
+    <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 6px; font-size: 13.5px;">
+      <sc-for list="{{ channelCounts }}" as="c">
+        <span style="display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px solid var(--op-line); padding: 7px 0;"><span>{{ c.label }}</span><span style="font-weight: 700; font-variant-numeric: tabular-nums;">{{ c.count }}</span></span>
+      </sc-for>
+    </div>
+    <span style="display: block; margin-top: 12px; font-size: 12.5px; color: var(--op-mut);">Every invite is sent as Kari Nordmann. Answers are stored in the US data region.</span>
+    <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 8px;">
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="ghost" onClick="{{ closeSend }}" hint-size="90px,36px">Cancel</x-import>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ confirmSend }}" hint-size="120px,36px"><span style="white-space: nowrap;">Send now</span></x-import>
+    </div>
+  </x-import>
+</sc-if>
+
+<!-- 3.2 Channel previews -->
+<sc-if value="{{ isPreviews }}">
+  <div style="margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;">
+    <span style="font-size: 13.5px; color: var(--op-body);">The same invite in each channel. The sender is always the brief owner, never [Product].</span>
+    <span style="display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--op-mut);">Preview as
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="role" options="{{ previewOptions }}" value="{{ previewWho }}" onChange="{{ onPreviewWho }}" aria-label="Preview as" hint-size="150px,34px"></x-import>
+    </span>
+  </div>
+  <div style="margin-top: 16px; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); align-items: start;">
+    <section style="display: flex; flex-direction: column; gap: 8px;">
+      <span style="display: flex; align-items: center; gap: 8px;"><span style="flex: none; border-radius: 999px; background: var(--op-ink); color: var(--op-bg); padding: 3px 10px; font-size: 11px; font-weight: 700;">Email</span><span style="font-size: 12px; color: var(--op-mut);">{{ pv.email }}</span></span>
+      <div style="border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-sf); overflow: hidden;">
+        <div style="display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 4px 8px; padding: 12px 16px; border-bottom: 1px solid var(--op-line); font-size: 12.5px;">
+          <span style="color: var(--op-mut);">From</span><span style="min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"><strong style="font-weight: 600;">Kari Nordmann</strong> &lt;kari.nordmann@lumio.com&gt;</span>
+          <span style="color: var(--op-mut);">To</span><span>{{ pv.name }}</span>
+          <span style="color: var(--op-mut);">Subject</span><span style="font-weight: 600;">{{ renderedSubject }}</span>
+        </div>
+        <div style="padding: 16px;">
+          <p style="margin: 0; font-size: 13px; line-height: 1.6; white-space: pre-wrap;">{{ pv.bodyPlain }}</p>
+          <div style="margin-top: 14px; border-radius: 12px; background: var(--op-bg); padding: 12px 14px; font-size: 12.5px; line-height: 1.5; color: var(--op-body);"><strong style="display: block; color: var(--op-ink);">Why we’re asking you</strong>{{ purpose }}</div>
+          <div style="margin-top: 14px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" hint-size="150px,36px"><span style="white-space: nowrap;">{{ pv.cta }}</span></x-import></div>
+          <span style="display: block; margin-top: 14px; font-size: 11.5px; color: var(--op-mut);">Sent through [Product] for Lumio Inc. · answers stored in the US data region</span>
+        </div>
+      </div>
+    </section>
+    <section style="display: flex; flex-direction: column; gap: 8px;">
+      <span style="display: flex; align-items: center; gap: 8px;"><span style="flex: none; border-radius: 999px; background: var(--op-ink); color: var(--op-bg); padding: 3px 10px; font-size: 11px; font-weight: 700;">Slack</span><span style="font-size: 12px; color: var(--op-mut);">Direct message from Kari</span></span>
+      <div style="border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-sf); padding: 14px 16px; display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 10px;">
+        <span style="display: flex; width: 36px; height: 36px; align-items: center; justify-content: center; border-radius: 9px; background: var(--op-ink); color: var(--op-bg); font-size: 12px; font-weight: 700;">KN</span>
+        <span style="min-width: 0;">
+          <span style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px;"><strong style="font-size: 13.5px;">Kari Nordmann</strong><span style="font-size: 11.5px; color: var(--op-mut);">9:00 AM · via [Product]</span></span>
+          <span style="display: block; margin-top: 4px; font-size: 13px; line-height: 1.5;">Hi {{ pv.first }}, I’d value about {{ pv.minutes }} minutes of your {{ pv.roleLower }} know-how for our new IT helpdesk agent.</span>
+          <span style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--op-line); border-radius: 12px; padding: 12px 14px;">
+            <strong style="font-size: 13.5px;">IT Helpdesk Agent v1</strong>
+            <span style="font-size: 12.5px; line-height: 1.5; color: var(--op-body);">{{ purpose }}</span>
+            <span style="font-size: 12px; color: var(--op-mut);">Due Oct 16 · your answers stay private in round 1</span>
+            <span style="display: flex; flex-wrap: wrap; gap: 8px;">
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="solid" hint-size="110px,32px"><span style="white-space: nowrap;">{{ pv.slackCta }}</span></x-import>
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="secondary" hint-size="80px,32px">Later</x-import>
+            </span>
+          </span>
+        </span>
+      </div>
+    </section>
+    <section style="display: flex; flex-direction: column; gap: 8px;">
+      <span style="display: flex; align-items: center; gap: 8px;"><span style="flex: none; border-radius: 999px; background: var(--op-ink); color: var(--op-bg); padding: 3px 10px; font-size: 11px; font-weight: 700;">Teams</span><span style="font-size: 12px; color: var(--op-mut);">Card in chat with Kari</span></span>
+      <div style="border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-sf); overflow: hidden;">
+        <div style="padding: 12px 16px; border-bottom: 1px solid var(--op-line); font-size: 12px; color: var(--op-mut);"><strong style="color: var(--op-ink);">Kari Nordmann</strong> sent a card · 9:00 AM</div>
+        <div style="padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+          <span style="font-family: var(--font-display); font-size: 18px; font-weight: 600;">IT Helpdesk Agent v1</span>
+          <span style="font-size: 13px; line-height: 1.5; color: var(--op-body);">{{ purpose }}</span>
+          <div style="display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 5px 10px; font-size: 12.5px;">
+            <span style="color: var(--op-mut);">Your role</span><span style="font-weight: 600;">{{ pv.role }}</span>
+            <span style="color: var(--op-mut);">Time</span><span style="font-weight: 600;">About {{ pv.minutes }} minutes</span>
+            <span style="color: var(--op-mut);">Due</span><span style="font-weight: 600;">Friday, Oct 16</span>
+          </div>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" block="{{ true }}" hint-size="100%,36px"><span style="white-space: nowrap;">{{ pv.slackCta }}</span></x-import>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="secondary" block="{{ true }}" hint-size="100%,36px"><span style="white-space: nowrap;">Who sees my answers?</span></x-import>
+        </div>
+      </div>
+    </section>
+  </div>
+  <section style="margin-top: 26px; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start; border-top: 1px solid var(--op-line); padding-top: 22px;">
+    <div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
+      <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Round digest · Slack or Teams</span>
+      <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600; text-wrap: balance;">One message per round. Never one per reply.</h2>
+      <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--op-body); text-wrap: pretty;">Everything that needs Sam this round arrives together. The buttons work without signing in, and every tap is logged to the brief.</p>
+      <span style="display: flex; gap: 6px;">
+        <sc-for list="{{ digestChannels }}" as="c">
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Pill" selected="{{ c.selected }}" onClick="{{ c.onClick }}" hint-size="80px,32px"><span style="white-space: nowrap;">{{ c.label }}</span></x-import>
+        </sc-for>
+      </span>
+    </div>
+    <div style="flex: 2 1 440px; min-width: 0; border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-sf); overflow: hidden;">
+      <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px; padding: 12px 16px; border-bottom: 1px solid var(--op-line); font-size: 12px; color: var(--op-mut);">
+        <span><strong style="color: var(--op-ink);">Kari Nordmann</strong> · via [Product] · {{ digestChannelLabel }}</span><span>Monday · 9:00 AM</span>
+      </div>
+      <div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 4px;">
+        <span style="font-size: 14.5px; font-weight: 700;">IT Helpdesk Agent v1 · your round 2 digest</span>
+        <span style="font-size: 13px; color: var(--op-body);">3 suggestions on your items, 2 conflicts need your view, 1 action due Nov 30.</span>
+      </div>
+      <div style="display: flex; flex-direction: column;">
+        <sc-for list="{{ digestRows }}" as="r" hint-placeholder-count="6">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; border-top: 1px solid var(--op-line); padding: 11px 16px;">
+            <span style="{{ r.chipStyle }}">{{ r.kind }}</span>
+            <span style="flex: 1 1 220px; min-width: 0;">
+              <span style="display: block; font-size: 13.5px; font-weight: 600; text-wrap: pretty;">{{ r.text }}</span>
+              <span style="display: block; margin-top: 2px; font-size: 12px; color: var(--op-mut);">{{ r.sub }}</span>
+            </span>
+            <sc-if value="{{ r.open }}" hint-placeholder-val="{{ true }}">
+              <span style="display: flex; flex-wrap: wrap; gap: 6px;">
+                <sc-for list="{{ r.buttons }}" as="b">
+                  <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="tiny" tone="{{ b.tone }}" onClick="{{ b.onClick }}" hint-size="80px,30px"><span style="white-space: nowrap;">{{ b.label }}</span></x-import>
+                </sc-for>
+              </span>
+            </sc-if>
+            <sc-if value="{{ r.done }}"><span style="flex: 0 1 auto; border-radius: 999px; background: var(--op-mint); color: var(--op-greendeep); padding: 3px 10px; font-size: 11.5px; font-weight: 700;">✓ {{ r.doneLabel }}</span></sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <div style="padding: 10px 16px; border-top: 1px solid var(--op-line); font-size: 11.5px; color: var(--op-mut);">Suggestions show the suggester’s function group, never a name. Points and comment counts are never shown here.</div>
+    </div>
+  </section>
+  <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 8px;">
+    <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="secondary" onClick="{{ goInvite }}" hint-size="140px,36px"><span style="white-space: nowrap;">← Invite builder</span></x-import>
+    <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ goContributor }}" hint-size="190px,36px"><span style="white-space: nowrap;">Open as {{ pv.first }} →</span></x-import>
+  </div>
+</sc-if>
+
+<!-- 3.3 Schedule and reminders -->
+<sc-if value="{{ isSchedule }}">
+  <div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start;">
+    <section style="flex: 3 1 520px; min-width: 0; box-sizing: border-box; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 22px 24px;">
+      <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">Rounds</h2>
+      <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px;">
+        <sc-for list="{{ roundRows }}" as="r" hint-placeholder-count="4">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; border: 1px solid var(--op-line); border-radius: 13px; padding: 10px 14px;">
+            <span style="flex: 1 1 160px; min-width: 0;">
+              <span style="display: block; font-size: 14px; font-weight: 700;">{{ r.key }} · {{ r.name }}</span>
+              <span style="display: block; font-size: 12px; color: var(--op-mut);">{{ r.who }}</span>
+            </span>
+            <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--op-mut);">Opens <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="field" type="date" defaultValue="{{ r.start }}" style="{{ dateW }}" hint-size="150px,38px"></x-import></span>
+            <span style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--op-mut);">Closes <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="field" type="date" defaultValue="{{ r.end }}" style="{{ dateW }}" hint-size="150px,38px"></x-import></span>
+            <span style="{{ r.pill }}">{{ r.state }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <span style="display: block; margin-top: 10px; font-size: 12.5px; color: var(--op-mut);">The brief locks Nov 14, 2026 and exports Nov 18. Moving a round moves the ones after it.</span>
+    </section>
+    <section style="flex: 2 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 18px;">
+      <div style="border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 22px 24px;">
+        <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">Reminders</h2>
+        <div style="margin-top: 10px; display: flex; flex-direction: column;">
+          <sc-for list="{{ rules }}" as="r" hint-placeholder-count="4">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--op-line); padding: 10px 0;">
+              <span style="font-size: 13.5px;">{{ r.text }}</span>
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Switch" on="{{ r.on }}" onChange="{{ r.onToggle }}" label="{{ r.text }}" hint-size="38px,22px"></x-import>
+            </div>
+          </sc-for>
+        </div>
+        <div style="margin-top: 10px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="ghost" hint-size="110px,32px"><span style="white-space: nowrap;">＋ Add a rule</span></x-import></div>
+      </div>
+      <div style="border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 22px 24px; display: flex; flex-direction: column; gap: 12px;">
+        <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">Quiet hours</h2>
+        <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 13px;">No messages between
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ hoursFrom }}" defaultValue="18" style="{{ hourW }}" hint-size="100px,38px"></x-import>
+          and
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ hoursTo }}" defaultValue="8" style="{{ hourW }}" hint-size="100px,38px"></x-import>
+        </span>
+        <span style="font-size: 12.5px; color: var(--op-mut);">In each contributor’s own time zone. Weekends are always quiet.</span>
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; border-top: 1px solid var(--op-line); padding-top: 12px;">
+          <span>
+            <span style="display: block; font-size: 13.5px; font-weight: 700;">Escalate to the owner</span>
+            <span style="display: block; margin-top: 2px; font-size: 12.5px; line-height: 1.5; color: var(--op-mut);">When an authority contributor hasn’t answered 2 days before close, tell Kari.</span>
+          </span>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Switch" on="{{ escalate }}" onChange="{{ onEscalate }}" label="Escalate to the owner" hint-size="38px,22px"></x-import>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: flex-end;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ saveSchedule }}" hint-size="130px,36px"><span style="white-space: nowrap;">Save schedule</span></x-import></div>
+    </section>
+  </div>
+</sc-if>
+
+<!-- 3.4 Tracking -->
+<sc-if value="{{ isTracking }}">
+  <sc-if value="{{ trackExtended }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; border-radius: 15px; background: var(--op-sbg); border: 1px solid var(--op-amberbar); padding: 12px 16px;">
+      <span style="flex: 1 1 320px; min-width: 0; font-size: 13.5px; line-height: 1.5;"><strong style="font-weight: 700;">Round 1 closed Oct 16 with 1 contributor missing.</strong> Extended to Nov 13 for Tom Becker, so the legal view can still land before the brief locks. Everyone else’s answers are already in synthesis.</span>
+      <span style="display: flex; gap: 8px;">
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="secondary" onClick="{{ nudgeTom }}" hint-size="100px,32px"><span style="white-space: nowrap;">Nudge Tom</span></x-import>
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="ghost" onClick="{{ closeWithout }}" hint-size="140px,32px"><span style="white-space: nowrap;">Close without Tom</span></x-import>
+      </span>
+    </div>
+  </sc-if>
+  <sc-if value="{{ trackMid }}">
+    <div style="margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; border-radius: 15px; background: var(--op-sbg); border: 1px solid var(--op-amberbar); padding: 12px 16px;">
+      <span style="flex: 1 1 320px; min-width: 0; font-size: 13.5px; line-height: 1.5;"><strong style="font-weight: 700; color: var(--op-cautiondeep);">Slot at risk: Security has no answers yet.</strong> Priya Shah hasn’t opened her invite. Hard constraints and Data the agent may use need her before Oct 16.</span>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" onClick="{{ nudgePriya }}" hint-size="110px,32px"><span style="white-space: nowrap;">Nudge Priya</span></x-import>
+    </div>
+  </sc-if>
+  <div style="margin-top: 16px; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+    <sc-for list="{{ funnel }}" as="f" hint-placeholder-count="4">
+      <button type="button" onClick="{{ f.onClick }}" aria-pressed="{{ f.selected }}" style="{{ f.style }}">
+        <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">{{ f.label }}</span>
+        <span style="font-family: var(--font-display); font-size: 34px; line-height: 1.05; font-weight: 600; font-variant-numeric: tabular-nums;">{{ f.count }}</span>
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Meter" pct="{{ f.pct }}" height="{{ 6 }}" color="{{ f.bar }}" hint-size="100%,6px"></x-import>
+        <span style="font-size: 12px; color: var(--op-mut);">{{ f.note }}</span>
+      </button>
+    </sc-for>
+  </div>
+  <div style="margin-top: 18px; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px;">
+    <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">{{ trackListTitle }}</h2>
+    <button type="button" onClick="{{ showAllStages }}" style="cursor: pointer; border: none; background: transparent; padding: 0; font-family: inherit; font-size: 12.5px; font-weight: 600; color: var(--op-link);">Show everyone</button>
+  </div>
+  <div style="margin-top: 10px; overflow-x: auto; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf);">
+    <div style="min-width: 760px;">
+      <div style="display: grid; grid-template-columns: minmax(180px, 1.6fr) 104px minmax(160px, 1.3fr) 90px 96px 120px; gap: 12px; align-items: center; padding: 11px 16px; border-bottom: 1px solid var(--op-line); font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">
+        <span>Contributor</span><span>Status</span><span>Last activity</span><span>Channel</span><span>Reminders</span><span></span>
+      </div>
+      <sc-for list="{{ trackRows }}" as="r" hint-placeholder-count="8">
+        <div style="{{ r.rowStyle }}">
+          <span style="min-width: 0;">
+            <span style="display: flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 600;">{{ r.name }}<sc-if value="{{ r.risk }}"><span style="flex: none; border-radius: 999px; background: var(--op-band); color: var(--op-cautiondeep); padding: 1px 7px; font-size: 10.5px; font-weight: 700; white-space: nowrap;">Slot at risk</span></sc-if></span>
+            <span style="display: block; font-size: 11.5px; color: var(--op-mut);">{{ r.role }}</span>
+          </span>
+          <span style="{{ r.statusStyle }}">{{ r.status }}</span>
+          <span style="font-size: 12.5px; color: var(--op-body);">{{ r.last }}</span>
+          <span style="flex: none; justify-self: start; border-radius: 999px; background: var(--op-track); padding: 2px 9px; font-size: 11.5px; font-weight: 600; white-space: nowrap;">{{ r.channel }}</span>
+          <span style="font-size: 12.5px; font-variant-numeric: tabular-nums;">{{ r.reminders }}</span>
+          <span style="justify-self: end;">
+            <sc-if value="{{ r.canNudge }}">
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="{{ r.nudgeTone }}" onClick="{{ r.onNudge }}" hint-size="100px,32px"><span style="white-space: nowrap;">{{ r.nudgeLabel }}</span></x-import>
+            </sc-if>
+          </span>
+        </div>
+      </sc-for>
+      <sc-if value="{{ noTrackRows }}"><div style="padding: 20px 16px; font-size: 13.5px; color: var(--op-mut);">Nobody is at this stage.</div></sc-if>
+    </div>
+  </div>
+  <div style="margin-top: 22px; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px;">
+    <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">Follow-ups</h2>
+    <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="secondary" onClick="{{ goFollowUp }}" hint-size="140px,32px"><span style="white-space: nowrap;">＋ New follow-up</span></x-import>
+  </div>
+  <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 8px;">
+    <sc-for list="{{ fuRows }}" as="r" hint-placeholder-count="2">
+      <div style="{{ r.rowStyle }}">
+        <span style="flex: none; border-radius: 999px; background: var(--op-pulse); padding: 2px 9px; font-size: 11px; font-weight: 700; white-space: nowrap;">Follow-up</span>
+        <span style="flex: 1 1 280px; min-width: 0;">
+          <span style="display: block; font-size: 13.5px; font-weight: 600; text-wrap: pretty;">{{ r.q }}</span>
+          <span style="display: block; margin-top: 2px; font-size: 12px; color: var(--op-mut);">To {{ r.toName }} · {{ r.channel }} · sent {{ r.sent }} · due {{ r.due }}</span>
+        </span>
+        <span style="{{ r.statusStyle }}">{{ r.status }}</span>
+      </div>
+    </sc-for>
+  </div>
+</sc-if>
+
+<!-- 3.5 Targeted follow-up -->
+<sc-if value="{{ isFollowUp }}">
+  <div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start;">
+    <section style="flex: 3 1 480px; min-width: 0; box-sizing: border-box; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 22px 24px; display: flex; flex-direction: column; gap: 14px;">
+      <span>
+        <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">From gap 2.6 · Security slot is thin</span>
+        <h2 style="margin: 4px 0 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">One question to one role</h2>
+      </span>
+      <div style="display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="To" hint-size="100%,62px">
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" options="{{ fuRoleOptions }}" value="{{ fuRole }}" onChange="{{ onFuRole }}" hint-size="100%,40px"></x-import>
+        </x-import>
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Slot" hint-size="100%,62px">
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" options="{{ fuSlotOptions }}" value="{{ fuSlot }}" onChange="{{ onFuSlot }}" hint-size="100%,40px"></x-import>
+        </x-import>
+      </div>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Question" hint-size="100%,100px">
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" value="{{ fuQ }}" onChange="{{ onFuQ }}" hint-size="100%,74px"></x-import>
+      </x-import>
+      <span style="display: flex; flex-direction: column; gap: 6px;">
+        <span style="font-size: 12px; color: var(--op-mut);">Other suggestions for {{ fuRole }}</span>
+        <sc-for list="{{ fuSuggestions }}" as="s" hint-placeholder-count="2">
+          <button type="button" onClick="{{ s.onClick }}" style="cursor: pointer; text-align: left; border: 1px dashed var(--op-rule); border-radius: 11px; background: transparent; padding: 8px 12px; font-family: inherit; font-size: 13px; color: var(--op-ink);">{{ s.text }}</button>
+        </sc-for>
+      </span>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Why we’re asking" hint="Shown above the question." hint-size="100%,120px">
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" value="{{ fuWhy }}" onChange="{{ onFuWhy }}" hint-size="100%,74px"></x-import>
+      </x-import>
+      <span style="font-size: 12px; color: var(--op-mut);">Channel</span>
+      <span style="margin-top: -8px; display: flex; flex-wrap: wrap; gap: 6px;">
+        <sc-for list="{{ fuChannels }}" as="c" hint-placeholder-count="4">
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Pill" selected="{{ c.selected }}" onClick="{{ c.onClick }}" hint-size="80px,32px"><span style="white-space: nowrap;">{{ c.label }}</span></x-import>
+        </sc-for>
+      </span>
+      <div style="display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Due" hint-size="100%,62px">
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" type="date" value="{{ fuDue }}" onChange="{{ onFuDue }}" hint-size="100%,40px"></x-import>
+        </x-import>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid var(--op-line); padding-top: 14px;">
+        <span style="font-size: 12.5px; color: var(--op-mut);">{{ fuQuota }}</span>
+        <span style="display: flex; gap: 8px;">
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="ghost" onClick="{{ goGaps }}" hint-size="90px,36px">Cancel</x-import>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ sendFollowUp }}" hint-size="140px,36px"><span style="white-space: nowrap;">Send follow-up</span></x-import>
+        </span>
+      </div>
+    </section>
+    <aside style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
+      <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">What {{ fuPersonFirst }} sees</span>
+      <div style="max-width: 340px; border: 1px solid var(--op-line); border-radius: 22px; background: var(--op-bg); padding: 20px 18px; display: flex; flex-direction: column; gap: 12px;">
+        <span style="display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 12px; color: var(--op-mut);"><span>Kari has one more question</span><span style="white-space: nowrap;">About 2 min</span></span>
+        <span style="font-size: 12.5px; line-height: 1.5; color: var(--op-body);">{{ fuWhy }}</span>
+        <span style="font-family: var(--font-display); font-size: 21px; line-height: 1.3; font-weight: 600; text-wrap: pretty;">{{ fuQPlain }}</span>
+        <span style="display: block; height: 84px; border: 1px solid var(--op-line); border-radius: 14px; background: var(--op-sf);"></span>
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" block="{{ true }}" hint-size="100%,44px">Continue</x-import>
+        <span style="text-align: center; font-size: 12px; color: var(--op-mut);">Skip this question</span>
+      </div>
+    </aside>
+  </div>
+</sc-if>
+
+<!-- 3.6 Re-attestation run -->
+<sc-if value="{{ isReattest }}">
+  <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px;">
+    <span style="min-width: 0;">
+      <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Re-attestation · live on Agentforce since Sep 30 · v2.3</span>
+      <h1 style="margin: 4px 0 0; font-family: var(--font-display); font-size: 28px; line-height: 36px; font-weight: 600;">Customer Support Agent Tier 1</h1>
+    </span>
+    <span style="font-size: 13px; color: var(--op-mut);">Owner Marcus Hill · decider Rachel Moore</span>
+  </div>
+
+  <sc-if value="{{ reSetup }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start;">
+      <section style="flex: 3 1 480px; min-width: 0; box-sizing: border-box; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 22px 24px; display: flex; flex-direction: column; gap: 10px;">
+        <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">Ask each owner: is this still true?</h2>
+        <span style="font-size: 13.5px; color: var(--op-mut);">3 constraints are due for review by Nov 20. Each owner gets only their own. “Needs change” creates an action for the brief owner.</span>
+        <sc-for list="{{ reRows }}" as="c" hint-placeholder-count="5">
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.CheckRow" label="{{ c.label }}" sub="{{ c.sub }}" checked="{{ c.checked }}" onChange="{{ c.onToggle }}" style="{{ c.rowStyle }}" hint-size="100%,62px"></x-import>
+        </sc-for>
+        <div style="margin-top: 6px; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Channel" hint-size="100%,62px">
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" options="{{ reChannelOptions }}" defaultValue="usual" hint-size="100%,40px"></x-import>
+          </x-import>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Answer by" hint-size="100%,62px">
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" type="date" defaultValue="2026-11-19" hint-size="100%,40px"></x-import>
+          </x-import>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; border-top: 1px solid var(--op-line); padding-top: 14px;">
+          <span style="font-size: 12.5px; color: var(--op-mut);">{{ reCountLabel }}</span>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ startRun }}" hint-size="170px,36px"><span style="white-space: nowrap;">Start re-attestation</span></x-import>
+        </div>
+      </section>
+      <aside style="flex: 1 1 300px; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
+        <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">What Lena Ortiz gets · email</span>
+        <div style="border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-sf); padding: 18px; display: flex; flex-direction: column; gap: 12px;">
+          <span style="font-size: 12.5px; color: var(--op-mut);">From Marcus Hill · Customer Support Agent Tier 1</span>
+          <span style="font-size: 13.5px; line-height: 1.5;">You set this rule for our support agent in May. Is it still true? About 1 minute.</span>
+          <div style="border: 1px solid var(--op-ink); border-radius: 13px; padding: 12px 14px;">
+            <span style="border-radius: 6px; border: 1px solid var(--op-ink); padding: 1px 6px; font-size: 11px; font-weight: 700;">C-31</span>
+            <span style="display: block; margin-top: 8px; font-family: var(--font-display); font-size: 17px; line-height: 1.35; font-weight: 600;">Refunds above $150 need a supervisor’s approval.</span>
+            <span style="display: block; margin-top: 6px; font-size: 12px; color: var(--op-mut);">Last confirmed by you · May 2, 2026</span>
+          </div>
+          <sc-if value="{{ reNoAnswer }}" hint-placeholder-val="{{ true }}">
+            <span style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="solid" onClick="{{ reStill }}" hint-size="100%,36px"><span style="white-space: nowrap;">Still true</span></x-import>
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="secondary" onClick="{{ reChange }}" hint-size="100%,36px"><span style="white-space: nowrap;">Needs change</span></x-import>
+            </span>
+          </sc-if>
+          <sc-if value="{{ reChanging }}">
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="What should it say now?" hint-size="100%,110px">
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" value="{{ reChangeText }}" onChange="{{ onReChange }}" hint-size="100%,74px"></x-import>
+            </x-import>
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ reSubmit }}" hint-size="120px,36px"><span style="white-space: nowrap;">Send change</span></x-import>
+          </sc-if>
+          <sc-if value="{{ reAnswered }}">
+            <span style="border-radius: 12px; background: var(--op-mint); color: var(--op-greendeep); padding: 10px 12px; font-size: 13px; line-height: 1.5;">{{ reAnsweredText }}</span>
+          </sc-if>
+        </div>
+      </aside>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ reRunning }}">
+    <div style="margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px;">
+      <span style="font-size: 13.5px; color: var(--op-body);"><strong style="font-weight: 700;">2 of 3 answered</strong> · 1 change requested · started Nov 9 · closes Nov 19</span>
+      <span style="display: flex; gap: 8px;">
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="secondary" onClick="{{ remindMei }}" hint-size="120px,34px"><span style="white-space: nowrap;">Remind Mei Lin</span></x-import>
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" onClick="{{ goVersions }}" hint-size="190px,34px"><span style="white-space: nowrap;">Draft v2.4 with 1 change</span></x-import>
+      </span>
+    </div>
+    <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px;">
+      <sc-for list="{{ runRows }}" as="r" hint-placeholder-count="3">
+        <div style="{{ r.rowStyle }}">
+          <span style="flex: none; border-radius: 6px; border: 1px solid var(--op-ink); background: var(--op-sf); padding: 1px 6px; font-size: 11.5px; font-weight: 700;">{{ r.cid }}</span>
+          <span style="flex: 1 1 300px; min-width: 0;">
+            <span style="display: block; font-size: 14px; font-weight: 600;">{{ r.text }}</span>
+            <span style="display: block; margin-top: 2px; font-size: 12px; color: var(--op-mut);">{{ r.ownerName }} · {{ r.at }}</span>
+            <sc-if value="{{ r.hasNote }}"><span style="display: block; margin-top: 8px; border-radius: 11px; background: var(--op-bg); padding: 8px 11px; font-size: 13px; line-height: 1.5;">«{{ r.note }}»</span></sc-if>
+            <sc-if value="{{ r.hasAction }}"><a href="#" onClick="{{ goActions }}" style="margin-top: 8px; display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; background: var(--op-pulse); padding: 3px 10px; font-size: 12px; font-weight: 600; color: var(--op-ink); text-decoration: none;">✓ {{ r.action }} →</a></sc-if>
+          </span>
+          <span style="{{ r.pill }}">{{ r.status }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+</sc-if>
+
+<footer style="margin-top: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; border-top: 1px solid var(--op-line); padding-top: 12px; font-size: 12px; color: var(--op-mut);">
+  <span>{{ footerBrief }}</span>
+  <span style="white-space: nowrap;">Lumio Inc. · <strong style="color: var(--op-greendeep); font-weight: 700;">US data region</strong></span>
+</footer>
+</div>
+<sc-if value="{{ hasToast }}">
+  <div role="status" style="position: fixed; z-index: 80; left: 50%; bottom: 24px; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; border-radius: 12px; background: var(--op-ink); color: var(--op-bg); padding: 11px 16px; font-size: 13.5px; box-shadow: 0 18px 40px -24px rgba(25,21,16,.45);">
+    <span>{{ toast }}</span>
+    <button type="button" onClick="{{ closeToast }}" style="cursor: pointer; border: none; background: transparent; color: var(--op-ac); font-family: inherit; font-size: 13px; font-weight: 700;">Undo</button>
+  </div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1440, &quot;height&quot;: 900}}">
+class Component extends DCLogic {
+  state = {
+    sel: {}, channels: {}, removed: {}, subject: null, body: null, purpose: null, previewWho: 'priya', sendOpen: false,
+    stage: null, nudged: {}, rules: null, escalate: true, digestCh: 'slack', digestDone: {},
+    fu: { role: 'Security', slot: 'hard', q: 'Security: what verification is required before a password reset?', why: 'Security answered 1 of 4 questions so far. The brief has no agreed check before a reset yet, and the decider needs one.', channel: 'slack', due: '2026-11-13' },
+    reChecked: { 'C-31': true, 'C-33': true, 'C-36': true }, reAnswer: null, reChangeText: 'Raise the limit to $200 from Jan 1 — approved in the 2027 budget.', started: false, toast: null,
+  };
+  componentDidMount() { if (!window.PD) this.poll = setInterval(() => { if (window.PD) { clearInterval(this.poll); this.forceUpdate(); } }, 50); }
+  componentWillUnmount() { clearInterval(this.poll); clearTimeout(this.tt); }
+  go = (p) => (e) => { if (e && e.preventDefault) e.preventDefault(); this.props.go && this.props.go(p); };
+  toast(msg) { clearTimeout(this.tt); this.setState({ toast: msg }); this.tt = setTimeout(() => this.setState({ toast: null }), 3600); }
+  chip(bg, fg, border) { return { flex: 'none', justifySelf: 'start', display: 'inline-flex', alignItems: 'center', gap: 5, borderRadius: 999, background: bg, color: fg, border: border ? '1px solid ' + border : 'none', padding: '2px 9px', fontSize: 11.5, fontWeight: 700, whiteSpace: 'nowrap' }; }
+  status(s) {
+    const m = { Finished: ['var(--op-mint)', 'var(--op-greendeep)'], Started: ['var(--op-pulse)', 'var(--op-ink)'], Opened: ['var(--op-sbg)', 'var(--op-cautiondeep)'], Sent: ['var(--op-track)', 'var(--op-mut)'], Ready: ['var(--op-track)', 'var(--op-ink)'], Answered: ['var(--op-mint)', 'var(--op-greendeep)'] };
+    const c = m[s] || m.Sent; return this.chip(c[0], c[1]);
+  }
+
+  renderVals() {
+    const PD = window.PD; if (!PD) return {};
+    const path = this.props.path || '';
+    const vs = this.props.viewState || '';
+    const base = '/briefs/it-helpdesk-v1/distribution/';
+    const is = (k) => path.endsWith('/distribution/' + k);
+    const out = {
+      isInvite: is('invite'), isPreviews: is('previews'), isSchedule: is('schedule'), isTracking: is('tracking'), isFollowUp: is('follow-up'), isReattest: is('re-attestation'),
+      goTracking: this.go(base + 'tracking'), goPreviews: this.go(base + 'previews'), goInvite: this.go(base + 'invite'), goFollowUp: this.go(base + 'follow-up'),
+      goGaps: this.go('/briefs/it-helpdesk-v1/synthesis/gaps'), goContributor: this.go('/c/invite'),
+      toast: this.state.toast, hasToast: !!this.state.toast, closeToast: () => this.setState({ toast: null }),
+      dateW: { width: 150 }, hourW: { width: 100 },
+    };
+    out.showRoundHeader = !out.isReattest;
+    out.footerBrief = out.isReattest ? 'Customer Support Agent Tier 1 · v2.3 live · owner Marcus Hill · decider Rachel Moore' : 'IT Helpdesk Agent v1 · draft v0.9 · owner Kari Nordmann · decider Daniel Reyes';
+    out.tabs = [['Invites', 'invite'], ['Channels and digests', 'previews'], ['Schedule', 'schedule'], ['Tracking', 'tracking'], ['Follow-up', 'follow-up']].map(([label, k]) => ({ label, selected: is(k), onClick: this.go(base + k) }));
+    Object.assign(out, this.digest(PD), this.invite(PD, vs), this.schedule(PD), this.tracking(PD, vs), this.followUp(PD), this.reattest(PD, vs));
+    return out;
+  }
+
+  digest(PD) {
+    const st = this.state;
+    const chipFor = { Suggestion: this.chip('var(--op-sbg)', 'var(--op-cautiondeep)'), Conflict: this.chip('var(--op-peach)', 'var(--op-dangerdeep)', 'var(--op-rustbar)'), Action: this.chip('var(--op-pulse)', 'var(--op-ink)') };
+    const doneText = { Accept: 'Accepted · v2 created', 'Keep mine': 'Kept yours · both versions go to the decider if they still disagree', Comment: 'Comment box opened in the brief', 'Mark done': 'Marked done · logged' };
+    return {
+      digestChannels: [['slack', 'Slack'], ['teams', 'Teams']].map(([k, l]) => ({ label: l, selected: st.digestCh === k, onClick: () => this.setState({ digestCh: k }) })),
+      digestChannelLabel: st.digestCh === 'slack' ? 'Slack direct message' : 'Teams chat card',
+      digestRows: PD.digest.map((r, i) => { const dn = st.digestDone[i]; return { ...r, chipStyle: chipFor[r.kind], open: !dn, done: !!dn, doneLabel: dn,
+        buttons: r.buttons.map((b, j) => ({ label: b, tone: j === 0 ? 'solid' : 'secondary', onClick: () => this.setState((s) => ({ digestDone: { ...s.digestDone, [i]: doneText[b] } })) })) }; }),
+    };
+  }
+
+  mergeTpl(tpl, p, c) {
+    const map = { '{first_name}': p.first, '{role}': c.role.toLowerCase(), '{brief_name}': 'IT Helpdesk Agent v1', '{minutes}': String(c.minutes), '{deadline}': 'Friday, Oct 16', '{owner_name}': 'Kari Nordmann' };
+    return tpl.split(/(\{\w+\})/).filter(Boolean).map((t) => map[t] != null ? { text: map[t], tok: true } : { text: t, tok: false });
+  }
+
+  invite(PD, vs) {
+    const st = this.state;
+    const sent = vs === 'Sent';
+    const rows = PD.contributors.filter((c) => !st.removed[c.who]);
+    const subject = st.subject ?? PD.invite.subject, body = st.body ?? PD.invite.body, purpose = st.purpose ?? PD.invite.purpose;
+    const nSel = rows.filter((c) => st.sel[c.who]).length;
+    const chOf = (c) => st.channels[c.who] || c.channel;
+    const pc = PD.contributors.find((c) => c.who === st.previewWho) || PD.contributors[1];
+    const pp = PD.people[pc.who];
+    const segs = (t) => this.mergeTpl(t, pp, pc).map((s) => ({ text: s.text, style: s.tok ? { background: 'var(--op-sbg)', borderRadius: 4, padding: '0 2px' } : {} }));
+    const plain = (t) => this.mergeTpl(t, pp, pc).map((s) => s.text).join('');
+    const counts = Object.values(PD.channels).map((ch) => ({ label: ch.label, count: rows.filter((c) => chOf(c) === ch.key).length })).filter((c) => c.count);
+    const totalMin = rows.reduce((a, c) => a + c.minutes, 0);
+    return {
+      inviteSent: sent, inviteDraft: !sent,
+      inviteSummary: rows.length + ' contributors · ' + totalMin + ' minutes across the team · contributors are always free',
+      hasSelection: nSel > 0, selectionLabel: nSel + ' selected',
+      bulkChannels: Object.values(PD.channels).map((ch) => ({ label: '→ ' + ch.label, onClick: () => { const next = { ...st.channels }; rows.forEach((c) => { if (st.sel[c.who]) next[c.who] = ch.key; }); this.setState({ channels: next }); this.toast(nSel + ' moved to ' + ch.label); } })),
+      bulkResend: () => this.toast('Invite resent to ' + nSel + ' contributors'),
+      bulkRemove: () => { const r = { ...st.removed }; rows.forEach((c) => { if (st.sel[c.who]) r[c.who] = true; }); this.setState({ removed: r, sel: {} }); this.toast(nSel + ' removed from round 1'); },
+      allSelected: rows.length > 0 && nSel === rows.length,
+      toggleAll: () => { const all = nSel === rows.length; const s = {}; if (!all) rows.forEach((c) => { s[c.who] = true; }); this.setState({ sel: s }); },
+      channelOptions: Object.values(PD.channels).map((c) => ({ value: c.key, label: c.label })),
+      inviteRows: rows.map((c) => { const p = PD.people[c.who]; const selected = !!st.sel[c.who]; const s = sent ? c.now.status : 'Ready'; return {
+        name: p.name, title: p.title, initials: p.initials, role: c.role, authority: !!c.authority, minutes: c.minutes, channel: chOf(c), selected,
+        selLabel: 'Select ' + p.name, chLabel: 'Channel for ' + p.name, status: s, statusStyle: this.status(s),
+        onToggle: () => this.setState((x) => ({ sel: { ...x.sel, [c.who]: !x.sel[c.who] } })),
+        onChannel: (e) => { const v = e.target.value; this.setState((x) => ({ channels: { ...x.channels, [c.who]: v } })); },
+        rowStyle: { display: 'grid', gridTemplateColumns: '30px minmax(170px, 1.6fr) minmax(110px, 1fr) 132px 58px 96px', gap: 12, alignItems: 'center', padding: '9px 16px', borderBottom: '1px solid var(--op-line)', background: selected ? 'var(--op-sbg)' : 'transparent' } }; }),
+      subject, body, purpose,
+      onSubject: (e) => this.setState({ subject: e.target.value }), onBody: (e) => this.setState({ body: e.target.value }), onPurpose: (e) => this.setState({ purpose: e.target.value }),
+      mergeFields: PD.invite.fields.map((f) => ({ label: f, onClick: () => this.setState({ body: body + f }) })),
+      purposeMissing: !purpose.trim(),
+      previewOptions: PD.contributors.map((c) => ({ value: c.who, label: PD.people[c.who].name })), previewWho: pc.who, previewName: pp.first,
+      onPreviewWho: (e) => this.setState({ previewWho: e.target.value }),
+      renderedSubject: plain(subject), renderedBody: segs(body),
+      pv: { name: pp.name, first: pp.first, role: pc.role, roleLower: pc.role.toLowerCase(), minutes: pc.minutes, bodyPlain: plain(body), cta: 'Start — about ' + pc.minutes + ' min', slackCta: 'Start (' + pc.minutes + ' min)', email: pp.first.toLowerCase() + '.' + pp.name.split(' ')[1].toLowerCase() + '@lumio.com' },
+      sendLabel: 'Send ' + rows.length + ' invites', sendTitle: 'Send ' + rows.length + ' invites now?', sendOpen: st.sendOpen, channelCounts: counts,
+      openSend: () => this.setState({ sendOpen: true }), closeSend: () => this.setState({ sendOpen: false }),
+      confirmSend: (e) => { this.setState({ sendOpen: false }); this.go('/briefs/it-helpdesk-v1/distribution/tracking')(e); },
+    };
+  }
+
+  schedule(PD) {
+    const st = this.state;
+    const rules = st.rules || Object.fromEntries(PD.reminderRules.map((r) => [r.key, r.on]));
+    const states = { done: ['Closed', this.chip('var(--op-mint)', 'var(--op-greendeep)')], now: ['Open now', this.chip('var(--op-ac)', 'var(--op-ink)')], next: ['Scheduled', this.chip('var(--op-track)', 'var(--op-mut)')] };
+    const rr = [
+      { key: 'R1', name: 'Intake', start: '2026-10-05', end: '2026-10-16', who: '8 contributors · blind', s: 'done' },
+      { key: 'R2', name: 'Review', start: '2026-10-19', end: '2026-10-23', who: '8 contributors react to the merged brief', s: 'done' },
+      { key: 'R3', name: 'Decide', start: '2026-10-26', end: '2026-11-13', who: 'Daniel Reyes · 5 decision cards', s: 'now' },
+      { key: 'R4', name: 'Validate', start: '2026-11-16', end: '2026-11-17', who: 'Authority contributors check 24 scenarios', s: 'next' },
+    ];
+    const hours = (a) => a.map((h) => ({ value: String(h), label: (h % 12 || 12) + ':00 ' + (h < 12 ? 'am' : 'pm') }));
+    return {
+      roundRows: rr.map((r) => ({ ...r, state: states[r.s][0], pill: states[r.s][1] })),
+      rules: PD.reminderRules.map((r) => ({ ...r, on: !!rules[r.key], onToggle: () => this.setState({ rules: { ...rules, [r.key]: !rules[r.key] } }) })),
+      hoursFrom: hours([17, 18, 19, 20]), hoursTo: hours([7, 8, 9]),
+      escalate: st.escalate, onEscalate: () => this.setState({ escalate: !st.escalate }),
+      saveSchedule: () => this.toast('Schedule saved · contributors are told if a date moves'),
+    };
+  }
+
+  tracking(PD, vs) {
+    const st = this.state;
+    const mid = vs === 'Mid-round';
+    const rows = PD.contributors.map((c) => ({ c, s: mid ? c.mid : c.now }));
+    const order = ['Sent', 'Opened', 'Started', 'Finished'];
+    const reached = (s, stage) => order.indexOf(s.status) >= order.indexOf(stage);
+    const notes = { Sent: 'Invites delivered', Opened: 'Opened the invite', Started: 'Answered at least one', Finished: 'All questions done' };
+    const funnel = order.map((stage) => { const n = rows.filter((r) => reached(r.s, stage)).length; const sel = st.stage === stage; return {
+      label: stage, count: n, pct: Math.round(n / rows.length * 100), note: notes[stage], selected: sel, bar: stage === 'Finished' ? 'var(--op-greenbar)' : 'var(--op-ink)',
+      onClick: () => this.setState({ stage: sel ? null : stage }),
+      style: { display: 'flex', flexDirection: 'column', gap: 6, cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit', color: 'var(--op-ink)', borderRadius: 16, padding: '14px 16px', border: '1px solid ' + (sel ? 'var(--op-ink)' : 'var(--op-line)'), background: sel ? 'var(--op-sbg)' : 'var(--op-sf)' } }; });
+    const shown = rows.filter((r) => !st.stage || r.s.status === st.stage);
+    const fu = [];
+    if (window.__pdFollowUp) fu.push({ ...window.__pdFollowUp, fresh: true });
+    if (!mid) fu.push(...PD.followUps);
+    return {
+      trackExtended: !mid, trackMid: mid, funnel,
+      trackListTitle: st.stage ? (st.stage === 'Sent' ? 'Not opened yet' : st.stage) + ' · ' + shown.length : 'Everyone · ' + rows.length,
+      showAllStages: () => this.setState({ stage: null }),
+      trackRows: shown.map(({ c, s }) => { const p = PD.people[c.who]; const risk = mid && c.authority && s.status === 'Sent'; const nudged = st.nudged[c.who]; const can = s.status !== 'Finished'; return {
+        name: p.name, role: c.role + (c.authority ? ' · authority' : ''), status: s.status === 'Sent' ? 'Not opened' : s.status, statusStyle: this.status(s.status),
+        last: s.last, channel: PD.channels[c.channel].label, reminders: (s.reminders + (nudged ? 1 : 0)) + ' of 3', risk, canNudge: can,
+        nudgeLabel: nudged ? '✓ Nudged' : 'Nudge now', nudgeTone: risk ? 'primary' : 'secondary',
+        onNudge: () => { if (nudged) return; this.setState((x) => ({ nudged: { ...x.nudged, [c.who]: true } })); this.toast('Reminder sent to ' + p.first + ' on ' + PD.channels[c.channel].label); },
+        rowStyle: { display: 'grid', gridTemplateColumns: 'minmax(180px, 1.6fr) 104px minmax(160px, 1.3fr) 90px 96px 120px', gap: 12, alignItems: 'center', padding: '10px 16px', borderBottom: '1px solid var(--op-line)', background: risk ? 'var(--op-sbg)' : 'transparent' } }; }),
+      noTrackRows: shown.length === 0,
+      nudgeTom: () => this.toast('Reminder sent to Tom on Email · 3 of 3'), closeWithout: () => this.toast('Round 1 closed · Legal has no answers in this brief'),
+      nudgePriya: () => { this.setState((x) => ({ nudged: { ...x.nudged, priya: true } })); this.toast('Reminder sent to Priya on Slack'); },
+      fuRows: fu.map((f) => ({ ...f, toName: PD.people[f.to].name, channel: PD.channels[f.channel].label, statusStyle: this.status(f.status),
+        rowStyle: { display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12, borderRadius: 15, border: '1px solid ' + (f.fresh ? 'var(--op-ink)' : 'var(--op-line)'), background: 'var(--op-sf)', padding: '12px 16px' } })),
+    };
+  }
+
+  followUp(PD) {
+    const f = this.state.fu;
+    const setF = (p) => this.setState((s) => ({ fu: { ...s.fu, ...p } }));
+    const roleTo = { Security: 'priya', 'Service desk': 'sam', Finance: 'lena', 'Data protection': 'mei', Legal: 'tom', 'Employee experience': 'grace', Network: 'jordan' };
+    const sugg = {
+      Security: ['Security: what verification is required before a password reset?', 'Security: may the agent read attachments on the employee’s own tickets?', 'Security: which fields in the device inventory must the agent never see?'],
+      'Data protection': ['Data protection: is 30 days right for chat transcripts that contain personal data?', 'Data protection: what should the agent do when someone shares health details?'],
+      'Service desk': ['Service desk: how will we know a handoff after two failed attempts worked?'],
+      Finance: ['Finance: who approves when the employee’s manager is out?'], Legal: ['Legal: what must the agent never promise?'], 'Employee experience': ['Employee experience: what should every conversation end with?'], Network: ['Network: which VPN errors can the agent fix on its own?'],
+    };
+    const p = PD.people[roleTo[f.role]];
+    const plain = f.q.replace(/^[^:]+:\s*/, '');
+    return {
+      fuRoleOptions: Object.keys(roleTo).map((r) => ({ value: r, label: r + ' — ' + PD.people[roleTo[r]].name })), fuRole: f.role,
+      onFuRole: (e) => { const r = e.target.value; setF({ role: r, q: (sugg[r] || [''])[0] }); },
+      fuSlotOptions: PD.slots.filter((s) => s.key !== 'open').map((s) => ({ value: s.key, label: s.name })), fuSlot: f.slot, onFuSlot: (e) => setF({ slot: e.target.value }),
+      fuQ: f.q, onFuQ: (e) => setF({ q: e.target.value }), fuQPlain: plain.charAt(0).toUpperCase() + plain.slice(1),
+      fuSuggestions: (sugg[f.role] || []).filter((s) => s !== f.q).map((s) => ({ text: s, onClick: () => setF({ q: s }) })),
+      fuWhy: f.why, onFuWhy: (e) => setF({ why: e.target.value }),
+      fuChannels: Object.values(PD.channels).map((c) => ({ label: c.label, selected: f.channel === c.key, onClick: () => setF({ channel: c.key }) })),
+      fuDue: f.due, onFuDue: (e) => setF({ due: e.target.value }), fuPersonFirst: p.first,
+      fuQuota: 'Counts as 1 of 3 follow-ups ' + p.first + ' can get this round · about 2 minutes',
+      sendFollowUp: (e) => {
+        const d = new Date(f.due + 'T12:00:00');
+        window.__pdFollowUp = { to: roleTo[f.role], role: f.role, q: f.q, channel: f.channel, sent: 'just now', due: d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }), status: 'Sent' };
+        this.go('/briefs/it-helpdesk-v1/distribution/tracking')(e);
+      },
+    };
+  }
+
+  reattest(PD, vs) {
+    const st = this.state; const R = PD.reattest;
+    const running = vs === 'In progress' || st.started;
+    const all = R.constraints.map((c) => ({ ...c, due: true })).concat(R.current.map((c) => ({ ...c, due: false })));
+    const n = all.filter((c) => st.reChecked[c.cid]).length;
+    const pill = (s) => s === 'Still true' ? this.chip('var(--op-mint)', 'var(--op-greendeep)') : s === 'Needs change' ? this.chip('var(--op-band)', 'var(--op-cautiondeep)') : this.chip('var(--op-track)', 'var(--op-mut)');
+    const a = st.reAnswer;
+    return {
+      reSetup: !running, reRunning: running,
+      reRows: all.map((c) => ({ label: c.cid + ' · ' + c.text, sub: PD.people[c.owner].name + ' · last confirmed ' + c.last + ' · ' + (c.due ? 'due ' + c.due : 'next review ' + c.due), checked: !!st.reChecked[c.cid],
+        onToggle: () => this.setState((x) => ({ reChecked: { ...x.reChecked, [c.cid]: !x.reChecked[c.cid] } })), rowStyle: { borderColor: c.due ? 'var(--op-ink)' : 'var(--op-line)' } })),
+      reChannelOptions: [{ value: 'usual', label: 'Each owner’s usual channel' }, { value: 'email', label: 'Email' }, { value: 'slack', label: 'Slack' }, { value: 'teams', label: 'Teams' }],
+      reCountLabel: n + ' constraints · ' + new Set(all.filter((c) => st.reChecked[c.cid]).map((c) => c.owner)).size + ' owners · about 1 minute each',
+      startRun: () => { this.setState({ started: true }); this.toast('Re-attestation started · ' + n + ' owners asked'); },
+      reNoAnswer: !a, reChanging: a === 'changing', reAnswered: a === 'still' || a === 'changed',
+      reAnsweredText: a === 'still' ? '✓ Thanks, Lena. C-31 stays as it is and is due again in May 2027.' : '✓ Sent. Action A-023 “Update C-31 to a $200 limit” is created for Marcus Hill, the brief owner, due Nov 20. The new version goes to Rachel Moore for approval before export.',
+      reStill: () => this.setState({ reAnswer: 'still' }), reChange: () => this.setState({ reAnswer: 'changing' }),
+      reChangeText: st.reChangeText, onReChange: (e) => this.setState({ reChangeText: e.target.value }), reSubmit: () => this.setState({ reAnswer: 'changed' }),
+      runRows: R.constraints.map((c) => ({ ...c, ownerName: PD.people[c.owner].name, status: c.run.status, at: c.run.at, note: c.run.note, hasNote: !!c.run.note, action: c.run.action, hasAction: !!c.run.action, pill: pill(c.run.status),
+        rowStyle: { display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', gap: 12, borderRadius: 15, border: '1px solid ' + (c.run.status === 'Needs change' ? 'var(--op-amberbar)' : 'var(--op-line)'), background: 'var(--op-sf)', padding: '14px 16px' } })),
+      remindMei: () => this.toast('Reminder sent to Mei Lin on Teams'), goActions: this.go('/actions'), goVersions: this.go('/briefs/support-t1/versions'),
+    };
+  }
+}
+</script>
+</body>
+</html>

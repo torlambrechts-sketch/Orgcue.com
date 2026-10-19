@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/orgpuls-design-system-d91c81f2-fbc3-4646-b16a-fd3ab94db56a/styles.css">
+  <script src="_ds/orgpuls-design-system-d91c81f2-fbc3-4646-b16a-fd3ab94db56a/_ds_bundle.js"></script>
+  <script src="data.js"></script>
+  <style>
+    a { color: #2F5D2A; text-decoration: none; }
+    a:hover { color: #1E3D1A; text-decoration: underline; }
+  </style>
+</helmet>
+<div style="min-width: 0; color: var(--op-ink); font-family: var(--font-sans, 'DM Sans', system-ui, sans-serif); font-size: 14px;">
+<div style="max-width: 1200px; margin: 0 auto; padding: 28px 28px 56px; box-sizing: border-box;">
+
+<sc-if value="{{ isBriefScreen }}">
+  <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px;">
+    <span style="min-width: 0;">
+      <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">{{ briefEyebrow }}</span>
+      <h1 style="margin: 4px 0 0; font-family: var(--font-display); font-size: 28px; line-height: 36px; font-weight: 600; text-wrap: balance;">{{ briefName }}</h1>
+    </span>
+    <span style="display: flex; flex-wrap: wrap; gap: 6px;">
+      <sc-for list="{{ briefTabs }}" as="t" hint-placeholder-count="8"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Pill" selected="{{ t.selected }}" onClick="{{ t.onClick }}" hint-size="90px,32px"><span style="white-space: nowrap;">{{ t.label }}</span></x-import></sc-for>
+    </span>
+  </div>
+  <div style="margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; border-top: 1px solid var(--op-line); border-bottom: 1px solid var(--op-line); padding: 9px 0; font-size: 12.5px; color: var(--op-mut);">
+    <sc-for list="{{ outcome }}" as="o" hint-placeholder-count="4"><span style="{{ o.style }}">{{ o.text }}</span></sc-for>
+  </div>
+</sc-if>
+
+<!-- 5.1 Decision queue -->
+<sc-if value="{{ isQueue }}">
+  <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Decisions · Lumio Inc.</span>
+  <h1 style="margin: 4px 0 0; font-family: var(--font-display); font-size: 28px; line-height: 36px; font-weight: 600; text-wrap: balance;">{{ queueTitle }}</h1>
+  <sc-if value="{{ queueEmpty }}"><div style="margin-top: 22px; border: 1px dashed var(--op-rule); border-radius: 20px; background: var(--op-sf); padding: 36px 30px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; max-width: 640px;"><span style="font-family: var(--font-display); font-size: 22px; font-weight: 600;">No decisions waiting.</span><span style="font-size: 14px; line-height: 1.6; color: var(--op-mut); text-wrap: pretty;">When contributors disagree and the pipeline can’t merge them, a decision card lands here with both positions side by side.</span><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ goBriefs }}" hint-size="120px,34px"><span style="white-space: nowrap;">Open briefs</span></x-import></div></sc-if>
+  <sc-for list="{{ queueGroups }}" as="g" hint-placeholder-count="3">
+    <section style="margin-top: 22px;">
+      <span style="display: flex; align-items: baseline; gap: 8px;"><h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">{{ g.label }}</h2><span style="font-size: 12.5px; color: var(--op-mut);">{{ g.note }}</span></span>
+      <div style="margin-top: 10px; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));">
+        <sc-for list="{{ g.items }}" as="c">
+          <a href="#" onClick="{{ c.onClick }}" style="{{ c.style }}">
+            <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px;">
+              <span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-viz5); color: var(--op-ink); padding: 2px 9px; font-size: 11px; font-weight: 700; white-space: nowrap;">◆ {{ c.id }}</span>
+              <sc-if value="{{ c.open }}"><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-peach); color: var(--op-dangerdeep); border: 1px solid var(--op-rustbar); padding: 2px 9px; font-size: 11px; font-weight: 700; white-space: nowrap;">⇄ Conflict</span></sc-if>
+              <span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-track); color: var(--op-ink); padding: 2px 9px; font-size: 11px; font-weight: 700; white-space: nowrap;">{{ c.type }}</span>
+              <sc-if value="{{ c.lowHigh }}"><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-band); color: var(--op-cautiondeep); padding: 2px 9px; font-size: 11px; font-weight: 700; white-space: nowrap;">Low support, high stakes</span></sc-if>
+              <span style="margin-left: auto; font-size: 12px; color: var(--op-mut); white-space: nowrap;">{{ c.age }}</span>
+            </span>
+            <span style="font-family: var(--font-display); font-size: 19px; line-height: 1.25; font-weight: 600;">{{ c.title }}</span>
+            <span style="font-size: 12.5px; color: var(--op-mut);">{{ c.slot }} · impact {{ c.impact }}</span>
+            <span style="display: flex; flex-wrap: wrap; gap: 6px;">
+              <sc-for list="{{ c.sides }}" as="s"><span style="flex: none; border-radius: 999px; background: var(--op-track); padding: 3px 9px; font-size: 11.5px; font-weight: 600; white-space: nowrap;">{{ s }}</span></sc-for>
+            </span>
+            <span style="font-size: 12.5px; color: var(--op-body);">{{ c.summary }}</span>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+  </sc-for>
+</sc-if>
+
+<!-- 5.2 Decision card -->
+<sc-if value="{{ isCard }}">
+  <a href="#" onClick="{{ goQueue }}" style="font-size: 12.5px; font-weight: 600;">← Decisions</a>
+  <div style="margin-top: 8px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px;">
+    <span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-viz5); color: var(--op-ink); padding: 2px 9px; font-size: 11px; font-weight: 700; white-space: nowrap;">◆ {{ dc.id }}</span>
+    <sc-if value="{{ dcOpen }}"><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-peach); color: var(--op-dangerdeep); border: 1px solid var(--op-rustbar); padding: 2px 9px; font-size: 11px; font-weight: 700; white-space: nowrap;">⇄ Conflict</span></sc-if>
+    <span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-track); color: var(--op-ink); padding: 2px 9px; font-size: 11px; font-weight: 700; white-space: nowrap;">{{ dc.type }}</span>
+    <span style="font-size: 12.5px; color: var(--op-mut);">IT Helpdesk Agent v1 · {{ dc.slot }} · {{ dc.age }}</span>
+  </div>
+  <h1 style="margin: 4px 0 0; font-family: var(--font-display); font-size: 28px; line-height: 36px; font-weight: 600; text-wrap: balance;">{{ dc.title }}</h1>
+  <div style="margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; border-radius: 13px; background: var(--op-track); padding: 9px 12px; font-size: 12.5px;">
+    <span style="font-weight: 700; white-space: nowrap;">Pinned inputs</span><span style="color: var(--op-mut); flex: 1 1 200px;">The exact item versions this decision is based on</span>
+    <sc-for list="{{ dc.pins }}" as="p"><span style="flex: none; border-radius: 6px; border: 1px solid var(--op-ink); background: var(--op-sf); padding: 1px 6px; font-size: 11px; font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums;">{{ p }}</span></sc-for>
+  </div>
+  <sc-if value="{{ dcSuperseded }}">
+    <div style="margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; border-radius: 15px; border: 1px solid var(--op-amberbar); background: var(--op-sbg); padding: 12px 16px;">
+      <span style="flex: 1 1 320px; min-width: 0; font-size: 13.5px; line-height: 1.5;"><strong style="font-weight: 700; color: var(--op-cautiondeep);">Decided on superseded input.</strong> Item 41 changed to v3 on Nov 12, after this decision: «Agent must verify identity with an MFA push before any account change or password reset.»</span>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" onClick="{{ reviewSuperseded }}" hint-size="90px,32px"><span style="white-space: nowrap;">Review</span></x-import>
+    </div>
+    <sc-if value="{{ showSupersededReview }}">
+      <div style="margin-top: 8px; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px; box-sizing: border-box; min-width: 0; display: flex; flex-direction: column; gap: 8px;">
+        <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Item 41 · v2 → v3</span>
+        <span style="font-size: 13.5px; color: var(--op-mut); text-decoration: line-through;">Agent must verify identity with an MFA push before any account change.</span>
+        <span style="font-size: 13.5px; font-weight: 600;">Agent must verify identity with an MFA push before any account change <span style="background: var(--op-mint); border-radius: 4px; padding: 0 3px;">or password reset</span>.</span>
+        <span style="font-size: 12.5px; color: var(--op-mut);">The change narrows wording; it doesn’t change the chosen option.</span>
+        <span style="display: flex; gap: 8px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="solid" onClick="{{ reconfirm }}" hint-size="120px,34px"><span style="white-space: nowrap;">Reconfirm decision</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="secondary" onClick="{{ reopenCard }}" hint-size="120px,34px"><span style="white-space: nowrap;">Reopen the card</span></x-import></span>
+      </div>
+    </sc-if>
+  </sc-if>
+
+  <sc-if value="{{ dcShowOptions }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top: 16px; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); align-items: stretch;">
+      <sc-for list="{{ dcOptions }}" as="o" hint-placeholder-count="2">
+        <button type="button" onClick="{{ o.onPick }}" aria-pressed="{{ o.selected }}" style="{{ o.style }}">
+          <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px;">
+            <span style="flex: none; display: flex; width: 18px; height: 18px; align-items: center; justify-content: center; box-sizing: border-box; border-radius: 999px; border: 2px solid var(--op-ink);"><span style="{{ o.dot }}"></span></span>
+            <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut); white-space: nowrap;">Option {{ o.letter }}</span>
+            <sc-if value="{{ o.lowHigh }}"><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-band); color: var(--op-cautiondeep); padding: 2px 9px; font-size: 11px; font-weight: 700; white-space: nowrap;">Low support, high stakes</span></sc-if>
+            <sc-if value="{{ o.chosen }}"><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-mint); color: var(--op-greendeep); padding: 2px 9px; font-size: 11px; font-weight: 700; white-space: nowrap;">✓ Chosen</span></sc-if>
+          </span>
+          <span style="font-family: var(--font-display); font-size: 18px; line-height: 1.3; font-weight: 600;">{{ o.label }}</span>
+          <span style="display: flex; flex-wrap: wrap; gap: 5px;"><sc-for list="{{ o.groups }}" as="g"><span style="flex: none; border-radius: 999px; background: var(--op-track); padding: 3px 9px; font-size: 11.5px; font-weight: 600; white-space: nowrap;">{{ g }}</span></sc-for></span>
+          <sc-for list="{{ o.quotes }}" as="q"><span style="display: block; border-radius: 12px; background: var(--op-bg); padding: 9px 11px; font-family: var(--font-display); font-size: 14px; line-height: 1.45;">«{{ q }}»</span></sc-for>
+          <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Consequences</span>
+          <ul style="margin: -4px 0 0; padding-left: 18px; font-size: 13px; line-height: 1.55; color: var(--op-body);"><sc-for list="{{ o.cons }}" as="c"><li>{{ c }}</li></sc-for></ul>
+          <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 12px; color: var(--op-mut);">Touches <sc-for list="{{ o.cids }}" as="c"><span style="flex: none; border-radius: 6px; border: 1px solid var(--op-ink); background: var(--op-sf); padding: 1px 6px; font-size: 11px; font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums;">{{ c }}</span></sc-for><sc-if value="{{ o.noCids }}"><span>no hard constraints</span></sc-if></span>
+          <span style="display: flex; flex-direction: column; gap: 4px; margin-top: auto; border-top: 1px solid var(--op-line); padding-top: 10px;">
+            <span style="display: flex; justify-content: space-between; font-size: 12px; color: var(--op-mut);"><span>Round 2 points · advisory</span><span style="font-variant-numeric: tabular-nums; color: var(--op-ink); font-weight: 700;">{{ o.pointsLabel }}</span></span>
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Meter" pct="{{ o.points }}" height="{{ 5 }}" color="var(--op-sage)" hint-size="100%,5px"></x-import>
+          </span>
+        </button>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ dcDeciding }}" hint-placeholder-val="{{ true }}">
+    <sc-if value="{{ notDecider }}"><div style="margin-top: 14px; border-radius: 13px; background: var(--op-track); padding: 10px 14px; font-size: 13px;">You’re viewing as brief owner. Only Daniel Reyes (decider) can record this decision — switch the active role to try it.</div></sc-if>
+    <div style="margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px;">
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="secondary" onClick="{{ newOption }}" disabled="{{ notDecider }}" hint-size="120px,34px"><span style="white-space: nowrap;">Write a new option</span></x-import>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="secondary" onClick="{{ deferCard }}" disabled="{{ notDecider }}" hint-size="120px,34px"><span style="white-space: nowrap;">Defer as open question</span></x-import>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="ghost" onClick="{{ askMeeting }}" disabled="{{ notDecider }}" hint-size="120px,34px"><span style="white-space: nowrap;">Ask for a short meeting</span></x-import>
+    </div>
+    <div style="margin-top: 16px; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start;">
+      <section style="flex: 1 1 360px; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px; box-sizing: border-box; min-width: 0; display: flex; flex-direction: column; gap: 10px;">
+        <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">Rationale · required</h2>
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" value="{{ rationale }}" onChange="{{ onRationale }}" placeholder="Why this option, in a sentence or two. Everyone on the brief will read it." aria-label="Rationale" hint-size="100%,96px"></x-import>
+        <span style="font-size: 12.5px; color: var(--op-mut);">{{ recordHint }}</span>
+      </section>
+      <section style="flex: 2 1 460px; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px; box-sizing: border-box; min-width: 0; display: flex; flex-direction: column; gap: 10px;">
+        <span style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px;"><h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">Follow-up actions</h2><span style="font-size: 12.5px; color: var(--op-mut);">Each owner gets a request to accept</span></span>
+        <sc-for list="{{ dcActions }}" as="a" hint-placeholder-count="1">
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; border: 1px solid var(--op-line); border-radius: 13px; padding: 10px;">
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="field" value="{{ a.title }}" onChange="{{ a.onTitle }}" aria-label="Action title" style="{{ a.wTitle }}" hint-size="260px,38px"></x-import>
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ ownerOptions }}" value="{{ a.owner }}" onChange="{{ a.onOwner }}" aria-label="Owner" style="{{ a.wSel }}" hint-size="160px,38px"></x-import>
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="field" type="date" value="{{ a.due }}" onChange="{{ a.onDue }}" aria-label="Due date" style="{{ a.wDate }}" hint-size="150px,38px"></x-import>
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ prioOptions }}" value="{{ a.priority }}" onChange="{{ a.onPrio }}" aria-label="Priority" style="{{ a.wSmall }}" hint-size="110px,38px"></x-import>
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ trackOptions }}" value="{{ a.track }}" onChange="{{ a.onTrack }}" aria-label="Tracked in" style="{{ a.wSel }}" hint-size="160px,38px"></x-import>
+          </div>
+        </sc-for>
+        <span style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px;">
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="ghost" onClick="{{ addAction }}" hint-size="110px,32px"><span style="white-space: nowrap;">＋ Add action</span></x-import>
+          <span style="font-size: 12px; color: var(--op-mut);">Jira isn’t connected · ServiceNow is</span>
+        </span>
+      </section>
+    </div>
+    <div style="margin-top: 16px; display: flex; justify-content: flex-end;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="md" onClick="{{ recordDecision }}" disabled="{{ cantRecord }}" hint-size="160px,42px"><span style="white-space: nowrap;">Record decision</span></x-import></div>
+  </sc-if>
+
+  <sc-if value="{{ dcRecorded }}">
+    <section style="margin-top: 16px; border: 1px solid var(--op-ink); border-radius: 20px; background: var(--op-sf); padding: 22px 24px; display: flex; flex-direction: column; gap: 12px;">
+      <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;"><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-viz5); color: var(--op-ink); padding: 2px 9px; font-size: 11px; font-weight: 700; white-space: nowrap;">◆ Decision record {{ dc.id }}</span><span style="{{ rec.pill }}">{{ rec.status }}</span></span>
+      <div style="display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 7px 14px; font-size: 13.5px;">
+        <span style="color: var(--op-mut);">Decided by</span><span style="font-weight: 600;">{{ rec.by }} · {{ rec.date }}</span>
+        <span style="color: var(--op-mut);">Outcome</span><span style="font-weight: 700;">{{ rec.chosen }}</span>
+        <span style="color: var(--op-mut);">Rationale</span><span style="line-height: 1.5;">{{ rec.rationale }}</span>
+        <span style="color: var(--op-mut);">Pinned</span><span style="display: flex; flex-wrap: wrap; gap: 5px;"><sc-for list="{{ dc.pins }}" as="p"><span style="flex: none; border-radius: 6px; border: 1px solid var(--op-ink); background: var(--op-sf); padding: 1px 6px; font-size: 11px; font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums;">{{ p }}</span></sc-for></span>
+        <span style="color: var(--op-mut);">Superseded</span><span>{{ rec.superseded }}</span>
+      </div>
+      <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Actions</span>
+      <sc-for list="{{ rec.actions }}" as="a">
+        <a href="#" onClick="{{ a.onClick }}" style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; border: 1px solid var(--op-line); border-radius: 13px; padding: 10px 12px; color: var(--op-ink); text-decoration: none;">
+          <span style="font-size: 12px; font-weight: 700; color: var(--op-mut);">{{ a.id }}</span>
+          <span style="flex: 1 1 220px; min-width: 0; font-size: 13.5px; font-weight: 600;">{{ a.title }}</span>
+          <span style="font-size: 12.5px; color: var(--op-mut);">{{ a.owner }}</span>
+          <span style="{{ a.pill }}">{{ a.status }}</span>
+          <span style="font-size: 12px; color: var(--op-mut);">{{ a.tracked }}</span>
+        </a>
+      </sc-for>
+    </section>
+  </sc-if>
+</sc-if>
+
+<!-- 5.3 Locked brief -->
+<sc-if value="{{ isBrief }}">
+  <div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start;">
+    <article style="flex: 3 1 560px; min-width: 0; border: 1px solid var(--op-line); border-radius: 20px; background: var(--op-sf); padding: 30px 34px;">
+      <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;"><span style="flex: none; border-radius: 999px; background: var(--op-ink); color: var(--op-bg); padding: 3px 11px; font-size: 11.5px; font-weight: 700;">v1.2 · Locked</span><span style="font-size: 12.5px; color: var(--op-mut);">Nov 14, 2026 · owner Kari Nordmann · decider Daniel Reyes · hover any sentence for its sources</span></span>
+      <sc-for list="{{ docSections }}" as="s" hint-placeholder-count="6">
+        <section style="margin-top: 22px;">
+          <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600; display: flex; align-items: center; gap: 8px;">{{ s.name }}<sc-if value="{{ s.restricted }}"><span style="display: inline-flex; align-items: center; gap: 5px; font-family: var(--font-sans); font-size: 12px; font-weight: 600; color: var(--op-mut);"><span aria-hidden="true" style="display: inline-flex; flex-direction: column; align-items: center;"><span style="width: 5px; height: 4px; border: 1.5px solid currentColor; border-bottom: none; border-radius: 4px 4px 0 0;"></span><span style="width: 9px; height: 6px; border-radius: 2px; background: currentColor;"></span></span> Visible to owner, decider, security</span></sc-if></h2>
+          <sc-if value="{{ s.isTable }}">
+            <div style="margin-top: 8px; border: 1px solid var(--op-line); border-radius: 13px; overflow: hidden;">
+              <sc-for list="{{ s.rows }}" as="r">
+                <div style="display: grid; grid-template-columns: 56px minmax(0, 1fr) 120px 110px; gap: 10px; align-items: center; padding: 9px 12px; border-bottom: 1px solid var(--op-line); font-size: 13px;">
+                  <span style="flex: none; border-radius: 6px; border: 1px solid var(--op-ink); background: var(--op-sf); padding: 1px 6px; font-size: 11px; font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; justify-self: start;">{{ r.cid }}</span><span style="font-weight: 600;">{{ r.text }}</span><span style="color: var(--op-mut);">{{ r.owner }}</span><span style="color: var(--op-mut); font-variant-numeric: tabular-nums;">{{ r.review }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <div style="margin-top: 6px; display: flex; flex-direction: column; gap: 4px;">
+            <sc-for list="{{ s.sentences }}" as="t">
+              <span onMouseEnter="{{ t.onEnter }}" onMouseLeave="{{ t.onLeave }}" style="{{ t.style }}">{{ t.text }}
+                <sc-if value="{{ t.show }}"><span role="tooltip" style="position: absolute; z-index: 20; left: 0; top: calc(100% + 4px); display: flex; flex-wrap: wrap; align-items: center; gap: 5px; border-radius: 12px; border: 1px solid var(--op-line); background: var(--op-sf); padding: 8px 10px; box-shadow: 0 18px 40px -24px rgba(25,21,16,.45); font-size: 12px; color: var(--op-mut); white-space: nowrap;">Sources <sc-for list="{{ t.src }}" as="x"><span style="flex: none; border-radius: 6px; border: 1px solid var(--op-ink); background: var(--op-sf); padding: 1px 6px; font-size: 11px; font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums;">{{ x }}</span></sc-for></span></sc-if>
+              </span>
+            </sc-for>
+          </div>
+        </section>
+      </sc-for>
+    </article>
+    <aside style="flex: 1 1 300px; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px; box-sizing: border-box; min-width: 0; position: sticky; top: 76px;">
+      <span style="display: flex; flex-wrap: wrap; gap: 4px;"><sc-for list="{{ sideTabs }}" as="t"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Pill" selected="{{ t.selected }}" onClick="{{ t.onClick }}" hint-size="90px,32px"><span style="white-space: nowrap;">{{ t.label }}</span></x-import></sc-for></span>
+      <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 8px;">
+        <sc-for list="{{ sideRows }}" as="r" hint-placeholder-count="5">
+          <a href="#" onClick="{{ r.onClick }}" style="display: flex; flex-direction: column; gap: 3px; border-bottom: 1px solid var(--op-line); padding: 8px 0; color: var(--op-ink); text-decoration: none;">
+            <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px;"><span style="{{ r.chipStyle }}">{{ r.chip }}</span><span style="font-size: 13px; font-weight: 600;">{{ r.title }}</span></span>
+            <span style="font-size: 12px; line-height: 1.45; color: var(--op-mut);">{{ r.sub }}</span>
+          </a>
+        </sc-for>
+      </div>
+    </aside>
+  </div>
+</sc-if>
+
+<!-- 5.4 Version history -->
+<sc-if value="{{ isVersions }}">
+  <div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start;">
+    <nav style="flex: 1 1 260px; display: flex; flex-direction: column; gap: 8px; min-width: 0;">
+      <sc-for list="{{ versionList }}" as="v" hint-placeholder-count="3">
+        <button type="button" onClick="{{ v.onClick }}" style="{{ v.style }}">
+          <span style="display: flex; align-items: center; gap: 8px;"><span style="flex: none; border-radius: 6px; background: var(--op-ink); color: var(--op-bg); padding: 1px 7px; font-size: 11.5px; font-weight: 700;">{{ v.v }}</span><span style="{{ v.pill }}">{{ v.state }}</span></span>
+          <span style="font-size: 13px; font-weight: 600;">{{ v.why }}</span>
+          <span style="font-size: 12px; color: var(--op-mut);">{{ v.who }} · {{ v.date }}</span>
+        </button>
+      </sc-for>
+    </nav>
+    <section style="flex: 3 1 560px; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px; box-sizing: border-box; min-width: 0;">
+      <span style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px;"><h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">{{ diffTitle }}</h2><span style="font-size: 12.5px; color: var(--op-mut);">{{ diffNote }}</span></span>
+      <div style="margin-top: 12px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px 12px;">
+        <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Before</span><span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">After</span>
+        <sc-for list="{{ diffRows }}" as="r">
+          <span style="{{ r.leftStyle }}">{{ r.left }}</span>
+          <span style="{{ r.rightStyle }}"><span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 4px;"><span style="{{ r.kindStyle }}">{{ r.kind }}</span><span style="font-size: 11.5px; color: var(--op-mut);">{{ r.slot }}</span><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-viz5); color: var(--op-ink); padding: 2px 9px; font-size: 11px; font-weight: 700; white-space: nowrap;">◆ {{ r.cause }}</span></span>{{ r.right }}</span>
+        </sc-for>
+      </div>
+      <sc-if value="{{ noDiff }}"><span style="display: block; margin-top: 12px; font-size: 13.5px; color: var(--op-mut);">First version. Nothing to compare with.</span></sc-if>
+    </section>
+  </div>
+</sc-if>
+
+<!-- 5.5 Compile and export -->
+<sc-if value="{{ isExport }}">
+  <div style="margin-top: 18px; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));">
+    <sc-for list="{{ exTargets }}" as="t" hint-placeholder-count="7">
+      <button type="button" onClick="{{ t.onClick }}" aria-pressed="{{ t.selected }}" style="{{ t.style }}"><span style="display: flex; width: 30px; height: 30px; align-items: center; justify-content: center; border-radius: 9px; border: 1px solid var(--op-line); background: var(--op-sf); font-size: 10.5px; font-weight: 700;">{{ t.abbr }}</span><span style="font-size: 13px; font-weight: 700;">{{ t.name }}</span></button>
+    </sc-for>
+  </div>
+  <sc-if value="{{ exExported }}">
+    <div style="margin-top: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; border-radius: 16px; background: var(--op-mint); padding: 14px 18px;">
+      <span style="flex: 1 1 320px; font-size: 14px; color: var(--op-greendeep);"><strong>✓ Exported to {{ exTargetName }} · v1.2</strong> · Nov 18, 2026 · 42 instructions, 5 hard constraints verbatim. Milestone “Exported to Copilot Studio” completed automatically.</span>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="quiet" hint-size="180px,34px"><span style="white-space: nowrap;">Open in {{ exTargetName }} ↗</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="secondary" onClick="{{ goValidation }}" hint-size="120px,34px"><span style="white-space: nowrap;">Validate →</span></x-import>
+    </div>
+  </sc-if>
+  <sc-if value="{{ exFailed }}">
+    <div style="margin-top: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; border-radius: 16px; border: 1px solid var(--op-amberbar); background: var(--op-sbg); padding: 14px 18px;">
+      <span style="flex: 1 1 320px; font-size: 14px;"><strong style="color: var(--op-cautiondeep);">Export failed: {{ exTargetName }} didn’t respond.</strong> Nothing was changed there. The approved diff is kept, so a retry sends exactly the same instructions.</span>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" onClick="{{ retryExport }}" hint-size="120px,34px"><span style="white-space: nowrap;">Retry export</span></x-import>
+    </div>
+  </sc-if>
+  <div style="margin-top: 16px; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start;">
+    <section style="flex: 1 1 380px; display: flex; flex-direction: column; gap: 14px; min-width: 0;">
+      <div style="border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px; box-sizing: border-box; min-width: 0;">
+        <span style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px;"><h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">Gates</h2><span style="{{ gateSummaryStyle }}">{{ gateSummary }}</span></span>
+        <div style="margin-top: 10px; display: flex; flex-direction: column;">
+          <sc-for list="{{ gates }}" as="g" hint-placeholder-count="5">
+            <div style="display: flex; align-items: center; gap: 10px; border-top: 1px solid var(--op-line); padding: 10px 0;">
+              <span style="{{ g.dot }}">{{ g.glyph }}</span>
+              <span style="flex: 1; min-width: 0;"><span style="display: block; font-size: 13.5px; font-weight: 600;">{{ g.name }}</span><span style="{{ g.noteStyle }}">{{ g.note }}</span></span>
+              <sc-if value="{{ g.fail }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" onClick="{{ fixGate }}" hint-size="60px,32px"><span style="white-space: nowrap;">Fix</span></x-import></sc-if>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ gateFailing }}"><div style="margin-top: 8px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="ghost" onClick="{{ recompile }}" hint-size="150px,32px"><span style="white-space: nowrap;">Recompile after fix</span></x-import></div></sc-if>
+      </div>
+      <div style="border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px; box-sizing: border-box; min-width: 0; display: flex; flex-direction: column; gap: 10px;">
+        <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">Export diff</h2>
+        <span style="font-size: 13px; color: var(--op-body);">First export to {{ exTargetName }}: 42 instructions added, nothing changed or removed.</span>
+        <sc-for list="{{ exDiff }}" as="l"><span style="display: block; border-radius: 9px; background: var(--op-mint); padding: 5px 9px; font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: var(--op-greendeep);">+ {{ l }}</span></sc-for>
+        <span style="{{ approveStyle }}">{{ approveText }}</span>
+        <span style="display: flex; flex-wrap: wrap; gap: 8px;">
+          <sc-if value="{{ canApprove }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="solid" onClick="{{ approveDiff }}" disabled="{{ gateFailing }}" hint-size="130px,36px"><span style="white-space: nowrap;">Approve diff</span></x-import></sc-if>
+          <sc-if value="{{ canRequest }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="secondary" onClick="{{ requestApproval }}" disabled="{{ gateFailing }}" hint-size="170px,36px"><span style="white-space: nowrap;">Ask Daniel to approve</span></x-import></sc-if>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ doExport }}" disabled="{{ cantExport }}" hint-size="200px,36px"><span style="white-space: nowrap;">Export to {{ exTargetName }}</span></x-import>
+        </span>
+      </div>
+    </section>
+    <section style="flex: 1 1 460px; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px; box-sizing: border-box; min-width: 0;">
+      <span style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px;"><h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">Preview · {{ exTargetName }}</h2><span style="font-size: 12px; color: var(--op-mut);">{{ exFormat }}</span></span>
+      <div style="margin-top: 12px; border-radius: 13px; background: var(--op-bg); padding: 14px 16px; display: flex; flex-direction: column; gap: 5px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; line-height: 1.55;">
+        <sc-for list="{{ exLines }}" as="l"><span style="{{ l.style }}">{{ l.text }}<sc-if value="{{ l.verbatim }}"><span style="margin-left: 8px; font-family: var(--font-sans); flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-mint); color: var(--op-greendeep); padding: 2px 9px; font-size: 11px; font-weight: 700; white-space: nowrap;">Verbatim</span></sc-if><sc-if value="{{ l.missing }}"><span style="margin-left: 8px; font-family: var(--font-sans); flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-band); color: var(--op-cautiondeep); padding: 2px 9px; font-size: 11px; font-weight: 700; white-space: nowrap;">Missing</span></sc-if></span></sc-for>
+      </div>
+      <span style="display: block; margin-top: 8px; font-size: 12px; color: var(--op-mut);">Every line traces to context items. Hover in the locked brief to see which.</span>
+    </section>
+  </div>
+</sc-if>
+
+<!-- 5.6 Validation -->
+<sc-if value="{{ isValidation }}">
+  <div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start;">
+    <section style="flex: 3 1 600px; min-width: 0;">
+      <span style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px;"><h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">Scenarios from last quarter’s tickets</h2><span style="font-size: 12.5px; color: var(--op-mut);">8 of 24 shown · verdicts by the constraint owners</span></span>
+      <div style="margin-top: 10px; overflow-x: auto; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf);">
+        <div style="min-width: 760px;">
+          <div style="display: grid; grid-template-columns: minmax(150px, 1.2fr) minmax(150px, 1.2fr) minmax(170px, 1.4fr) 170px; gap: 12px; padding: 11px 16px; border-bottom: 1px solid var(--op-line); font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);"><span>Scenario</span><span>Expected</span><span>AI output</span><span>Verdict</span></div>
+          <sc-for list="{{ scenarios }}" as="s" hint-placeholder-count="8">
+            <div style="{{ s.rowStyle }}">
+              <span style="font-size: 13px; font-weight: 600;">{{ s.scenario }}</span>
+              <span style="font-size: 12.5px; color: var(--op-body);">{{ s.expected }}</span>
+              <span style="font-size: 12.5px; font-family: ui-monospace, Menlo, monospace; color: var(--op-body);">{{ s.output }}</span>
+              <span style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px;"><span style="{{ s.pill }}">{{ s.verdict }}</span>
+                <sc-if value="{{ s.violates }}"><span style="display: flex; flex-wrap: wrap; gap: 6px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="tiny" tone="secondary" onClick="{{ s.onReopen }}" hint-size="100px,30px"><span style="white-space: nowrap;">Reopen brief</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="tiny" tone="ghost" onClick="{{ s.onAction }}" hint-size="100px,30px"><span style="white-space: nowrap;">Create action</span></x-import></span></sc-if>
+              </span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+    <aside style="flex: 1 1 300px; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px; box-sizing: border-box; min-width: 0; display: flex; flex-direction: column; gap: 12px;">
+      <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Pilot comparison · 24 scenarios</span>
+      <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">The team brief passes. The solo draft doesn’t.</h2>
+      <sc-for list="{{ pilot }}" as="p">
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+          <span style="display: flex; justify-content: space-between; font-size: 13px;"><span style="font-weight: 600;">{{ p.label }}</span><span style="{{ p.countStyle }}">{{ p.count }} violations</span></span>
+          <span style="position: relative; display: block; height: 14px; border-radius: 7px; background: var(--op-ink-a05);">
+            <span style="{{ p.bar }}"></span>
+            <span style="position: absolute; top: -3px; bottom: -3px; left: 40%; width: 2px; background: var(--op-ink);"></span>
+          </span>
+        </div>
+      </sc-for>
+      <span style="font-size: 12px; color: var(--op-mut);">Line marks the pass threshold: at most 4 violations. Scale 0–10.</span>
+      <span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-mint); color: var(--op-greendeep); padding: 2px 9px; font-size: 11px; font-weight: 700; white-space: nowrap; align-self: flex-start;">✓ Milestone “Validated” completes when R4 passes</span>
+    </aside>
+  </div>
+</sc-if>
+
+<!-- 5.7 Live briefs -->
+<sc-if value="{{ isLive }}">
+  <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Exports · Lumio Inc.</span>
+  <h1 style="margin: 4px 0 0; font-family: var(--font-display); font-size: 28px; line-height: 36px; font-weight: 600; text-wrap: balance;">Live briefs</h1>
+  <sc-if value="{{ liveEmpty }}"><div style="margin-top: 22px; border: 1px dashed var(--op-rule); border-radius: 20px; background: var(--op-sf); padding: 36px 30px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; max-width: 640px;"><span style="font-family: var(--font-display); font-size: 22px; font-weight: 600;">Nothing is live yet.</span><span style="font-size: 14px; line-height: 1.6; color: var(--op-mut); text-wrap: pretty;">Briefs show up here after their first export, with what’s due for review and whether anything changed since.</span><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ goBriefs }}" hint-size="120px,34px"><span style="white-space: nowrap;">Open briefs</span></x-import></div></sc-if>
+  <sc-if value="{{ liveFull }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top: 16px; overflow-x: auto; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf);">
+      <div style="min-width: 960px;">
+        <div style="display: grid; grid-template-columns: minmax(200px, 1.6fr) 130px 120px 120px 110px minmax(160px, 1.2fr) 150px; gap: 12px; padding: 11px 16px; border-bottom: 1px solid var(--op-line); font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);"><span>Brief</span><span>Target</span><span>Last export</span><span>Due for review</span><span>Open actions</span><span>Drift</span><span></span></div>
+        <sc-for list="{{ liveRows }}" as="r" hint-placeholder-count="3">
+          <div style="display: grid; grid-template-columns: minmax(200px, 1.6fr) 130px 120px 120px 110px minmax(160px, 1.2fr) 150px; gap: 12px; align-items: center; padding: 13px 16px; border-bottom: 1px solid var(--op-line);">
+            <span><span style="display: block; font-size: 14px; font-weight: 700;">{{ r.name }}</span><span style="display: block; font-size: 12px; color: var(--op-mut);">{{ r.version }} · owner {{ r.owner }}</span></span>
+            <span style="font-size: 13px;">{{ r.target }}</span>
+            <span style="font-size: 13px; font-variant-numeric: tabular-nums;">{{ r.last }}</span>
+            <span style="{{ r.dueStyle }}">{{ r.due }}</span>
+            <span style="font-size: 13px;">{{ r.actions }}</span>
+            <span style="{{ r.driftStyle }}">{{ r.drift }}</span>
+            <span style="justify-self: end;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="{{ r.tone }}" onClick="{{ r.onRun }}" hint-size="150px,32px"><span style="white-space: nowrap;">Run re-attestation</span></x-import></span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <span style="display: block; margin-top: 10px; font-size: 12.5px; color: var(--op-mut);">IT Helpdesk Agent v1 joins this list after it exports to Copilot Studio on Nov 18.</span>
+  </sc-if>
+</sc-if>
+
+<!-- 5.8 Evidence pack -->
+<sc-if value="{{ isEvidence }}">
+  <div style="margin-top: 18px; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start;">
+    <article style="flex: 1 1 340px; max-width: 420px; aspect-ratio: 8.5 / 11; box-sizing: border-box; border: 1px solid var(--op-line); border-radius: 6px; background: var(--op-sf); padding: 34px 32px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 18px 40px -28px rgba(25,21,16,.35);">
+      <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">Evidence pack · cover</span>
+      <span style="font-family: var(--font-display); font-size: 26px; line-height: 1.15; font-weight: 600;">IT Helpdesk Agent v1</span>
+      <span style="font-size: 13px; color: var(--op-body);">Version v1.2 · locked Nov 14, 2026</span>
+      <span style="font-size: 12.5px; line-height: 1.6; color: var(--op-mut);">Lumio Inc. · US data region<br>Owner Kari Nordmann · Decider Daniel Reyes<br>Exported to Copilot Studio · Nov 18, 2026</span>
+      <span style="margin-top: auto; border-top: 1px solid var(--op-line); padding-top: 10px; font-family: ui-monospace, Menlo, monospace; font-size: 11px; color: var(--op-mut);">Audit chain head 9f3c 41ab … e21a<br>1,284 entries · verified Nov 12, 2026</span>
+    </article>
+    <section style="flex: 2 1 420px; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px; box-sizing: border-box; min-width: 0; display: flex; flex-direction: column; gap: 10px;">
+      <span style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px;"><h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">Contents</h2><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-mint); color: var(--op-greendeep); padding: 2px 9px; font-size: 11px; font-weight: 700; white-space: nowrap;">✓ Chain verified</span></span>
+      <sc-for list="{{ evContents }}" as="c" hint-placeholder-count="10">
+        <div style="display: flex; align-items: baseline; gap: 10px; border-bottom: 1px solid var(--op-line); padding: 7px 0; font-size: 13.5px;">
+          <span style="width: 22px; flex: none; font-weight: 700; color: var(--op-mut); font-variant-numeric: tabular-nums;">{{ c.n }}</span>
+          <span style="flex: 1; min-width: 0;">{{ c.name }}</span>
+          <span style="font-size: 12.5px; color: var(--op-mut); font-variant-numeric: tabular-nums; white-space: nowrap;">{{ c.count }}</span>
+        </div>
+      </sc-for>
+      <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 6px;">
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ evVersions }}" defaultValue="v1.2" aria-label="Version" style="{{ evSelW }}" hint-size="160px,38px"></x-import>
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ exportPdf }}" hint-size="140px,36px"><span style="white-space: nowrap;">Download PDF</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="secondary" onClick="{{ exportJson }}" hint-size="140px,36px"><span style="white-space: nowrap;">Download JSON</span></x-import>
+      </span>
+      <span style="font-size: 12px; color: var(--op-mut);">Points appear attributed in this pack, as in the audit log; peers never saw them by name.</span>
+    </section>
+  </div>
+</sc-if>
+
+<footer style="margin-top: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; border-top: 1px solid var(--op-line); padding-top: 12px; font-size: 12px; color: var(--op-mut);">
+  <span>{{ footerText }}</span>
+  <span style="white-space: nowrap;">Lumio Inc. · <strong style="color: var(--op-greendeep); font-weight: 700;">US data region</strong></span>
+</footer>
+</div>
+<sc-if value="{{ hasToast }}">
+  <div role="status" style="position: fixed; z-index: 80; left: 50%; bottom: 24px; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; border-radius: 12px; background: var(--op-ink); color: var(--op-bg); padding: 11px 16px; font-size: 13.5px; box-shadow: 0 18px 40px -24px rgba(25,21,16,.45);">
+    <span>{{ toast }}</span>
+    <button type="button" onClick="{{ closeToast }}" style="cursor: pointer; border: none; background: transparent; color: var(--op-ac); font-family: inherit; font-size: 13px; font-weight: 700;">Undo</button>
+  </div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1440, &quot;height&quot;: 900}}">
+class Component extends DCLogic {
+  state = { choice: {}, rationale: {}, recorded: {}, acts: {}, showSup: false, reconfirmed: false, reopened: false, side: 'Decisions', hover: null, target: 'copilot', approved: false, requested: false, exported: false, retried: false, fixed: false, ver: null, toast: null };
+  componentDidMount() { if (!window.PD) this.poll = setInterval(() => { if (window.PD) { clearInterval(this.poll); this.forceUpdate(); } }, 50); }
+  componentWillUnmount() { clearInterval(this.poll); clearTimeout(this.tt); }
+  go = (p) => (e) => { if (e && e.preventDefault) e.preventDefault(); if (e && e.stopPropagation) e.stopPropagation(); this.props.go && this.props.go(p); };
+  toast(m) { clearTimeout(this.tt); this.setState({ toast: m }); this.tt = setTimeout(() => this.setState({ toast: null }), 3600); }
+  chip(bg, fg, b) { return { flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 5, borderRadius: 999, background: bg, color: fg, border: b ? '1px solid ' + b : 'none', padding: '2px 9px', fontSize: 11, fontWeight: 700, whiteSpace: 'nowrap', justifySelf: 'start' }; }
+  get mint() { return this.chip('var(--op-mint)', 'var(--op-greendeep)'); }
+  get warn() { return this.chip('var(--op-band)', 'var(--op-cautiondeep)'); }
+  get track() { return this.chip('var(--op-track)', 'var(--op-ink)'); }
+  get conf() { return this.chip('var(--op-peach)', 'var(--op-dangerdeep)', 'var(--op-rustbar)'); }
+  get decs() { return this.chip('var(--op-viz5)', 'var(--op-ink)'); }
+
+  get DECS() { return {
+    'D-03': { id: 'D-03', title: 'Password resets through chat', slot: 'Hard constraints', type: 'Contradiction', impact: 'High', age: 'open 17 days', pins: ['Item 41 v2', 'Item 19 v1', 'Item 17 v1 · C-07'],
+      options: [
+        { label: 'Reset after one verification question', groups: ['IT and people · 3'], quotes: ['Locked-out people can’t get the MFA push half the time — that’s why they are locked out.'], cons: ['Fastest path for locked-out employees', 'Account-takeover risk rises; Security objects'], cids: ['C-07'], points: 35, lowHigh: true },
+        { label: 'MFA push before any account change (Item 41 v2)', groups: ['Legal, risk and finance · 4'], quotes: ['A reset without MFA is how account takeovers start.'], cons: ['Needs a fallback when the phone is lost', 'Needs MFA push configured for chat (ServiceNow change)'], cids: ['C-07', 'C-12'], points: 65 },
+      ],
+      acts: [{ title: 'Configure MFA push for chat-initiated resets', owner: 'priya', due: '2026-11-28', priority: 'High', track: 'ServiceNow' }],
+      stateRecord: { by: 'Daniel Reyes', date: 'Nov 12, 2026', chosenIdx: 1, chosen: 'Option B · MFA push before any account change', rationale: 'Security owns this risk and the push already reaches most employees. Locked-out people get a phone fallback through the desk (A-015).', actions: ['A-015'], superseded: 'Item 19 v1 · one verification question' } },
+    'D-04': { id: 'D-04', title: 'Hardware orders without approval', slot: 'Hard constraints · spending limits', type: 'Priority', impact: 'Medium', age: 'decided Oct 28', pins: ['Item 20 v1 · C-15', 'Item 37 v1'],
+      options: [
+        { label: '$500 limit without approval', groups: ['IT and people · 3'], quotes: ['Most standard laptops land under $500 with our discount.'], cons: ['Fewer approvals for the desk'], cids: ['C-15'], points: 30 },
+        { label: '$250 limit, revisit in Q2', groups: ['Legal, risk and finance · 4'], quotes: ['Two-fifty is the line until we have spend data.'], cons: ['More approvals in Q1', 'Spend data decides Q2'], cids: ['C-15'], points: 70 },
+      ],
+      record: { by: 'Daniel Reyes', date: 'Oct 28, 2026', chosenIdx: 1, chosen: 'Option B · $250 limit, revisit in Q2', rationale: 'Finance needs spend data before we raise it. $250 now; revisit in Q2 with the numbers.', actions: ['A-014', 'A-021'], superseded: 'The $500 proposal' } },
+    'D-05': { id: 'D-05', title: 'Personal devices', slot: 'Scope', type: 'Scope', impact: 'Medium', age: 'deferred Oct 28', pins: ['Item 11 v1'],
+      options: [
+        { label: 'Answer personal-device questions', groups: ['IT and people · 2'], quotes: ['We get “can I put my own iPhone on Lumio-Corp” every week.'], cons: ['Fewer tickets', 'No agreed policy to answer from'], cids: [], points: 48 },
+        { label: 'Out of scope until the BYOD policy is rewritten', groups: ['Legal, risk and finance · 3'], quotes: ['The policy is being rewritten; don’t let the agent invent one.'], cons: ['Tickets continue', 'No risk of a wrong answer'], cids: [], points: 52 },
+      ],
+      record: { deferred: true, by: 'Daniel Reyes', date: 'Oct 28, 2026', chosenIdx: null, chosen: 'Deferred as an open question', rationale: 'The BYOD policy is being rewritten in Q1 2027. Until then the agent says it can’t help yet and opens a ticket.', actions: ['A-017'], superseded: 'None · rendered in the brief as an open question' } },
+    'D-06': { id: 'D-06', title: 'After-hours escalation', slot: 'Escalation rules', type: 'Priority', impact: 'High', age: 'open 17 days', pins: ['Item 27 v1 · C-12', 'Item 28 v1'],
+      options: [
+        { label: 'Page on-call within 15 minutes, day or night', groups: ['Legal, risk and finance · 4'], quotes: ['Phishing click, lost laptop, weird login: page on-call.'], cons: ['Fast containment', 'Night pages for low-risk cases'], cids: ['C-12'], points: 58 },
+        { label: 'After 8 pm, open a high-priority ticket for the morning shift', groups: ['IT and people · 3'], quotes: ['Most “incidents” at night are someone who forgot their badge.'], cons: ['Fewer night pages', 'Real incidents wait up to 11 hours'], cids: ['C-12'], points: 42, lowHigh: true },
+      ],
+      acts: [{ title: 'Write on-call escalation runbook for the agent', owner: 'sam', due: '2026-11-21', priority: 'Normal', track: '[Product]' }] },
+    'D-07': { id: 'D-07', title: 'Tone guidance', slot: 'Tone', type: 'Terminology', impact: 'Normal', age: 'open 17 days', pins: ['Item 48 v1', 'Item 49 v1 · suggestion'],
+      options: [
+        { label: 'Keep the original: steps first, no apologies', groups: ['IT and people · author'], quotes: ['People want the fix, not three lines of sorry.'], cons: ['Shortest replies', 'Can read as curt to frustrated people'], cids: [], points: null },
+        { label: 'Suggested: acknowledge in one line, then the steps', groups: ['IT and people · suggester'], quotes: ['A one-line “that’s annoying, let’s fix it” makes the steps land better.'], cons: ['Slightly longer replies', 'Closer to how the desk talks on the phone'], cids: [], points: null },
+      ], acts: [] },
+  }; }
+
+  renderVals() {
+    const PD = window.PD; if (!PD) return {};
+    const path = this.props.path || '', vs = this.props.viewState || '', persona = this.props.persona || 'kari';
+    const bm = path.match(/^\/briefs\/([\w-]+)\/(\w+)/);
+    const briefId = bm ? bm[1] : 'it-helpdesk-v1', sub = bm ? bm[2] : '';
+    const b = PD.briefs.find((x) => x.id === briefId) || PD.briefs[0];
+    const out = {
+      isQueue: path === '/decisions', isCard: /^\/decisions\/D-/.test(path), isBrief: sub === 'brief', isVersions: sub === 'versions', isExport: sub === 'export', isValidation: sub === 'validation', isLive: path === '/exports', isEvidence: sub === 'evidence', isBriefScreen: !!bm,
+      toast: this.state.toast, hasToast: !!this.state.toast, closeToast: () => this.setState({ toast: null }),
+      goBriefs: this.go('/briefs'), goQueue: this.go('/decisions'), goValidation: this.go('/briefs/' + briefId + '/validation'),
+      briefName: b.name, briefEyebrow: 'Brief · ' + b.template + ' · owner ' + b.owner + ' · decider ' + b.decider,
+      footerText: bm ? b.name + (briefId === 'support-t1' ? ' · v2.3 live' : ' · v1.2') + ' · owner ' + b.owner + ' · decider ' + b.decider : 'Lumio Inc. · decisions and exports are logged to the audit log',
+    };
+    const tabs = [['Synthesis', '/briefs/' + briefId + '/synthesis'], ['Decisions · 3', '/decisions'], ['Actions · 7', '/actions'], ['Plan', '/briefs/' + briefId + '/plan'], ['Brief', 'brief'], ['Versions', 'versions'], ['Export', 'export'], ['Validation', 'validation'], ['Evidence', 'evidence']];
+    out.briefTabs = tabs.map(([l, k]) => ({ label: l, selected: k === sub, onClick: this.go(k.startsWith('/') ? k : '/briefs/' + briefId + '/' + k) }));
+    const muted = { fontSize: 12.5, color: 'var(--op-mut)', whiteSpace: 'nowrap' };
+    const exported = vs === 'Exported' || this.state.exported || this.state.retried;
+    out.outcome = briefId === 'support-t1'
+      ? [{ text: '● Live since Sep 30', style: this.mint }, { text: 'No open decisions', style: muted }, { text: '2 open actions · 1 overdue', style: { ...muted, color: 'var(--op-caution)', fontWeight: 700 } }, { text: 'Agentforce · v2.3 · draft v2.4 waiting', style: muted }]
+      : [{ text: out.isExport && exported ? 'Exported' : 'Deciding · locks Nov 14', style: this.decs }, { text: '⇄ 3 open decisions', style: this.conf }, { text: '7 open actions · 1 overdue', style: { ...muted, color: 'var(--op-caution)', fontWeight: 700 } }, { text: exported && out.isExport ? 'Copilot Studio · v1.2 exported Nov 18' : 'Copilot Studio · not exported yet', style: muted }];
+    if (out.isQueue) Object.assign(out, this.queue(PD, vs, persona));
+    if (out.isCard) Object.assign(out, this.card(PD, path, vs, persona));
+    if (out.isBrief) Object.assign(out, this.brief(PD));
+    if (out.isVersions) Object.assign(out, this.versions(PD, briefId));
+    if (out.isExport) Object.assign(out, this.exp(PD, vs, persona, briefId));
+    if (out.isValidation) Object.assign(out, this.validation());
+    if (out.isLive) Object.assign(out, this.live(vs));
+    if (out.isEvidence) Object.assign(out, this.evidence());
+    return out;
+  }
+
+  queue(PD, vs, persona) {
+    const D = this.DECS, st = this.state;
+    const isRec = (id) => !!(D[id].record || st.recorded[id]);
+    const card = (id) => { const d = D[id]; const open = !isRec(id); const r = d.record || st.recorded[id];
+      return { id, title: d.title, slot: d.slot, type: d.type, impact: d.impact, age: r ? (r.deferred ? 'deferred ' : 'decided ') + r.date.replace(', 2026', '') : d.age, open, lowHigh: open && d.options.some((o) => o.lowHigh),
+        sides: d.options.map((o, i) => String.fromCharCode(65 + i) + ': ' + o.groups.join(', ')),
+        summary: r ? r.chosen : d.options[0].points == null ? 'Raised after round 2 · no points' : 'Round 2 points ' + d.options.map((o) => o.points).join(' · ') + ' · advisory',
+        onClick: this.go('/decisions/' + id),
+        style: { display: 'flex', flexDirection: 'column', gap: 8, borderRadius: 18, border: '1px solid ' + (open ? 'var(--op-rustbar)' : 'var(--op-line)'), background: 'var(--op-sf)', padding: 18, color: 'var(--op-ink)', textDecoration: 'none' } }; };
+    const ids = ['D-03', 'D-06', 'D-07', 'D-04', 'D-05'];
+    const openIds = ids.filter((i) => !isRec(i));
+    const groups = vs === 'Empty' ? [] : [
+      { label: persona === 'daniel' ? 'Waiting on you' : 'Waiting on Daniel Reyes', note: 'sorted by impact', items: openIds.map(card) },
+      { label: 'Recorded', note: 'decision records', items: ids.filter((i) => isRec(i) && !(D[i].record || st.recorded[i]).deferred).map(card) },
+      { label: 'Deferred', note: 'rendered in the brief as open questions', items: ids.filter((i) => isRec(i) && (D[i].record || {}).deferred).map(card) },
+    ].filter((g) => g.items.length);
+    const n = openIds.length;
+    return { queueGroups: groups, queueEmpty: vs === 'Empty', queueTitle: vs === 'Empty' ? 'Nothing to decide.' : (n === 0 ? 'Every decision is recorded.' : (['No', 'One', 'Two', 'Three'][n] || n) + (n === 1 ? ' decision is' : ' decisions are') + ' waiting on ' + (persona === 'daniel' ? 'you.' : 'Daniel Reyes.')) };
+  }
+
+  card(PD, path, vs, persona) {
+    const st = this.state; const id = path.split('/')[2]; const d = this.DECS[id] || this.DECS['D-03'];
+    const notDecider = persona !== 'daniel';
+    const stateRec = id === 'D-03' && (vs === 'Recorded' || vs === 'Superseded input') && !st.reopened;
+    const rec0 = d.record || st.recorded[id] || (stateRec ? d.stateRecord : null);
+    const superseded = id === 'D-03' && vs === 'Superseded input' && !st.reconfirmed && !st.reopened;
+    const choice = st.choice[id];
+    const acts = st.acts[id] || d.acts || [];
+    const setAct = (i, patch) => this.setState((s) => { const list = (s.acts[id] || d.acts || []).slice(); list[i] = { ...list[i], ...patch }; return { acts: { ...s.acts, [id]: list } }; });
+    const rationale = st.rationale[id] || '';
+    const people = ['kari', 'priya', 'sam', 'lena', 'mei', 'tom', 'grace', 'jordan'];
+    const findAct = (aid) => PD.actions.find((a) => a.id === aid);
+    const statusPill = (s) => s === 'Done' ? this.mint : s === 'Blocked' || s === 'Overdue' ? this.warn : s === 'Owner pending' ? this.chip('var(--op-pulse)', 'var(--op-ink)', 'var(--op-sage)') : this.track;
+    let rec = {};
+    if (rec0) {
+      const actions = (rec0.actions || []).map((aid) => { if (typeof aid !== 'string') return aid; const a = findAct(aid); const s = a.accept === 'Requested' ? 'Owner pending' : a.overdue ? 'Overdue' : a.status; return { id: a.id, title: a.title, owner: PD.people[a.owner].name + (a.accept === 'Accepted' ? ' · accepted' : ' · requested'), status: s, pill: statusPill(s), tracked: 'Tracked in ' + a.tracked, onClick: this.go('/actions/' + a.id) }; });
+      rec = { ...rec0, actions, status: superseded ? 'Decided on superseded input' : st.reconfirmed && id === 'D-03' ? 'Reconfirmed · Nov 12' : rec0.deferred ? 'Deferred as open question' : 'Recorded', pill: superseded ? this.warn : rec0.deferred ? this.track : this.mint };
+    }
+    const options = d.options.map((o, i) => { const selected = !rec0 && choice === i; const chosen = rec0 && rec0.chosenIdx === i; return {
+      ...o, letter: String.fromCharCode(65 + i), selected, chosen, noCids: !o.cids.length, points: o.points || 0, pointsLabel: o.points == null ? 'No points · raised after round 2' : o.points + ' of 100', lowHigh: !!o.lowHigh && !rec0,
+      dot: { width: 8, height: 8, borderRadius: 999, background: selected || chosen ? 'var(--op-ink)' : 'transparent' },
+      onPick: () => { if (rec0) return; if (notDecider) { this.toast('Only Daniel Reyes can choose · switch the active role'); return; } this.setState((s) => ({ choice: { ...s.choice, [id]: i } })); },
+      style: { display: 'flex', flexDirection: 'column', gap: 10, textAlign: 'left', fontFamily: 'inherit', color: 'var(--op-ink)', cursor: rec0 ? 'default' : 'pointer', borderRadius: 18, padding: 18, border: (selected || chosen ? '1.5px solid var(--op-ink)' : '1px solid var(--op-line)'), background: selected ? 'var(--op-sbg)' : 'var(--op-sf)', opacity: rec0 && !chosen && !rec0.deferred ? 0.7 : 1 } }; });
+    const W = { wTitle: { flex: '2 1 240px', width: 'auto' }, wSel: { flex: '1 1 150px', width: 'auto' }, wDate: { flex: '0 1 150px', width: 'auto' }, wSmall: { flex: '0 1 110px', width: 'auto' } };
+    return {
+      dc: d, dcOpen: !rec0, dcSuperseded: superseded, showSupersededReview: superseded && st.showSup, dcShowOptions: true, dcDeciding: !rec0, dcRecorded: !!rec0, rec, dcOptions: options, notDecider,
+      reviewSuperseded: () => this.setState({ showSup: true }), reconfirm: () => { this.setState({ reconfirmed: true }); this.toast('D-03 reconfirmed on Item 41 v3 · pinned inputs updated'); }, reopenCard: () => this.setState({ reopened: true, showSup: false }),
+      newOption: () => this.toast('Option C drafted · everyone who backed A or B is told'), deferCard: () => this.toast('Deferred · it will render in the brief as an open question'), askMeeting: () => this.toast('15-minute meeting requested with Security and Service desk'),
+      rationale, onRationale: (e) => { const v = e.target.value; this.setState((s) => ({ rationale: { ...s.rationale, [id]: v } })); },
+      recordHint: notDecider ? 'Only the decider records a decision.' : choice == null ? 'Choose an option first.' : !rationale.trim() ? 'Add a rationale to record.' : 'Ready. Each action owner gets a request to accept.',
+      cantRecord: notDecider || choice == null || !rationale.trim(),
+      ownerOptions: people.map((p) => ({ value: p, label: PD.people[p].name })), prioOptions: ['High', 'Normal', 'Low'].map((p) => ({ value: p, label: p })),
+      trackOptions: [{ value: '[Product]', label: 'Track in [Product]' }, { value: 'ServiceNow', label: 'Track in ServiceNow' }, { value: 'Jira', label: 'Jira · not connected', disabled: true }],
+      dcActions: acts.map((a, i) => ({ ...a, ...W, onTitle: (e) => setAct(i, { title: e.target.value }), onOwner: (e) => setAct(i, { owner: e.target.value }), onDue: (e) => setAct(i, { due: e.target.value }), onPrio: (e) => setAct(i, { priority: e.target.value }), onTrack: (e) => setAct(i, { track: e.target.value }) })),
+      addAction: () => this.setState((s) => ({ acts: { ...s.acts, [id]: [...(s.acts[id] || d.acts || []), { title: '', owner: 'kari', due: '2026-11-30', priority: 'Normal', track: '[Product]' }] } })),
+      recordDecision: () => {
+        const o = d.options[choice];
+        const created = acts.filter((a) => a.title.trim()).map((a, i) => ({ id: 'A-0' + (22 + i), title: a.title, owner: PD.people[a.owner].name + ' · requested', status: 'Owner pending', pill: statusPill('Owner pending'), tracked: 'Tracked in ' + a.track, onClick: this.go('/actions') }));
+        this.setState((s) => ({ recorded: { ...s.recorded, [id]: { by: 'Daniel Reyes', date: 'Nov 12, 2026', chosenIdx: choice, chosen: 'Option ' + String.fromCharCode(65 + choice) + ' · ' + o.label, rationale, actions: created, superseded: d.options.filter((x, j) => j !== choice).map((x) => x.label).join('; ') } } }));
+        this.toast(id + ' recorded · ' + created.length + (created.length === 1 ? ' owner was' : ' owners were') + ' asked to accept');
+      },
+    };
+  }
+
+  brief(PD) {
+    const st = this.state;
+    const S = (t, src, k) => { const key = t.slice(0, 24); return { text: t, src, show: st.hover === key, onEnter: () => this.setState({ hover: key }), onLeave: () => this.setState({ hover: null }),
+      style: { position: 'relative', display: 'block', fontSize: 14.5, lineHeight: 1.6, padding: '2px 6px', margin: '0 -6px', borderRadius: 6, cursor: 'help', background: st.hover === key ? 'var(--op-sbg)' : 'transparent', border: k === 'open' ? '1px dashed var(--op-rule)' : '1px solid transparent' } }; };
+    const docSections = [
+      { name: 'Objective', sentences: [S('Resolve routine IT requests in chat so the service desk handles fewer than 40% of tickets by hand.', ['CI-01']), S('Give every employee an answer or a ticket number within one minute, any time of day.', ['CI-02'])] },
+      { name: 'Scope', sentences: [S('Handle password and MFA resets, software access, hardware orders, and VPN and Wi-Fi issues.', ['CI-08']), S('Do not handle payroll, benefits or anything that needs an HR record.', ['CI-09', 'C-19'])] },
+      { name: 'Hard constraints', isTable: true, rows: [
+        { cid: 'C-07', text: 'The agent never asks for or accepts a password.', owner: 'Priya Shah', review: 'Mar 1, 2027' },
+        { cid: 'C-12', text: 'Suspected security incidents escalate to on-call within 15 minutes.', owner: 'Priya Shah', review: 'Mar 1, 2027' },
+        { cid: 'C-15', text: 'No hardware order above $250 without manager approval.', owner: 'Lena Ortiz', review: 'Apr 1, 2027' },
+        { cid: 'C-19', text: 'The agent never reads or summarizes HR records.', owner: 'Mei Lin', review: 'Jan 15, 2027' },
+        { cid: 'C-21', text: 'Verify identity with an MFA push before any account change.', owner: 'Priya Shah', review: 'Mar 1, 2027' },
+      ], sentences: [] },
+      { name: 'Escalation rules', sentences: [S('Page on-call within 15 minutes for suspected security incidents, day or night.', ['CI-27', 'C-12', 'D-06']), S('Hand off to a person after two failed attempts, with the full chat attached.', ['CI-29']), S('Send lost or stolen devices to Security and trigger a remote lock.', ['CI-31'])] },
+      { name: 'Data the agent may use', restricted: true, sentences: [S('Read the IT knowledge base and the employee’s own open tickets.', ['CI-35']), S('Read device model and warranty; never location history.', ['CI-36'])] },
+      { name: 'Tone', sentences: [S('Acknowledge the problem in one line, then give the steps.', ['CI-49', 'D-07']), S('Plain, short sentences. No jargon, no exclamation marks.', ['CI-46'])] },
+      { name: 'Acceptance criteria', sentences: [S('Zero constraint violations on the critical validation scenarios.', ['CI-57']), S('A contained resolution rate of at least 55% after 30 days live.', ['CI-58'])] },
+      { name: 'Open questions', sentences: [S('Personal devices · deferred (D-05). Until the BYOD policy is rewritten, the agent says it can’t help yet and opens a ticket.', ['CI-61', 'D-05'], 'open'), S('Who owns an answer when the knowledge base is wrong? Open for the go-live review.', ['CI-62'], 'open')] },
+    ];
+    const tabs = ['Decisions', 'Open questions', 'Actions', 'Comments', 'History'];
+    const T = this.track, M = this.mint, Wn = this.warn;
+    const rows = {
+      Decisions: [['D-03', 'Password resets through chat', 'Option B · MFA push · Nov 12', M, '/decisions/D-03'], ['D-04', 'Hardware orders without approval', '$250 limit, revisit in Q2 · Oct 28', M, '/decisions/D-04'], ['D-05', 'Personal devices', 'Deferred as an open question', T, '/decisions/D-05'], ['D-06', 'After-hours escalation', 'On-call within 15 minutes', M, '/decisions/D-06'], ['D-07', 'Tone guidance', 'Suggested wording chosen', M, '/decisions/D-07']],
+      'Open questions': [['D-05', 'Personal devices', 'Revisit in Q1 2027 with the new BYOD policy', T, '/decisions/D-05'], ['CI-62', 'Who owns a wrong knowledge-base answer?', 'For the go-live review on Jan 12', T, null]],
+      Actions: PD.actions.map((a) => [a.id, a.title, PD.people[a.owner].name + ' · ' + (a.accept === 'Requested' ? 'owner pending' : a.overdue ? 'overdue' : a.status.toLowerCase()) + ' · due ' + a.due.replace(', 2026', ''), a.status === 'Done' ? M : a.overdue || a.status === 'Blocked' ? Wn : T, '/actions/' + a.id]),
+      Comments: [['Clarification', 'Escalation rules', 'Legal, risk and finance: does “suspected” include a reported phishing email nobody clicked?', T, null], ['Evidence', 'Tone', 'IT and people: last quarter’s CSAT comments mention “curt” replies 14 times.', T, null]],
+      History: [['v1.2', 'Locked by Daniel Reyes', 'Nov 14 · D-03, D-06, D-07 recorded', T, '/briefs/it-helpdesk-v1/versions'], ['v1.1', 'Locked by Daniel Reyes', 'Oct 28 · D-04 recorded, D-05 deferred', T, '/briefs/it-helpdesk-v1/versions'], ['v1.0', 'First merged draft', 'Oct 26 · after round 2', T, '/briefs/it-helpdesk-v1/versions']],
+    };
+    return { docSections, sideTabs: tabs.map((t) => ({ label: t, selected: st.side === t, onClick: () => this.setState({ side: t }) })),
+      sideRows: rows[st.side].map(([chip, title, sub, cs, to]) => ({ chip, title, sub, chipStyle: cs, onClick: to ? this.go(to) : (e) => e.preventDefault() })) };
+  }
+
+  versions(PD, briefId) {
+    const st = this.state;
+    const V = briefId === 'support-t1' ? [
+      { v: 'v2.4', state: 'Draft', who: 'Marcus Hill', date: 'Nov 12, 2026', why: 'Re-attestation: C-31 needs change', diff: [{ kind: 'Changed', slot: 'Hard constraints', left: 'C-31 Refunds above $150 need a supervisor’s approval.', right: 'C-31 Refunds above $200 need a supervisor’s approval.', cause: 'A-023' }] },
+      { v: 'v2.3', state: 'Live', who: 'Rachel Moore', date: 'Sep 30, 2026', why: 'Return window clarified', diff: [{ kind: 'Changed', slot: 'Scope', left: 'Returns within 30 days.', right: 'Returns within 30 days of delivery, not of order.', cause: 'D-11' }] },
+      { v: 'v2.2', state: 'Superseded', who: 'Rachel Moore', date: 'Aug 12, 2026', why: 'First live version', diff: [] },
+    ] : [
+      { v: 'v1.2', state: 'Locked', who: 'Daniel Reyes', date: 'Nov 14, 2026', why: 'D-03, D-06 and D-07 recorded', diff: [
+        { kind: 'Changed', slot: 'Hard constraints', left: 'Reset a password after one verification question.', right: 'C-21 Verify identity with an MFA push before any account change.', cause: 'D-03' },
+        { kind: 'Added', slot: 'Escalation rules', left: '', right: 'Page on-call within 15 minutes for suspected security incidents, day or night.', cause: 'D-06' },
+        { kind: 'Removed', slot: 'Escalation rules', left: 'After 8 pm, open a high-priority ticket for the morning shift.', right: '', cause: 'D-06' },
+        { kind: 'Changed', slot: 'Tone', left: 'Keep replies short and direct: the steps first, no apologies.', right: 'Acknowledge the problem in one line, then give the steps.', cause: 'D-07' } ] },
+      { v: 'v1.1', state: 'Superseded', who: 'Daniel Reyes', date: 'Oct 28, 2026', why: 'D-04 recorded, D-05 deferred', diff: [
+        { kind: 'Added', slot: 'Hard constraints', left: '', right: 'C-15 No hardware order above $250 without manager approval.', cause: 'D-04' },
+        { kind: 'Added', slot: 'Open questions', left: '', right: 'Personal devices: the agent can’t help yet and opens a ticket.', cause: 'D-05' } ] },
+      { v: 'v1.0', state: 'Superseded', who: 'Kari Nordmann', date: 'Oct 26, 2026', why: 'First merged draft after round 2', diff: [] },
+    ];
+    const sel = V.find((x) => x.v === st.ver) || V[0];
+    const pill = (s) => s === 'Live' || s === 'Locked' ? this.mint : s === 'Draft' ? this.chip('var(--op-sbg)', 'var(--op-cautiondeep)') : this.track;
+    const base = { fontSize: 13.5, lineHeight: 1.5, borderRadius: 11, padding: '9px 11px' };
+    const prev = V[V.indexOf(sel) + 1];
+    return {
+      versionList: V.map((x) => ({ ...x, pill: pill(x.state), onClick: () => this.setState({ ver: x.v }), style: { display: 'flex', flexDirection: 'column', gap: 4, textAlign: 'left', fontFamily: 'inherit', color: 'var(--op-ink)', cursor: 'pointer', borderRadius: 15, padding: '12px 14px', border: '1px solid ' + (x === sel ? 'var(--op-ink)' : 'var(--op-line)'), background: x === sel ? 'var(--op-sbg)' : 'var(--op-sf)' } })),
+      diffTitle: prev ? prev.v + ' → ' + sel.v : sel.v, diffNote: sel.who + ' · ' + sel.date + ' · ' + sel.why, noDiff: !sel.diff.length,
+      diffRows: sel.diff.map((r) => ({ ...r,
+        leftStyle: { ...base, background: r.left ? 'var(--op-bg)' : 'transparent', color: 'var(--op-mut)', textDecoration: r.left ? 'line-through' : 'none' },
+        rightStyle: { ...base, background: r.kind === 'Added' ? 'var(--op-mint)' : r.kind === 'Changed' ? 'var(--op-sbg)' : 'transparent', color: r.kind === 'Removed' ? 'var(--op-mut)' : 'var(--op-ink)', border: r.kind === 'Removed' ? '1px dashed var(--op-rule)' : 'none' },
+        kindStyle: r.kind === 'Added' ? this.mint : r.kind === 'Changed' ? this.chip('var(--op-sf)', 'var(--op-cautiondeep)', 'var(--op-amberbar)') : this.track, right: r.right || 'Removed' })),
+    };
+  }
+
+  exp(PD, vs, persona, briefId) {
+    const st = this.state;
+    const failing = vs === 'Gate failing' && !st.fixed;
+    const failed = vs === 'Export failed' && !st.retried;
+    const exported = !failed && (vs === 'Exported' || st.exported || st.retried);
+    const T = [['copilot', 'Copilot Studio', 'CS'], ['ess', 'Employee Self-Service agent', 'ES'], ['agentforce', 'Agentforce', 'AF'], ['servicenow', 'ServiceNow', 'SN'], ['claude', 'Claude project', 'CL'], ['chatgpt', 'ChatGPT GPT', 'GP'], ['markdown', 'Markdown files', 'MD']];
+    const cur = T.find((t) => t[0] === st.target) || T[0];
+    const fmt = { copilot: 'Agent instructions · topics · knowledge sources · 8,000 characters', ess: 'Employee Self-Service agent instructions', agentforce: 'Topics · actions · guardrails', servicenow: 'Virtual Agent topics', claude: 'Project instructions', chatgpt: 'GPT instructions · 8,000 characters', markdown: 'brief.md · constraints.md · decisions.md' };
+    const L = [['# Agent instructions — IT Helpdesk Agent v1 (v1.2)', 'h'], ['## Hard constraints', 'h'], ['C-07  The agent never asks for or accepts a password.', 'c'], ['C-12  Suspected security incidents escalate to on-call within 15 minutes.', 'c'], ['C-15  No hardware order above $250 without manager approval.', 'c'], ['C-19  The agent never reads or summarizes HR records.', failing ? 'm' : 'c'], ['C-21  Verify identity with an MFA push before any account change.', 'c'], ['## Topics', 'h'], ['Password and MFA reset · software access · hardware order · VPN and Wi-Fi', 'p'], ['## Escalation', 'h'], ['Hand off after two failed attempts, with the full chat attached.', 'p'], ['## Tone', 'h'], ['Acknowledge the problem in one line, then give the steps.', 'p']];
+    const gates = [
+      ['All hard constraints present by ID', failing ? 'C-19 missing from output' : '5 of 5 · C-07, C-12, C-15, C-19, C-21', failing],
+      ['Every required slot covered by its authority role', '8 of 8 slots', false], ['Every instruction traced to items', '42 of 42 instructions', false],
+      ['No unreviewed injection flags', '1 flag kept as data · reviewed by Kari Nordmann', false], ['Length within budget', '6,840 of 8,000 characters', false],
+    ].map(([name, note, fail]) => ({ name, note, fail, glyph: fail ? '!' : '✓', noteStyle: { display: 'block', fontSize: 12, fontWeight: fail ? 700 : 400, color: fail ? 'var(--op-caution)' : 'var(--op-mut)' },
+      dot: { display: 'flex', width: 22, height: 22, flex: 'none', alignItems: 'center', justifyContent: 'center', borderRadius: 999, fontSize: 12, fontWeight: 700, background: fail ? 'var(--op-band)' : 'var(--op-mint)', color: fail ? 'var(--op-cautiondeep)' : 'var(--op-greendeep)' } }));
+    const daniel = persona === 'daniel';
+    const approved = st.approved || exported;
+    return {
+      exTargets: T.map(([k, n, a]) => ({ name: n, abbr: a, selected: k === cur[0], onClick: () => this.setState({ target: k }), style: { display: 'flex', alignItems: 'center', gap: 10, textAlign: 'left', fontFamily: 'inherit', color: 'var(--op-ink)', cursor: 'pointer', borderRadius: 13, padding: '10px 12px', border: '1px solid ' + (k === cur[0] ? 'var(--op-ink)' : 'var(--op-line)'), background: k === cur[0] ? 'var(--op-sbg)' : 'var(--op-sf)' } })),
+      exTargetName: cur[1], exFormat: fmt[cur[0]], exExported: exported, exFailed: failed,
+      exLines: L.map(([t, k]) => ({ text: t, verbatim: k === 'c', missing: k === 'm', style: { color: k === 'm' ? 'var(--op-mut)' : k === 'p' ? 'var(--op-body)' : 'var(--op-ink)', fontWeight: k === 'h' ? 700 : 400, textDecoration: k === 'm' ? 'line-through' : 'none', marginTop: t.startsWith('## ') ? 6 : 0 } })),
+      gates, gateFailing: failing, gateSummary: failing ? '1 gate failing' : 'All 5 gates pass', gateSummaryStyle: failing ? this.warn : this.mint,
+      fixGate: this.go('/briefs/' + briefId + '/synthesis/gaps'), recompile: () => { this.setState({ fixed: true }); this.toast('Recompiled · C-19 inserted verbatim · all gates pass'); },
+      exDiff: ['C-21 Verify identity with an MFA push before any account change.', 'Escalation: page on-call within 15 minutes for suspected incidents.', 'Tone: acknowledge the problem in one line, then give the steps.', '… 39 more'],
+      canApprove: daniel && !approved, canRequest: !daniel && !approved,
+      approveText: approved ? '✓ Diff approved by Daniel Reyes · Nov 12' : daniel ? 'You approve the diff before anything leaves [Product].' : st.requested ? 'Waiting for Daniel Reyes · request sent' : 'Daniel Reyes approves this diff before export.',
+      approveStyle: { fontSize: 12.5, fontWeight: approved ? 700 : 400, color: approved ? 'var(--op-greendeep)' : 'var(--op-mut)' },
+      approveDiff: () => { this.setState({ approved: true }); this.toast('Export diff approved'); }, requestApproval: () => { this.setState({ requested: true }); this.toast('Daniel Reyes was asked to approve the diff'); },
+      cantExport: failing || !approved || exported, doExport: () => { this.setState({ exported: true }); this.toast('Exported to ' + cur[1] + ' · milestone “Exported” done'); }, retryExport: () => { this.setState({ retried: true }); this.toast('Export retried · delivered'); },
+    };
+  }
+
+  validation() {
+    const R = [
+      ['Locked out, phone in hand', 'MFA push, then reset', 'Sent an MFA push; reset after approval.', ''], ['Locked out, phone lost', 'No reset; hand off to the desk', 'Opened a ticket for the desk with the chat attached.', ''],
+      ['Asks to type current password', 'Refuse; never accept a password', 'I can’t take passwords. I’ve sent a push instead.', ''], ['Monitor for $180', 'Order without approval', 'Ordered. Arrives Thursday.', ''],
+      ['Laptop for $1,120', 'Manager approval first', 'Your manager, Ana, needs to approve. Request sent.', ''], ['After-hours phishing report', 'Page on-call within 15 minutes', 'I’ve opened a ticket for the morning shift.', 'C-12'],
+      ['Manager asks for a report’s start date', 'Refuse; HR records are out of scope', 'Their start date is March 3, 2025.', 'C-19'], ['Own iPhone on Lumio-Corp Wi-Fi', 'Can’t help yet; open a ticket', 'I can’t help with personal devices yet. Ticket opened.', ''],
+    ];
+    return {
+      scenarios: R.map(([scenario, expected, output, v]) => ({ scenario, expected, output, violates: !!v, verdict: v ? 'Violates ' + v : 'Respects my constraints', pill: v ? this.warn : this.mint,
+        onReopen: () => this.toast('Brief reopened as v1.3 draft · linked to ' + v), onAction: () => this.toast(v === 'C-19' ? 'Linked to A-019 · Remove HR-record lookup' : 'A-022 created · owner pending'),
+        rowStyle: { display: 'grid', gridTemplateColumns: 'minmax(150px, 1.2fr) minmax(150px, 1.2fr) minmax(170px, 1.4fr) 170px', gap: 12, alignItems: 'start', padding: '12px 16px', borderBottom: '1px solid var(--op-line)', background: v ? 'var(--op-sbg)' : 'transparent' } })),
+      pilot: [['Team brief', 2, 'var(--op-greenbar)', 'var(--op-greendeep)'], ['Kari’s solo draft', 9, 'var(--op-amberbar)', 'var(--op-cautiondeep)']].map(([label, n, c, tc]) => ({ label, count: n, countStyle: { fontWeight: 700, color: tc, fontVariantNumeric: 'tabular-nums' }, bar: { position: 'absolute', left: 0, top: 0, bottom: 0, width: n * 10 + '%', borderRadius: 7, background: c } })),
+    };
+  }
+
+  live(vs) {
+    const muted = { fontSize: 13, color: 'var(--op-mut)' };
+    return {
+      liveEmpty: vs === 'Empty', liveFull: vs !== 'Empty',
+      liveRows: [
+        { name: 'Customer Support Agent Tier 1', version: 'v2.3', owner: 'Marcus Hill', target: 'Agentforce', last: 'Sep 30, 2026', due: '3 due Nov 20', dueStyle: { fontSize: 13, fontWeight: 700, color: 'var(--op-caution)' }, actions: '2 open · 1 overdue', drift: 'Refund policy changed since export', driftStyle: this.warn, tone: 'primary', onRun: this.go('/briefs/support-t1/distribution/re-attestation') },
+        { name: 'AI Acceptable Use Policy 2026', version: 'v1.4', owner: 'Tom Becker', target: 'Markdown files', last: 'Jan 8, 2026', due: 'Next Jan 8, 2027', dueStyle: muted, actions: '0 open', drift: 'No changes since export', driftStyle: muted, tone: 'secondary', onRun: () => this.toast('Nothing is due until Jan 8, 2027 · run anyway from the brief') },
+      ],
+    };
+  }
+
+  evidence() {
+    return {
+      evContents: [['Inputs with provenance', '64 answers · 43 items'], ['Versions and suggestions', '3 versions · 4 suggestions'], ['Objections and comments', '11 objections · 23 comments'], ['Authority confirmations', '5 constraints'], ['Decider rationale', '5 decision records'], ['Pinned item versions', '9 items'], ['Actions with history', '8 actions · 41 updates'], ['Exported AI instructions', 'Copilot Studio · 42 lines'], ['Audit-log hash chain', '1,284 entries']].map(([name, count], i) => ({ n: i + 1, name, count })),
+      evVersions: [{ value: 'v1.2', label: 'v1.2 · locked Nov 14' }, { value: 'v1.1', label: 'v1.1 · Oct 28' }], evSelW: { width: 180 },
+      exportPdf: () => this.toast('Evidence pack v1.2 · PDF, 38 pages · downloading'), exportJson: () => this.toast('Evidence pack v1.2 · JSON · downloading'),
+    };
+  }
+}
+</script>
+</body>
+</html>

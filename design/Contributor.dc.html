@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/orgpuls-design-system-d91c81f2-fbc3-4646-b16a-fd3ab94db56a/styles.css">
+  <script src="_ds/orgpuls-design-system-d91c81f2-fbc3-4646-b16a-fd3ab94db56a/_ds_bundle.js"></script>
+  <script src="data.js"></script>
+  <style>
+    a { color: #2F5D2A; text-decoration: none; }
+    a:hover { color: #1E3D1A; text-decoration: underline; }
+  </style>
+</helmet>
+<div style="min-width: 0; color: var(--op-ink); font-family: var(--font-sans, 'DM Sans', system-ui, sans-serif); font-size: 14px;">
+<div style="max-width: 1200px; margin: 0 auto; padding: 28px 24px 56px; box-sizing: border-box; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 28px;">
+  <aside style="flex: 1 1 280px; max-width: 360px; display: flex; flex-direction: column; gap: 14px;">
+    <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">File 4 · contributor · {{ who }}</span>
+    <h1 style="margin: 0; font-family: var(--font-display); font-size: 28px; line-height: 36px; font-weight: 600; text-wrap: balance;">{{ screenTitle }}</h1>
+    <p style="margin: 0; font-size: 14px; line-height: 1.6; color: var(--op-body); text-wrap: pretty;">{{ screenNote }}</p>
+    <span style="display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--op-mut);">Device <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Segmented" options="{{ deviceOptions }}" value="{{ device }}" onChange="{{ onDevice }}" ariaLabel="Device" hint-size="170px,30px"></x-import></span>
+    <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+      <sc-for list="{{ jumps }}" as="j"><a href="#" onClick="{{ j.onClick }}" style="{{ j.style }}">{{ j.label }}</a></sc-for>
+    </div>
+    <span style="font-size: 12px; line-height: 1.5; color: var(--op-mut);">No navigation for contributors: they arrive from an invite link and see only their task. Time cost is shown on every step.</span>
+  </aside>
+
+  <div style="{{ frameStyle }}">
+    <div style="{{ screenStyle }}">
+      <sc-if value="{{ isPhone }}" hint-placeholder-val="{{ true }}"><div style="display: flex; justify-content: space-between; padding: 2px 6px 10px; font-size: 12px; font-weight: 700;"><span>9:41</span><span>lumio.[product].app</span></div></sc-if>
+      <sc-if value="{{ showProgress }}">
+        <div style="display: flex; flex-direction: column; gap: 6px; padding-bottom: 14px;">
+          <span style="display: flex; justify-content: space-between; font-size: 12.5px; color: var(--op-mut); font-variant-numeric: tabular-nums;"><span>{{ progressLabel }}</span><span>{{ timeLeft }}</span></span>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Meter" pct="{{ progressPct }}" height="{{ 5 }}" color="var(--op-ac)" hint-size="100%,5px"></x-import>
+        </div>
+      </sc-if>
+
+      <!-- 4.1 -->
+      <sc-if value="{{ s41 }}">
+        <sc-if value="{{ linkOk }}" hint-placeholder-val="{{ true }}">
+          <div style="display: flex; flex-direction: column; gap: 16px; flex: 1;">
+            <span style="display: flex; align-items: center; gap: 12px;"><span style="display: flex; width: 56px; height: 56px; flex: none; align-items: center; justify-content: center; border-radius: 18px; background: var(--op-ink); color: var(--op-bg); font-family: var(--font-display); font-size: 21px; font-weight: 600;">KN</span><span><span style="display: block; font-size: 15px; font-weight: 700;">Kari Nordmann</span><span style="display: block; font-size: 13px; line-height: 1.5; color: var(--op-mut);">IT Service Manager · asked you</span></span></span>
+            <span style="font-family: var(--font-display); font-size: 22px; line-height: 1.25; font-weight: 600; text-wrap: balance;">IT Helpdesk Agent v1</span>
+            <p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--op-body); text-wrap: pretty; border-radius: 14px; background: var(--op-sf); border: 1px solid var(--op-line); padding: 14px;">«We want the agent to take routine requests so the service desk can focus on the hard ones. Your answers decide what it may and may not do.»</p>
+            <span style="display: flex; flex-wrap: wrap; gap: 8px;"><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-track); color: var(--op-ink); padding: 3px 10px; font-size: 12px; font-weight: 700; white-space: nowrap;">About 14 minutes</span><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-track); color: var(--op-ink); padding: 3px 10px; font-size: 12px; font-weight: 700; white-space: nowrap;">By Friday, Oct 16</span><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-track); color: var(--op-ink); padding: 3px 10px; font-size: 12px; font-weight: 700; white-space: nowrap;">7 questions</span></span>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <sc-for list="{{ promises }}" as="p"><span style="display: flex; gap: 10px; font-size: 14.5px; line-height: 1.45;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Tick" size="{{ 20 }}" round="{{ true }}" hint-size="20px,20px"></x-import><span>{{ p }}</span></span></sc-for>
+            </div>
+            <div style="position: sticky; bottom: 0; margin: auto -18px 0; padding: 12px 18px 18px; background: var(--op-bg); border-top: 1px solid var(--op-line); display: flex; gap: 10px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" block="{{ true }}" onClick="{{ goPrefill }}" hint-size="100%,44px"><span style="white-space: nowrap;">Start · about 14 min</span></x-import></div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ linkExpired }}">
+          <div style="display: flex; flex-direction: column; gap: 14px; flex: 1; padding-top: 30px;">
+            <span style="color: var(--op-mut);"><span aria-hidden="true" style="display: inline-flex; flex-direction: column; align-items: center;"><span style="width: 7px; height: 5px; border: 2px solid currentColor; border-bottom: none; border-radius: 5px 5px 0 0;"></span><span style="width: 13px; height: 9px; border-radius: 2px; background: currentColor;"></span></span></span>
+            <span style="font-family: var(--font-display); font-size: 22px; line-height: 1.25; font-weight: 600; text-wrap: balance;">This link has expired.</span>
+            <p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--op-body); text-wrap: pretty;">Links work for the length of the round. Round 1 of IT Helpdesk Agent v1 closed on Oct 16.</p>
+            <p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--op-body); text-wrap: pretty;">If you still want to add something, Kari can send you a new link.</p>
+            <div style="position: sticky; bottom: 0; margin: auto -18px 0; padding: 12px 18px 18px; background: var(--op-bg); border-top: 1px solid var(--op-line); display: flex; gap: 10px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" block="{{ true }}" onClick="{{ askLink }}" hint-size="100%,44px"><span style="white-space: nowrap;">Ask Kari for a new link</span></x-import></div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ linkWrong }}">
+          <div style="display: flex; flex-direction: column; gap: 14px; flex: 1; padding-top: 30px;">
+            <span style="font-family: var(--font-display); font-size: 22px; line-height: 1.25; font-weight: 600; text-wrap: balance;">This link was sent to Sam Okafor.</span>
+            <p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--op-body); text-wrap: pretty;">If you’re not Sam, close this page. Nothing you’ve seen is saved, and no answer can be given from here.</p>
+            <p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--op-body); text-wrap: pretty;">If you are Sam on a new device, we’ll email you a short code first.</p>
+            <div style="position: sticky; bottom: 0; margin: auto -18px 0; padding: 12px 18px 18px; background: var(--op-bg); border-top: 1px solid var(--op-line); display: flex; gap: 10px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" block="{{ true }}" onClick="{{ sendCode }}" hint-size="100%,44px"><span style="white-space: nowrap;">I’m Sam — send me a code</span></x-import></div>
+          </div>
+        </sc-if>
+      </sc-if>
+
+      <!-- 4.2 -->
+      <sc-if value="{{ s42 }}">
+        <div style="display: flex; flex-direction: column; gap: 14px; flex: 1;">
+          <span style="font-family: var(--font-display); font-size: 22px; line-height: 1.25; font-weight: 600; text-wrap: balance;">Here’s what we already know from existing documents.</span>
+          <span style="font-size: 13px; line-height: 1.5; color: var(--op-mut);">From “Password reset SOP v3.pdf” and last quarter’s tickets. Mark each point — about 1 minute.</span>
+          <sc-for list="{{ prefill }}" as="p">
+            <div style="border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-sf); padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;">
+              <span style="font-size: 15px; line-height: 1.5; font-weight: 600;">{{ p.text }}</span>
+              <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;"><sc-for list="{{ p.choices }}" as="c"><button type="button" onClick="{{ c.onClick }}" aria-pressed="{{ c.selected }}" style="{{ c.style }}">{{ c.label }}</button></sc-for></div>
+              <sc-if value="{{ p.editing }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" size="open" value="{{ p.note }}" onChange="{{ p.onNote }}" placeholder="What should it say?" aria-label="What should it say?" hint-size="100%,100px"></x-import></sc-if>
+            </div>
+          </sc-for>
+          <div style="position: sticky; bottom: 0; margin: auto -18px 0; padding: 12px 18px 18px; background: var(--op-bg); border-top: 1px solid var(--op-line); display: flex; gap: 10px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" tone="secondary" onClick="{{ goInvite }}" hint-size="90px,44px"><span style="white-space: nowrap;">Back</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" block="{{ true }}" onClick="{{ goQ1 }}" hint-size="100%,44px"><span style="white-space: nowrap;">Continue</span></x-import></div>
+        </div>
+      </sc-if>
+
+      <!-- 4.3 -->
+      <sc-if value="{{ s43 }}">
+        <sc-if value="{{ blindLocked }}">
+          <div style="display: flex; flex-direction: column; gap: 12px; border: 1px dashed var(--op-rule); border-radius: 16px; padding: 18px; margin-bottom: 14px;">
+            <span style="display: flex; align-items: center; gap: 8px; font-weight: 700;"><span aria-hidden="true" style="display: inline-flex; flex-direction: column; align-items: center;"><span style="width: 7px; height: 5px; border: 2px solid currentColor; border-bottom: none; border-radius: 5px 5px 0 0;"></span><span style="width: 13px; height: 9px; border-radius: 2px; background: currentColor;"></span></span> Blind round</span>
+            <span style="font-size: 15px; line-height: 1.5;">Other people’s answers are hidden until round 1 closes on Oct 16. Yours are hidden from them too.</span>
+            <span style="font-size: 13px; line-height: 1.5; color: var(--op-mut);">You’ll see the merged brief on Oct 19, with each point marked by role, not by name.</span>
+          </div>
+        </sc-if>
+        <div style="display: flex; flex-direction: column; gap: 14px; flex: 1;">
+          <span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-track); color: var(--op-ink); padding: 3px 10px; font-size: 12px; font-weight: 700; white-space: nowrap; align-self: flex-start;">{{ q.pattern }}</span>
+          <span style="font-family: var(--font-display); font-size: 25px; line-height: 1.25; font-weight: 600; text-wrap: pretty;">{{ q.text }}</span>
+          <span style="font-size: 13px; line-height: 1.5; color: var(--op-mut);">{{ q.helper }}</span>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" size="open" value="{{ q.answer }}" onChange="{{ q.onAnswer }}" aria-label="Your answer" hint-size="100%,130px"></x-import>
+          <span style="display: flex; gap: 8px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="secondary" onClick="{{ voice }}" hint-size="90px,44px"><span style="white-space: nowrap;">● Voice</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="secondary" onClick="{{ attach }}" hint-size="90px,44px"><span style="white-space: nowrap;">＋ Attach</span></x-import></span>
+          <span style="font-size: 13px; font-weight: 600;">How much does this matter?</span>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;"><sc-for list="{{ q.strengths }}" as="c"><button type="button" onClick="{{ c.onClick }}" aria-pressed="{{ c.selected }}" style="{{ c.style }}">{{ c.label }}</button></sc-for></div>
+          <span style="font-size: 13px; line-height: 1.5; color: var(--op-mut);">You can edit your answers until round 1 closes on Oct 16.</span>
+          <div style="position: sticky; bottom: 0; margin: auto -18px 0; padding: 12px 18px 18px; background: var(--op-bg); border-top: 1px solid var(--op-line); display: flex; gap: 10px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" tone="secondary" onClick="{{ qBack }}" hint-size="90px,44px"><span style="white-space: nowrap;">Back</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" block="{{ true }}" onClick="{{ qNext }}" hint-size="100%,44px"><span style="white-space: nowrap;">Continue</span></x-import></div>
+        </div>
+      </sc-if>
+
+      <!-- 4.4 -->
+      <sc-if value="{{ s44 }}">
+        <div style="display: flex; flex-direction: column; gap: 14px; flex: 1;">
+          <div style="border-radius: 18px; background: var(--op-sbg); padding: 16px; display: flex; flex-direction: column; gap: 10px;">
+            <span style="font-size: 13px; line-height: 1.5; color: var(--op-mut);">You wrote: «Make sure resets are secure and fast.»</span>
+            <span style="font-family: var(--font-display); font-size: 25px; line-height: 1.25; font-weight: 600; text-wrap: pretty;">You mentioned “secure”. Which check must happen before a reset?</span>
+            <span style="font-size: 12.5px; color: var(--op-mut);">1 of 3 follow-ups this round · about 1 minute</span>
+          </div>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" size="open" value="{{ fuAnswer }}" onChange="{{ onFuAnswer }}" aria-label="Your answer" hint-size="100%,130px"></x-import>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;"><sc-for list="{{ fuStrengths }}" as="c"><button type="button" onClick="{{ c.onClick }}" aria-pressed="{{ c.selected }}" style="{{ c.style }}">{{ c.label }}</button></sc-for></div>
+          <div style="position: sticky; bottom: 0; margin: auto -18px 0; padding: 12px 18px 18px; background: var(--op-bg); border-top: 1px solid var(--op-line); display: flex; gap: 10px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" tone="ghost" onClick="{{ fuSkip }}" hint-size="80px,44px"><span style="white-space: nowrap;">Skip</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" block="{{ true }}" onClick="{{ fuNext }}" hint-size="100%,44px"><span style="white-space: nowrap;">Continue</span></x-import></div>
+        </div>
+      </sc-if>
+
+      <!-- 4.5 -->
+      <sc-if value="{{ s45 }}">
+        <div style="display: flex; flex-direction: column; gap: 14px; flex: 1;">
+          <span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-track); color: var(--op-ink); padding: 3px 10px; font-size: 12px; font-weight: 700; white-space: nowrap; align-self: flex-start;">Exceptions · question 5 of 7</span>
+          <span style="font-family: var(--font-display); font-size: 25px; line-height: 1.25; font-weight: 600; text-wrap: pretty;">Which requests look routine but need a person every time?</span>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" size="open" value="{{ awAnswer }}" onChange="{{ onAwAnswer }}" aria-label="Your answer" hint-size="100%,130px"></x-import>
+          <sc-if value="{{ awFlag }}" hint-placeholder-val="{{ true }}">
+            <div style="border-radius: 16px; border: 1px solid var(--op-amberbar); background: var(--op-sbg); padding: 14px; display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-size: 14.5px; font-weight: 700; color: var(--op-cautiondeep);">This is about the work, not about people.</span>
+              <span style="font-size: 14px; line-height: 1.5;">Your answer names and judges a colleague. Could you say it as a fact about the process? No one else ever sees the original.</span>
+              <span style="font-size: 13px; line-height: 1.5; color: var(--op-mut);">For example: «Escalations from the legal queue often arrive after the deadline.»</span>
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ awEdit }}" hint-size="120px,44px"><span style="white-space: nowrap;">Edit answer</span></x-import>
+            </div>
+          </sc-if>
+          <sc-if value="{{ awFixed }}"><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-mint); color: var(--op-greendeep); padding: 3px 10px; font-size: 12px; font-weight: 700; white-space: nowrap; align-self: flex-start;">✓ Thanks — that’s about the process now</span></sc-if>
+          <div style="position: sticky; bottom: 0; margin: auto -18px 0; padding: 12px 18px 18px; background: var(--op-bg); border-top: 1px solid var(--op-line); display: flex; gap: 10px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" tone="secondary" onClick="{{ awBack }}" hint-size="90px,44px"><span style="white-space: nowrap;">Back</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" block="{{ true }}" onClick="{{ awNext }}" disabled="{{ awFlag }}" hint-size="100%,44px"><span style="white-space: nowrap;">Continue</span></x-import></div>
+        </div>
+      </sc-if>
+
+      <!-- 4.6 -->
+      <sc-if value="{{ s46 }}">
+        <div style="display: flex; flex-direction: column; gap: 16px; flex: 1;">
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Tick" size="{{ 26 }}" round="{{ true }}" hint-size="26px,26px"></x-import>
+          <span style="font-family: var(--font-display); font-size: 22px; line-height: 1.25; font-weight: 600; text-wrap: balance;">Thanks, Sam. Here’s what happens next.</span>
+          <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 12px;">
+            <sc-for list="{{ nextSteps }}" as="n"><li style="display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px;"><span style="{{ n.dot }}">{{ n.glyph }}</span><span><span style="display: block; font-size: 15px; font-weight: 700;">{{ n.title }}</span><span style="display: block; font-size: 13px; line-height: 1.5; color: var(--op-mut);">{{ n.sub }}</span></span></li></sc-for>
+          </ol>
+          <p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--op-body); text-wrap: pretty;">You’ll get a link when the merged brief is ready, on Oct 19. Round 2 takes about 8 minutes.</p>
+          <div style="position: sticky; bottom: 0; margin: auto -18px 0; padding: 12px 18px 18px; background: var(--op-bg); border-top: 1px solid var(--op-line); display: flex; gap: 10px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" tone="secondary" block="{{ true }}" onClick="{{ goFootprint }}" hint-size="100%,44px"><span style="white-space: nowrap;">See how your input is used</span></x-import></div>
+        </div>
+      </sc-if>
+
+      <!-- 4.7 -->
+      <sc-if value="{{ s47 }}">
+        <div style="display: flex; flex-direction: column; gap: 14px; flex: 1;">
+          <span style="font-family: var(--font-display); font-size: 22px; line-height: 1.25; font-weight: 600; text-wrap: balance;">{{ rvTitle }}</span>
+          <span style="{{ rvBannerStyle }}">{{ rvBanner }}</span>
+          <sc-if value="{{ rvAuthority }}">
+            <div style="border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-sf); padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; border-color: var(--op-ink);">
+              <span style="font-size: 15px; font-weight: 700;">Confirm hard constraints</span>
+              <span style="font-size: 13px; line-height: 1.5; color: var(--op-mut);">You own these. Constraints never get points.</span>
+              <sc-for list="{{ rvConstraints }}" as="c">
+                <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--op-line); padding-top: 10px;">
+                  <span style="display: flex; gap: 8px; align-items: baseline;"><span style="flex: none; border-radius: 6px; border: 1px solid var(--op-ink); background: var(--op-sf); padding: 1px 6px; font-size: 12px; font-weight: 700; white-space: nowrap;">{{ c.cid }}</span><span style="font-size: 14.5px; font-weight: 600;">{{ c.text }}</span></span>
+                  <sc-if value="{{ c.open }}" hint-placeholder-val="{{ true }}"><span style="display: flex; gap: 8px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="solid" onClick="{{ c.onConfirm }}" hint-size="100px,44px"><span style="white-space: nowrap;">Confirm</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="secondary" onClick="{{ c.onReject }}" hint-size="100px,44px"><span style="white-space: nowrap;">Reject</span></x-import></span></sc-if>
+                  <sc-if value="{{ c.done }}"><span style="{{ c.doneStyle }}">{{ c.doneLabel }}</span></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-for list="{{ rvItems }}" as="i">
+            <div style="{{ i.style }}">
+              <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px;"><span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">{{ i.slot }}</span><sc-if value="{{ i.changed }}"><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-pulse); color: var(--op-ink); border: 1px solid var(--op-sage); padding: 3px 10px; font-size: 12px; font-weight: 700; white-space: nowrap;">Changed after seeing others</span></sc-if></span>
+              <span style="font-size: 15px; line-height: 1.5; font-weight: 600;">{{ i.text }}</span>
+              <span style="display: flex; flex-wrap: wrap; gap: 5px;"><span style="font-size: 13px; line-height: 1.5; color: var(--op-mut);">Supported by</span><sc-for list="{{ i.groups }}" as="g"><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-track); color: var(--op-ink); padding: 3px 10px; font-size: 12px; font-weight: 700; white-space: nowrap; font-size: 11.5px;">{{ g }}</span></sc-for></span>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;"><sc-for list="{{ i.choices }}" as="c"><button type="button" onClick="{{ c.onClick }}" aria-pressed="{{ c.selected }}" style="{{ c.style }}">{{ c.label }}</button></sc-for></div>
+              <sc-if value="{{ i.objecting }}">
+                <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="md" value="{{ i.reason }}" onChange="{{ i.onReason }}" placeholder="Why? (required)" aria-label="Reason" hint-size="100%,42px"></x-import>
+                <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="md" value="{{ i.alt }}" onChange="{{ i.onAlt }}" placeholder="What should it say instead? (required)" aria-label="Alternative" hint-size="100%,42px"></x-import>
+              </sc-if>
+              <sc-if value="{{ i.showComments }}">
+                <div style="display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--op-line); padding-top: 8px;">
+                  <sc-for list="{{ i.comments }}" as="m"><span style="font-size: 13.5px; line-height: 1.45;"><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-track); color: var(--op-ink); padding: 3px 10px; font-size: 12px; font-weight: 700; white-space: nowrap; font-size: 11px; margin-right: 6px;">{{ m.type }}</span>{{ m.text }} <span style="color: var(--op-mut);">· {{ m.from }}</span></span></sc-for>
+                </div>
+              </sc-if>
+              <span style="display: flex; flex-wrap: wrap; gap: 6px;">
+                <sc-if value="{{ i.canSuggest }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="ghost" onClick="{{ i.onSuggest }}" hint-size="130px,32px"><span style="white-space: nowrap;">Suggest a change</span></x-import></sc-if>
+                <sc-if value="{{ i.canNominate }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="{{ i.nomTone }}" onClick="{{ i.onNominate }}" hint-size="110px,32px"><span style="white-space: nowrap;">{{ i.nomLabel }}</span></x-import></sc-if>
+              </span>
+              <sc-if value="{{ i.suggesting }}">
+                <div style="display: flex; flex-direction: column; gap: 8px; border-radius: 12px; background: var(--op-bg); padding: 10px;">
+                  <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Suggestion mode · tracked change</span>
+                  <span style="font-size: 14px; line-height: 1.5;"><span style="text-decoration: line-through; color: var(--op-mut);">{{ i.text }}</span> <span style="background: var(--op-mint); border-radius: 4px; padding: 0 3px;">{{ i.sugText }}</span></span>
+                  <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="md" value="{{ i.sugText }}" onChange="{{ i.onSugText }}" aria-label="Proposed wording" hint-size="100%,42px"></x-import>
+                  <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="md" value="{{ i.sugWhy }}" onChange="{{ i.onSugWhy }}" placeholder="Why? The author sees this." aria-label="Reason" hint-size="100%,42px"></x-import>
+                  <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ i.onSendSug }}" hint-size="140px,44px"><span style="white-space: nowrap;">Send suggestion</span></x-import>
+                </div>
+              </sc-if>
+              <sc-if value="{{ i.sugSent }}"><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-mint); color: var(--op-greendeep); padding: 3px 10px; font-size: 12px; font-weight: 700; white-space: nowrap; align-self: flex-start;">✓ Suggestion sent to the author · in their next digest</span></sc-if>
+            </div>
+          </sc-for>
+          <sc-for list="{{ rvConflicts }}" as="c">
+            <div style="border-radius: 16px; border: 1.5px solid var(--op-rustbar); background: var(--op-sf); padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+              <span style="display: flex; align-items: center; gap: 8px;"><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-peach); color: var(--op-dangerdeep); border: 1px solid var(--op-rustbar); padding: 3px 10px; font-size: 12px; font-weight: 700; white-space: nowrap;">⇄ Conflict</span><span style="font-size: 14.5px; font-weight: 700;">{{ c.title }}</span></span>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;"><sc-for list="{{ c.sides }}" as="s"><div style="border-radius: 12px; background: var(--op-bg); padding: 10px; display: flex; flex-direction: column; gap: 6px;"><span style="font-size: 13.5px; font-weight: 600; line-height: 1.4;">{{ s.text }}</span><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-track); color: var(--op-ink); padding: 3px 10px; font-size: 12px; font-weight: 700; white-space: nowrap; font-size: 11px; align-self: flex-start;">{{ s.group }}</span></div></sc-for></div>
+              <span style="font-size: 13px; font-weight: 600;">Which matters more to you?</span>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;"><sc-for list="{{ c.picks }}" as="c"><button type="button" onClick="{{ c.onClick }}" aria-pressed="{{ c.selected }}" style="{{ c.style }}">{{ c.label }}</button></sc-for></div>
+            </div>
+          </sc-for>
+          <div style="border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-sf); padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;">
+            <span style="font-size: 15px; font-weight: 700;">Your 100 points</span>
+            <span style="font-size: 13px; line-height: 1.5; color: var(--op-mut);">Spread them across the contested items. They always add up to 100.</span>
+            <sc-for list="{{ points }}" as="p">
+              <label style="display: flex; flex-direction: column; gap: 4px;"><span style="display: flex; justify-content: space-between; font-size: 14px;"><span>{{ p.label }}</span><strong style="font-variant-numeric: tabular-nums;">{{ p.value }}</strong></span><input type="range" min="0" max="100" value="{{ p.value }}" onChange="{{ p.onChange }}" aria-label="{{ p.label }}" style="width: 100%; accent-color: #191510; height: 28px;"></label>
+            </sc-for>
+            <sc-if value="{{ pointsRevealed }}"><div style="border-top: 1px solid var(--op-line); padding-top: 8px; display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Everyone’s points · revealed at close</span><sc-for list="{{ totals }}" as="t"><span style="font-size: 13.5px;">{{ t }}</span></sc-for></div></sc-if>
+          </div>
+          <sc-if value="{{ rvStep1 }}" hint-placeholder-val="{{ true }}"><div style="position: sticky; bottom: 0; margin: auto -18px 0; padding: 12px 18px 18px; background: var(--op-bg); border-top: 1px solid var(--op-line); display: flex; gap: 10px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" block="{{ true }}" onClick="{{ rvNext }}" disabled="{{ rvNotDone }}" hint-size="100%,44px"><span style="white-space: nowrap;">{{ rvNextLabel }}</span></x-import></div></sc-if>
+          <sc-if value="{{ rvStep2 }}"><div style="position: sticky; bottom: 0; margin: auto -18px 0; padding: 12px 18px 18px; background: var(--op-bg); border-top: 1px solid var(--op-line); display: flex; gap: 10px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" block="{{ true }}" onClick="{{ rvSubmit }}" hint-size="100%,44px"><span style="white-space: nowrap;">Submit review · about 1 min left</span></x-import></div></sc-if>
+          <sc-if value="{{ rvClosed }}"><div style="position: sticky; bottom: 0; margin: auto -18px 0; padding: 12px 18px 18px; background: var(--op-bg); border-top: 1px solid var(--op-line); display: flex; gap: 10px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" tone="secondary" block="{{ true }}" onClick="{{ goFootprint }}" hint-size="100%,44px"><span style="white-space: nowrap;">See your footprint</span></x-import></div></sc-if>
+        </div>
+      </sc-if>
+
+      <!-- 4.8 -->
+      <sc-if value="{{ s48 }}">
+        <div style="display: flex; flex-direction: column; gap: 12px; flex: 1;">
+          <span style="font-family: var(--font-display); font-size: 22px; line-height: 1.25; font-weight: 600; text-wrap: balance;">Your footprint</span>
+          <span style="font-size: 13px; line-height: 1.5; color: var(--op-mut);">Private to you. Everything you said in IT Helpdesk Agent v1, and what happened to it.</span>
+          <sc-for list="{{ footprint }}" as="f">
+            <div style="border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-sf); padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; gap: 8px;">
+              <span style="{{ f.tagStyle }}">{{ f.tag }}</span>
+              <span style="font-size: 13px; line-height: 1.5; color: var(--op-mut);">You said: «{{ f.said }}»</span>
+              <sc-if value="{{ f.hasNow }}"><span style="font-size: 14.5px; line-height: 1.45; font-weight: 600;">Now: {{ f.now }}</span></sc-if>
+              <sc-if value="{{ f.hasReason }}"><span style="font-size: 13.5px; color: var(--op-body);">{{ f.reason }}</span></sc-if>
+            </div>
+          </sc-for>
+          <div style="position: sticky; bottom: 0; margin: auto -18px 0; padding: 12px 18px 18px; background: var(--op-bg); border-top: 1px solid var(--op-line); display: flex; gap: 10px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" tone="secondary" block="{{ true }}" onClick="{{ goBrief }}" hint-size="100%,44px"><span style="white-space: nowrap;">Open the locked brief · v1.2</span></x-import></div>
+        </div>
+      </sc-if>
+
+      <!-- 4.9 -->
+      <sc-if value="{{ s49 }}">
+        <div style="display: flex; flex-direction: column; gap: 12px; flex: 1;">
+          <span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-track); color: var(--op-ink); padding: 3px 10px; font-size: 12px; font-weight: 700; white-space: nowrap; align-self: flex-start;">Consult step · AI Acceptable Use Policy 2027</span>
+          <span style="font-family: var(--font-display); font-size: 22px; line-height: 1.25; font-weight: 600; text-wrap: balance;">Two slots need your consultation.</span>
+          <sc-for list="{{ consult }}" as="c">
+            <div style="border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-sf); padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;">
+              <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">{{ c.slot }}</span>
+              <span style="font-size: 15px; line-height: 1.5; font-weight: 600;">«{{ c.wording }}»</span>
+              <sc-for list="{{ c.thread }}" as="m"><span style="font-size: 13.5px; line-height: 1.45;"><strong style="font-weight: 600;">{{ m.from }}</strong> {{ m.text }}</span></sc-for>
+              <span style="font-size: 13px; font-weight: 600;">Record consultation outcome</span>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;"><sc-for list="{{ c.outcomes }}" as="c"><button type="button" onClick="{{ c.onClick }}" aria-pressed="{{ c.selected }}" style="{{ c.style }}">{{ c.label }}</button></sc-for></div>
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" value="{{ c.notes }}" onChange="{{ c.onNotes }}" placeholder="Notes for the record" aria-label="Notes" hint-size="100%,74px"></x-import>
+              <sc-if value="{{ c.recorded }}"><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-mint); color: var(--op-greendeep); padding: 3px 10px; font-size: 12px; font-weight: 700; white-space: nowrap; align-self: flex-start;">✓ Recorded · {{ c.outcome }}</span></sc-if>
+              <sc-if value="{{ c.notRecorded }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ c.onRecord }}" disabled="{{ c.noOutcome }}" hint-size="140px,44px"><span style="white-space: nowrap;">Record outcome</span></x-import></sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- 4.10 -->
+      <sc-if value="{{ s410 }}">
+        <div style="display: flex; flex-direction: column; gap: 12px; flex: 1;">
+          <span style="font-family: var(--font-display); font-size: 22px; line-height: 1.25; font-weight: 600; text-wrap: balance;">Suggestions on your items</span>
+          <span style="font-size: 13px; line-height: 1.5; color: var(--op-mut);">Your original is saved. Declining a suggestion is normal. If the suggester still disagrees, both versions go to the decider.</span>
+          <sc-for list="{{ suggestions }}" as="s">
+            <div style="border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-sf); padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;">
+              <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px;"><span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">{{ s.slot }}</span><span style="flex: none; display: inline-flex; align-items: center; gap: 5px; border-radius: 999px; background: var(--op-track); color: var(--op-ink); padding: 3px 10px; font-size: 12px; font-weight: 700; white-space: nowrap; font-size: 11px;">from {{ s.from }}</span></span>
+              <span style="font-size: 13px; line-height: 1.5; color: var(--op-mut);">Now: {{ s.current }}</span>
+              <span style="font-size: 15px; line-height: 1.5;"><span style="text-decoration: line-through; color: var(--op-mut);">{{ s.removed }}</span> <span style="background: var(--op-mint); border-radius: 4px; padding: 0 3px;">{{ s.added }}</span></span>
+              <span style="font-size: 13.5px; color: var(--op-body);">Why: {{ s.why }}</span>
+              <sc-if value="{{ s.open }}" hint-placeholder-val="{{ true }}"><div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="solid" onClick="{{ s.onAccept }}" hint-size="100%,44px"><span style="white-space: nowrap;">Accept</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="secondary" onClick="{{ s.onMerge }}" hint-size="100%,44px"><span style="white-space: nowrap;">Merge</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="secondary" onClick="{{ s.onKeep }}" hint-size="100%,44px"><span style="white-space: nowrap;">Keep mine</span></x-import></div></sc-if>
+              <sc-if value="{{ s.merging }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" size="open" value="{{ s.mergeText }}" onChange="{{ s.onMergeText }}" aria-label="Merged wording" hint-size="100%,100px"></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ s.onSaveMerge }}" hint-size="170px,44px"><span style="white-space: nowrap;">Save merged version</span></x-import></sc-if>
+              <sc-if value="{{ s.done }}"><span style="{{ s.doneStyle }}">{{ s.doneLabel }}</span></sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- 4.11 -->
+      <sc-if value="{{ s411 }}">
+        <div style="display: flex; flex-direction: column; gap: 12px; flex: 1;">
+          <span style="font-size: 13px; line-height: 1.5; color: var(--op-mut);">{{ cltHeader }}</span>
+          <span style="font-family: var(--font-display); font-size: 22px; line-height: 1.25; font-weight: 600; text-wrap: balance;">What happened to what you raised</span>
+          <span style="font-size: 13px; line-height: 1.5; color: var(--op-mut);">IT Helpdesk Agent v1 · round 4 · every contributor gets this, whatever the outcome.</span>
+          <sc-for list="{{ loop }}" as="l">
+            <div style="border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-sf); padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; gap: 6px;">
+              <span style="font-size: 14px; line-height: 1.5;"><strong>You raised:</strong> {{ l.raised }}</span>
+              <span style="font-size: 14px; line-height: 1.5;"><strong>Decided:</strong> {{ l.decided }}</span>
+              <span style="font-size: 14px; line-height: 1.5;"><strong>Owner:</strong> {{ l.owner }}</span>
+              <span style="display: flex; align-items: center; gap: 8px; font-size: 14px;"><strong>Status:</strong><span style="{{ l.statusStyle }}">{{ l.status }}</span></span>
+            </div>
+          </sc-for>
+          <p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--op-body); text-wrap: pretty;">We’ll tell you when each one ships or slips.</p>
+        </div>
+      </sc-if>
+
+      <!-- 4.12 -->
+      <sc-if value="{{ s412 }}">
+        <div style="display: flex; flex-direction: column; gap: 12px; flex: 1; position: relative;">
+          <span style="font-family: var(--font-display); font-size: 22px; line-height: 1.25; font-weight: 600; text-wrap: balance;">My actions</span>
+          <sc-if value="{{ maRequest }}" hint-placeholder-val="{{ true }}">
+            <div style="border-radius: 16px; border: 1px solid var(--op-sage); background: var(--op-pulse); padding: 14px; display: flex; flex-direction: column; gap: 10px;">
+              <span style="font-size: 14.5px; line-height: 1.5;"><strong>Daniel Reyes asked you to own:</strong> Pull hardware spend data for Q1, due December 15</span>
+              <span style="font-size: 13px; line-height: 1.5; color: var(--op-mut);">From decision D-04 · IT Helpdesk Agent v1</span>
+              <sc-if value="{{ maAsking }}" hint-placeholder-val="{{ true }}"><div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" onClick="{{ maAccept }}" hint-size="100%,44px"><span style="white-space: nowrap;">Accept</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" tone="secondary" onClick="{{ maDecline }}" hint-size="100%,44px"><span style="white-space: nowrap;">Decline</span></x-import></div></sc-if>
+              <sc-if value="{{ maDeclining }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" size="open" value="{{ maReason }}" onChange="{{ onMaReason }}" placeholder="Why not you? Daniel sees this." aria-label="Reason" hint-size="100%,100px"></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" tone="solid" onClick="{{ maSendDecline }}" disabled="{{ maNoReason }}" hint-size="100%,44px"><span style="white-space: nowrap;">Send decline</span></x-import></sc-if>
+            </div>
+          </sc-if>
+          <span style="font-size: 12px; color: var(--op-mut);">Swipe right to mark done · swipe left to update status · tap to open</span>
+          <sc-for list="{{ maGroups }}" as="g">
+            <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut); margin-top: 4px;">{{ g.label }}</span>
+            <sc-for list="{{ g.rows }}" as="r">
+              <div onPointerDown="{{ r.onDown }}" onPointerUp="{{ r.onUp }}" style="{{ r.style }}">
+                <span style="display: flex; justify-content: space-between; gap: 8px;"><span style="font-size: 15px; font-weight: 600; line-height: 1.4;">{{ r.title }}</span><span style="{{ r.statusStyle }}">{{ r.status }}</span></span>
+                <span style="display: flex; justify-content: space-between; gap: 8px;"><span style="font-size: 13px; line-height: 1.5; color: var(--op-mut);">{{ r.briefName }}</span><span style="{{ r.dueStyle }}">{{ r.dueLabel }}</span></span>
+              </div>
+            </sc-for>
+            <sc-if value="{{ g.empty }}"><span style="font-size: 13px; line-height: 1.5; color: var(--op-mut);">Nothing here.</span></sc-if>
+          </sc-for>
+          <sc-if value="{{ sheetOpen }}">
+            <div style="position: absolute; inset: -14px -18px; z-index: 5; background: var(--op-bg); padding: 14px 18px; display: flex; flex-direction: column; gap: 12px;">
+              <span style="display: flex; justify-content: space-between; align-items: center;"><span style="font-size: 12px; font-weight: 700; color: var(--op-mut);">{{ sh.id }} · from D-04</span><button type="button" onClick="{{ closeSheet }}" aria-label="Close" style="width: 44px; height: 44px; cursor: pointer; border-radius: 999px; border: 1px solid var(--op-ink); background: transparent; font-size: 18px; color: var(--op-ink);">×</button></span>
+              <span style="font-family: var(--font-display); font-size: 22px; line-height: 1.25; font-weight: 600; text-wrap: balance;">{{ sh.title }}</span>
+              <span style="display: flex; flex-wrap: wrap; gap: 8px;"><span style="{{ sh.dueStyle }}">{{ sh.dueLabel }}</span><span style="{{ sh.statusStyle }}">{{ sh.status }}</span></span>
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="md" options="{{ shStatusOptions }}" value="{{ sh.status }}" onChange="{{ onShStatus }}" aria-label="Status" hint-size="100%,42px"></x-import>
+              <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Checklist · {{ sh.checkLabel }}</span>
+              <sc-for list="{{ sh.items }}" as="c"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.CheckRow" label="{{ c.label }}" checked="{{ c.done }}" onChange="{{ c.onToggle }}" style="{{ c.rowStyle }}" hint-size="100%,52px"></x-import></sc-for>
+              <div style="position: sticky; bottom: 0; margin: auto -18px 0; padding: 12px 18px 18px; background: var(--op-bg); border-top: 1px solid var(--op-line); display: flex; gap: 10px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" block="{{ true }}" onClick="{{ shDone }}" hint-size="100%,44px"><span style="white-space: nowrap;">Mark done</span></x-import></div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</div>
+<sc-if value="{{ hasToast }}">
+  <div role="status" style="position: fixed; z-index: 80; left: 50%; bottom: 24px; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; border-radius: 12px; background: var(--op-ink); color: var(--op-bg); padding: 11px 16px; font-size: 13.5px; box-shadow: 0 18px 40px -24px rgba(25,21,16,.45);">
+    <span>{{ toast }}</span>
+    <button type="button" onClick="{{ closeToast }}" style="cursor: pointer; border: none; background: transparent; color: var(--op-ac); font-family: inherit; font-size: 13px; font-weight: 700;">Undo</button>
+  </div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1440, &quot;height&quot;: 900}}">
+class Component extends DCLogic {
+  state = { device: 'Phone', pre: {}, preNote: {}, ans: {}, str: {}, fuAnswer: 'Push to the phone they registered, and only reset after they approve it.', fuStr: 'must', awAnswer: 'Tom never escalates on time, so the desk ends up doing his job.', awEdited: false,
+    pos: {}, snap: null, reason: {}, alt: {}, nom: {}, sug: null, sugText: {}, sugWhy: {}, sugSent: {}, picks: {}, pts: { d03: 40, d06: 35, d04: 25 }, conf: {}, rvAdvance: null,
+    cOut: {}, cNotes: {}, cRec: {}, sg: {}, sgMerge: {}, maDeclining: false, maReason: '', sheet: false, toast: null };
+  componentDidMount() { window.PDStore = window.PDStore || { act: {}, upd: {}, extra: [], ms: {} }; if (!window.PD) this.poll = setInterval(() => { if (window.PD) { clearInterval(this.poll); this.forceUpdate(); } }, 50); }
+  componentWillUnmount() { clearInterval(this.poll); clearTimeout(this.tt); }
+  go = (p) => (e) => { if (e && e.preventDefault) e.preventDefault(); this.props.go && this.props.go(p); };
+  toast(m) { clearTimeout(this.tt); this.setState({ toast: m }); this.tt = setTimeout(() => this.setState({ toast: null }), 3600); }
+  chip(bg, fg, b) { return { flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 5, borderRadius: 999, background: bg, color: fg, border: b ? '1px solid ' + b : 'none', padding: '3px 10px', fontSize: 12, fontWeight: 700, whiteSpace: 'nowrap', alignSelf: 'flex-start' }; }
+  store() { window.PDStore = window.PDStore || { act: {}, upd: {}, extra: [], ms: {} }; return window.PDStore; }
+  patch(id, p, text, who) { const S = this.store(); S.act[id] = { ...(S.act[id] || {}), ...p }; if (text) S.upd[id] = [...(S.upd[id] || []), { who: who || 'Lena Ortiz', text, when: 'just now' }]; this.forceUpdate(); }
+  btn(sel) { return { minHeight: 44, cursor: 'pointer', borderRadius: 14, padding: '10px 12px', fontFamily: 'inherit', fontSize: 14, fontWeight: sel ? 700 : 500, border: '1px solid ' + (sel ? 'var(--op-ink)' : 'var(--op-rule)'), background: sel ? 'var(--op-sbg)' : 'var(--op-sf)', color: 'var(--op-ink)', textAlign: 'center' }; }
+  choices(opts, cur, set) { return opts.map(([v, l]) => ({ label: l, selected: cur === v, onClick: () => set(v), style: this.btn(cur === v) })); }
+
+  renderVals() {
+    const PD = window.PD; if (!PD) return {};
+    const path = this.props.path || '/c/invite', vs = this.props.viewState || '', st = this.state;
+    const qm = path.match(/^\/c\/question(?:\/(\d))?$/); const n = qm ? Math.min(7, Math.max(1, +(qm[1] || 1))) : 0;
+    const key = qm ? '4.3' : { '/c/invite': '4.1', '/c/prefill': '4.2', '/c/follow-up': '4.4', '/c/about-work': '4.5', '/c/done': '4.6', '/c/review': '4.7', '/c/footprint': '4.8', '/c/consult': '4.9', '/c/suggestions': '4.10', '/c/close-the-loop': '4.11', '/c/my-actions': '4.12' }[path] || '4.1';
+    const M = {
+      '4.1': ['Sam Okafor', 'Invite landing', 'The owner’s face and purpose come first, then the time cost and three promises. Try the link-expired and wrong-person states.'],
+      '4.2': ['Sam Okafor', 'Prefilled reaction', 'Points drafted from existing documents. “Needs a change” opens a field.'],
+      '4.3': ['Sam Okafor', 'Question card', 'One question at a time, in large type, with a helper line and one plain choice. Step through the seven patterns with Continue.'],
+      '4.4': ['Sam Okafor', 'Follow-up', 'Appears after a vague answer. Skip is always there, and there are at most 3 per round.'],
+      '4.5': ['Sam Okafor', 'About the work, not people', 'An answer that judges a colleague is held back until it’s restated. Nobody else sees the original.'],
+      '4.6': ['Sam Okafor', 'Done', 'What happens next and when.'],
+      '4.7': ['Priya Shah · authority contributor', 'Round 2 review', 'Step 1: your view first. Step 2: others’ views, with revisions marked. Points stay hidden until the round closes. Constraints are confirmed, never pointed.'],
+      '4.8': ['Priya Shah', 'Footprint', 'Private to the contributor: every input and what happened to it.'],
+      '4.9': ['Ana Torres · employee representative', 'Consult step', 'Policy templates only. The consultee records an outcome per slot.'],
+      '4.10': ['Sam Okafor · author', 'Suggestions on my items', 'Tracked changes from others. Keep mine plus a standing objection creates a decision card (D-07).'],
+      '4.11': ['Sam Okafor', 'Close-the-loop note', 'Sent at round 4 to everyone, including those whose position lost. Status comes live from the actions.'],
+      '4.12': ['Lena Ortiz · action owner', 'My actions', 'For anyone with assigned actions. Accept the request, then tap to open the action as a sheet, or swipe.'],
+    }[key];
+    const phone = st.device === 'Phone';
+    const order = [['4.1', '/c/invite'], ['4.2', '/c/prefill'], ['4.3', '/c/question/1'], ['4.4', '/c/follow-up'], ['4.5', '/c/about-work'], ['4.6', '/c/done'], ['4.7', '/c/review'], ['4.8', '/c/footprint'], ['4.9', '/c/consult'], ['4.10', '/c/suggestions'], ['4.11', '/c/close-the-loop'], ['4.12', '/c/my-actions']];
+    const out = {
+      who: M[0], screenTitle: M[1], screenNote: M[2], isPhone: phone, device: st.device, deviceOptions: [{ value: 'Phone', label: 'Phone 390' }, { value: 'Desktop', label: 'Desktop 640' }], onDevice: (v) => this.setState({ device: v }),
+      jumps: order.map(([k, p]) => ({ label: k, onClick: this.go(p), style: { borderRadius: 999, padding: '4px 10px', fontSize: 12, fontWeight: 700, textDecoration: 'none', background: k === key ? 'var(--op-ink)' : 'var(--op-track)', color: k === key ? 'var(--op-bg)' : 'var(--op-ink)' } })),
+      frameStyle: phone ? { flex: 'none', width: 390, height: 844, boxSizing: 'border-box', border: '7px solid var(--op-ink)', borderRadius: 48, background: 'var(--op-bg)', overflow: 'hidden', boxShadow: '0 18px 40px -28px rgba(25,21,16,.35)' } : { flex: '1 1 640px', maxWidth: 780, minHeight: 780, boxSizing: 'border-box', border: '1px solid var(--op-line)', borderRadius: 18, background: 'var(--op-bg)', boxShadow: '0 18px 40px -28px rgba(25,21,16,.35)' },
+      screenStyle: phone ? { height: '100%', overflowY: 'auto', boxSizing: 'border-box', padding: '14px 18px 0', display: 'flex', flexDirection: 'column' } : { maxWidth: 640, margin: '0 auto', padding: '32px 18px 0', minHeight: 780, boxSizing: 'border-box', display: 'flex', flexDirection: 'column' },
+      toast: st.toast, hasToast: !!st.toast, closeToast: () => this.setState({ toast: null }),
+      s41: key === '4.1', s42: key === '4.2', s43: key === '4.3', s44: key === '4.4', s45: key === '4.5', s46: key === '4.6', s47: key === '4.7', s48: key === '4.8', s49: key === '4.9', s410: key === '4.10', s411: key === '4.11', s412: key === '4.12',
+      showProgress: ['4.2', '4.3', '4.4', '4.5'].includes(key),
+      goPrefill: this.go('/c/prefill'), goInvite: this.go('/c/invite'), goQ1: this.go('/c/question/1'), goFootprint: this.go('/c/footprint'), goBrief: this.go('/briefs/it-helpdesk-v1/brief'),
+    };
+    const prog = { '4.2': ['Before you start', 4, 'About 14 min'], '4.4': ['Follow-up · question 2 of 7', 2 / 7 * 100, 'About 11 min left'], '4.5': ['Question 5 of 7', 5 / 7 * 100, 'About 5 min left'] }[key] || ['Question ' + n + ' of 7', n / 7 * 100, 'About ' + Math.max(1, 15 - 2 * n) + ' min left'];
+    Object.assign(out, { progressLabel: prog[0], progressPct: Math.round(prog[1]), timeLeft: prog[2] });
+    Object.assign(out, {
+      linkOk: vs !== 'Link expired' && vs !== 'Wrong person', linkExpired: vs === 'Link expired', linkWrong: vs === 'Wrong person',
+      promises: ['Your answers stay private in round 1.', 'You’ll see how your input was used.', 'This is about the work, not about people.'],
+      askLink: () => this.toast('Kari Nordmann was asked to send you a new link'), sendCode: () => this.toast('Code sent to s.okafor@lumio.com'),
+    });
+    const P = ['Resets need the employee ID and a manager’s name.', 'Hardware orders go through the asset system with a cost center.', 'VPN issues are escalated after 30 minutes.'];
+    out.prefill = P.map((t, i) => ({ text: t, editing: st.pre[i] === 'change', note: st.preNote[i] || '', onNote: (e) => { const v = e.target.value; this.setState((s) => ({ preNote: { ...s.preNote, [i]: v } })); },
+      choices: this.choices([['ok', 'Correct'], ['change', 'Needs a change'], ['old', 'Out of date']], st.pre[i], (v) => this.setState((s) => ({ pre: { ...s.pre, [i]: v } }))).map((c) => ({ ...c, style: { ...c.style, padding: '8px 6px', fontSize: 13 } })) }));
+    if (key === '4.3') {
+      const Qs = PD.questions['Service desk']; const q = Qs[n - 1];
+      const HELP = { 'Non-negotiables': 'Think of what you’d refuse even if your manager asked.', 'Pre-mortem': 'Be specific: a ticket, a person’s day, a number.', Exceptions: 'Name the request and what makes it different.', History: 'One real case is enough. Leave names out.', 'Good and bad examples': 'Write them the way the agent would say them.', Boundaries: 'Where does the agent stop and your team start?', 'Definition of done': 'A number, or a thing you could check.' };
+      const DEF = { 1: 'Never close a ticket the employee didn’t confirm is fixed.', 2: 'Make sure resets are secure and fast.', 3: 'Admin access and anything involving a lost laptop.', 4: '', 5: '', 6: 'After two failed tries, or the moment someone mentions a security incident.', 7: 'Fewer than 40% of tickets need us by hand after a month.' };
+      const a = st.ans[n] ?? DEF[n];
+      out.q = { pattern: q.pattern, text: q.q, helper: HELP[q.pattern], answer: a, onAnswer: (e) => { const v = e.target.value; this.setState((s) => ({ ans: { ...s.ans, [n]: v } })); },
+        strengths: this.choices([['must', 'Must-have'], ['nice', 'Nice-to-have'], ['idea', 'Just an idea']], st.str[n] || (n <= 2 ? 'must' : null), (v) => this.setState((s) => ({ str: { ...s.str, [n]: v } }))) };
+      out.blindLocked = vs === 'Blind round locked';
+      out.qNext = this.go(n === 2 ? '/c/follow-up' : n === 4 ? '/c/about-work' : n === 7 ? '/c/done' : '/c/question/' + (n + 1));
+      out.qBack = this.go(n === 1 ? '/c/prefill' : '/c/question/' + (n - 1));
+      out.voice = () => this.toast('Listening… speak your answer'); out.attach = () => this.toast('Attach a file or screenshot · up to 10 MB');
+    }
+    Object.assign(out, { fuAnswer: st.fuAnswer, onFuAnswer: (e) => this.setState({ fuAnswer: e.target.value }), fuStrengths: this.choices([['must', 'Must-have'], ['nice', 'Nice-to-have'], ['idea', 'Just an idea']], st.fuStr, (v) => this.setState({ fuStr: v })), fuNext: this.go('/c/question/3'), fuSkip: this.go('/c/question/3') });
+    const flagged = /\bTom\b/.test(st.awAnswer);
+    Object.assign(out, { awAnswer: st.awAnswer, onAwAnswer: (e) => this.setState({ awAnswer: e.target.value, awEdited: true }), awFlag: flagged, awFixed: !flagged && st.awEdited,
+      awEdit: () => this.setState({ awAnswer: 'Escalations from the legal queue often arrive after the deadline, so the desk picks them up.', awEdited: true }), awBack: this.go('/c/question/4'), awNext: this.go('/c/question/6') });
+    const dot = (s) => ({ display: 'flex', width: 20, height: 20, alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box', borderRadius: 999, fontSize: 10, fontWeight: 700, color: 'var(--op-greendeep)', background: s === 'done' ? 'var(--op-mint)' : s === 'now' ? 'var(--op-ac)' : 'transparent', border: s === 'done' ? '1.5px solid var(--op-link)' : s === 'now' ? '2px solid var(--op-ink)' : '1.5px solid var(--op-rule)' });
+    out.nextSteps = [['done', 'Your answers are in', '7 of 7 · editable until round 1 closes on Oct 16'], ['now', 'Round 2 · Oct 19 – 23', 'You react to the merged brief · about 8 minutes'], ['next', 'Round 3 · decide', 'Daniel Reyes settles the real conflicts, with reasons'], ['next', 'Round 4 · validate · Nov 16', 'You get a note on what happened to everything you raised']].map(([s, title, sub]) => ({ title, sub, dot: dot(s), glyph: s === 'done' ? '✓' : '' }));
+    if (key === '4.7') Object.assign(out, this.review(vs));
+    const TAG = { Used: this.chip('var(--op-mint)', 'var(--op-greendeep)'), Changed: this.chip('var(--op-pulse)', 'var(--op-ink)', 'var(--op-sage)'), Sent: this.chip('var(--op-viz5)', 'var(--op-ink)'), Merged: this.chip('var(--op-track)', 'var(--op-ink)'), Not: this.chip('var(--op-track)', 'var(--op-mut)') };
+    out.footprint = [
+      ['Used', 'Used', 'Never, ever ask for a password. Not to check it, not to “help”.', 'C-07 The agent never asks for or accepts a password.'],
+      ['Changed', 'Changed by your accepted suggestion', 'Require an MFA push to the registered device before any password reset.', 'Item 41 v2: Agent must verify identity with an MFA push before any account change.'],
+      ['Sent', 'Sent to a decision', 'A reset without MFA is how account takeovers start.', 'D-03 · decided Nov 12: MFA push before any account change.'],
+      ['Merged', 'Merged with others', 'Phishing click, lost laptop, weird login: page on-call.', 'C-12 · merged with 2 other answers'],
+      ['Not', 'Not used', 'Block USB drives on every laptop.', null, 'Outside what a helpdesk agent can do. Sent to the security backlog instead.'],
+    ].map(([k, tag, said, now, reason]) => ({ tag, tagStyle: TAG[k], said, now, hasNow: !!now, reason, hasReason: !!reason }));
+    out.consult = [
+      { k: 'c1', slot: 'Monitoring of AI tool use', wording: 'Lumio logs which AI tools are used and when, never the content of prompts or answers.', thread: [{ from: 'Tom Becker, owner:', text: 'Logs are kept 90 days for security reviews.' }, { from: 'You:', text: 'Can employees see their own log?' }] },
+      { k: 'c2', slot: 'Approval of new AI tools', wording: 'New AI tools are approved by Security and Legal within 10 working days.', thread: [{ from: 'Tom Becker, owner:', text: 'Employee representatives can comment before approval.' }] },
+    ].map((c) => ({ ...c, outcome: st.cOut[c.k], noOutcome: !st.cOut[c.k], recorded: !!st.cRec[c.k], notRecorded: !st.cRec[c.k], notes: st.cNotes[c.k] || '',
+      onNotes: (e) => { const v = e.target.value; this.setState((s) => ({ cNotes: { ...s.cNotes, [c.k]: v } })); },
+      outcomes: this.choices([['Agreed', 'Agreed'], ['Agreed with changes', 'With changes'], ['Not agreed', 'Not agreed']], st.cOut[c.k], (v) => this.setState((s) => ({ cOut: { ...s.cOut, [c.k]: v } }))).map((x) => ({ ...x, style: { ...x.style, flex: '1 1 90px', fontSize: 13 } })),
+      onRecord: () => { this.setState((s) => ({ cRec: { ...s.cRec, [c.k]: true } })); this.toast('Consultation outcome recorded for ' + c.slot); } }));
+    const SG = [
+      { k: 'g1', slot: 'Tone · your item CI-48', from: 'IT and people', current: 'Keep replies short and direct: the steps first, no apologies.', removed: 'the steps first, no apologies', added: 'acknowledge the problem in one line, then give the steps', why: 'CSAT comments mention curt replies 14 times last quarter.', keep: 'Kept yours. The suggester still disagrees, so both versions went to the decider as D-07.' },
+      { k: 'g2', slot: 'Escalation rules · your item CI-29', from: 'Legal, risk and finance', current: 'Hand off to a person after two failed attempts, with the full chat attached.', removed: '', added: 'Or hand off at once when a security incident is mentioned.', why: 'An incident shouldn’t wait for two failed tries.', keep: 'Kept yours · the suggester was told' },
+      { k: 'g3', slot: 'Examples · your item CI-51', from: 'IT and people', current: 'Good: “I’ve sent an MFA push to your phone. Tap approve and I’ll reset your password.”', removed: '', added: 'It can take up to a minute.', why: 'People cancel when nothing happens for 20 seconds.', keep: 'Kept yours · the suggester was told' },
+    ];
+    out.suggestions = SG.map((s) => { const v = st.sg[s.k]; return { ...s, open: !v, merging: v === 'merging', done: !!v && v !== 'merging',
+      doneLabel: v === 'accept' ? '✓ Accepted · v2 created, your original is saved' : v === 'merged' ? '✓ Merged · v2 saved' : s.keep, doneStyle: v === 'keep' ? this.chip('var(--op-viz5)', 'var(--op-ink)') : this.chip('var(--op-mint)', 'var(--op-greendeep)'),
+      mergeText: st.sgMerge[s.k] ?? (s.current + ' ' + s.added), onMergeText: (e) => { const t = e.target.value; this.setState((x) => ({ sgMerge: { ...x.sgMerge, [s.k]: t } })); },
+      onAccept: () => this.setState((x) => ({ sg: { ...x.sg, [s.k]: 'accept' } })), onMerge: () => this.setState((x) => ({ sg: { ...x.sg, [s.k]: 'merging' } })), onSaveMerge: () => this.setState((x) => ({ sg: { ...x.sg, [s.k]: 'merged' } })),
+      onKeep: () => { this.setState((x) => ({ sg: { ...x.sg, [s.k]: 'keep' } })); if (s.k === 'g1') this.toast('D-07 created · both versions are with Daniel Reyes'); } }; });
+    const S = this.store();
+    const act = (id) => { const a = PD.actions.find((x) => x.id === id); return { ...a, ...(S.act[id] || {}) }; };
+    const stS = (a) => { const s = a.accept === 'Requested' ? 'Owner pending' : a.accept === 'Declined' ? 'Owner declined · being reassigned' : a.status; return { status: s, statusStyle: s === 'Done' ? this.chip('var(--op-mint)', 'var(--op-greendeep)') : s === 'In progress' ? this.chip('var(--op-pulse)', 'var(--op-ink)', 'var(--op-sage)') : this.chip('var(--op-track)', 'var(--op-ink)') }; };
+    out.cltHeader = vs === 'Slack' ? 'Slack · message from Kari Nordmann via [Product] · Nov 17' : 'Email · from Kari Nordmann via [Product] · Nov 17';
+    out.loop = [['No hardware orders above $500 without approval.', '$250 limit, because finance needs spend data first (D-04).', 'Finance business partner, due December 15', 'A-014'], ['Reset a password after one verification question.', 'MFA push before any account change, because Security owns the takeover risk (D-03).', 'Security lead, due November 28', 'A-015'], ['After 8 pm, open a ticket for the morning shift.', 'Page on-call within 15 minutes, day or night (D-06).', 'Service desk lead, due November 21', 'A-016']]
+      .map(([raised, decided, owner, id]) => ({ raised, decided, owner, ...stS(act(id)) }));
+    if (key === '4.12') Object.assign(out, this.myActions(PD, vs, act));
+    return out;
+  }
+
+  review(vs) {
+    const st = this.state;
+    const base = vs === 'Round closed' ? 3 : vs.startsWith('Step 2') ? 2 : 1;
+    const step = Math.max(base, st.rvAdvance || 0);
+    const I = [
+      { k: 'i1', slot: 'Escalation rules', text: 'Hand off to a person after two failed attempts, with the full chat attached.', groups: ['IT and people · 3', 'Legal, risk and finance · 2'], comments: [{ type: 'Clarification', text: 'Does a timeout count as a failed attempt?', from: 'Legal, risk and finance' }] },
+      { k: 'i2', slot: 'Escalation rules', text: 'Executives’ requests skip the queue.', groups: ['IT and people · 2'], comments: [{ type: 'Objection', text: 'Queue jumping by title will be gamed; use impact instead.', from: 'IT and people' }, { type: 'Evidence', text: '12 exec tickets last quarter; 9 were password resets.', from: 'IT and people' }] },
+      { k: 'i3', slot: 'Tone', text: 'Keep replies short and direct: the steps first, no apologies.', groups: ['IT and people · 3'], comments: [{ type: 'Evidence', text: 'CSAT comments mention “curt” replies 14 times.', from: 'IT and people' }], sug: 'Acknowledge the problem in one line, then give the steps.' },
+      { k: 'i4', slot: 'Data the agent may use', text: 'Use the org chart to find an employee’s manager for approvals.', groups: ['IT and people · 2', 'Legal, risk and finance · 1'], comments: [] },
+    ];
+    const nNom = Object.values(st.nom).filter(Boolean).length;
+    const items = I.map((i) => { const p = st.pos[i.k]; const objecting = p === 'object'; const changed = step >= 2 && st.snap && st.snap[i.k] && st.snap[i.k] !== p;
+      return { ...i, objecting, changed, showComments: step >= 2 && i.comments.length > 0, groups: step >= 2 ? i.groups : ['Hidden until you respond'],
+        choices: this.choices([['agree', 'Agree'], ['object', 'Object']], p, (v) => this.setState((s) => ({ pos: { ...s.pos, [i.k]: v } }))),
+        reason: st.reason[i.k] || '', alt: st.alt[i.k] || '', onReason: (e) => { const v = e.target.value; this.setState((s) => ({ reason: { ...s.reason, [i.k]: v } })); }, onAlt: (e) => { const v = e.target.value; this.setState((s) => ({ alt: { ...s.alt, [i.k]: v } })); },
+        canSuggest: step < 3 && !st.sugSent[i.k], suggesting: st.sug === i.k, sugSent: !!st.sugSent[i.k],
+        sugText: st.sugText[i.k] ?? (i.sug || i.text), sugWhy: st.sugWhy[i.k] || '', onSuggest: () => this.setState({ sug: st.sug === i.k ? null : i.k }),
+        onSugText: (e) => { const v = e.target.value; this.setState((s) => ({ sugText: { ...s.sugText, [i.k]: v } })); }, onSugWhy: (e) => { const v = e.target.value; this.setState((s) => ({ sugWhy: { ...s.sugWhy, [i.k]: v } })); },
+        onSendSug: () => this.setState((s) => ({ sug: null, sugSent: { ...s.sugSent, [i.k]: true } })),
+        canNominate: step < 3, nomLabel: st.nom[i.k] ? '★ Nominated' : 'Nominate', nomTone: st.nom[i.k] ? 'solid' : 'ghost',
+        onNominate: () => { if (!st.nom[i.k] && nNom >= 2) { this.toast('You can nominate up to two items'); return; } this.setState((s) => ({ nom: { ...s.nom, [i.k]: !s.nom[i.k] } })); },
+        style: { border: '1px solid ' + (changed ? 'var(--op-sage)' : 'var(--op-line)'), borderRadius: 16, background: 'var(--op-sf)', padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 10 } }; });
+    const notDone = I.some((i) => !st.pos[i.k] || (st.pos[i.k] === 'object' && (!(st.reason[i.k] || '').trim() || !(st.alt[i.k] || '').trim())));
+    const PT = [['d03', 'Password resets through chat'], ['d06', 'After-hours escalation'], ['d04', 'Hardware order limit']];
+    const setPts = (k, v) => this.setState((s) => { const others = PT.map((x) => x[0]).filter((x) => x !== k); const rest = 100 - v; const sum = others.reduce((a, o) => a + s.pts[o], 0); const next = { ...s.pts, [k]: v };
+      let acc = 0; others.forEach((o, idx) => { const val = idx === others.length - 1 ? rest - acc : Math.round(sum ? s.pts[o] / sum * rest : rest / others.length); next[o] = val; acc += val; }); return { pts: next }; });
+    const confirm = (cid, v) => this.setState((s) => ({ conf: { ...s.conf, [cid]: v } }));
+    return {
+      rvTitle: step === 3 ? 'Round 2 · closed' : 'Round 2 · the merged brief',
+      rvBanner: step === 1 ? 'Your view first. Comments, counts and other people’s positions stay hidden until you’ve responded. Objections need a reason and an alternative. Points are revealed for everyone when the round closes. They inform the decider; they don’t decide.' : step === 2 ? 'Others’ views are open. You can still change your position; a change is marked “changed after seeing others”.' : 'Round 2 closed Oct 23. Points are revealed for everyone. They inform the decider; they don’t decide.',
+      rvBannerStyle: { display: 'block', borderRadius: 14, background: step === 3 ? 'var(--op-mint)' : 'var(--op-sbg)', color: step === 3 ? 'var(--op-greendeep)' : 'var(--op-ink)', padding: '12px 14px', fontSize: 13.5, lineHeight: 1.5 },
+      rvAuthority: true,
+      rvConstraints: [['C-07', 'The agent never asks for or accepts a password.'], ['C-12', 'Suspected security incidents escalate to on-call within 15 minutes.']].map(([cid, text]) => { const v = st.conf[cid]; return { cid, text, open: !v, done: !!v, doneLabel: v === 'ok' ? '✓ Confirmed' : 'Rejected · Kari is told', doneStyle: v === 'ok' ? this.chip('var(--op-mint)', 'var(--op-greendeep)') : this.chip('var(--op-band)', 'var(--op-cautiondeep)'), onConfirm: () => confirm(cid, 'ok'), onReject: () => confirm(cid, 'no') }; }),
+      rvItems: items,
+      rvConflicts: [['D-03 Password resets through chat', 'Reset after one verification question', 'IT and people', 'MFA push before any account change', 'Legal, risk and finance'], ['D-06 After-hours escalation', 'Ticket for the morning shift after 8 pm', 'IT and people', 'Page on-call within 15 minutes', 'Legal, risk and finance']].map(([title, a, ga, b, gb], ci) => ({ title, sides: [{ text: a, group: step >= 2 ? ga : 'Hidden' }, { text: b, group: step >= 2 ? gb : 'Hidden' }],
+        picks: this.choices([['a', 'First'], ['b', 'Second']], st.picks[ci], (v) => this.setState((s) => ({ picks: { ...s.picks, [ci]: v } }))).map((x) => ({ ...x, style: { ...x.style, flex: '1 1 0' } })) })),
+      points: PT.map(([k, label]) => ({ label, value: st.pts[k], onChange: (e) => setPts(k, Math.max(0, Math.min(100, +e.target.value))) })),
+      pointsRevealed: step === 3, totals: ['Password resets through chat · 41% of all points', 'After-hours escalation · 33%', 'Hardware order limit · 26%', 'Within D-03: service desk side 35 · security side 65'],
+      rvStep1: step === 1, rvStep2: step === 2, rvClosed: step === 3, rvNotDone: notDone, rvNextLabel: notDone ? 'Respond to every item first' : 'See others’ views',
+      rvNext: () => this.setState({ rvAdvance: 2, snap: { ...st.pos } }), rvSubmit: (e) => { this.toast('Review sent · thank you'); this.go('/c/footprint')(e); },
+    };
+  }
+
+  myActions(PD, vs, act) {
+    const st = this.state; const S = this.store();
+    const a = act('A-014'); const storeAccept = (S.act['A-014'] || {}).accept;
+    const accept = storeAccept || (vs === 'Accepted' ? 'Accepted' : 'Requested');
+    const items = a.checklistItems || [['Export Q1 orders from the asset system', true], ['Split by category and department', false], ['Share the summary with Daniel Reyes', false]].map(([label, done]) => ({ label, done }));
+    const today = new Date('2026-11-12T12:00:00'); const diff = Math.round((new Date(a.due + ' 12:00') - today) / 86400000);
+    const ss = a.status === 'Done' ? this.chip('var(--op-mint)', 'var(--op-greendeep)') : a.status === 'In progress' ? this.chip('var(--op-pulse)', 'var(--op-ink)', 'var(--op-sage)') : this.chip('var(--op-track)', 'var(--op-ink)');
+    const row = { id: a.id, title: a.title, briefName: 'IT Helpdesk Agent v1', status: a.status, statusStyle: ss, dueLabel: 'Due ' + a.due.replace(', 2026', ''), dueStyle: { fontSize: 13, color: 'var(--op-mut)', whiteSpace: 'nowrap' },
+      onDown: (e) => { this.sx = e.clientX; }, onUp: (e) => { const dx = e.clientX - (this.sx ?? e.clientX); this.sx = null; if (dx > 60) { this.patch('A-014', { status: 'Done' }, 'marked done (swipe)'); this.toast('A-014 marked done'); } else { this.setState({ sheet: true }); if (dx < -60) this.toast('Update the status'); } },
+      style: { display: 'flex', flexDirection: 'column', gap: 6, borderRadius: 16, border: '1px solid var(--op-line)', background: 'var(--op-sf)', padding: 14, minHeight: 44, cursor: 'pointer', touchAction: 'pan-y', userSelect: 'none' } };
+    const mine = accept === 'Accepted' ? [row] : [];
+    const G = [['Overdue', []], ['Due this week', mine.filter(() => a.status !== 'Done' && diff <= 6)], ['Later', mine.filter(() => a.status !== 'Done' && diff > 6)], ['Done', mine.filter(() => a.status === 'Done')]];
+    return {
+      maRequest: accept === 'Requested', maAsking: !st.maDeclining, maDeclining: st.maDeclining,
+      maAccept: () => { this.patch('A-014', { accept: 'Accepted' }, 'accepted ownership on mobile'); this.toast('A-014 is yours · Daniel Reyes is told'); },
+      maDecline: () => this.setState({ maDeclining: true }), maReason: st.maReason, onMaReason: (e) => this.setState({ maReason: e.target.value }), maNoReason: !st.maReason.trim(),
+      maSendDecline: () => { this.patch('A-014', { accept: 'Declined', declineReason: st.maReason }, 'declined: ' + st.maReason); this.setState({ maDeclining: false }); this.toast('Declined · Daniel Reyes sees your reason'); },
+      maGroups: G.map(([label, rows]) => ({ label, rows, empty: rows.length === 0 })),
+      sheetOpen: st.sheet, closeSheet: () => this.setState({ sheet: false }),
+      sh: { id: a.id, title: a.title, status: a.status, statusStyle: ss, dueLabel: 'Due Dec 15', dueStyle: this.chip('var(--op-track)', 'var(--op-ink)'), checkLabel: items.filter((c) => c.done).length + ' of ' + items.length,
+        items: items.map((c, i) => ({ ...c, rowStyle: { borderColor: 'var(--op-line)', minHeight: 52 }, onToggle: () => { const next = items.map((x, j) => j === i ? { ...x, done: !x.done } : x); this.patch('A-014', { checklistItems: next }, (next[i].done ? 'ticked “' : 'unticked “') + c.label + '”'); } })) },
+      shStatusOptions: ['To do', 'In progress', 'Blocked', 'Done'].map((s) => ({ value: s, label: s })),
+      onShStatus: (e) => { const v = e.target.value; this.patch('A-014', { status: v }, 'set status to ' + v); },
+      shDone: () => { this.patch('A-014', { status: 'Done' }, 'marked done'); this.setState({ sheet: false }); this.toast('A-014 done · the close-the-loop note updates'); },
+    };
+  }
+}
+</script>
+</body>
+</html>

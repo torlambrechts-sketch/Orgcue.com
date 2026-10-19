@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/orgpuls-design-system-d91c81f2-fbc3-4646-b16a-fd3ab94db56a/styles.css">
+  <script src="_ds/orgpuls-design-system-d91c81f2-fbc3-4646-b16a-fd3ab94db56a/_ds_bundle.js"></script>
+  <script src="data.js"></script>
+  <style>
+    a { color: #2F5D2A; text-decoration: none; }
+    a:hover { color: #1E3D1A; text-decoration: underline; }
+  </style>
+</helmet>
+<div style="min-width: 0; color: var(--op-ink); font-family: var(--font-sans, 'DM Sans', system-ui, sans-serif); font-size: 14px; padding: 20px 16px 48px; box-sizing: border-box;">
+<div style="{{ pageStyle }}">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 24px; border-bottom: 1px solid var(--op-line); background: var(--op-sf);">
+    <a href="#" onClick="{{ goSite }}" style="display: flex; align-items: center; gap: 10px; color: var(--op-ink); text-decoration: none;"><span style="display: flex; width: 32px; height: 32px; align-items: center; justify-content: center; border-radius: 10px; background: var(--op-ink); color: var(--op-bg); font-family: var(--font-display); font-size: 15px; font-weight: 600;">P</span><span style="font-family: var(--font-display); font-size: 20px; font-weight: 600;">[Product]</span></a>
+    <nav style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; font-size: 14px;">
+      <sc-if value="{{ desktop }}" hint-placeholder-val="{{ true }}"><a href="#" onClick="{{ goSite }}" style="color: var(--op-ink);">Product</a><a href="#" onClick="{{ goPricing }}" style="color: var(--op-ink);">Pricing</a></sc-if>
+      <a href="#" onClick="{{ goSignin }}" style="color: var(--op-ink); font-weight: 600;">Sign in</a>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ demo }}" hint-size="120px,36px"><span style="white-space: nowrap;">Book a demo</span></x-import>
+    </nav>
+  </header>
+
+  <sc-if value="{{ isLanding }}">
+    <section style="padding: 48px 28px 36px; display: flex; flex-wrap: wrap; align-items: center; gap: 36px;">
+      <div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 18px;">
+        <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--op-mut);">The intake and decision layer for AI work</span>
+        <h1 style="{{ heroH }}">Get your team aligned before the AI builds it.</h1>
+        <p style="margin: 0; max-width: 560px; font-size: 18px; line-height: 1.55; color: var(--op-body); text-wrap: pretty;">[Product] turns what your experts know into an approved brief any AI tool can execute.</p>
+        <span style="display: flex; flex-wrap: wrap; gap: 10px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" onClick="{{ demo }}" hint-size="140px,44px"><span style="white-space: nowrap;">Book a demo</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" tone="secondary" onClick="{{ scrollHow }}" hint-size="140px,44px"><span style="white-space: nowrap;">See how it works</span></x-import></span>
+        <span style="font-size: 13px; color: var(--op-mut);">8 people · 64 answers · 5 decisions · 1 brief exported to Copilot Studio in 6 weeks</span>
+      </div>
+      <div style="flex: 1 1 360px; min-width: 0; border: 1px solid var(--op-line); border-radius: 22px; background: var(--op-sf); padding: 20px; box-shadow: 0 18px 40px -28px rgba(25,21,16,.35); display: flex; flex-direction: column; gap: 12px;">
+        <span style="display: flex; align-items: center; gap: 8px;"><span style="flex: none; border-radius: 999px; background: var(--op-viz5); padding: 2px 9px; font-size: 11px; font-weight: 700;">◆ D-03</span><span style="{{ demoChip }}">{{ demoChipText }}</span></span>
+        <span style="font-family: var(--font-display); font-size: 21px; font-weight: 600;">Password resets through chat</span>
+        <sc-for list="{{ demoOptions }}" as="o"><div style="{{ o.style }}"><span style="font-size: 14px; font-weight: 600;">{{ o.label }}</span><span style="font-size: 12px; color: var(--op-mut);">{{ o.group }}</span><span style="display: block; height: 5px; border-radius: 999px; background: var(--op-ink-a08); overflow: hidden;"><span style="{{ o.bar }}"></span></span></div></sc-for>
+        <span style="font-size: 12.5px; color: var(--op-body);">{{ demoFoot }}</span>
+      </div>
+    </section>
+    <section style="padding: 12px 28px 36px;">
+      <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--op-mut);">How it works</span>
+      <div style="margin-top: 12px; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <sc-for list="{{ steps }}" as="s"><div style="border: 1px solid var(--op-line); border-radius: 20px; background: var(--op-sf); padding: 22px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; min-width: 0;"><span style="display: flex; width: 28px; height: 28px; align-items: center; justify-content: center; border-radius: 999px; background: var(--op-ink); color: var(--op-bg); font-size: 13px; font-weight: 700;">{{ s.n }}</span><span style="font-family: var(--font-display); font-size: 19px; font-weight: 600;">{{ s.t }}</span><span style="font-size: 14px; line-height: 1.5; color: var(--op-body);">{{ s.d }}</span></div></sc-for>
+      </div>
+    </section>
+    <section style="padding: 12px 28px 36px;">
+      <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--op-mut);">Exports and channels</span>
+      <div style="margin-top: 12px; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));"><sc-for list="{{ logos }}" as="l"><span style="display: flex; height: 56px; align-items: center; justify-content: center; border: 1px solid var(--op-line); border-radius: 14px; background: var(--op-sf); font-size: 14px; font-weight: 700; color: var(--op-body);">{{ l }}</span></sc-for></div>
+    </section>
+    <section style="margin: 0 28px 36px; border-radius: 20px; background: var(--op-ink); color: var(--op-bg); padding: 22px 24px; display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+      <sc-for list="{{ trust }}" as="t"><span style="display: flex; flex-direction: column; gap: 4px;"><strong style="font-size: 15px;">{{ t.t }}</strong><span style="font-size: 13px; line-height: 1.5; opacity: .85;">{{ t.d }}</span></span></sc-for>
+    </section>
+    <section style="padding: 0 28px 40px;">
+      <h2 style="margin: 0; font-family: var(--font-display); font-size: 30px; line-height: 1.15; font-weight: 600; text-wrap: balance;">One loop for three kinds of work.</h2>
+      <div style="margin-top: 14px; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+        <sc-for list="{{ uses }}" as="u"><div style="{{ u.style }}"><span style="font-family: var(--font-display); font-size: 20px; font-weight: 600;">{{ u.t }}</span><span style="font-size: 14px; line-height: 1.55; color: var(--op-body);">{{ u.d }}</span><span style="font-size: 12.5px; color: var(--op-mut);">{{ u.ex }}</span></div></sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isPricing }}">
+    <section style="padding: 44px 28px 24px; display: flex; flex-direction: column; gap: 10px;">
+      <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--op-mut);">Pricing</span>
+      <h1 style="{{ heroH }}">Priced by live briefs. Contributors are always free.</h1>
+      <p style="margin: 0; font-size: 16px; line-height: 1.55; color: var(--op-body);">Annual organization subscription. Unlimited contributors on every plan, and actions and project management included in every tier.</p>
+    </section>
+    <div style="padding: 0 28px; display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); align-items: stretch;">
+      <sc-for list="{{ tiers }}" as="t"><div style="{{ t.style }}">
+        <span style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-family: var(--font-display); font-size: 24px; font-weight: 600;">{{ t.name }}</span><sc-if value="{{ t.rec }}"><span style="flex: none; border-radius: 999px; background: var(--op-ac); padding: 3px 10px; font-size: 11.5px; font-weight: 700;">Most teams</span></sc-if></span>
+        <span style="font-family: var(--font-display); font-size: 34px; font-weight: 600; font-variant-numeric: tabular-nums;">{{ t.price }}</span>
+        <span style="font-size: 13px; color: var(--op-mut);">{{ t.per }}</span>
+        <ul style="margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px;"><sc-for list="{{ t.features }}" as="f"><li style="display: flex; gap: 8px; font-size: 14px; line-height: 1.4;"><span style="color: var(--op-link); font-weight: 700;">✓</span>{{ f }}</li></sc-for></ul>
+        <span style="margin-top: auto; padding-top: 10px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="md" tone="{{ t.tone }}" block="{{ true }}" onClick="{{ t.onClick }}" hint-size="100%,42px"><span style="white-space: nowrap;">{{ t.cta }}</span></x-import></span>
+      </div></sc-for>
+    </div>
+    <div style="margin: 14px 28px 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; border: 1px dashed var(--op-rule); border-radius: 16px; padding: 14px 18px;">
+      <span style="font-size: 14px;"><strong>Add-on · template packs.</strong> IT and security, HR and policy, customer service. $2,400 a year each, or included on Enterprise.</span>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="secondary" onClick="{{ demo }}" hint-size="120px,36px"><span style="white-space: nowrap;">See the packs</span></x-import>
+    </div>
+    <section style="padding: 32px 28px 40px;">
+      <h2 style="margin: 0; font-family: var(--font-display); font-size: 30px; line-height: 1.15; font-weight: 600; text-wrap: balance;">Questions</h2>
+      <div style="margin-top: 12px; display: flex; flex-direction: column; border-top: 1px solid var(--op-line);">
+        <sc-for list="{{ faq }}" as="q"><div style="border-bottom: 1px solid var(--op-line);"><button type="button" onClick="{{ q.onClick }}" aria-expanded="{{ q.open }}" style="display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 0; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: 15.5px; font-weight: 700; color: var(--op-ink); text-align: left;"><span>{{ q.q }}</span><span aria-hidden="true">{{ q.glyph }}</span></button><sc-if value="{{ q.open }}"><p style="margin: 0 0 16px; font-size: 14.5px; line-height: 1.6; color: var(--op-body); max-width: 760px;">{{ q.a }}</p></sc-if></div></sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ isSignin }}">
+    <div style="padding: 56px 20px; display: flex; justify-content: center;">
+      <div style="width: 100%; max-width: 420px; border: 1px solid var(--op-line); border-radius: 20px; background: var(--op-sf); padding: 22px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; min-width: 0; padding: 30px;">
+        <span style="font-family: var(--font-display); font-size: 28px; font-weight: 600;">Sign in to [Product]</span>
+        <sc-if value="{{ linkSent }}">
+          <span style="font-size: 15px; line-height: 1.55;">Check your inbox. We sent a link to <strong>{{ email }}</strong>. It works for 15 minutes, on this device.</span>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="md" tone="secondary" block="{{ true }}" onClick="{{ resend }}" hint-size="100%,42px"><span style="white-space: nowrap;">Send it again</span></x-import>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="md" block="{{ true }}" onClick="{{ goHome }}" hint-size="100%,42px"><span style="white-space: nowrap;">Open the link (demo)</span></x-import>
+        </sc-if>
+        <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Work email" variant="signin" hint-size="100%,72px"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="signin" type="email" value="{{ email }}" onChange="{{ onEmail }}" hint-size="100%,48px"></x-import></x-import>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="lg" block="{{ true }}" onClick="{{ sendLink }}" hint-size="100%,44px"><span style="white-space: nowrap;">Email me a sign-in link</span></x-import>
+          <span style="display: flex; align-items: center; gap: 10px; font-size: 12.5px; color: var(--op-mut);"><span style="flex: 1; height: 1px; background: var(--op-line);"></span>or<span style="flex: 1; height: 1px; background: var(--op-line);"></span></span>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="md" tone="secondary" block="{{ true }}" onClick="{{ goHome }}" hint-size="100%,42px"><span style="white-space: nowrap;">Continue with Google</span></x-import>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="md" tone="secondary" block="{{ true }}" onClick="{{ goHome }}" hint-size="100%,42px"><span style="white-space: nowrap;">Continue with Microsoft</span></x-import>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="md" tone="quiet" block="{{ true }}" onClick="{{ goHome }}" hint-size="100%,42px"><span style="white-space: nowrap;">Sign in with SSO</span></x-import>
+          <span style="font-size: 12.5px; color: var(--op-mut);">New here? <a href="#" onClick="{{ goSetup }}">Set up a workspace</a></span>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isSetup }}">
+    <div style="padding: 32px 28px 40px; display: flex; flex-direction: column; gap: 18px;">
+      <ol style="margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+        <sc-for list="{{ stepper }}" as="s"><li style="{{ s.style }}"><span style="{{ s.dot }}">{{ s.glyph }}</span><span style="font-size: 13.5px; font-weight: 600;">{{ s.label }}</span></li></sc-for>
+      </ol>
+      <div style="border: 1px solid var(--op-line); border-radius: 20px; background: var(--op-sf); padding: 22px; box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; min-width: 0; padding: 28px;">
+        <span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--op-mut);">Step {{ step }} of 4</span>
+        <h1 style="margin: 0; font-family: var(--font-display); font-size: 28px; line-height: 1.2; font-weight: 600;">{{ stepTitle }}</h1>
+        <sc-if value="{{ st1 }}">
+          <div style="margin-top: 8px; display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Organization name" hint-size="100%,62px"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" value="{{ org }}" onChange="{{ onOrg }}" hint-size="100%,40px"></x-import></x-import>
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Size" hint-size="100%,62px"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" options="{{ sizeOptions }}" defaultValue="1000" hint-size="100%,40px"></x-import></x-import>
+            <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Industry" hint-size="100%,62px"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" options="{{ industryOptions }}" defaultValue="software" hint-size="100%,40px"></x-import></x-import>
+          </div>
+        </sc-if>
+        <sc-if value="{{ st2 }}">
+          <div style="margin-top: 8px; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));">
+            <sc-for list="{{ regions }}" as="r"><button type="button" onClick="{{ r.onClick }}" aria-pressed="{{ r.selected }}" style="{{ r.style }}"><span style="font-family: var(--font-display); font-size: 26px; font-weight: 600;">{{ r.code }}</span><span style="font-size: 15px; font-weight: 700;">{{ r.name }}</span><span style="font-size: 13px; color: var(--op-mut);">{{ r.where }}</span></button></sc-for>
+          </div>
+          <span style="font-size: 13.5px; font-weight: 600; color: var(--op-caution);">This can’t be changed later. Every answer, brief and action stays in this region.</span>
+        </sc-if>
+        <sc-if value="{{ st3 }}">
+          <sc-for list="{{ connectGroups }}" as="g">
+            <span style="margin-top: 8px; font-size: 15px; font-weight: 700;">{{ g.label }}</span>
+            <div style="display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));">
+              <sc-for list="{{ g.items }}" as="c"><div style="{{ c.style }}"><span style="font-size: 14px; font-weight: 700;">{{ c.name }}</span><span style="display: flex; gap: 6px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="tiny" tone="{{ c.connectTone }}" onClick="{{ c.onConnect }}" hint-size="80px,30px"><span style="white-space: nowrap;">{{ c.connectLabel }}</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="tiny" tone="ghost" onClick="{{ c.onSkip }}" hint-size="60px,30px"><span style="white-space: nowrap;">{{ c.skipLabel }}</span></x-import></span></div></sc-for>
+            </div>
+            <sc-if value="{{ g.note }}"><span style="font-size: 13px; color: var(--op-mut);">{{ g.note }}</span></sc-if>
+          </sc-for>
+        </sc-if>
+        <sc-if value="{{ st4 }}">
+          <div style="margin-top: 8px; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+            <sc-for list="{{ firstTemplates }}" as="t"><button type="button" onClick="{{ t.onClick }}" aria-pressed="{{ t.selected }}" style="{{ t.style }}"><span style="font-size: 15px; font-weight: 700;">{{ t.name }}</span><span style="font-size: 13px; line-height: 1.45; color: var(--op-mut);">{{ t.desc }}</span><sc-if value="{{ t.selected }}"><span style="flex: none; display: inline-flex; border-radius: 999px; background: var(--op-mint); color: var(--op-greendeep); padding: 3px 10px; font-size: 11.5px; font-weight: 700; white-space: nowrap;">✓ Selected</span></sc-if></button></sc-for>
+          </div>
+        </sc-if>
+        <div style="margin-top: 14px; display: flex; justify-content: space-between; gap: 10px; border-top: 1px solid var(--op-line); padding-top: 16px;">
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="md" tone="secondary" onClick="{{ setupBack }}" hint-size="100px,42px"><span style="white-space: nowrap;">← Back</span></x-import>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="md" onClick="{{ setupNext }}" hint-size="170px,42px"><span style="white-space: nowrap;">{{ setupNextLabel }}</span></x-import>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <footer style="border-top: 1px solid var(--op-line); background: var(--op-sf); padding: 24px 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; color: var(--op-mut);">
+    <span style="max-width: 420px; line-height: 1.55;"><strong style="color: var(--op-ink);">[Product]</strong> · the intake and decision layer for AI work. Your data stays in the EU or US region you choose, and is never used for training.</span>
+    <span style="display: flex; flex-wrap: wrap; gap: 14px;"><a href="#" onClick="{{ goPricing }}">Pricing</a><a href="#" onClick="{{ goSignin }}">Sign in</a><span>Security</span><span>Privacy</span><span>© 2026</span></span>
+  </footer>
+</div>
+<sc-if value="{{ hasToast }}">
+  <div role="status" style="position: fixed; z-index: 80; left: 50%; bottom: 24px; transform: translateX(-50%); border-radius: 12px; background: var(--op-ink); color: var(--op-bg); padding: 11px 16px; font-size: 13.5px;">{{ toast }}</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1440, &quot;height&quot;: 900}}">
+class Component extends DCLogic {
+  state = { tick: 0, faq: 0, email: 'kari.nordmann@lumio.com', sent: false, org: 'Lumio Inc.', region: 'US', conn: { Slack: 'on', Teams: 'on', 'Email domain': 'on', 'Copilot Studio': 'on', ServiceNow: 'on', Jira: 'skip', Planner: 'skip', Asana: 'skip' }, tpl: 'it', toast: null };
+  componentDidMount() { this.iv = setInterval(() => this.setState((s) => ({ tick: (s.tick + 1) % 4 })), 2200); }
+  componentWillUnmount() { clearInterval(this.iv); clearTimeout(this.tt); }
+  go = (p) => (e) => { if (e && e.preventDefault) e.preventDefault(); this.props.go && this.props.go(p); };
+  toast(m) { clearTimeout(this.tt); this.setState({ toast: m }); this.tt = setTimeout(() => this.setState({ toast: null }), 3200); }
+  renderVals() {
+    const path = this.props.path || '/site', vs = this.props.viewState || '', st = this.state;
+    const mobile = vs === 'Mobile';
+    const sel = (on) => ({ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 6, textAlign: 'left', cursor: 'pointer', fontFamily: 'inherit', color: 'var(--op-ink)', borderRadius: 18, padding: 18, border: (on ? '2px solid var(--op-ink)' : '1px solid var(--op-line)'), background: on ? 'var(--op-sbg)' : 'var(--op-sf)' });
+    const step = Math.min(4, Math.max(1, +(path.split('/')[2] || 1)));
+    const t = st.tick; const chosen = t >= 2;
+    const out = {
+      isLanding: path === '/site', isPricing: path === '/site/pricing', isSignin: path === '/signin', isSetup: path.startsWith('/setup'), desktop: !mobile,
+      pageStyle: mobile ? { width: 390, margin: '0 auto', border: '7px solid var(--op-ink)', borderRadius: 40, overflow: 'hidden', background: 'var(--op-bg)' } : { maxWidth: 1120, margin: '0 auto', border: '1px solid var(--op-line)', borderRadius: 20, overflow: 'hidden', background: 'var(--op-bg)' },
+      heroH: { margin: 0, fontFamily: 'var(--font-display)', fontSize: mobile ? 34 : 54, lineHeight: 1.05, fontWeight: 600, textWrap: 'balance', letterSpacing: '-0.01em' },
+      goSite: this.go('/site'), goPricing: this.go('/site/pricing'), goSignin: this.go('/signin'), goSetup: this.go('/setup/1'), goHome: this.go('/home'),
+      demo: () => this.toast('Thanks · we’ll email you two times for a 30-minute demo'), scrollHow: () => window.scrollTo({ top: 640, behavior: 'smooth' }),
+      toast: st.toast, hasToast: !!st.toast,
+      demoChip: chosen ? { flex: 'none', borderRadius: 999, background: 'var(--op-mint)', color: 'var(--op-greendeep)', padding: '2px 9px', fontSize: 11, fontWeight: 700 } : { flex: 'none', borderRadius: 999, border: '1px solid var(--op-rustbar)', background: 'var(--op-peach)', color: 'var(--op-dangerdeep)', padding: '2px 9px', fontSize: 11, fontWeight: 700 },
+      demoChipText: chosen ? '✓ Decision recorded' : '⇄ Conflict',
+      demoOptions: [['Reset after one verification question', 'IT and people · 3', 35], ['MFA push before any account change', 'Legal, risk and finance · 4', 65]].map(([label, group, pts], i) => { const on = (t === 1 && i === 1) || (chosen && i === 1); return { label, group,
+        style: { display: 'flex', flexDirection: 'column', gap: 6, borderRadius: 14, padding: 12, border: on ? '1.5px solid var(--op-ink)' : '1px solid var(--op-line)', background: on ? 'var(--op-sbg)' : 'var(--op-bg)', opacity: chosen && i === 0 ? 0.6 : 1 },
+        bar: { display: 'block', height: '100%', width: pts + '%', background: 'var(--op-sage)' } }; }),
+      demoFoot: chosen ? 'Rationale recorded · A-015 sent to Security to accept · C-21 added to the brief' : 'Round 2 points 35 · 65 · advisory, not a vote',
+      steps: [['1', 'Ask the right people', 'Each expert gets 5–8 questions for their role, one at a time, on their phone.'], ['2', 'Settle the conflicts', 'Duplicates merge. Real disagreements go to a named decider with both sides.'], ['3', 'Export to your AI', 'An approved, versioned brief compiles to the platform you use, constraints verbatim.'], ['4', 'Track it to done', 'Every decision ends in an owned, dated action, here or in your work tool.']].map(([n, tt, d]) => ({ n, t: tt, d })),
+      logos: ['Copilot Studio', 'Agentforce', 'ServiceNow', 'Claude', 'ChatGPT', 'Slack', 'Teams', 'Jira'],
+      trust: [['EU or US data region', 'Chosen once, per organization.'], ['SSO and SCIM', 'Entra ID, Okta, Google.'], ['Tamper-evident audit log', 'Every change chained and exportable.'], ['No training on your data', 'Zero-retention model endpoints.']].map(([tt, d]) => ({ t: tt, d })),
+      uses: [['AI agents', 'IT, HR and customer helpdesks that follow the rules your experts set.', 'IT Helpdesk Agent v1 → Copilot Studio', 'var(--op-sf)'], ['AI-use and HR policies', 'Policies written with the people who apply them, with a consult step for employee reps.', 'AI Acceptable Use Policy 2027 → Markdown', 'var(--op-sbg)'], ['Team playbooks', 'Onboarding and incident response, owned step by step.', 'Incident response playbook → ServiceNow', 'var(--op-mint)']].map(([tt, d, ex, bg]) => ({ t: tt, d, ex, style: { border: '1px solid var(--op-line)', borderRadius: 20, background: bg, padding: 22, display: 'flex', flexDirection: 'column', gap: 10 } })),
+      tiers: [['Team', '$9,600', 'per year · up to 3 live briefs', ['Unlimited contributors', 'Slack, Teams and email', 'All export targets', 'Actions and milestones'], 'secondary', 'Start with Team'], ['Business', '$28,800', 'per year · up to 10 live briefs', ['Everything in Team', 'Template builder', 'ServiceNow, Jira, Planner, Asana sync', 'Evidence packs'], 'primary', 'Book a demo', true], ['Enterprise', 'Custom', 'per year · sized to your live briefs', ['Everything in Business', 'SSO and SCIM', 'Audit export to your SIEM', 'Dedicated instance', 'Template packs included'], 'secondary', 'Talk to us']].map(([name, price, per, features, tone, cta, rec]) => ({ name, price, per, features, tone, cta, rec: !!rec, onClick: this.go('/signin'), style: { border: (rec ? '2px solid var(--op-ink)' : '1px solid var(--op-line)'), borderRadius: 22, background: rec ? 'var(--op-sf)' : 'var(--op-bg)', padding: 24, display: 'flex', flexDirection: 'column', gap: 6 } })),
+      faq: [['What counts as a live brief?', 'A brief that has been exported and is in use. Briefs in framing, intake or decide don’t count, and neither do archived ones.'], ['Do contributors need a license?', 'No. Contributors are free and unlimited on every plan. They answer from a link and never need an account.'], ['Can we choose where data is stored?', 'Yes, EU or US, once per organization at setup. Answers, briefs and actions never leave that region.'], ['Do you train models on our answers?', 'No. Every pipeline step uses in-region, zero-retention endpoints.'], ['We already use Jira. Do we need the actions module?', 'Actions are included. Track them in [Product], or sync each one to Jira or ServiceNow and see its status here.']].map(([q, a], i) => ({ q, a, open: st.faq === i, glyph: st.faq === i ? '−' : '+', onClick: () => this.setState({ faq: st.faq === i ? -1 : i }) })),
+      email: st.email, onEmail: (e) => this.setState({ email: e.target.value }), linkSent: vs === 'Link sent' || st.sent, notSent: !(vs === 'Link sent' || st.sent), sendLink: () => this.setState({ sent: true }), resend: () => this.toast('Sent again'),
+      step, st1: step === 1, st2: step === 2, st3: step === 3, st4: step === 4,
+      stepTitle: ['Tell us about your organization', 'Where should your data live?', 'Connect your channels and tools', 'Pick a first template'][step - 1],
+      stepper: ['Organization', 'Data region', 'Connections', 'First template'].map((label, i) => { const done = i + 1 < step, cur = i + 1 === step; return { label, glyph: done ? '✓' : String(i + 1),
+        style: { display: 'flex', alignItems: 'center', gap: 10, borderRadius: 13, padding: '10px 12px', border: '1px solid ' + (cur ? 'var(--op-ink)' : 'var(--op-line)'), background: cur ? 'var(--op-sbg)' : 'var(--op-sf)' },
+        dot: { display: 'flex', width: 24, height: 24, flex: 'none', alignItems: 'center', justifyContent: 'center', borderRadius: 999, fontSize: 12, fontWeight: 700, background: done ? 'var(--op-mint)' : cur ? 'var(--op-ink)' : 'transparent', color: done ? 'var(--op-greendeep)' : cur ? 'var(--op-bg)' : 'var(--op-mut)', border: done || cur ? 'none' : '1.5px solid var(--op-rule)', boxSizing: 'border-box' } }; }),
+      org: st.org, onOrg: (e) => this.setState({ org: e.target.value }),
+      sizeOptions: [{ value: '250', label: '250–999 people' }, { value: '1000', label: '1,000–4,999 people' }, { value: '5000', label: '5,000+ people' }], industryOptions: [{ value: 'software', label: 'Software' }, { value: 'finance', label: 'Financial services' }, { value: 'health', label: 'Healthcare' }, { value: 'retail', label: 'Retail' }],
+      regions: [['US', 'United States', 'Virginia and Oregon'], ['EU', 'European Union', 'Frankfurt and Dublin']].map(([code, name, where]) => ({ code, name, where, selected: st.region === code, onClick: () => this.setState({ region: code }), style: sel(st.region === code) })),
+      connectGroups: [['Channels', ['Slack', 'Teams', 'Email domain'], ''], ['Export targets · optional', ['Copilot Studio', 'Agentforce', 'ServiceNow Virtual Agent', 'Claude', 'ChatGPT', 'Markdown download'], ''], ['Work tools · optional', ['Jira', 'ServiceNow', 'Planner', 'Asana'], 'No work tool? [Product] tracks actions for you.']].map(([label, items, note]) => ({ label, note, items: items.map((name) => { const v = st.conn[name]; return { name,
+        connectLabel: v === 'on' ? '✓ Connected' : 'Connect', connectTone: v === 'on' ? 'secondary' : 'quiet', skipLabel: v === 'skip' ? 'Skipped' : 'Skip',
+        onConnect: () => this.setState((s) => ({ conn: { ...s.conn, [name]: 'on' } })), onSkip: () => this.setState((s) => ({ conn: { ...s.conn, [name]: 'skip' } })),
+        style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, borderRadius: 13, padding: '10px 12px', border: '1px solid ' + (v === 'on' ? 'var(--op-ink)' : 'var(--op-line)'), background: v === 'skip' ? 'var(--op-bg)' : 'var(--op-sf)', opacity: v === 'skip' ? 0.75 : 1 } }; }) })),
+      firstTemplates: [['it', 'IT helpdesk agent', 'Resets, access, hardware and VPN, with security and spending limits written in.'], ['hr', 'HR helpdesk agent', 'Leave and benefits questions with a consult step.'], ['aup', 'AI-use policy', 'What employees may use AI for, and who approves new tools.'], ['cs', 'Customer service agent', 'Tier 1 support with refund limits and handoff rules.']].map(([k, name, desc]) => ({ name, desc, selected: st.tpl === k, onClick: () => this.setState({ tpl: k }), style: sel(st.tpl === k) })),
+      setupBack: this.go(step > 1 ? '/setup/' + (step - 1) : '/signin'), setupNext: (e) => { if (step < 4) this.go('/setup/' + (step + 1))(e); else { this.toast('Workspace created · ' + st.region + ' data region'); this.go('/settings/integrations')(e); } },
+      setupNextLabel: step < 4 ? 'Continue' : 'Create workspace',
+    };
+    return out;
+  }
+}
+</script>
+</body>
+</html>

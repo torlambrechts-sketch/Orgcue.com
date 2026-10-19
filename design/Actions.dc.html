@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/orgpuls-design-system-d91c81f2-fbc3-4646-b16a-fd3ab94db56a/styles.css">
+  <script src="_ds/orgpuls-design-system-d91c81f2-fbc3-4646-b16a-fd3ab94db56a/_ds_bundle.js"></script>
+  <script src="data.js"></script>
+  <style>
+    a { color: #2F5D2A; text-decoration: none; }
+    a:hover { color: #1E3D1A; text-decoration: underline; }
+  </style>
+</helmet>
+<div style="min-width: 0; color: var(--op-ink); font-family: var(--font-sans, 'DM Sans', system-ui, sans-serif); font-size: 14px;">
+<div style="max-width: 1200px; margin: 0 auto; padding: 28px 28px 56px; box-sizing: border-box;">
+
+<sc-if value="{{ showHeader }}" hint-placeholder-val="{{ true }}">
+  <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px;">
+    <span style="min-width: 0;"><span style="display: block; font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);">{{ eyebrow }}</span><h1 style="margin: 4px 0 0; font-family: var(--font-display); font-size: 28px; line-height: 36px; font-weight: 600; text-wrap: balance;">{{ title }}</h1></span>
+    <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px;">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="6"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Pill" selected="{{ t.selected }}" onClick="{{ t.onClick }}" hint-size="90px,32px"><span style="white-space: nowrap;">{{ t.label }}</span></x-import></sc-for>
+      <sc-if value="{{ showNew }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ newAction }}" hint-size="130px,36px"><span style="white-space: nowrap;">＋ New action</span></x-import></sc-if>
+    </span>
+  </div>
+</sc-if>
+
+<!-- 6.1 Actions list (also behind 6.5) -->
+<sc-if value="{{ isList }}">
+  <sc-if value="{{ listEmpty }}"><div style="margin-top: 22px; border: 1px dashed var(--op-rule); border-radius: 20px; background: var(--op-sf); padding: 36px 30px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; max-width: 640px;"><span style="font-family: var(--font-display); font-size: 22px; font-weight: 600;">No actions yet.</span><span style="font-size: 14px; line-height: 1.6; color: var(--op-mut); text-wrap: pretty;">Decisions turn into actions here. Settle a decision card to create the first one.</span><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ goDecisions }}" hint-size="120px,34px"><span style="white-space: nowrap;">Open decisions</span></x-import></div></sc-if>
+  <sc-if value="{{ listFull }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px;">
+      <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px;"><span style="font-size: 12px; font-weight: 600; color: var(--op-mut);">Group by</span><sc-for list="{{ groupBys }}" as="g"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Pill" selected="{{ g.selected }}" onClick="{{ g.onClick }}" hint-size="90px,32px"><span style="white-space: nowrap;">{{ g.label }}</span></x-import></sc-for></span>
+      <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-left: auto;">
+        <sc-for list="{{ filters }}" as="f"><button type="button" onClick="{{ f.onClick }}" aria-pressed="{{ f.selected }}" style="{{ f.style }}">{{ f.label }}</button></sc-for>
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ sourceOptions }}" value="{{ sourceF }}" onChange="{{ onSourceF }}" aria-label="Source type" hint-size="150px,38px"></x-import>
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ trackedOptions }}" value="{{ trackedF }}" onChange="{{ onTrackedF }}" aria-label="Tracked in" hint-size="150px,38px"></x-import>
+      </span>
+    </div>
+    <sc-if value="{{ hasSel }}">
+      <div style="margin-top: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; border-radius: 13px; background: var(--op-ink); color: var(--op-bg); padding: 8px 10px 8px 14px;">
+        <span style="font-size: 13px; font-weight: 700; margin-right: auto;">{{ selLabel }}</span>
+        <sc-for list="{{ bulk }}" as="b"><button type="button" onClick="{{ b.onClick }}" style="cursor: pointer; border: 1px solid rgba(252,246,233,.35); border-radius: 9px; background: transparent; color: var(--op-bg); padding: 6px 10px; font-family: inherit; font-size: 12px; font-weight: 600; white-space: nowrap;">{{ b.label }}</button></sc-for>
+      </div>
+    </sc-if>
+    <sc-for list="{{ groups }}" as="g" hint-placeholder-count="3">
+      <section style="margin-top: 18px;">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px;">
+          <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">{{ g.label }}</h2>
+          <span style="display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 12.5px; color: var(--op-mut); font-variant-numeric: tabular-nums;"><sc-for list="{{ g.summary }}" as="s"><span style="{{ s.style }}">{{ s.text }}</span></sc-for></span>
+        </div>
+        <div style="margin-top: 8px; overflow-x: auto; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf);">
+          <div style="min-width: 1100px;">
+            <div style="display: grid; grid-template-columns: 28px 58px minmax(200px, 2fr) 130px minmax(140px, 1.1fr) 120px 104px 70px 110px 120px; gap: 10px; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--op-line); font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);"><span></span><span>ID</span><span>Action</span><span>Source</span><span>Owner</span><span>Due</span><span>Status</span><span>Priority</span><span>Milestone</span><span>Tracked in</span></div>
+            <sc-for list="{{ g.rows }}" as="r">
+              <div style="{{ r.rowStyle }}">
+                <button type="button" aria-label="{{ r.selLabel }}" onClick="{{ r.onToggle }}" style="display: flex; padding: 0; border: none; background: transparent; cursor: pointer;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Mark" checked="{{ r.selected }}" size="{{ 18 }}" hint-size="18px,18px"></x-import></button>
+                <span style="font-size: 12px; font-weight: 700; color: var(--op-mut); font-variant-numeric: tabular-nums;">{{ r.id }}</span>
+                <a href="#" onClick="{{ r.onOpen }}" style="min-width: 0; color: var(--op-ink);"><span style="display: block; font-size: 13.5px; font-weight: 600;">{{ r.title }}</span><span style="display: block; font-size: 11.5px; color: var(--op-mut);">{{ r.briefName }}<sc-if value="{{ r.hasChecklist }}"> · checklist {{ r.checklist }}</sc-if></span></a>
+                <span style="{{ r.sourceStyle }}">{{ r.source }}</span>
+                <span style="display: flex; flex-direction: column; gap: 2px; min-width: 0;"><span style="font-size: 13px;">{{ r.ownerName }}</span><span style="{{ r.acceptStyle }}">{{ r.acceptLabel }}</span></span>
+                <span style="{{ r.dueStyle }}">{{ r.dueLabel }}</span>
+                <span style="{{ r.statusStyle }}">{{ r.status }}</span>
+                <span style="font-size: 12.5px;">{{ r.priority }}</span>
+                <span style="font-size: 12px; color: var(--op-mut);">{{ r.milestone }}</span>
+                <span style="font-size: 12px; color: var(--op-mut);">{{ r.tracked }}</span>
+              </div>
+            </sc-for>
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 14px;">
+              <span style="font-size: 13px; color: var(--op-mut);">＋</span>
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="field" placeholder="Add an action — start with a verb" value="{{ g.quick }}" onChange="{{ g.onQuick }}" onKeyDown="{{ g.onQuickKey }}" aria-label="Quick add" style="{{ quickW }}" hint-size="320px,38px"></x-import>
+              <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="secondary" onClick="{{ g.onAdd }}" hint-size="60px,32px"><span style="white-space: nowrap;">Add</span></x-import>
+            </div>
+          </div>
+        </div>
+      </section>
+    </sc-for>
+  </sc-if>
+</sc-if>
+
+<!-- 6.2 Board -->
+<sc-if value="{{ isBoard }}">
+  <div style="margin-top: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px;">
+    <span style="display: flex; align-items: center; gap: 8px; font-size: 13px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Switch" on="{{ showCanceled }}" onChange="{{ toggleCanceled }}" label="Show canceled" hint-size="38px,22px"></x-import>Show canceled</span>
+    <span style="display: flex; align-items: center; gap: 8px; font-size: 13px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Switch" on="{{ swim }}" onChange="{{ toggleSwim }}" label="Swimlanes by brief" hint-size="38px,22px"></x-import>Swimlanes by brief</span>
+    <span style="font-size: 12.5px; color: var(--op-mut);">Drag a card, or use “Move to…” on the card.</span>
+  </div>
+  <sc-for list="{{ lanes }}" as="l" hint-placeholder-count="1">
+    <section style="margin-top: 16px;">
+      <sc-if value="{{ l.hasLabel }}"><h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600; margin-bottom: 8px;">{{ l.label }}</h2></sc-if>
+      <div style="display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); align-items: start;">
+        <sc-for list="{{ l.cols }}" as="c">
+          <div onDragOver="{{ c.onOver }}" onDrop="{{ c.onDrop }}" style="{{ c.style }}">
+            <span style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 2px 4px 6px;"><span style="font-size: 13.5px; font-weight: 700; white-space: nowrap;">{{ c.name }}</span><span style="font-size: 12px; color: var(--op-mut); font-variant-numeric: tabular-nums;">{{ c.count }}</span></span>
+            <sc-for list="{{ c.cards }}" as="k">
+              <div draggable="true" onDragStart="{{ k.onDrag }}" style="{{ k.style }}">
+                <a href="#" onClick="{{ k.onOpen }}" style="font-size: 13.5px; font-weight: 600; line-height: 1.35; color: var(--op-ink);">{{ k.title }}</a>
+                <span style="display: flex; flex-wrap: wrap; gap: 5px;"><span style="flex: none; border-radius: 999px; background: var(--op-track); padding: 2px 8px; font-size: 11px; font-weight: 600; white-space: nowrap;">{{ k.briefShort }}</span><span style="{{ k.sourceStyle }}">{{ k.source }}</span></span>
+                <sc-if value="{{ k.hasReason }}"><span style="font-size: 12px; color: var(--op-cautiondeep);">{{ k.reason }}</span></sc-if>
+                <span style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                  <span style="display: flex; align-items: center; gap: 6px; min-width: 0;"><span title="{{ k.ownerName }}" style="{{ k.avatar }}">{{ k.initials }}</span><span style="{{ k.acceptStyle }}">{{ k.acceptShort }}</span></span>
+                  <span style="{{ k.dueStyle }}">{{ k.dueLabel }}</span>
+                </span>
+                <span style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                  <span style="font-size: 11.5px; color: var(--op-mut);">{{ k.checkLabel }}</span>
+                  <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="role" options="{{ moveOptions }}" value="" onChange="{{ k.onMove }}" aria-label="Move to" style="{{ moveW }}" hint-size="110px,34px"></x-import>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-for>
+  <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Modal" open="{{ blockOpen }}" onClose="{{ cancelBlock }}" title="{{ blockTitle }}" sub="{{ blockSub }}" closeLabel="Close" width="{{ 480 }}" hint-size="0px,0px">
+    <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 10px;">
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" value="{{ blockReason }}" onChange="{{ onBlockReason }}" aria-label="Reason" hint-size="100%,74px"></x-import>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Blocked by (optional)" hint-size="100%,62px"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ blockByOptions }}" value="{{ blockBy }}" onChange="{{ onBlockBy }}" aria-label="Blocked by" hint-size="100%,38px"></x-import></x-import>
+      <span style="display: flex; justify-content: flex-end; gap: 8px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="ghost" onClick="{{ cancelBlock }}" hint-size="90px,36px"><span style="white-space: nowrap;">Cancel</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ confirmBlock }}" disabled="{{ noBlockReason }}" hint-size="130px,36px"><span style="white-space: nowrap;">Mark blocked</span></x-import></span>
+    </div>
+  </x-import>
+</sc-if>
+
+<!-- 6.3 Plan -->
+<sc-if value="{{ isPlan }}">
+  <div style="margin-top: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; font-size: 12.5px; color: var(--op-mut);">
+    <span style="display: inline-flex; align-items: center; gap: 6px;"><span aria-hidden="true" style="display: inline-block; width: 9px; height: 9px; transform: rotate(45deg); border-radius: 2px; border: 1.5px solid var(--op-ink); background: var(--op-sf);"></span> Milestone</span>
+    <span style="display: inline-flex; align-items: center; gap: 6px;"><span aria-hidden="true" style="display: inline-block; width: 9px; height: 9px; transform: rotate(45deg); border-radius: 2px; border: 1.5px solid var(--op-amberbar); background: var(--op-band);"></span> At risk</span>
+    <span style="display: inline-flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 999px; background: var(--op-ink);"></span> Action</span>
+    <span style="display: inline-flex; align-items: center; gap: 6px;"><span style="width: 2px; height: 12px; background: var(--op-ink);"></span> Today · Nov 12</span>
+    <span>Drag a diamond or dot to move its date. Click to open.</span>
+  </div>
+  <div style="margin-top: 12px; overflow-x: auto; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf);">
+    <div style="min-width: 980px; display: grid; grid-template-columns: 200px minmax(0, 1fr);">
+      <span style="padding: 10px 14px; border-bottom: 1px solid var(--op-line); font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Row</span>
+      <span style="position: relative; height: 36px; border-bottom: 1px solid var(--op-line);"><sc-for list="{{ months }}" as="m"><span style="{{ m.style }}">{{ m.label }}</span></sc-for></span>
+      <sc-for list="{{ planRows }}" as="r" hint-placeholder-count="6">
+        <span style="display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 10px 14px; border-bottom: 1px solid var(--op-line); min-height: 52px; box-sizing: border-box;"><span style="font-size: 13px; font-weight: 600;">{{ r.label }}</span><span style="{{ r.subStyle }}">{{ r.sub }}</span></span>
+        <span onMouseMove="{{ onDragMove }}" onMouseUp="{{ onDragEnd }}" onMouseLeave="{{ onDragEnd }}" style="position: relative; min-height: 52px; border-bottom: 1px solid var(--op-line); user-select: none;">
+          <sc-for list="{{ monthLines }}" as="ml"><span style="{{ ml }}"></span></sc-for>
+          <span style="{{ todayLine }}"></span>
+          <sc-for list="{{ r.bands }}" as="b"><span style="{{ b.style }}">{{ b.label }}</span></sc-for>
+          <sc-for list="{{ r.marks }}" as="k">
+            <span onMouseDown="{{ k.onDown }}" onClick="{{ k.onClick }}" onMouseEnter="{{ k.onEnter }}" onMouseLeave="{{ k.onLeave }}" title="{{ k.tip }}" style="{{ k.style }}"></span>
+          </sc-for>
+          <sc-if value="{{ r.hasTip }}"><span style="{{ r.tipStyle }}">{{ r.tip }}</span></sc-if>
+        </span>
+      </sc-for>
+    </div>
+  </div>
+  <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Modal" open="{{ moveOpen }}" onClose="{{ cancelMove }}" title="Move past the go-live date?" sub="{{ moveSub }}" closeLabel="Close" width="{{ 480 }}" hint-size="0px,0px">
+    <div style="margin-top: 16px; display: flex; justify-content: flex-end; gap: 8px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="ghost" onClick="{{ cancelMove }}" hint-size="120px,36px"><span style="white-space: nowrap;">Keep the date</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ confirmMove }}" hint-size="100px,36px"><span style="white-space: nowrap;">Move it</span></x-import></div>
+  </x-import>
+</sc-if>
+
+<!-- 6.4 My actions -->
+<sc-if value="{{ isMine }}">
+  <div style="margin-top: 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 12.5px; color: var(--op-mut);">Showing actions for <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ meOptions }}" value="{{ meWho }}" onChange="{{ onMeWho }}" aria-label="Person" hint-size="200px,38px"></x-import><span>· same list as 4.12 on mobile</span></div>
+  <sc-for list="{{ requests }}" as="q">
+    <div style="margin-top: 14px; border-radius: 16px; border: 1px solid var(--op-sage); background: var(--op-pulse); padding: 14px 16px; display: flex; flex-direction: column; gap: 10px;">
+      <span style="font-size: 14px; line-height: 1.5;"><strong>{{ q.from }} asked you to own:</strong> {{ q.title }}, due {{ q.due }} <span style="color: var(--op-mut);">· from {{ q.source }} · {{ q.brief }}</span></span>
+      <sc-if value="{{ q.asking }}" hint-placeholder-val="{{ true }}"><span style="display: flex; flex-wrap: wrap; gap: 8px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" onClick="{{ q.onAccept }}" hint-size="90px,34px"><span style="white-space: nowrap;">Accept</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="secondary" onClick="{{ q.onDecline }}" hint-size="90px,34px"><span style="white-space: nowrap;">Decline</span></x-import></span></sc-if>
+      <sc-if value="{{ q.declining }}">
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" value="{{ declineReason }}" onChange="{{ onDeclineReason }}" placeholder="Why not you? The brief owner sees this." aria-label="Reason" hint-size="100%,74px"></x-import>
+        <span style="display: flex; gap: 8px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="solid" onClick="{{ q.onSendDecline }}" disabled="{{ noDeclineReason }}" hint-size="120px,34px"><span style="white-space: nowrap;">Send decline</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" tone="ghost" onClick="{{ q.onCancelDecline }}" hint-size="80px,34px"><span style="white-space: nowrap;">Cancel</span></x-import></span>
+      </sc-if>
+    </div>
+  </sc-for>
+  <sc-for list="{{ mineGroups }}" as="g" hint-placeholder-count="4">
+    <section style="margin-top: 18px;">
+      <span style="display: flex; align-items: baseline; gap: 8px;"><h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">{{ g.label }}</h2><span style="font-size: 12.5px; color: var(--op-mut);">{{ g.count }}</span></span>
+      <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px;">
+        <sc-for list="{{ g.rows }}" as="r">
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; border: 1px solid var(--op-line); border-radius: 15px; background: var(--op-sf); padding: 12px 16px;">
+            <span style="font-size: 12px; font-weight: 700; color: var(--op-mut);">{{ r.id }}</span>
+            <a href="#" onClick="{{ r.onOpen }}" style="flex: 1 1 260px; min-width: 0; color: var(--op-ink);"><span style="display: block; font-size: 14px; font-weight: 600;">{{ r.title }}</span><span style="display: block; font-size: 12px; color: var(--op-mut);">{{ r.briefName }} · {{ r.source }}</span></a>
+            <span style="{{ r.dueStyle }}">{{ r.dueLabel }}</span>
+            <span style="{{ r.statusStyle }}">{{ r.status }}</span>
+            <sc-if value="{{ r.canDone }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="secondary" onClick="{{ r.onDone }}" hint-size="100px,32px"><span style="white-space: nowrap;">Mark done</span></x-import></sc-if>
+          </div>
+        </sc-for>
+        <sc-if value="{{ g.empty }}"><span style="font-size: 13px; color: var(--op-mut);">Nothing here.</span></sc-if>
+      </div>
+    </section>
+  </sc-for>
+</sc-if>
+
+<!-- 6.5 Action detail drawer -->
+<sc-if value="{{ isDetail }}">
+  <div style="position: fixed; inset: 0; z-index: 60; display: flex; justify-content: flex-end;">
+    <div onClick="{{ closeDetail }}" style="position: absolute; inset: 0; background: rgba(25,21,16,.42);"></div>
+    <aside role="dialog" aria-label="{{ a.id }}" style="position: relative; width: min(560px, 100%); height: 100%; overflow-y: auto; box-sizing: border-box; background: var(--op-sf); border-left: 1px solid var(--op-line); padding: 20px 24px 32px; box-shadow: 0 34px 80px rgba(25,21,16,.3); display: flex; flex-direction: column; gap: 14px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;"><span style="font-size: 12px; font-weight: 700; color: var(--op-mut);">{{ a.id }}</span><span style="{{ a.dueStyle }}">{{ a.dueLabel }}</span><span style="{{ a.statusStyle }}">{{ a.status }}</span></span>
+        <button type="button" aria-label="Close" onClick="{{ closeDetail }}" style="width: 30px; height: 30px; flex: none; cursor: pointer; border-radius: 999px; border: 1px solid var(--op-ink); background: transparent; font-size: 15px; color: var(--op-ink);">×</button>
+      </div>
+      <sc-if value="{{ a.syncFailed }}">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; border-radius: 13px; border: 1px solid var(--op-amberbar); background: var(--op-sbg); padding: 10px 12px; font-size: 13px;"><span style="flex: 1 1 240px;"><strong style="color: var(--op-cautiondeep);">ServiceNow unreachable.</strong> Last synced Nov 12 · 8:02 am. Status here may be out of date.</span><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" onClick="{{ retrySync }}" hint-size="100px,32px"><span style="white-space: nowrap;">Retry sync</span></x-import></div>
+      </sc-if>
+      <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="md" value="{{ a.title }}" onChange="{{ onTitle }}" disabled="{{ a.external }}" aria-label="Title" hint-size="100%,42px"></x-import>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ statusOptions }}" value="{{ a.status }}" onChange="{{ onStatus }}" aria-label="Status" hint-size="150px,38px"></x-import>
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ prioOptions }}" value="{{ a.priority }}" onChange="{{ onPriority }}" aria-label="Priority" hint-size="120px,38px"></x-import>
+        <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="field" type="date" value="{{ a.dueIso }}" onChange="{{ onDue }}" disabled="{{ a.external }}" aria-label="Due date" style="{{ dateW }}" hint-size="150px,38px"></x-import>
+        <sc-if value="{{ a.canDone }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" onClick="{{ openDone }}" disabled="{{ a.external }}" hint-size="110px,38px"><span style="white-space: nowrap;">Mark done</span></x-import></sc-if>
+      </div>
+      <sc-if value="{{ needReason }}">
+        <div style="border-radius: 13px; background: var(--op-bg); padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+          <span style="font-size: 13px; font-weight: 700;">{{ reasonPrompt }}</span>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" value="{{ reasonText }}" onChange="{{ onReasonText }}" aria-label="Reason" hint-size="100%,74px"></x-import>
+          <span style="display: flex; gap: 8px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" onClick="{{ saveReason }}" disabled="{{ noReason }}" hint-size="70px,32px"><span style="white-space: nowrap;">Save</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="ghost" onClick="{{ cancelReason }}" hint-size="70px,32px"><span style="white-space: nowrap;">Cancel</span></x-import></span>
+        </div>
+      </sc-if>
+      <sc-if value="{{ doneOpen }}">
+        <div style="border-radius: 13px; background: var(--op-bg); padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+          <span style="font-size: 13px; font-weight: 700;">{{ donePrompt }}</span>
+          <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Textarea" value="{{ doneNote }}" onChange="{{ onDoneNote }}" placeholder="Completion note or link" aria-label="Completion note" hint-size="100%,74px"></x-import>
+          <span style="display: flex; gap: 8px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" onClick="{{ confirmDone }}" disabled="{{ doneBlocked }}" hint-size="90px,32px"><span style="white-space: nowrap;">Mark done</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="ghost" onClick="{{ cancelDone }}" hint-size="70px,32px"><span style="white-space: nowrap;">Cancel</span></x-import></span>
+        </div>
+      </sc-if>
+      <div style="display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 10px 12px; align-items: center; font-size: 13px;">
+        <span style="color: var(--op-mut);">Owner</span>
+        <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;"><strong>{{ a.ownerName }}</strong><span style="{{ a.acceptStyle }}">{{ a.acceptLabel }}</span><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ reassignOptions }}" value="" onChange="{{ onReassign }}" aria-label="Reassign" hint-size="140px,38px"></x-import></span>
+        <sc-if value="{{ a.declined }}"><span></span><span style="font-size: 12.5px; color: var(--op-cautiondeep);">Declined: «{{ a.declineReason }}»</span></sc-if>
+        <span style="color: var(--op-mut);">Collaborators</span>
+        <span style="display: flex; flex-wrap: wrap; gap: 5px;"><sc-for list="{{ a.collab }}" as="c"><span style="flex: none; border-radius: 999px; background: var(--op-track); padding: 2px 9px; font-size: 12px; font-weight: 600; white-space: nowrap;">{{ c }}</span></sc-for></span>
+        <span style="color: var(--op-mut);">Brief</span><a href="#" onClick="{{ goBriefSynth }}">{{ a.briefName }} →</a>
+        <span style="color: var(--op-mut);">Milestone</span><a href="#" onClick="{{ goMilestones }}">{{ a.milestone }}</a>
+        <span style="color: var(--op-mut);">Source</span><a href="#" onClick="{{ goSource }}" style="{{ a.sourceStyle }}">{{ a.sourceLong }}</a>
+        <span style="color: var(--op-mut);">Tracked in</span>
+        <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;"><strong>{{ a.tracked }}</strong><sc-if value="{{ a.external }}"><span style="font-size: 12px; color: var(--op-mut);">read-only here · {{ a.mapped }}</span><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="tiny" tone="secondary" onClick="{{ syncNow }}" hint-size="90px,30px"><span style="white-space: nowrap;">Sync now</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="tiny" tone="ghost" hint-size="150px,30px"><span style="white-space: nowrap;">Open in ServiceNow ↗</span></x-import></sc-if><sc-if value="{{ a.internal }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="tiny" tone="ghost" onClick="{{ moveExternal }}" hint-size="140px,30px"><span style="white-space: nowrap;">Move to ServiceNow</span></x-import></sc-if></span>
+      </div>
+      <p style="margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--op-body);">{{ a.description }}</p>
+      <sc-if value="{{ a.hasChecklist }}">
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Checklist · {{ a.checkLabel }}</span>
+          <sc-for list="{{ a.checklistItems }}" as="c"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.CheckRow" label="{{ c.label }}" checked="{{ c.done }}" onChange="{{ c.onToggle }}" style="{{ c.rowStyle }}" hint-size="100%,48px"></x-import></sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ a.hasLinks }}"><div style="display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Links and files</span><sc-for list="{{ a.links }}" as="l"><a href="#" onClick="{{ noop }}" style="font-size: 13px;">{{ l }}</a></sc-for></div></sc-if>
+      <div style="display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--op-line); padding-top: 12px;">
+        <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">Updates</span>
+        <sc-for list="{{ a.updates }}" as="u"><div style="display: grid; grid-template-columns: 10px minmax(0, 1fr); gap: 8px; font-size: 13px; line-height: 1.45;"><span style="margin-top: 6px; width: 6px; height: 6px; border-radius: 999px; background: var(--op-rule);"></span><span><strong style="font-weight: 600;">{{ u.who }}</strong> {{ u.text }} <span style="color: var(--op-mut);">· {{ u.when }}</span></span></div></sc-for>
+        <span style="display: flex; gap: 8px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="field" value="{{ comment }}" onChange="{{ onComment }}" placeholder="Add an update" aria-label="Add an update" hint-size="100%,38px"></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" onClick="{{ postComment }}" disabled="{{ noComment }}" hint-size="70px,32px"><span style="white-space: nowrap;">Post</span></x-import></span>
+      </div>
+      <span style="margin-top: auto; border-top: 1px solid var(--op-line); padding-top: 10px; font-size: 12px; color: var(--op-mut);">Created by {{ a.createdBy }} · {{ a.created }} · Visible to the brief’s owner, decider and the people on this action</span>
+    </aside>
+  </div>
+</sc-if>
+
+<!-- 6.6 Milestones -->
+<sc-if value="{{ isMilestones }}">
+  <div style="margin-top: 16px; display: flex; flex-direction: column; gap: 10px;">
+    <sc-for list="{{ msRows }}" as="m" hint-placeholder-count="5">
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-sf); padding: 14px 18px;">
+        <span style="{{ m.diamond }}"></span>
+        <span style="flex: 1 1 220px; min-width: 0;"><span style="display: block; font-size: 15px; font-weight: 700;">{{ m.name }}</span><span style="display: block; font-size: 12.5px; color: var(--op-mut);">{{ m.date }} · {{ m.ownerLabel }}</span></span>
+        <span style="{{ m.pill }}">{{ m.status }}</span>
+        <span style="flex: 0 1 200px; min-width: 140px; display: flex; flex-direction: column; gap: 4px;"><span style="font-size: 12px; color: var(--op-mut);">{{ m.progressLabel }}</span><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Meter" pct="{{ m.pct }}" height="{{ 5 }}" hint-size="100%,5px"></x-import></span>
+        <sc-if value="{{ m.canApprove }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xxs" tone="solid" onClick="{{ m.onApprove }}" disabled="{{ notDecider }}" hint-size="150px,32px"><span style="white-space: nowrap;">Approve completion</span></x-import></sc-if>
+      </div>
+    </sc-for>
+  </div>
+  <div style="margin-top: 14px; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px; box-sizing: border-box; min-width: 0; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px;">
+    <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Field" label="Add milestone" style="{{ msNameW }}" hint-size="260px,62px"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="field" value="{{ msName }}" onChange="{{ onMsName }}" placeholder="e.g. Training for service desk" hint-size="100%,38px"></x-import></x-import>
+    <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Input" size="field" type="date" value="{{ msDate }}" onChange="{{ onMsDate }}" aria-label="Date" style="{{ dateW }}" hint-size="150px,38px"></x-import>
+    <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ ownerOptions }}" value="{{ msOwner }}" onChange="{{ onMsOwner }}" aria-label="Owner" hint-size="170px,38px"></x-import>
+    <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="xs" onClick="{{ addMilestone }}" disabled="{{ noMsName }}" hint-size="130px,34px"><span style="white-space: nowrap;">Add milestone</span></x-import>
+    <span style="flex-basis: 100%; font-size: 12px; color: var(--op-mut);">Brief locked, Exported and Validated complete on their own. Go-live needs the decider’s approval. Template defaults are editable here.</span>
+  </div>
+</sc-if>
+
+<!-- 6.7 Weekly digest -->
+<sc-if value="{{ isDigest }}">
+  <div style="margin-top: 16px; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start;">
+    <section style="flex: 2 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 10px;">
+      <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 12.5px; color: var(--op-mut);">Monday digest for <x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ meOptions }}" value="{{ dgWho }}" onChange="{{ onDgWho }}" aria-label="Person" hint-size="200px,38px"></x-import></span>
+      <div style="border: 1px solid var(--op-line); border-radius: 16px; background: var(--op-sf); overflow: hidden;">
+        <div style="padding: 12px 16px; border-bottom: 1px solid var(--op-line); font-size: 12px; color: var(--op-mut);">{{ dgHeader }}</div>
+        <div style="padding: 14px 16px 6px;"><span style="display: block; font-family: var(--font-display); font-size: 19px; font-weight: 600;">Your week, {{ dgFirst }}</span><span style="display: block; margin-top: 2px; font-size: 13px; color: var(--op-body);">{{ dgSummary }}</span></div>
+        <sc-for list="{{ dgSections }}" as="s">
+          <div style="padding: 8px 16px 4px;"><span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">{{ s.label }}</span></div>
+          <sc-for list="{{ s.rows }}" as="r">
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; border-top: 1px solid var(--op-line); padding: 10px 16px;">
+              <span style="flex: 1 1 240px; min-width: 0;"><span style="display: block; font-size: 13.5px; font-weight: 600;">{{ r.title }}</span><span style="display: block; font-size: 12px; color: var(--op-mut);">{{ r.sub }}</span></span>
+              <sc-if value="{{ r.open }}" hint-placeholder-val="{{ true }}"><span style="display: flex; gap: 6px;"><sc-for list="{{ r.buttons }}" as="b"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="tiny" tone="{{ b.tone }}" onClick="{{ b.onClick }}" hint-size="80px,30px"><span style="white-space: nowrap;">{{ b.label }}</span></x-import></sc-for></span></sc-if>
+              <sc-if value="{{ r.done }}"><span style="flex: none; border-radius: 999px; background: var(--op-mint); color: var(--op-greendeep); padding: 3px 10px; font-size: 11.5px; font-weight: 700; white-space: nowrap;">✓ {{ r.doneLabel }}</span></sc-if>
+            </div>
+          </sc-for>
+        </sc-for>
+        <div style="padding: 10px 16px; border-top: 1px solid var(--op-line); font-size: 11.5px; color: var(--op-mut);">Buttons work without signing in. One digest a week; reminders follow the rules on the right.</div>
+      </div>
+    </section>
+    <aside style="flex: 1 1 320px; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px; box-sizing: border-box; min-width: 0; display: flex; flex-direction: column; gap: 4px;">
+      <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">Reminder rules</h2>
+      <span style="font-size: 12.5px; color: var(--op-mut); margin-bottom: 6px;">Brief settings · IT Helpdesk Agent v1</span>
+      <sc-for list="{{ rRules }}" as="r"><div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--op-line); padding: 9px 0;"><span style="font-size: 13.5px;">{{ r.text }}</span><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Switch" on="{{ r.on }}" onChange="{{ r.onToggle }}" label="{{ r.text }}" hint-size="38px,22px"></x-import></div></sc-for>
+      <span style="margin-top: 8px; font-size: 12.5px; color: var(--op-mut);">Quiet hours 6 pm – 8 am in each person’s time zone. Weekends are quiet.</span>
+    </aside>
+  </div>
+</sc-if>
+
+<!-- 6.8 Sync settings -->
+<sc-if value="{{ isSync }}">
+  <sc-if value="{{ syncNone }}">
+    <div style="margin-top: 16px; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px; box-sizing: border-box; min-width: 0; display: flex; flex-direction: column; gap: 10px; max-width: 720px;">
+      <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">Actions are tracked in [Product].</h2>
+      <span style="font-size: 13.5px; line-height: 1.55; color: var(--op-body);">No work tool is connected, and that’s fine. Owners accept, update and finish actions here, and everyone on a brief sees the same status.</span>
+      <span style="display: flex; flex-wrap: wrap; gap: 8px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="secondary" onClick="{{ csv }}" hint-size="180px,36px"><span style="white-space: nowrap;">Export actions as CSV</span></x-import><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="sm" tone="secondary" onClick="{{ ical }}" hint-size="220px,36px"><span style="white-space: nowrap;">Copy iCal feed of due dates</span></x-import></span>
+      <span style="font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: var(--op-mut);">webcal://lumio.[product].app/feeds/actions/7f3a…c21.ics</span>
+    </div>
+  </sc-if>
+  <div style="margin-top: 16px; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));">
+    <sc-for list="{{ tools }}" as="t" hint-placeholder-count="4">
+      <div style="{{ t.style }}">
+        <span style="display: flex; align-items: center; justify-content: space-between; gap: 8px;"><span style="font-size: 14.5px; font-weight: 700;">{{ t.name }}</span><span style="{{ t.pill }}">{{ t.state }}</span></span>
+        <span style="font-size: 12.5px; color: var(--op-mut);">{{ t.note }}</span>
+        <span style="display: flex; gap: 6px;"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="tiny" tone="{{ t.tone }}" onClick="{{ t.onClick }}" hint-size="90px,30px"><span style="white-space: nowrap;">{{ t.action }}</span></x-import><sc-if value="{{ t.connected }}"><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Button" size="tiny" tone="ghost" onClick="{{ testConn }}" hint-size="60px,30px"><span style="white-space: nowrap;">Test</span></x-import></sc-if></span>
+      </div>
+    </sc-for>
+  </div>
+  <sc-if value="{{ syncOn }}" hint-placeholder-val="{{ true }}">
+    <div style="margin-top: 16px; display: flex; flex-wrap: wrap; gap: 18px; align-items: flex-start;">
+      <section style="flex: 1 1 380px; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px; box-sizing: border-box; min-width: 0;">
+        <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">Field mapping · ServiceNow</h2>
+        <div style="margin-top: 10px; display: grid; grid-template-columns: 1fr 24px 1fr; gap: 8px; align-items: center; font-size: 13px;">
+          <span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">[Product]</span><span></span><span style="font-size: 10.5px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--op-mut);">ServiceNow</span>
+          <sc-for list="{{ fieldMap }}" as="f"><span style="font-weight: 600;">{{ f.a }}</span><span style="color: var(--op-mut);">→</span><span>{{ f.b }}</span></sc-for>
+        </div>
+        <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600; margin-top: 18px;">Status mapping</h2>
+        <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
+          <sc-for list="{{ statusMap }}" as="s"><div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 13px;"><span style="flex: 1 1 140px;">ServiceNow “{{ s.ext }}”</span><span style="color: var(--op-mut);">→</span><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ statusOptions }}" value="{{ s.val }}" onChange="{{ s.onChange }}" aria-label="Maps to" hint-size="150px,38px"></x-import></div></sc-for>
+        </div>
+      </section>
+      <section style="flex: 1 1 380px; border: 1px solid var(--op-line); border-radius: 18px; background: var(--op-sf); padding: 20px 22px; box-sizing: border-box; min-width: 0;">
+        <h2 style="margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 28px; font-weight: 600;">Default “Track in” per template</h2>
+        <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px;">
+          <sc-for list="{{ tplDefaults }}" as="t"><div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; border-bottom: 1px solid var(--op-line); padding: 6px 0; font-size: 13px;"><span>{{ t.name }}</span><x-import component-from-global-scope="OrgpulsDesignSystem_d91c81.Select" size="field" options="{{ trackOptions }}" value="{{ t.val }}" onChange="{{ t.onChange }}" aria-label="Track in" hint-size="170px,38px"></x-import></div></sc-for>
+        </div>
+        <span style="display: block; margin-top: 10px; font-size: 12px; color: var(--op-mut);">Sync success last 7 days: 99.2% · 2 of 2 actions in sync</span>
+      </section>
+    </div>
+  </sc-if>
+</sc-if>
+
+<footer style="margin-top: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; border-top: 1px solid var(--op-line); padding-top: 12px; font-size: 12px; color: var(--op-mut);">
+  <span>Actions · status is shown per action, never per person · every change is in the audit log</span>
+  <span style="white-space: nowrap;">Lumio Inc. · <strong style="color: var(--op-greendeep); font-weight: 700;">US data region</strong></span>
+</footer>
+</div>
+<sc-if value="{{ hasToast }}">
+  <div role="status" style="position: fixed; z-index: 80; left: 50%; bottom: 24px; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; border-radius: 12px; background: var(--op-ink); color: var(--op-bg); padding: 11px 16px; font-size: 13.5px; box-shadow: 0 18px 40px -24px rgba(25,21,16,.45);">
+    <span>{{ toast }}</span>
+    <button type="button" onClick="{{ closeToast }}" style="cursor: pointer; border: none; background: transparent; color: var(--op-ac); font-family: inherit; font-size: 13px; font-weight: 700;">Undo</button>
+  </div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1440, &quot;height&quot;: 900}}">
+class Component extends DCLogic {
+  state = { sel: {}, groupBy: 'brief', filter: null, sourceF: 'all', trackedF: 'all', quick: {}, showCanceled: false, swim: false, blockFor: null, blockTo: 'Blocked', blockReason: '', blockBy: '', drag: null, dragDate: null, moved: false, hoverMark: null, moveConfirm: null, meWho: null, declining: null, declineReason: '', reason: null, reasonText: '', doneOpen: false, doneNote: '', comment: '', msName: '', msDate: '2026-12-08', msOwner: 'kari', rules: { r1: true, r2: true, r3: true, r4: true, r5: true }, dgWho: null, dgDone: {}, statusMap: {}, tplTrack: {}, toast: null };
+  componentDidMount() { window.PDStore = window.PDStore || { act: {}, upd: {}, extra: [], ms: {} }; if (!window.PD) this.poll = setInterval(() => { if (window.PD) { clearInterval(this.poll); this.forceUpdate(); } }, 50); }
+  componentWillUnmount() { clearInterval(this.poll); clearTimeout(this.tt); }
+  go = (p) => (e) => { if (e && e.preventDefault) e.preventDefault(); if (e && e.stopPropagation) e.stopPropagation(); this.props.go && this.props.go(p); };
+  toast(m) { clearTimeout(this.tt); this.setState({ toast: m }); this.tt = setTimeout(() => this.setState({ toast: null }), 3600); }
+  chip(bg, fg, b) { return { flex: 'none', display: 'inline-flex', alignItems: 'center', gap: 5, borderRadius: 999, background: bg, color: fg, border: b ? '1px solid ' + b : 'none', padding: '2px 9px', fontSize: 11, fontWeight: 700, whiteSpace: 'nowrap', justifySelf: 'start', alignSelf: 'center' }; }
+  store() { window.PDStore = window.PDStore || { act: {}, upd: {}, extra: [], ms: {} }; return window.PDStore; }
+  me() { return (window.PD && window.PD.people[this.props.persona || 'kari']) || { name: 'Kari Nordmann' }; }
+  patch(id, p, text) { const S = this.store(); S.act[id] = { ...(S.act[id] || {}), ...p }; if (text) { S.upd[id] = [...(S.upd[id] || []), { who: this.me().name, text, when: 'just now' }]; } this.forceUpdate(); }
+  fmt(d) { return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
+  iso(d) { const z = (n) => String(n).padStart(2, '0'); return d.getFullYear() + '-' + z(d.getMonth() + 1) + '-' + z(d.getDate()); }
+
+  all(PD) {
+    const MS = { 'A-017': 'Brief locked', 'A-018': 'Brief locked', 'A-015': 'Pilot live with IT team', 'A-019': 'Pilot live with IT team', 'A-020': 'Pilot live with IT team', 'A-021': 'Pilot live with IT team', 'A-014': 'Go-live company-wide' };
+    const PR = { 'A-015': 'High', 'A-019': 'High', 'A-017': 'High', 'A-020': 'Low' };
+    const extra = [
+      { id: 'A-009', brief: 'aup-2027', title: 'Collect the approved AI tools list', source: 'Gap', owner: 'tom', accept: 'Accepted', due: 'Nov 18, 2026', status: 'In progress', tracked: '[Product]' },
+      { id: 'A-010', brief: 'aup-2027', title: 'Draft the employee FAQ for the policy', source: 'Manual', owner: 'grace', accept: 'Accepted', due: 'Nov 25, 2026', status: 'To do', tracked: '[Product]' },
+      { id: 'A-013', brief: 'aup-2027', title: 'Ask the employee representatives for a consult date', source: 'Milestone · Consult', owner: 'tom', accept: 'Accepted', due: 'Nov 16, 2026', status: 'To do', tracked: '[Product]' },
+      { id: 'A-011', brief: 'support-t1', title: 'Publish the new returns macro', source: 'D-11', owner: 'marcus', accept: 'Accepted', due: 'Nov 6, 2026', status: 'In progress', tracked: '[Product]' },
+      { id: 'A-023', brief: 'support-t1', title: 'Update C-31 to a $200 limit', source: 'Re-attestation · C-31', owner: 'marcus', accept: 'Accepted', due: 'Nov 20, 2026', status: 'To do', tracked: '[Product]' },
+    ];
+    const S = this.store();
+    return [...PD.actions.map((a) => ({ ...a, brief: 'it-helpdesk-v1' })), ...extra, ...S.extra].map((a) => {
+      const o = { priority: PR[a.id] || 'Normal', milestone: MS[a.id] || null, ...a, ...(S.act[a.id] || {}) };
+      if (o.id === 'A-019' && !(S.act[o.id] || {}).reason) o.reason = 'Waiting on A-015';
+      return o;
+    });
+  }
+  view(a, PD) {
+    const today = new Date('2026-11-12T12:00:00');
+    const d = new Date(a.due + ' 12:00'); const diff = Math.round((d - today) / 86400000);
+    const closed = a.status === 'Done' || a.status === 'Canceled';
+    const overdue = !closed && diff < 0;
+    const warn = this.chip('var(--op-band)', 'var(--op-cautiondeep)');
+    const dueLabel = closed ? a.due.replace(', 2026', '') : overdue ? 'Overdue · ' + a.due.replace(', 2026', '') : diff === 0 ? 'Due today' : diff <= 3 ? 'Due in ' + diff + (diff === 1 ? ' day' : ' days') : a.due.replace(', 2026', '');
+    const dueStyle = overdue ? { ...warn, fontWeight: 800 } : !closed && diff <= 3 ? warn : { fontSize: 12.5, color: 'var(--op-mut)', whiteSpace: 'nowrap', fontVariantNumeric: 'tabular-nums', alignSelf: 'center' };
+    const SS = { 'To do': this.chip('var(--op-track)', 'var(--op-ink)'), 'In progress': this.chip('var(--op-pulse)', 'var(--op-ink)', 'var(--op-sage)'), Blocked: warn, Done: this.chip('var(--op-mint)', 'var(--op-greendeep)'), Canceled: { ...this.chip('var(--op-track)', 'var(--op-mut)'), textDecoration: 'line-through' } };
+    const pending = a.accept === 'Requested', declined = a.accept === 'Declined';
+    const p = PD.people[a.owner] || { name: a.owner, initials: '?' };
+    const b = PD.briefs.find((x) => x.id === a.brief) || PD.briefs[0];
+    const srcDecision = /^D-\d+/.test(a.source);
+    return { ...a, diff, overdue, closed, dueLabel, dueStyle, statusStyle: SS[a.status] || SS['To do'], ownerName: p.name, initials: p.initials, briefName: b.name, briefShort: b.name.replace(' Agent', '').replace(' Policy', ''),
+      acceptLabel: pending ? 'Owner pending' : declined ? 'Declined' : 'Accepted', acceptShort: pending ? 'pending' : declined ? 'declined' : '',
+      acceptStyle: pending ? this.chip('var(--op-pulse)', 'var(--op-ink)', 'var(--op-sage)') : declined ? warn : { fontSize: 11.5, color: 'var(--op-greendeep)', fontWeight: 600 },
+      sourceStyle: srcDecision ? this.chip('var(--op-viz5)', 'var(--op-ink)') : this.chip('var(--op-track)', 'var(--op-ink)'), source: (srcDecision ? '◆ ' : '') + a.source,
+      checklist: a.checklistItems ? a.checklistItems.filter((c) => c.done).length + ' of ' + a.checklistItems.length : a.checklist, hasChecklist: !!(a.checklistItems || a.checklist),
+      milestoneLabel: a.milestone || 'No milestone',
+      avatar: { display: 'flex', width: 24, height: 24, flex: 'none', alignItems: 'center', justifyContent: 'center', borderRadius: 999, fontSize: 9.5, fontWeight: 700, background: pending ? 'var(--op-sf)' : 'var(--op-track)', border: pending ? '1.5px dashed var(--op-sage)' : '1.5px solid transparent', boxSizing: 'border-box' },
+      external: a.tracked.startsWith('ServiceNow') };
+  }
+
+  renderVals() {
+    const PD = window.PD; if (!PD) return {};
+    const path = this.props.path || '', vs = this.props.viewState || '', persona = this.props.persona || 'kari';
+    const isDetail = /^\/actions\/A-\d+$/.test(path);
+    const out = {
+      isList: path === '/actions' || isDetail, isBoard: path === '/actions/board', isPlan: /\/plan$/.test(path), isMine: path === '/me/actions', isDetail, isMilestones: /\/milestones$/.test(path), isDigest: path === '/actions/digest', isSync: path === '/actions/sync',
+      toast: this.state.toast, hasToast: !!this.state.toast, closeToast: () => this.setState({ toast: null }), showHeader: true,
+      goDecisions: this.go('/decisions'), dateW: { width: 150 }, quickW: { flex: '1 1 260px', width: 'auto' }, moveW: { width: 110 }, msNameW: { flex: '1 1 240px' }, noop: (e) => e.preventDefault(),
+      notDecider: persona !== 'daniel',
+    };
+    const T = [['List', '/actions'], ['Board', '/actions/board'], ['Plan', '/briefs/it-helpdesk-v1/plan'], ['My actions', '/me/actions'], ['Milestones', '/briefs/it-helpdesk-v1/milestones'], ['Digest', '/actions/digest'], ['Work tools', '/actions/sync']];
+    const curTab = isDetail ? '/actions' : path;
+    out.tabs = T.map(([l, p]) => ({ label: l, selected: p === curTab, onClick: this.go(p) }));
+    const H = { '/actions': ['Lumio Inc. · actions from decisions, gaps, validation and re-attestation', 'Actions'], '/actions/board': ['Lumio Inc. · drag between columns', 'Board'], '/me/actions': ['Across every brief', 'My actions'], '/actions/digest': ['Every Monday · email and Slack or Teams', 'Weekly digest and reminders'], '/actions/sync': ['Settings · work tools', 'Sync settings'] };
+    const h = isDetail ? H['/actions'] : out.isPlan ? ['IT Helpdesk Agent v1 · Oct 2026 – Mar 2027', 'Plan'] : out.isMilestones ? ['IT Helpdesk Agent v1', 'Milestones'] : H[path] || H['/actions'];
+    out.eyebrow = h[0]; out.title = h[1]; out.showNew = out.isList || out.isBoard;
+    out.newAction = () => { const S = this.store(); const id = 'A-0' + (24 + S.extra.length); S.extra.push({ id, brief: 'it-helpdesk-v1', title: 'Untitled action', source: 'Manual', owner: persona, accept: 'Accepted', due: 'Nov 19, 2026', status: 'To do', tracked: '[Product]' }); S.upd[id] = [{ who: this.me().name, text: 'created this action', when: 'just now' }]; this.props.go && this.props.go('/actions/' + id); };
+    const acts = this.all(PD).map((a) => this.view(a, PD));
+    if (out.isList) Object.assign(out, this.list(PD, acts, vs, persona));
+    if (out.isBoard) Object.assign(out, this.board(PD, acts));
+    if (out.isPlan) Object.assign(out, this.plan(PD, acts));
+    if (out.isMine) Object.assign(out, this.mine(PD, acts, persona));
+    if (isDetail) Object.assign(out, this.detail(PD, acts, path, vs, persona));
+    if (out.isMilestones) Object.assign(out, this.milestones(PD, acts, persona));
+    if (out.isDigest) Object.assign(out, this.digest(PD, acts, persona, vs));
+    if (out.isSync) Object.assign(out, this.sync(vs));
+    return out;
+  }
+
+  msStatus(PD, acts) {
+    const S = this.store();
+    return PD.milestones.map((m) => { const linked = acts.filter((a) => a.milestone === m.name); const date = S.ms[m.key] ? new Date(S.ms[m.key] + 'T12:00:00') : new Date(m.iso + 'T12:00:00');
+      const done = (S.ms[m.key + '_done']);
+      const risk = !done && linked.some((a) => a.overdue || a.status === 'Blocked');
+      return { ...m, linked, date, dateLabel: this.fmt(date), status: done ? 'Done' : risk ? 'At risk' : 'Upcoming' }; });
+  }
+
+  list(PD, acts, vs, persona) {
+    const st = this.state;
+    if (vs === 'Empty') return { listEmpty: true, listFull: false, groups: [] };
+    const F = { mine: (a) => a.owner === persona, overdue: (a) => a.overdue, week: (a) => !a.closed && a.diff <= 6, blocked: (a) => a.status === 'Blocked', pending: (a) => a.accept === 'Requested' };
+    const srcType = (a) => { const s = a.source.replace('◆ ', ''); return /^D-/.test(s) ? 'decision' : s.startsWith('Gap') ? 'gap' : s.startsWith('Validation') ? 'validation' : s.startsWith('Re-attestation') ? 'reattest' : s.startsWith('Milestone') ? 'milestone' : 'manual'; };
+    let rows = acts.filter((a) => (!st.filter || F[st.filter](a)) && (st.sourceF === 'all' || srcType(a) === st.sourceF) && (st.trackedF === 'all' || (st.trackedF === 'ext' ? a.external : !a.external)));
+    const keyOf = { brief: (a) => a.briefName, status: (a) => a.status, owner: (a) => a.ownerName, milestone: (a) => a.milestoneLabel }[st.groupBy];
+    const keys = [...new Set(rows.map(keyOf))];
+    const sel = Object.keys(st.sel).filter((k) => st.sel[k]);
+    const warnT = { color: 'var(--op-caution)', fontWeight: 700 };
+    const groups = keys.map((k) => { const rs = rows.filter((a) => keyOf(a) === k); const all = acts.filter((a) => keyOf(a) === k);
+      const open = all.filter((a) => !a.closed).length, od = all.filter((a) => a.overdue).length, bl = all.filter((a) => a.status === 'Blocked').length, dn = all.filter((a) => a.status === 'Done').length;
+      const sample = all[0];
+      return { label: k, summary: [{ text: open + ' open', style: {} }, { text: od + ' overdue', style: od ? warnT : {} }, { text: bl + ' blocked', style: bl ? warnT : {} }, { text: dn + ' done', style: {} }],
+        quick: st.quick[k] || '', onQuick: (e) => { const v = e.target.value; this.setState((s) => ({ quick: { ...s.quick, [k]: v } })); },
+        onAdd: () => this.quickAdd(k, sample), onQuickKey: (e) => { if (e.key === 'Enter') this.quickAdd(k, sample); },
+        rows: rs.map((a) => ({ ...a, selected: !!st.sel[a.id], selLabel: 'Select ' + a.id, onToggle: () => this.setState((s) => ({ sel: { ...s.sel, [a.id]: !s.sel[a.id] } })), onOpen: this.go('/actions/' + a.id), milestone: a.milestoneLabel, tracked: a.tracked,
+          rowStyle: { display: 'grid', gridTemplateColumns: '28px 58px minmax(200px, 2fr) 130px minmax(140px, 1.1fr) 120px 104px 70px 110px 120px', gap: 10, alignItems: 'center', padding: '10px 14px', borderBottom: '1px solid var(--op-line)', background: st.sel[a.id] ? 'var(--op-sbg)' : 'transparent' } })) }; });
+    const fl = [['mine', 'My actions'], ['overdue', 'Overdue'], ['week', 'Due this week'], ['blocked', 'Blocked'], ['pending', 'Owner pending']];
+    const bulkDo = (fn, msg) => () => { sel.forEach((id) => fn(acts.find((a) => a.id === id))); this.setState({ sel: {} }); this.toast(sel.length + ' ' + msg); };
+    return {
+      listEmpty: false, listFull: true, groups,
+      groupBys: [['brief', 'Brief'], ['status', 'Status'], ['owner', 'Owner'], ['milestone', 'Milestone']].map(([k, l]) => ({ label: l, selected: st.groupBy === k, onClick: () => this.setState({ groupBy: k }) })),
+      filters: fl.map(([k, l]) => { const on = st.filter === k; return { label: l, selected: on, onClick: () => this.setState({ filter: on ? null : k }), style: { cursor: 'pointer', borderRadius: 999, padding: '6px 11px', fontFamily: 'inherit', fontSize: 12.5, fontWeight: on ? 700 : 500, border: '1px solid ' + (on ? 'var(--op-ink)' : 'var(--op-rule)'), background: on ? 'var(--op-ink)' : 'transparent', color: on ? 'var(--op-bg)' : 'var(--op-ink)', whiteSpace: 'nowrap' } }; }),
+      sourceOptions: [['all', 'All sources'], ['decision', 'Decisions'], ['gap', 'Gaps'], ['validation', 'Validation'], ['reattest', 'Re-attestation'], ['milestone', 'Milestones'], ['manual', 'Manual']].map(([value, label]) => ({ value, label })), sourceF: st.sourceF, onSourceF: (e) => this.setState({ sourceF: e.target.value }),
+      trackedOptions: [{ value: 'all', label: 'Tracked anywhere' }, { value: 'int', label: 'Tracked in [Product]' }, { value: 'ext', label: 'Tracked in ServiceNow' }], trackedF: st.trackedF, onTrackedF: (e) => this.setState({ trackedF: e.target.value }),
+      hasSel: sel.length > 0, selLabel: sel.length + ' selected',
+      bulk: [
+        { label: 'Due date +7 days', onClick: bulkDo((a) => { const d = new Date(a.due + ' 12:00'); d.setDate(d.getDate() + 7); this.patch(a.id, { due: this.fmt(d) }, 'moved the due date to ' + this.fmt(d)); }, 'due dates moved a week') },
+        { label: 'Reassign to Kari', onClick: bulkDo((a) => this.patch(a.id, { owner: 'kari', accept: 'Requested' }, 'reassigned to Kari Nordmann · new acceptance request'), 'reassigned · acceptance restarts') },
+        { label: 'Set In progress', onClick: bulkDo((a) => { if (!a.external) this.patch(a.id, { status: 'In progress' }, 'set status to In progress'); }, 'set to In progress (ServiceNow ones skipped)') },
+        { label: 'Move to Pilot live', onClick: bulkDo((a) => this.patch(a.id, { milestone: 'Pilot live with IT team' }, 'moved to milestone Pilot live'), 'moved to Pilot live') },
+      ],
+    };
+  }
+  quickAdd(k, sample) {
+    const t = (this.state.quick[k] || '').trim(); if (!t) return;
+    const S = this.store(); const id = 'A-0' + (24 + S.extra.length);
+    S.extra.push({ id, brief: (sample && sample.brief) || 'it-helpdesk-v1', title: t, source: 'Manual', owner: this.props.persona || 'kari', accept: 'Accepted', due: 'Nov 19, 2026', status: 'To do', tracked: '[Product]' });
+    S.upd[id] = [{ who: this.me().name, text: 'created this action', when: 'just now' }];
+    this.setState((s) => ({ quick: { ...s.quick, [k]: '' } })); this.toast(id + ' added · due Nov 19');
+  }
+
+  board(PD, acts) {
+    const st = this.state;
+    const cols = ['To do', 'In progress', 'Blocked', 'Done'].concat(st.showCanceled ? ['Canceled'] : []);
+    const move = (id, to) => { const a = acts.find((x) => x.id === id); if (!a || a.status === to) return; if (a.external) { this.toast(id + ' is tracked in ServiceNow · change it there'); return; } if (to === 'Blocked' || to === 'Canceled') { this.setState({ blockFor: id, blockTo: to, blockReason: '', blockBy: '' }); return; } this.patch(id, { status: to }, 'moved to ' + to); this.toast(id + ' → ' + to); };
+    const card = (a) => ({ ...a, hasReason: a.status === 'Blocked' && !!a.reason, reason: 'Blocked: ' + a.reason, checkLabel: a.hasChecklist ? 'Checklist ' + a.checklist : a.external ? a.tracked : '',
+      onDrag: (e) => { this.dragId = a.id; try { e.dataTransfer.setData('text/plain', a.id); } catch (x) {} }, onOpen: this.go('/actions/' + a.id), onMove: (e) => { if (e.target.value) move(a.id, e.target.value); },
+      style: { display: 'flex', flexDirection: 'column', gap: 8, borderRadius: 14, border: '1px solid ' + (a.overdue ? 'var(--op-amberbar)' : 'var(--op-line)'), background: 'var(--op-sf)', padding: 12, cursor: 'grab' } });
+    const lanesSrc = st.swim ? [...new Set(acts.map((a) => a.briefName))].map((n) => ({ label: n, list: acts.filter((a) => a.briefName === n) })) : [{ label: '', list: acts }];
+    const blocking = acts.find((a) => a.id === st.blockFor);
+    return {
+      showCanceled: st.showCanceled, toggleCanceled: () => this.setState({ showCanceled: !st.showCanceled }), swim: st.swim, toggleSwim: () => this.setState({ swim: !st.swim }),
+      moveOptions: [{ value: '', label: 'Move to…' }].concat(['To do', 'In progress', 'Blocked', 'Done', 'Canceled'].map((c) => ({ value: c, label: c }))),
+      lanes: lanesSrc.map((l) => ({ label: l.label, hasLabel: !!l.label, cols: cols.map((c) => { const cards = l.list.filter((a) => a.status === c).map(card); return { name: c, count: cards.length, cards,
+        onOver: (e) => e.preventDefault(), onDrop: (e) => { e.preventDefault(); const id = this.dragId || (e.dataTransfer && e.dataTransfer.getData('text/plain')); this.dragId = null; if (id) move(id, c); },
+        style: { display: 'flex', flexDirection: 'column', gap: 8, minHeight: 140, borderRadius: 16, background: 'var(--op-ink-a05)', padding: 10, boxSizing: 'border-box' } }; }) })),
+      blockOpen: !!st.blockFor, blockTitle: st.blockTo === 'Canceled' ? 'Why is it canceled?' : 'Why is it blocked?', blockSub: blocking ? blocking.id + ' · ' + blocking.title : '',
+      blockReason: st.blockReason, onBlockReason: (e) => this.setState({ blockReason: e.target.value }), noBlockReason: !st.blockReason.trim(),
+      blockByOptions: [{ value: '', label: 'Not blocked by another action' }].concat(acts.filter((a) => a.id !== st.blockFor && !a.closed).map((a) => ({ value: a.id, label: a.id + ' · ' + a.title }))), blockBy: st.blockBy, onBlockBy: (e) => this.setState({ blockBy: e.target.value }),
+      cancelBlock: () => this.setState({ blockFor: null }),
+      confirmBlock: () => { const id = st.blockFor; const r = st.blockReason + (st.blockBy ? ' · waiting on ' + st.blockBy : ''); this.patch(id, { status: st.blockTo, reason: r }, (st.blockTo === 'Blocked' ? 'marked blocked: ' : 'canceled: ') + r); this.setState({ blockFor: null }); this.toast(id + ' → ' + st.blockTo + (st.blockTo === 'Blocked' ? ' · its milestone is now at risk' : '')); },
+    };
+  }
+
+  plan(PD, acts) {
+    const st = this.state, S = this.store();
+    const start = new Date('2026-10-01T12:00:00'), end = new Date('2027-03-15T12:00:00'), span = end - start;
+    const pos = (d) => Math.max(0, Math.min(100, (d - start) / span * 100));
+    const months = [['Oct', '2026-10-01'], ['Nov', '2026-11-01'], ['Dec', '2026-12-01'], ['Jan 2027', '2027-01-01'], ['Feb', '2027-02-01'], ['Mar', '2027-03-01']].map(([l, d]) => ({ label: l, x: pos(new Date(d + 'T12:00:00')) }));
+    const ms = this.msStatus(PD, acts);
+    const dragD = (kind, id) => st.drag && st.drag.kind === kind && st.drag.id === id && st.dragDate ? st.dragDate : null;
+    const mark = (kind, id, date, styleFn, tip, onOpen) => { const d = dragD(kind, id) || date; return { tip: tip + ' · ' + this.fmt(d),
+      onDown: (e) => { const rect = e.currentTarget.parentElement.getBoundingClientRect(); this.setState({ drag: { kind, id, rect, orig: date }, dragDate: null, moved: false }); },
+      onClick: (e) => { if (this.justDragged) { this.justDragged = false; return; } onOpen(e); },
+      onEnter: () => this.setState({ hoverMark: kind + id }), onLeave: () => this.setState({ hoverMark: null }), x: pos(d), style: styleFn(pos(d)) }; };
+    const dia = (risk, done) => (x) => ({ position: 'absolute', left: 'calc(' + x + '% - 8px)', top: 17, width: 16, height: 16, transform: 'rotate(45deg)', borderRadius: 3, boxSizing: 'border-box', cursor: 'grab', zIndex: 2, border: '2px solid ' + (done ? 'var(--op-link)' : risk ? 'var(--op-amberbar)' : 'var(--op-ink)'), background: done ? 'var(--op-mint)' : risk ? 'var(--op-band)' : 'var(--op-sf)' });
+    const dot = (a) => (x) => ({ position: 'absolute', left: 'calc(' + x + '% - 6px)', top: 19, width: 12, height: 12, borderRadius: 999, cursor: 'grab', zIndex: 3, boxSizing: 'border-box', background: a.status === 'Done' ? 'var(--op-greenbar)' : a.overdue || a.status === 'Blocked' ? 'var(--op-amberbar)' : 'var(--op-ink)', border: a.accept === 'Requested' ? '2px dashed var(--op-sage)' : '2px solid var(--op-sf)' });
+    const brief = acts.filter((a) => a.brief === 'it-helpdesk-v1');
+    const rowFor = (label, sub, subWarn, marks) => { const h = marks.find((k) => st.hoverMark === k.key); return { label, sub, subStyle: { fontSize: 11.5, fontWeight: subWarn ? 700 : 400, color: subWarn ? 'var(--op-caution)' : 'var(--op-mut)' }, bands: [], marks, hasTip: !!h, tip: h ? h.tip : '',
+      tipStyle: h ? { position: 'absolute', zIndex: 10, top: -6, left: 'calc(' + Math.min(h.x, 70) + '% + 14px)', borderRadius: 10, border: '1px solid var(--op-line)', background: 'var(--op-sf)', padding: '5px 9px', fontSize: 12, whiteSpace: 'nowrap', boxShadow: '0 18px 40px -24px rgba(25,21,16,.45)' } : {} }; };
+    const roundsRow = { label: 'Rounds', sub: 'R1 – R4 · lock Nov 14', subStyle: { fontSize: 11.5, color: 'var(--op-mut)' }, marks: [], hasTip: false,
+      bands: [['R1', '2026-10-05', '2026-10-16'], ['R2', '2026-10-19', '2026-10-23'], ['R3', '2026-10-26', '2026-11-13'], ['R4', '2026-11-16', '2026-11-17']].map(([l, a, b]) => { const x = pos(new Date(a + 'T12:00:00')), w = pos(new Date(b + 'T12:00:00')) - x; return { label: l, style: { position: 'absolute', left: x + '%', width: 'max(' + w + '%, 22px)', top: 14, height: 24, boxSizing: 'border-box', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 8, background: l === 'R3' ? 'var(--op-sbg)' : 'var(--op-pulse)', border: '1px solid ' + (l === 'R3' ? 'var(--op-ink)' : 'var(--op-sage)'), fontSize: 11, fontWeight: 700, overflow: 'hidden' } }; }) };
+    const rows = [roundsRow].concat(ms.map((m) => {
+      const marks = [{ key: 'm' + m.key, ...mark('m', m.key, m.date, dia(m.status === 'At risk', m.status === 'Done'), m.name, this.go('/briefs/it-helpdesk-v1/milestones')) }]
+        .concat(brief.filter((a) => a.milestone === m.name).map((a) => ({ key: 'a' + a.id, ...mark('a', a.id, new Date(a.due + ' 12:00'), dot(a), a.id + ' ' + a.title + ' · ' + a.status, this.go('/actions/' + a.id)) })));
+      return rowFor(m.name, m.status === 'At risk' ? 'At risk · ' + m.dateLabel : m.status + ' · ' + m.dateLabel, m.status === 'At risk', marks);
+    })).concat([rowFor('No milestone', 'Actions without a milestone', false, brief.filter((a) => !a.milestone).map((a) => ({ key: 'a' + a.id, ...mark('a', a.id, new Date(a.due + ' 12:00'), dot(a), a.id + ' ' + a.title, this.go('/actions/' + a.id)) })))]);
+    const commit = (drag, date) => { if (drag.kind === 'm') { S.ms[drag.id] = this.iso(date); this.forceUpdate(); this.toast('Milestone moved to ' + this.fmt(date)); } else { this.patch(drag.id, { due: this.fmt(date) }, 'moved the due date to ' + this.fmt(date)); this.toast(drag.id + ' due ' + this.fmt(date)); } };
+    const goLive = new Date('2027-01-12T12:00:00');
+    return {
+      months: months.map((m) => ({ label: m.label, style: { position: 'absolute', left: m.x + '%', top: 10, paddingLeft: 6, fontSize: 11.5, fontWeight: 700, color: 'var(--op-mut)', whiteSpace: 'nowrap' } })),
+      monthLines: months.map((m) => ({ position: 'absolute', left: m.x + '%', top: 0, bottom: 0, width: 1, background: 'var(--op-line)' })),
+      todayLine: { position: 'absolute', left: pos(new Date('2026-11-12T12:00:00')) + '%', top: 0, bottom: 0, width: 2, background: 'var(--op-ink)', opacity: 0.6, zIndex: 1 },
+      planRows: rows,
+      onDragMove: (e) => { const dg = st.drag; if (!dg) return; const r = dg.rect; const pct = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)); const d = new Date(start.getTime() + pct * span); d.setHours(12, 0, 0, 0); this.setState({ dragDate: d, moved: true }); },
+      onDragEnd: () => { const dg = st.drag; if (!dg) return; const d = st.dragDate; this.setState({ drag: null, dragDate: null }); if (!st.moved || !d) return; this.justDragged = true; setTimeout(() => { this.justDragged = false; }, 50); if (d > goLive) { this.setState({ moveConfirm: { drag: dg, date: d } }); return; } commit(dg, d); },
+      moveOpen: !!st.moveConfirm, moveSub: st.moveConfirm ? 'You’re moving it to ' + this.fmt(st.moveConfirm.date) + ', after go-live on Jan 12, 2027. The brief owner and decider are told.' : '',
+      cancelMove: () => this.setState({ moveConfirm: null }), confirmMove: () => { const m = st.moveConfirm; this.setState({ moveConfirm: null }); commit(m.drag, m.date); },
+    };
+  }
+
+  mine(PD, acts, persona) {
+    const st = this.state; const who = st.meWho || persona; const p = PD.people[who];
+    const mineAll = acts.filter((a) => a.owner === who);
+    const req = mineAll.filter((a) => a.accept === 'Requested');
+    const rest = mineAll.filter((a) => a.accept !== 'Requested' && a.accept !== 'Declined');
+    const row = (a) => ({ ...a, canDone: !a.closed && !a.external, onOpen: this.go('/actions/' + a.id), onDone: () => { this.patch(a.id, { status: 'Done' }, 'marked done'); this.toast(a.id + ' done · logged'); } });
+    const G = [['Overdue', rest.filter((a) => a.overdue)], ['Due this week', rest.filter((a) => !a.closed && !a.overdue && a.diff <= 6)], ['Later', rest.filter((a) => !a.closed && a.diff > 6)], ['Done · last 14 days', rest.filter((a) => a.status === 'Done')]];
+    return {
+      meOptions: ['kari', 'daniel', 'sam', 'lena', 'priya', 'mei'].map((k) => ({ value: k, label: PD.people[k].name })), meWho: who, onMeWho: (e) => this.setState({ meWho: e.target.value, declining: null }),
+      title: p.first === 'Kari' && persona === 'kari' ? 'My actions' : 'Actions for ' + p.name,
+      requests: req.map((a) => ({ ...a, from: a.source.startsWith('◆ D-') ? 'Daniel Reyes' : 'Kari Nordmann', source: a.source.replace('◆ ', ''), brief: a.briefName, due: a.due.replace(', 2026', ''), asking: st.declining !== a.id, declining: st.declining === a.id,
+        onAccept: () => { this.patch(a.id, { accept: 'Accepted' }, 'accepted ownership'); this.toast(a.id + ' accepted · it’s yours'); },
+        onDecline: () => this.setState({ declining: a.id, declineReason: '' }), onCancelDecline: () => this.setState({ declining: null }),
+        onSendDecline: () => { this.patch(a.id, { accept: 'Declined', declineReason: st.declineReason }, 'declined: ' + st.declineReason); this.setState({ declining: null }); this.toast('Declined · Kari Nordmann sees your reason'); } })),
+      declineReason: st.declineReason, onDeclineReason: (e) => this.setState({ declineReason: e.target.value }), noDeclineReason: !st.declineReason.trim(),
+      mineGroups: G.map(([label, rs]) => ({ label, count: rs.length, rows: rs.map(row), empty: rs.length === 0 })),
+    };
+  }
+
+  detail(PD, acts, path, vs, persona) {
+    const st = this.state; const S = this.store();
+    const a0 = acts.find((x) => x.id === path.split('/')[2]) || acts[0];
+    const CL = { 'A-014': [['Export Q1 orders from the asset system', true], ['Split by category and department', false], ['Share the summary with Daniel Reyes', false]], 'A-020': [['Pick a date with the service desk', false], ['Send the pilot survey of tickets', false]] };
+    const checklistItems = a0.checklistItems || (CL[a0.id] ? CL[a0.id].map(([label, done]) => ({ label, done })) : null);
+    const DESC = { 'A-014': 'Finance needs Q1 hardware spend by category before D-04 is revisited in Q2.', 'A-015': 'Turn on MFA push for resets that start in chat, with a phone fallback through the desk.', 'A-016': 'A one-page runbook: who gets paged, how fast, and what the agent says while they wait.', 'A-019': 'The agent’s data sources still include the HR-record lookup. Remove it once MFA push is live.' };
+    const isDec = /^◆ D-/.test(a0.source);
+    const evidence = a0.id === 'A-014';
+    const srcId = a0.source.replace('◆ ', '');
+    const srcTo = /^D-/.test(srcId) ? '/decisions/' + srcId.slice(0, 4) : srcId.startsWith('Gap') ? '/briefs/it-helpdesk-v1/synthesis/gaps' : srcId.startsWith('Validation') ? '/briefs/it-helpdesk-v1/validation' : srcId.startsWith('Re-attestation') ? '/briefs/support-t1/distribution/re-attestation' : '/briefs/it-helpdesk-v1/milestones';
+    const decTitle = { 'D-03': 'Password resets through chat', 'D-04': 'Hardware orders without approval', 'D-05': 'Personal devices', 'D-06': 'After-hours escalation', 'D-11': 'Return window' };
+    const base = [{ who: isDec ? 'Daniel Reyes' : 'Kari Nordmann', text: 'created this action from ' + srcId, when: a0.id === 'A-014' ? 'Oct 28' : 'Nov 2' }, { who: a0.ownerName, text: a0.accept === 'Requested' ? 'was asked to own it' : 'accepted', when: a0.id === 'A-014' ? 'Oct 29' : 'Nov 3' }];
+    if (a0.id === 'A-014') base.push({ who: 'Lena Ortiz', text: 'set status to In progress', when: 'Nov 3' });
+    const syncFailed = vs === 'Sync failed' && a0.external && !st.syncRetried;
+    return {
+      a: { ...a0, dueIso: this.iso(new Date(a0.due + ' 12:00')), internal: !a0.external, declined: a0.accept === 'Declined', canDone: !a0.closed, syncFailed,
+        mapped: a0.mapped || (a0.status === 'In progress' ? 'ServiceNow “Work in Progress” → In progress' : 'ServiceNow “New” → To do'),
+        collab: a0.id === 'A-014' ? ['Daniel Reyes', 'Sam Okafor'] : ['Kari Nordmann'], milestone: a0.milestoneLabel,
+        sourceLong: isDec ? 'From decision ' + srcId + ': ' + (decTitle[srcId] || '') : 'From ' + srcId,
+        description: DESC[a0.id] || 'Added from ' + srcId + ' on ' + a0.briefName + '.',
+        hasChecklist: !!checklistItems, checkLabel: checklistItems ? checklistItems.filter((c) => c.done).length + ' of ' + checklistItems.length : '',
+        checklistItems: (checklistItems || []).map((c, i) => ({ ...c, rowStyle: { borderColor: 'var(--op-line)', padding: '9px 12px' }, onToggle: () => { const next = checklistItems.map((x, j) => j === i ? { ...x, done: !x.done } : x); this.patch(a0.id, { checklistItems: next }, (next[i].done ? 'ticked “' : 'unticked “') + c.label + '”'); } })),
+        hasLinks: a0.id === 'A-014', links: ['Q1 hardware orders.xlsx', 'D-04 decision record'],
+        updates: base.concat(S.upd[a0.id] || []), createdBy: isDec ? 'Daniel Reyes' : 'Kari Nordmann', created: a0.id === 'A-014' ? 'Oct 28, 2026' : 'Nov 2, 2026' },
+      closeDetail: this.go('/actions'), goBriefSynth: this.go('/briefs/' + a0.brief + (a0.brief === 'support-t1' ? '/versions' : '/synthesis')), goMilestones: this.go('/briefs/it-helpdesk-v1/milestones'), goSource: this.go(srcTo),
+      statusOptions: ['To do', 'In progress', 'Blocked', 'Done', 'Canceled'].map((s) => ({ value: s, label: s })), prioOptions: ['High', 'Normal', 'Low'].map((s) => ({ value: s, label: s })),
+      onTitle: (e) => this.patch(a0.id, { title: e.target.value }),
+      onStatus: (e) => { const v = e.target.value; if (a0.external) { this.toast('Tracked in ServiceNow · change status there'); return; } if (v === 'Blocked' || v === 'Canceled') { this.setState({ reason: v, reasonText: '' }); return; } if (v === 'Done') { this.setState({ doneOpen: true, doneNote: '' }); return; } this.patch(a0.id, { status: v }, 'set status to ' + v); },
+      onPriority: (e) => this.patch(a0.id, { priority: e.target.value }, 'set priority to ' + e.target.value),
+      onDue: (e) => { const d = new Date(e.target.value + 'T12:00:00'); if (!isNaN(d)) this.patch(a0.id, { due: this.fmt(d) }, 'moved the due date to ' + this.fmt(d)); },
+      needReason: !!st.reason, reasonPrompt: st.reason === 'Blocked' ? 'Why is it blocked? Name the action it’s waiting on if there is one.' : 'Why is it canceled? The reason stays on the action.', reasonText: st.reasonText, onReasonText: (e) => this.setState({ reasonText: e.target.value }), noReason: !st.reasonText.trim(),
+      saveReason: () => { this.patch(a0.id, { status: st.reason, reason: st.reasonText }, (st.reason === 'Blocked' ? 'marked blocked: ' : 'canceled: ') + st.reasonText); this.setState({ reason: null }); }, cancelReason: () => this.setState({ reason: null }),
+      openDone: () => this.setState({ doneOpen: true, doneNote: '' }), doneOpen: st.doneOpen, doneNote: st.doneNote, onDoneNote: (e) => this.setState({ doneNote: e.target.value }),
+      donePrompt: evidence ? 'Evidence required by the decider: add a note or a link.' : 'Add a completion note (optional).', doneBlocked: evidence && !st.doneNote.trim(),
+      confirmDone: () => { this.patch(a0.id, { status: 'Done' }, 'marked done' + (st.doneNote ? ': ' + st.doneNote : '')); this.setState({ doneOpen: false }); this.toast(a0.id + ' done · the close-the-loop note updates'); }, cancelDone: () => this.setState({ doneOpen: false }),
+      reassignOptions: [{ value: '', label: 'Reassign…' }].concat(['kari', 'priya', 'sam', 'lena', 'mei', 'tom', 'grace', 'jordan'].filter((k) => k !== a0.owner).map((k) => ({ value: k, label: PD.people[k].name }))),
+      onReassign: (e) => { const k = e.target.value; if (!k) return; this.patch(a0.id, { owner: k, accept: 'Requested', declineReason: null }, 'reassigned to ' + PD.people[k].name + ' · new acceptance request'); this.toast('Request sent to ' + PD.people[k].name); },
+      syncNow: () => { this.patch(a0.id, { status: 'In progress', mapped: 'ServiceNow “Work in Progress” → In progress' }, 'synced from ServiceNow: Work in Progress → In progress'); this.toast('Synced from ServiceNow'); },
+      retrySync: () => { this.setState({ syncRetried: true }); this.toast('ServiceNow reachable again · synced'); },
+      moveExternal: () => { this.patch(a0.id, { tracked: 'ServiceNow TASK0089120' }, 'moved to ServiceNow TASK0089120'); this.toast('Now tracked in ServiceNow · read-only here'); },
+      comment: st.comment, onComment: (e) => this.setState({ comment: e.target.value }), noComment: !st.comment.trim(), postComment: () => { this.patch(a0.id, {}, st.comment); this.setState({ comment: '' }); },
+    };
+  }
+
+  milestones(PD, acts, persona) {
+    const st = this.state, S = this.store();
+    const ms = this.msStatus(PD, acts).concat((S.extraMs || []).map((m) => ({ ...m, linked: [], dateLabel: m.date, status: 'Upcoming' })));
+    const pill = (s) => s === 'Done' ? this.chip('var(--op-mint)', 'var(--op-greendeep)') : s === 'At risk' || s === 'Missed' ? this.chip('var(--op-band)', 'var(--op-cautiondeep)') : this.chip('var(--op-track)', 'var(--op-ink)');
+    return {
+      msRows: ms.map((m) => { const done = m.linked.filter((a) => a.status === 'Done').length; const risk = m.status === 'At risk';
+        return { name: m.name, date: m.dateLabel, ownerLabel: m.owner === 'auto' ? m.auto : 'Owner ' + PD.people[m.owner].name + (m.approve ? ' · ' + m.approve.toLowerCase() : ''),
+          status: risk ? 'At risk · ' + (m.linked.find((a) => a.overdue) ? m.linked.find((a) => a.overdue).id + ' overdue' : m.linked.find((a) => a.status === 'Blocked').id + ' blocked') : m.status, pill: pill(m.status),
+          progressLabel: m.linked.length ? done + ' of ' + m.linked.length + ' actions done' : 'No linked actions', pct: m.linked.length ? Math.round(done / m.linked.length * 100) : 0,
+          canApprove: !!m.approve && m.status !== 'Done', onApprove: () => { S.ms[m.key + '_done'] = true; this.forceUpdate(); this.toast('Go-live completion approved by Daniel Reyes'); },
+          diamond: { width: 14, height: 14, flex: 'none', transform: 'rotate(45deg)', borderRadius: 3, boxSizing: 'border-box', border: '2px solid ' + (m.status === 'Done' ? 'var(--op-link)' : risk ? 'var(--op-amberbar)' : 'var(--op-ink)'), background: m.status === 'Done' ? 'var(--op-mint)' : risk ? 'var(--op-band)' : 'var(--op-sf)' } }; }),
+      msName: st.msName, onMsName: (e) => this.setState({ msName: e.target.value }), noMsName: !st.msName.trim(), msDate: st.msDate, onMsDate: (e) => this.setState({ msDate: e.target.value }),
+      ownerOptions: ['kari', 'priya', 'sam', 'lena', 'mei'].map((k) => ({ value: k, label: PD.people[k].name })), msOwner: st.msOwner, onMsOwner: (e) => this.setState({ msOwner: e.target.value }),
+      addMilestone: () => { S.extraMs = [...(S.extraMs || []), { key: 'x' + Date.now(), name: st.msName, date: this.fmt(new Date(st.msDate + 'T12:00:00')), owner: st.msOwner }]; this.setState({ msName: '' }); this.toast('Milestone added'); },
+    };
+  }
+
+  digest(PD, acts, persona, vs) {
+    const st = this.state; const who = st.dgWho || persona; const p = PD.people[who];
+    const mine = acts.filter((a) => a.owner === who);
+    const done = (k) => st.dgDone[k];
+    const row = (k, title, sub, buttons) => ({ title, sub, open: !done(k), done: !!done(k), doneLabel: done(k), buttons: buttons.map(([l, tone, msg, fn]) => ({ label: l, tone, onClick: () => { if (fn) fn(); this.setState((s) => ({ dgDone: { ...s.dgDone, [k]: msg } })); } })) });
+    const secs = [];
+    const od = mine.filter((a) => a.overdue); if (od.length) secs.push({ label: 'Overdue', rows: od.map((a) => row(a.id, a.id + ' ' + a.title, a.briefName + ' · was due ' + a.due.replace(', 2026', ''), [['Mark done', 'solid', 'Done · logged', () => this.patch(a.id, { status: 'Done' }, 'marked done from the digest')], ['Open', 'secondary', 'Opened', null]])) });
+    const wk = mine.filter((a) => !a.closed && !a.overdue && a.diff <= 6 + 4); if (wk.length) secs.push({ label: 'Due this week', rows: wk.map((a) => row(a.id, a.id + ' ' + a.title, a.briefName + ' · due ' + a.due.replace(', 2026', ''), [['Mark done', 'solid', 'Done · logged', () => this.patch(a.id, { status: 'Done' }, 'marked done from the digest')], ['Open', 'secondary', 'Opened', null]])) });
+    const rq = mine.filter((a) => a.accept === 'Requested'); if (rq.length) secs.push({ label: 'Ownership requests', rows: rq.map((a) => row(a.id + 'r', a.id + ' ' + a.title, 'Asked by Daniel Reyes · due ' + a.due.replace(', 2026', ''), [['Accept', 'solid', 'Accepted', () => this.patch(a.id, { accept: 'Accepted' }, 'accepted from the digest')], ['Open', 'secondary', 'Opened', null]])) });
+    if (who === 'kari') {
+      const a19 = acts.find((a) => a.id === 'A-019');
+      if (a19 && a19.status === 'Blocked') secs.push({ label: 'Escalated to you', rows: [row('esc', 'A-019 has been blocked for 5 days', 'Remove HR-record lookup · waiting on A-015 · milestone Pilot live is at risk', [['Open', 'solid', 'Opened', null]])] });
+      secs.push({ label: 'Milestones this week', rows: [row('ms', 'Brief locked · Sat, Nov 14', 'IT Helpdesk Agent v1 · completes on lock · at risk while A-017 is overdue', [['Open', 'secondary', 'Opened', null]])] });
+    }
+    const n = secs.reduce((s, x) => s + x.rows.length, 0);
+    const R = st.rules;
+    return {
+      meOptions: ['kari', 'daniel', 'sam', 'lena', 'priya', 'mei'].map((k) => ({ value: k, label: PD.people[k].name })), dgWho: who, onDgWho: (e) => this.setState({ dgWho: e.target.value }),
+      dgFirst: p.first, dgSummary: n ? n + (n === 1 ? ' thing needs' : ' things need') + ' you this week.' : 'Nothing needs you this week.', dgSections: secs,
+      dgHeader: vs === 'Slack' ? 'Slack · direct message from the [Product] app · Monday, Nov 16 · 8:00 AM' : 'Email · from [Product] for Lumio Inc. · Monday, Nov 16 · 8:00 AM',
+      rRules: [['r1', '3 days before the due date'], ['r2', 'On the due date'], ['r3', 'Every 3 days while overdue, stop after 3'], ['r4', 'Escalate to the brief owner when 7 days overdue'], ['r5', 'Escalate to the brief owner when blocked for 5 days']].map(([k, text]) => ({ text, on: R[k], onToggle: () => this.setState((s) => ({ rules: { ...s.rules, [k]: !s.rules[k] } })) })),
+    };
+  }
+
+  sync(vs) {
+    const st = this.state; const none = vs === 'Nothing connected';
+    const mint = this.chip('var(--op-mint)', 'var(--op-greendeep)'), tr = this.chip('var(--op-track)', 'var(--op-mut)');
+    const tool = (name, on, note) => ({ name, connected: on, state: on ? '✓ Connected' : 'Not connected', pill: on ? mint : tr, note, action: on ? 'Settings' : 'Connect', tone: on ? 'secondary' : 'quiet', onClick: () => this.toast(on ? name + ' settings' : name + ' would open its sign-in'),
+      style: { display: 'flex', flexDirection: 'column', gap: 8, borderRadius: 16, border: '1px solid ' + (on ? 'var(--op-ink)' : 'var(--op-line)'), background: 'var(--op-sf)', padding: 16 } });
+    const SM = [['New', 'To do'], ['Work in Progress', 'In progress'], ['On Hold', 'Blocked'], ['Closed Complete', 'Done'], ['Closed Incomplete', 'Canceled']];
+    return {
+      syncNone: none, syncOn: !none,
+      tools: [tool('Jira', false, 'Lumio doesn’t use Jira'), tool('ServiceNow', !none, none ? 'Track actions as change requests or tasks' : 'Connected by Kari Nordmann · Sep 14 · 2 actions tracked'), tool('Microsoft Planner', false, 'Plans per brief'), tool('Asana', false, 'Projects per brief')],
+      testConn: () => this.toast('ServiceNow responded in 240 ms · mapping OK'),
+      fieldMap: [['Owner', 'Assigned to'], ['Due date', 'Due date'], ['Status', 'State'], ['Priority', 'Priority'], ['Title', 'Short description']].map(([a, b]) => ({ a, b })),
+      statusOptions: ['To do', 'In progress', 'Blocked', 'Done', 'Canceled'].map((s) => ({ value: s, label: s })),
+      statusMap: SM.map(([ext, def]) => ({ ext, val: st.statusMap[ext] || def, onChange: (e) => { const v = e.target.value; this.setState((s) => ({ statusMap: { ...s.statusMap, [ext]: v } })); } })),
+      trackOptions: [{ value: '[Product]', label: 'Track in [Product]' }, { value: 'ServiceNow', label: 'Track in ServiceNow' }],
+      tplDefaults: ['IT helpdesk agent', 'HR helpdesk agent', 'Customer service agent', 'AI-use policy', 'Incident response playbook'].map((name) => ({ name, val: st.tplTrack[name] || (name === 'Incident response playbook' ? 'ServiceNow' : '[Product]'), onChange: (e) => { const v = e.target.value; this.setState((s) => ({ tplTrack: { ...s.tplTrack, [name]: v } })); } })),
+      csv: () => this.toast('actions.csv · 13 actions · downloading'), ical: () => this.toast('iCal feed link copied'),
+    };
+  }
+}
+</script>
+</body>
+</html>
