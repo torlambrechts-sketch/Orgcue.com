@@ -5,16 +5,23 @@
 //           hydrates the shared store (K.S) with the user-made state that lives in the database.
 // persist() receives every K.set patch and writes the matching rows. Screens never talk to Supabase directly.
 //
-// Prototype posture (docs/ASSESSMENT.md): no auth, RLS off, public anon key.
-import { createClient } from '@supabase/supabase-js';
+// Accounts: Supabase Auth (email + password). Row-level security lets signed-in workspace members read and write;
+// the session cookie is shared with the middleware through @supabase/ssr (src/lib/supabase).
+import { supabaseBrowser } from '@/lib/supabase/client';
 import { SEED } from './demo-data';
 import { K } from './kit';
 
 const URL_ = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-export const sb = URL_ && KEY ? createClient(URL_, KEY, { auth: { persistSession: false } }) : null;
+export const sb = URL_ && KEY ? supabaseBrowser() : null;
 export const P = 'it-helpdesk';
 export const status = { online: false, error: '' };
+/** The signed-in account: { userId, email, personId, name, ini }. The demo bar's "View as" persona is separate. */
+let actor = null;
+export const getActor = () => actor;
+/** True once supabase/migrations/0003_auth.sql has run (people.user_id, audit_events.user_id, RLS). */
+let accountsSchema = false;
+const actorCol = () => (accountsSchema && actor ? { user_id: actor.userId } : {});
 
 let D = null;
 export const getD = () => D;
@@ -35,6 +42,8 @@ const STATE_KEYS = ['t01', 'gateFix', 'lint', 'gen', 'loopSent', 'nudged', 'skip
 // ---------- load ----------
 export async function load() {
   if (!sb) { D = clone(SEED); status.error = 'Supabase is not configured · showing the built-in demo data'; return {}; }
+  const { data: { user } } = await sb.auth.getUser();
+  if (!user) return null; // signed out: the shell sends the visitor to /login
   const res = await Promise.all(TABLES.map((t) => sb.from(t).select('*')));
   const bad = res.find((r) => r.error);
   if (bad) { D = clone(SEED); status.error = 'Supabase unreachable · showing the built-in demo data (' + bad.error.message + ')'; return {}; }
@@ -43,7 +52,11 @@ export async function load() {
   const mine = (rows) => rows.filter((r) => r.project_id === P);
 
   const people = {};
-  R.people.forEach((p) => { people[p.id] = { id: p.id, name: p.name, first: p.name.split(' ')[0], title: p.title, orgRole: p.org_role, role: p.project_role, group: p.function_group, areas: p.authority_areas, channel: p.channel, ini: ini(p.name) }; });
+  R.people.forEach((p) => { people[p.id] = { id: p.id, name: p.name, first: p.name.split(' ')[0], title: p.title, orgRole: p.org_role, role: p.project_role, group: p.function_group, areas: p.authority_areas, channel: p.channel, ini: ini(p.name), email: p.email || '', userId: p.user_id || '' }; });
+  accountsSchema = R.people.length > 0 && 'user_id' in R.people[0];
+  const mePerson = R.people.find((p) => p.user_id === user.id);
+  const meName = (mePerson && mePerson.name) || (user.user_metadata && user.user_metadata.full_name) || (user.email || '').split('@')[0];
+  actor = { userId: user.id, email: user.email, personId: mePerson ? mePerson.id : '', name: meName, ini: ini(meName).slice(0, 2).toUpperCase() };
   const seedOrder = SEED.projects.map((p) => p.id);
   const projects = R.projects.slice().sort((a, b) => { const ia = seedOrder.indexOf(a.id), ib = seedOrder.indexOf(b.id); if (ia >= 0 && ib >= 0) return ia - ib; if (ia >= 0) return -1; if (ib >= 0) return 1; return a.created_at < b.created_at ? -1 : 1; })
     .map((p) => ({ id: p.id, name: p.name, type: p.type, phase: p.id === P ? null : p.phase, owner: p.owner_name, answered: p.answered, conflicts: p.conflicts, actions: p.actions_count, next: p.next_step, target: p.target, color: p.color, start: p.start_date, end: p.end_date, template: p.template || undefined, deadline: p.deadline || undefined }));
@@ -110,14 +123,17 @@ export async function load() {
 }
 
 // ---------- writes ----------
-const who = () => (D && D.people[K.who()] ? D.people[K.who()].name : 'Someone');
+const ROLE = { owner: 'Owner', decider: 'Decider', contributor: 'Contributor', admin: 'Org admin' };
+const persona = () => (D && D.people[K.who()] ? D.people[K.who()].name : 'Someone');
+/** Audit and sign-off attribution: the real account, plus the demo role it was acting in. */
+const who = () => (actor ? actor.name + ' · as ' + ROLE[K.S.role] : persona());
 const fail = (e) => { if (e) { console.error(e); K.toast('Couldn’t save · ' + (e.message || e)); } };
 const run = (q) => q.then(({ error }) => fail(error), fail);
 const upd = (t, v, match) => run(sb.from(t).update(v).match(match));
 const ups = (t, v, onConflict) => run(sb.from(t).upsert(v, onConflict ? { onConflict } : undefined));
 export const audit = (what, object) => {
   K.store.setState((s) => ({ audit: [[when(), who(), what, object || 'IT Helpdesk Agent v1']].concat(s.audit || []) }));
-  if (sb && status.online) run(sb.from('audit_events').insert({ who: who(), what, object: object || 'IT Helpdesk Agent v1' }));
+  if (sb && status.online) run(sb.from('audit_events').insert({ who: who(), what, object: object || 'IT Helpdesk Agent v1', ...actorCol() }));
 };
 const changed = (v, o) => Object.keys(v || {}).filter((k) => JSON.stringify((v || {})[k]) !== JSON.stringify((o || {})[k]));
 const state = (key, value) => ups('project_state', { project_id: P, key, value, updated_at: new Date().toISOString() }, 'project_id,key');
@@ -150,7 +166,9 @@ const W = {
   libPending: (v) => { upd('library_items', v ? { status: 'Change pending', proposed_text: 'MUST NOT order hardware above $400 without manager approval.' } : { status: 'Confirmed', proposed_text: '' }, { id: 'LIB-HC-015' }); audit(v ? 'Proposed a change to LIB-HC-015 · $250 → $400' : 'Withdrew the change to LIB-HC-015', 'LIB-HC-015'); },
   libAsked: (v, o) => changed(v, o).forEach((id) => { if (v[id]) audit('Asked whether ' + id + ' is still true', id); }),
   saved: (v, o) => { const keys = changed(v, o); if (keys.length) ups('settings', keys.map((key) => ({ org_id: 'lumio', key, value: v[key], updated_at: new Date().toISOString() })), 'org_id,key'); },
-  audit: (v, o) => { const n = (v || []).length - (o || []).length; if (n > 0) run(sb.from('audit_events').insert(v.slice(0, n).reverse().map(([, w, what, object]) => ({ who: w, what, object })))); },
+  audit: (v, o) => { const n = (v || []).length - (o || []).length; if (n <= 0) return;
+    const rows = v.slice(0, n); rows.forEach((r) => { r[1] = who(); }); // shown and stored as the signed-in account
+    run(sb.from('audit_events').insert(rows.slice().reverse().map(([, w, what, object]) => ({ who: w, what, object, ...actorCol() })))); },
   conn: (v, o) => changed(v, o).forEach((name) => { upd('integrations', { connected: !!v[name] }, { name }); audit((v[name] ? 'Connected ' : 'Disconnected ') + name, 'Integrations'); }),
   promoted: (v, o) => changed(v, o).forEach((id) => { upd('ideas', { outcome: v[id] }, { id }); audit(id + ' · ' + v[id], id); }),
 };
@@ -188,8 +206,14 @@ export async function createProject(p, f, secs, questions) {
   audit('Created project · ' + secs.length + ' sections, ' + questions.length + ' questions', p.name);
 }
 
+// Public page: works without an account (RLS allows anonymous inserts here and nothing else).
 export async function saveCustomerResponse(answers) {
-  if (sb && status.online) run(sb.from('customer_responses').insert({ project_id: P, answers }));
+  if (sb) run(sb.from('customer_responses').insert({ project_id: P, answers }));
+}
+
+export async function signOut() {
+  if (sb) await sb.auth.signOut();
+  window.location.assign('/login');
 }
 
 export async function exportEvidence(kind) {

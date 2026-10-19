@@ -3,10 +3,17 @@
 // Usage: npm run test:e2e -- [baseUrl]   (reads NEXT_PUBLIC_SUPABASE_URL / _ANON_KEY from .env.local)
 import { chromium } from 'playwright-core';
 import { readFileSync } from 'node:fs';
-const env = Object.fromEntries(readFileSync(new URL('../../.env.local', import.meta.url), 'utf8').split('\n').filter((l) => l.includes('=')).map((l) => [l.slice(0, l.indexOf('=')), l.slice(l.indexOf('=') + 1).trim()]));
+const fileEnv = Object.fromEntries(readFileSync(new URL('../../.env.local', import.meta.url), 'utf8').split('\n').filter((l) => l.includes('=')).map((l) => [l.slice(0, l.indexOf('=')), l.slice(l.indexOf('=') + 1).trim()]));
+// ORGCUE_TEST_* and E2E_SUPABASE_URL (e.g. the local mock-auth server) may come from the shell; nothing else does,
+// because this container exports a NEXT_PUBLIC_SUPABASE_URL for another project.
+const env = { ...fileEnv, ...Object.fromEntries(Object.entries(process.env).filter(([k]) => k.startsWith('ORGCUE_TEST_'))), ...(process.env.E2E_SUPABASE_URL ? { NEXT_PUBLIC_SUPABASE_URL: process.env.E2E_SUPABASE_URL } : {}) };
 const base = process.argv[2] || 'http://localhost:3000', SB = env.NEXT_PUBLIC_SUPABASE_URL, KEY = env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 const executablePath = process.env.CHROMIUM_PATH || '/opt/pw-browsers/chromium';
-const H = { apikey: KEY, Authorization: 'Bearer ' + KEY, 'Content-Type': 'application/json' };
+// Every app route needs an account now: sign in once for the database checks and once in the browser.
+if (!env.ORGCUE_TEST_EMAIL || !env.ORGCUE_TEST_PASSWORD) { console.log('Needs a confirmed test account: set ORGCUE_TEST_EMAIL and ORGCUE_TEST_PASSWORD in .env.local'); process.exit(1); }
+const tok = await (await fetch(SB + '/auth/v1/token?grant_type=password', { method: 'POST', headers: { apikey: KEY, 'Content-Type': 'application/json' }, body: JSON.stringify({ email: env.ORGCUE_TEST_EMAIL, password: env.ORGCUE_TEST_PASSWORD }) })).json();
+if (!tok.access_token) { console.log('Test account log-in failed:', tok.msg || tok.error_description || JSON.stringify(tok)); process.exit(1); }
+const H = { apikey: KEY, Authorization: 'Bearer ' + tok.access_token, 'Content-Type': 'application/json' };
 const rest = async (p) => (await fetch(SB + '/rest/v1/' + p, { headers: H })).json();
 await fetch(SB + '/rest/v1/rpc/reset_demo', { method: 'POST', headers: H, body: '{}' });
 
@@ -24,9 +31,17 @@ const phase = async (t) => { await bar(t).click(); await page.waitForTimeout(400
 const btn = (t, exact = true) => page.getByRole('button', { name: t, exact }).first();
 const go = async (p) => { await page.goto(base + p, { waitUntil: 'networkidle' }); await page.waitForTimeout(300); };
 const main = async () => page.locator('main').innerText();
+const login = async () => {
+  await page.goto(base + '/login', { waitUntil: 'networkidle' });
+  await page.getByLabel('Email').fill(env.ORGCUE_TEST_EMAIL);
+  await page.getByLabel('Password').fill(env.ORGCUE_TEST_PASSWORD);
+  await page.getByRole('button', { name: 'Log in', exact: true }).click();
+  await page.waitForURL('**/home', { timeout: 15000 });
+};
 const settle = () => page.waitForTimeout(900);
 
 try {
+  await login();
   // 1. Wizard: from scratch, type Process, SIPOC + EARS
   await go('/home');
   await btn('＋ New project').click();

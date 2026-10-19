@@ -6,7 +6,7 @@ import { getD } from './db';
 
 // The prototype screens read the kit, the data and React from `window`. Screens import this object as `window`.
 export const win = {
-  get OCK() { return getD() ? K : null; },
+  get OCK() { return getD() || K.publicMode ? K : null; }, // publicMode: the customer page runs without workspace data
   get OCD() { return getD(); },
   React,
 };

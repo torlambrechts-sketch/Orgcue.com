@@ -6,10 +6,11 @@ import React, { useEffect, useState, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { K } from '@/oc/kit';
-import { getD, load, resetDemo, status } from '@/oc/db';
+import { getActor, getD, load, resetDemo, sb, signOut, status } from '@/oc/db';
 import { Button, Input } from './ds';
 import { css } from './Blocks';
 import { PagesScreen, PhoneScreen, ProjectScreen, SettingsScreen, WizardScreen } from './Screens';
+import AccountMenu from './AccountMenu';
 
 const DEMO_BAR = process.env.NEXT_PUBLIC_DEMO_BAR !== '0';
 
@@ -26,21 +27,33 @@ export default function Shell() {
   const S = useOc();
   const narrow = useNarrow();
   const [ready, setReady] = useState(false);
+  const [publicView, setPublicView] = useState(false);
 
   useEffect(() => { K.router = router; }, [router]);
   useEffect(() => {
     K.initLS();
-    load().then((hyd: any) => { K._hydrating = true; K.store.setState(hyd || {}); K._hydrating = false; setReady(true); })
-      .catch((e: any) => { console.error(e); status.error = String(e && e.message || e); setReady(true); });
+    load().then((hyd: any) => {
+      if (hyd === null) { // no session
+        if (window.location.pathname.startsWith('/customer')) { K.publicMode = true; setPublicView(true); setReady(true); return; }
+        window.location.assign('/login?next=' + encodeURIComponent(window.location.pathname)); return;
+      }
+      K._hydrating = true; K.store.setState(hyd || {}); K._hydrating = false; setReady(true);
+    }).catch((e: any) => { console.error(e); status.error = String(e && e.message || e); setReady(true); });
+    // Logging out in another tab, or an expired session, ends this one too.
+    const sub = sb ? sb.auth.onAuthStateChange((event: string) => { if (event === 'SIGNED_OUT' && !K.publicMode) window.location.assign('/login'); }) : null;
+    return () => { if (sub) sub.data.subscription.unsubscribe(); };
   }, []);
   useEffect(() => { if (pathname === '/') router.replace('/home'); }, [pathname, router]);
 
+  // The public customer answer page (no account): just the respondent's screen, no workspace chrome.
+  if (ready && publicView) return <div style={css('min-height: 100vh; background: var(--op-bg); padding: 16px; box-sizing: border-box;')}><PhoneScreen path={path} bare /></div>;
   const D: any = getD();
   if (!ready || !D) return <div style={css('min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--op-bg); color: var(--op-mut); font-size: 13.5px;')}>Loading Lumio Inc. …</div>;
 
   const c = S.navC || narrow, role = S.role;
   const seg = (sel: boolean): React.CSSProperties => ({ cursor: 'pointer', border: 'none', borderRadius: 7, padding: '4px 9px', fontFamily: 'inherit', fontSize: 12, fontWeight: sel ? 700 : 500, background: sel ? 'var(--op-ac)' : 'transparent', color: sel ? 'var(--op-ink)' : 'var(--op-bg)' });
-  const me = D.people[K.who()];
+  const persona = D.people[K.who()];
+  const account = getActor() || { name: persona.name, ini: persona.ini, email: '' };
   const top = path.split('/')[1] || 'home';
   const items = [['home', 'Home', '⌂', '/home'], ['projects', 'Projects', '▦', '/projects'], ['templates', 'Templates', '❐', '/templates'], ['library', 'Library', '▤', '/library'], ['portfolio', 'Portfolio', '▥', '/portfolio'], ['settings', 'Settings', '≡', '/settings']].filter((n) => !(n[0] === 'portfolio' && role === 'contributor'));
   const cur = top === 'p' ? 'projects' : top;
@@ -86,7 +99,7 @@ export default function Shell() {
         <span className="oc-search" style={css('flex: 1; display: flex; justify-content: center; min-width: 0;')}><Input size="field" placeholder="Search everything" aria-label="Search everything" style={{ width: '100%', maxWidth: 420 }} onChange={() => {}} /></span>
         <button type="button" aria-label="Help and notifications" onClick={() => K.toast('2 new: Daniel asked about DEC-06 · A-016 waiting for Sam')} style={css('width: 36px; height: 36px; flex: none; cursor: pointer; border-radius: 999px; border: 1px solid var(--op-line); background: var(--op-sf); font-family: inherit; font-size: 14px; font-weight: 700; color: var(--op-ink);')}>?</button>
         {(role === 'owner' || role === 'admin') && <Button size="sm" onClick={() => K.set({ wiz: { step: 0 } })}><span style={css('white-space: nowrap;')}>＋ New project</span></Button>}
-        <span title={me.name} style={css('display: flex; width: 34px; height: 34px; flex: none; align-items: center; justify-content: center; border-radius: 999px; background: var(--op-ink); color: var(--op-bg); font-size: 12px; font-weight: 700;')}>{me.ini}</span>
+        <AccountMenu name={account.name} email={account.email} ini={account.ini} persona={persona.name + ' · ' + ({ owner: 'Owner', decider: 'Decider', contributor: 'Contributor', admin: 'Org admin' } as any)[role]} onSignOut={signOut} />
       </header>
       <div style={css('flex: 1; display: flex; min-height: 0;')}>
         <aside style={sideSt}>
@@ -111,8 +124,8 @@ export default function Shell() {
             ))}
           </div>
           <span style={css('margin-top: auto; display: flex; align-items: center; gap: 8px; border-top: 1px solid var(--op-line); padding: 12px 6px 0;')}>
-            <span style={css('display: flex; width: 30px; height: 30px; flex: none; align-items: center; justify-content: center; border-radius: 999px; background: var(--op-ink); color: var(--op-bg); font-size: 11px; font-weight: 700;')}>{me.ini}</span>
-            {!c && <span style={css('min-width: 0; font-size: 12px; line-height: 1.4;')}><span style={css('display: block; font-weight: 700; color: var(--op-ink);')}>{me.name}</span><span style={css('display: block; color: var(--op-mut);')}>Data region: US</span></span>}
+            <span style={css('display: flex; width: 30px; height: 30px; flex: none; align-items: center; justify-content: center; border-radius: 999px; background: var(--op-ink); color: var(--op-bg); font-size: 11px; font-weight: 700;')}>{account.ini}</span>
+            {!c && <span style={css('min-width: 0; font-size: 12px; line-height: 1.4;')}><span style={css('display: block; font-weight: 700; color: var(--op-ink);')}>{account.name}</span><span style={css('display: block; color: var(--op-mut);')}>Data region: US</span></span>}
           </span>
         </aside>
         <main className="oc-main" style={css('flex: 1; min-width: 0; margin: 0 8px 8px 0; border: 1px solid var(--op-line); border-radius: 14px; background: var(--op-sf); padding: 22px 28px; box-sizing: border-box;')}>

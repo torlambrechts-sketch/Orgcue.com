@@ -38,10 +38,11 @@ const FIELD = {
   field: { h: 38, r: 10, fs: 13, px: 13, bg: 'var(--op-sf)', bw: 1, fw: 400 },
   control: { h: 40, r: 10, fs: 13.5, px: 11, bg: 'var(--op-sf)', bw: 1, fw: 400 },
   md: { h: 42, r: 11, fs: 14, px: 14, bg: 'var(--op-sf)', bw: 1, fw: 600 },
+  signin: { h: 48, r: 12, fs: 15, px: 15, bg: 'var(--op-bg)', bw: 1.5, fw: 400 },
 } as const;
 export const fieldStyle = (size: string = 'control'): Style => {
   const s = FIELD[size as keyof typeof FIELD] || FIELD.control;
-  return { boxSizing: 'border-box', height: s.h, width: '100%', borderRadius: s.r, border: s.bw + 'px solid var(--op-line)', background: s.bg, paddingInline: s.px, fontSize: s.fs, fontWeight: s.fw, color: 'var(--op-ink)', outline: 'none', fontFamily: 'inherit', minWidth: 0 };
+  return { boxSizing: 'border-box', height: s.h, width: '100%', borderRadius: s.r, border: s.bw + 'px solid ' + (size === 'signin' ? 'var(--op-ink)' : 'var(--op-line)'), background: s.bg, paddingInline: s.px, fontSize: s.fs, fontWeight: s.fw, color: 'var(--op-ink)', outline: 'none', fontFamily: 'inherit', minWidth: 0 };
 };
 
 type ChangeFn = (e: React.ChangeEvent<HTMLInputElement & HTMLSelectElement & HTMLTextAreaElement>) => void;

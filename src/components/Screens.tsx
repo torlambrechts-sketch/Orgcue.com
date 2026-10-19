@@ -49,22 +49,23 @@ export function SettingsScreen({ path }: { path: string }) {
   );
 }
 
-export function PhoneScreen({ path }: { path: string }) {
+/** `bare`: the public customer page, without the explainer column; on a phone the bezel drops away. */
+export function PhoneScreen({ path, bare }: { path: string; bare?: boolean }) {
   const v: any = { ...useScreen(OcPhone, { path }), path };
   const s = v.s || {};
   if (!v.jumps) return null;
   return (
     <div style={css('display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 28px; padding: 8px 0 24px;')}>
-      <aside style={css('flex: 1 1 260px; max-width: 340px; display: flex; flex-direction: column; gap: 12px;')}>
+      {!bare && <aside style={css('flex: 1 1 260px; max-width: 340px; display: flex; flex-direction: column; gap: 12px;')}>
         <span style={css('font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);')}>{v.eyebrow}</span>
         <h1 style={css('margin: 0; font-family: var(--font-display); font-size: 26px; line-height: 1.2; font-weight: 600;')}>{v.heading}</h1>
         <p style={css('margin: 0; font-size: 14px; line-height: 1.55; color: var(--op-body);')}>{v.note}</p>
         <div style={css('display: flex; flex-wrap: wrap; gap: 6px;')}>{v.jumps.map((j: any, k: number) => <button key={k} type="button" onClick={j.on} style={j.st}>{j.t}</button>)}</div>
         <Link href={(v.path || '').startsWith('/customer') ? '/p/it-helpdesk/members' : '/p/it-helpdesk/overview'} style={css('font-weight: 700;')}>← Back to the project</Link>
-      </aside>
-      <div style={css('flex: none; width: 390px; max-width: 100%; height: 844px; box-sizing: border-box; border: 7px solid var(--op-ink); border-radius: 48px; background: var(--op-bg); overflow: hidden; box-shadow: 0 18px 40px -28px rgba(25,21,16,.35);')}>
+      </aside>}
+      <div className={bare ? 'oc-phone-bare' : undefined} style={css('flex: none; width: 390px; max-width: 100%; height: 844px; box-sizing: border-box; border: 7px solid var(--op-ink); border-radius: 48px; background: var(--op-bg); overflow: hidden; box-shadow: 0 18px 40px -28px rgba(25,21,16,.35);')}>
         <div style={css('height: 100%; overflow-y: auto; box-sizing: border-box; padding: 14px 20px 20px; display: flex; flex-direction: column; gap: 14px;')}>
-          <div style={css('display: flex; justify-content: space-between; font-size: 12px; font-weight: 700;')}><span>9:41</span><span>{v.host}</span></div>
+          {!bare && <div style={css('display: flex; justify-content: space-between; font-size: 12px; font-weight: 700;')}><span>9:41</span><span>{v.host}</span></div>}
           {s.brand && <div style={css('display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--op-line); padding-bottom: 10px;')}><span style={css('display: flex; width: 34px; height: 34px; align-items: center; justify-content: center; border-radius: 10px; background: var(--op-ink); color: var(--op-bg); font-family: var(--font-display); font-weight: 600;')}>L</span><span style={css('font-size: 15px; font-weight: 700;')}>Lumio</span></div>}
           {s.hasProg && <div style={css('display: flex; flex-direction: column; gap: 6px;')}><span style={css('display: flex; justify-content: space-between; font-size: 12.5px; color: var(--op-mut);')}><span>{s.progLabel}</span><span>{s.progRight}</span></span><span style={css('display: block; height: 6px; border-radius: 999px; background: var(--op-ink-a08); overflow: hidden;')}><span style={s.progFill} /></span></div>}
           {s.hasEyebrow && <span style={css('font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--op-mut);')}>{s.eyebrow}</span>}

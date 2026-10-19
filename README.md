@@ -6,7 +6,7 @@ A working web prototype of Orgcue: collect what an organization knows, settle co
 - **Demo script:** [`docs/DEMO.md`](docs/DEMO.md) (spec §26, end to end)
 - **Assessment and plan:** [`docs/ASSESSMENT.md`](docs/ASSESSMENT.md), [`docs/PLAN.md`](docs/PLAN.md)
 
-Prototype posture: no auth, RLS off, public anon key. The dark "Demo controls" strip (View as / Phase / Show all features / Reset demo) is a dev tool, hidden when `NEXT_PUBLIC_DEMO_BAR=0`.
+Everyone signs in with an email and password (Supabase Auth). Every account joins the shared Lumio Inc. demo workspace. The customer answer page at `/customer` needs no account, as the spec requires. The dark "Demo controls" strip (View as / Phase / Show all features / Reset demo) is a dev tool, hidden when `NEXT_PUBLIC_DEMO_BAR=0`. View as changes the demo role you look through, not the account you are signed in with.
 
 ## Stack
 
@@ -22,10 +22,28 @@ npm run dev                       # http://localhost:3000
 
 Variables already exported in your shell win over `.env.local` in Next.js. If your environment exports a different `NEXT_PUBLIC_SUPABASE_URL`, load the file first: `set -a; . ./.env.local; set +a; npm run dev`.
 
+## Accounts
+
+| Route | What it does |
+|---|---|
+| `/signup` | Name, work email, password (8+ characters). Sends a confirmation link, with "Send the link again". |
+| `/login` | Email and password. Returns you to the page you asked for (`?next=`). Explains an unconfirmed email and lets you resend. |
+| `/forgot-password` → `/reset-password` | Emails a reset link, then sets a new password. The answer is the same whether or not the account exists. |
+| `/auth/callback` | Where the emailed links land (PKCE `code` or `token_hash`). |
+| Account menu (top right) | The signed-in account, the demo role it views as, and **Log out**. |
+
+`src/middleware.ts` refreshes the session cookie on every request and sends signed-out visitors to `/login`. Only the auth pages, `/auth/*` and `/customer` are public.
+
+**Supabase settings to make once** (Dashboard → Authentication):
+1. **URL Configuration:** Site URL `https://orgcue.vercel.app`. Redirect URLs `https://orgcue.vercel.app/**`, `https://*-tor-lambrechts-s-projects.vercel.app/**` and `http://localhost:3000/**`. Without these, the links in confirmation and reset emails point at the default Site URL.
+2. **Emails:** Supabase's built-in mailer only delivers to members of your Supabase organization and sends a few emails an hour. To let anyone sign up, add custom SMTP under **SMTP Settings** (for example Resend or Postmark). The other option is to turn off **Confirm email** under Providers → Email, which logs people in straight after sign-up.
+
 ## Database
 
 ```bash
 # 1. Schema: run supabase/migrations/*.sql in order (SQL editor or `supabase db push`).
+#    0003_auth.sql links accounts to people rows and turns on row-level security: signed-in users read and write,
+#    anonymous visitors may only submit the customer page. After it, `npm run seed` needs the test account below.
 # 2. Seed: load the Lumio Inc. demo (spec §25) and reset to it.
 npm run seed                      # = node scripts/gen-seed.mjs --push
 ```
@@ -34,12 +52,17 @@ npm run seed                      # = node scripts/gen-seed.mjs --push
 
 ## Tests
 
+Put a confirmed account in `.env.local` as `ORGCUE_TEST_EMAIL` and `ORGCUE_TEST_PASSWORD` (see `.env.example`). The full suite signs in with it.
+
 ```bash
 npm run test:smoke                # every route: page errors, failed requests, screenshots
 npm run test:e2e                  # spec §26 walk-through in Chromium, checks the Supabase rows (resets the demo)
+npm run test:auth                 # sign-up, log-in, reset and redirects; Supabase's email endpoints are intercepted
 ```
 
-Both need a running app (`npm run build && npm start`) and a Chromium at `/opt/pw-browsers/chromium` (set `CHROMIUM_PATH` otherwise).
+`tests/e2e/mock-auth.mjs` stands in for Supabase Auth with one fixed account and forwards data requests to the real project. Build with `NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321` and run the suites with `E2E_SUPABASE_URL=http://localhost:54321 ORGCUE_TEST_EMAIL=mock@orgcue.test ORGCUE_TEST_PASSWORD=mock-password-123`. That checks the signed-in app without a real account or email. It only works before `0003_auth.sql`, while the anon role can still read.
+
+All suites need a running app (`npm run build && npm start`) and a Chromium at `/opt/pw-browsers/chromium` (set `CHROMIUM_PATH` otherwise).
 
 ## How the code is organized
 

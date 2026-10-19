@@ -2,7 +2,7 @@
 
 Milestones follow the kickoff. Tasks are about half a day each. Acceptance checks reference spec §26.
 
-**Status (Oct 19, 2026):** M0–M5 are built and deployed at https://orgcue.vercel.app. `npm run test:e2e` walks spec §26 and checks the database: 33 of 33 checks pass. M6 (real AI drafting) is not started.
+**Status (Oct 19, 2026):** M0–M5 are built and deployed at https://orgcue.vercel.app. `npm run test:e2e` walks spec §26 and checks the database: 33 of 33 checks pass. M6 (real AI drafting) is not started. Sign-up and log-in are built (README → Accounts). `supabase/migrations/0003_auth.sql` (accounts and row-level security) is written and waiting to be applied.
 
 ## M0 — Scaffold and deploy
 

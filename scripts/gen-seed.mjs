@@ -84,7 +84,14 @@ console.log('wrote supabase/seed.sql', sql.length, 'bytes');
 if (process.argv.includes('--push')) {
   const env = Object.fromEntries(readFileSync(path.join(root, '.env.local'), 'utf8').split('\n').filter((l) => l.includes('=')).map((l) => [l.slice(0, l.indexOf('=')), l.slice(l.indexOf('=') + 1).trim()]));
   const url = env.NEXT_PUBLIC_SUPABASE_URL, key = env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  const h = { apikey: key, Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' };
+  // After supabase/migrations/0003_auth.sql only signed-in users may write: use the test account when one is set.
+  let bearer = key;
+  if (env.ORGCUE_TEST_EMAIL && env.ORGCUE_TEST_PASSWORD) {
+    const t = await (await fetch(url + '/auth/v1/token?grant_type=password', { method: 'POST', headers: { apikey: key, 'Content-Type': 'application/json' }, body: JSON.stringify({ email: env.ORGCUE_TEST_EMAIL, password: env.ORGCUE_TEST_PASSWORD }) })).json();
+    if (!t.access_token) throw new Error('Test account log-in failed: ' + (t.msg || t.error_description || JSON.stringify(t)));
+    bearer = t.access_token;
+  }
+  const h = { apikey: key, Authorization: 'Bearer ' + bearer, 'Content-Type': 'application/json' };
   const call = async (method, p, body) => { const r = await fetch(url + p, { method, headers: { ...h, Prefer: 'return=minimal' }, body: body && JSON.stringify(body) }); if (!r.ok) throw new Error(method + ' ' + p + ' ' + r.status + ' ' + (await r.text())); };
   await call('DELETE', '/rest/v1/demo_seed?pos=gte.0');
   await call('POST', '/rest/v1/demo_seed', T.filter(([, rows]) => rows.length).map(([tbl, rows], pos) => ({ pos, tbl, rows })));

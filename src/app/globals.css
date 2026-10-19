@@ -254,3 +254,8 @@ a:hover { color: #1E3D1A; text-decoration: underline; }
   .oc-hide-sm { display: none; }
   .oc-search { visibility: hidden; }
 }
+
+/* Public customer page on a real phone: no bezel, full screen. */
+@media (max-width: 480px) {
+  .oc-phone-bare { width: 100% !important; height: auto !important; min-height: calc(100vh - 32px); border: none !important; border-radius: 0 !important; box-shadow: none !important; }
+}

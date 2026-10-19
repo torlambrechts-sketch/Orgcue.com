@@ -120,3 +120,11 @@ This keeps copy, states and layout identical to the design. The cost is that scr
 **Environment findings**
 - This cloud environment exports `NEXT_PUBLIC_SUPABASE_URL` for a Supabase project (`jmhhszsnjfqgclxzhciq`) that is not in this account's project list. The app uses the account's **Orgcue.com** project (`qlzlnsjkacjqagvxlbvq`, eu-west-3) through `.env.local` and the Vercel env vars. Shell variables override `.env.local` in Next.js, so local commands load the file first (see README).
 - The repository had no `main` branch. Vercel therefore uses `claude/relaxed-goldberg-yjnnay` as the production branch. Change it in Vercel → Settings → Git once `main` exists.
+
+## 7. Accounts (added after M5)
+
+- **Sign-up and log-in** use Supabase Auth with email and password, through `@supabase/ssr`, so the session is a cookie that the middleware and route handlers can read. The middleware validates the user with `getUser()` on every request and sends signed-out visitors to `/login?next=…`. Public routes are the auth pages, `/auth/*` and `/customer` (spec §18.4: respondents need no account).
+- **Workspace model:** one shared workspace. Every account becomes a Member of Lumio Inc. through a `people` row created by a trigger on `auth.users`. That row shows in Settings → People with the real email. Multi-org tenancy is not built.
+- **Identity vs demo role:** the account is the real actor. Audit events, decisions and the spec lock are attributed as "Name · as Decider". The demo bar's View as still picks whose screens you see.
+- **Row-level security** (`0003_auth.sql`): signed-in users may read and write every app table. Anonymous visitors may only insert a customer response. `reset_demo()` is limited to signed-in users and keeps accounts' people rows. Until this migration runs, the database still accepts the anon key, so the login protects the app but not the data.
+- **Email delivery** depends on Supabase settings that cannot be changed from the code: redirect URLs, and custom SMTP for addresses outside the Supabase organization (README → Accounts).

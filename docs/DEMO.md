@@ -2,6 +2,8 @@
 
 About 15 minutes, on https://orgcue.vercel.app. It follows the spec §26 acceptance checklist. Start with **Reset demo** in the dark strip so everyone sees the Lumio Inc. seed. Every step below writes to Supabase, so a reload keeps the state. The same steps run automatically with `npm run test:e2e`.
 
+**Sign in first.** Create an account at `/signup` or log in at `/login`. Every account sees the same Lumio Inc. workspace. The account menu at the top right shows who you are and has **Log out**. The customer page in step 4 also opens without an account, in a private window.
+
 Use the dark strip for **View as** (Owner, Decider, Contributor, Org admin) and **Phase**. The role resets to Owner on reload. The phase is stored on the project.
 
 ## 1. Frame a new project (Owner)
