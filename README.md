@@ -44,8 +44,7 @@ Variables already exported in your shell win over `.env.local` in Next.js. If yo
 # 1. Schema: run supabase/migrations/*.sql in order (SQL editor or `supabase db push`).
 #    0003_auth.sql (applied) links accounts to people rows and turns on row-level security: signed-in users read and
 #    write, anonymous visitors may only submit the customer page. `npm run seed` now needs the test account below.
-#    0004_reset_keeps_accounts.sql is NOT applied yet: paste it into the SQL editor. Until then, Reset demo also
-#    removes accounts' People entries (the accounts themselves and their logins stay).
+#    0004_reset_keeps_accounts.sql (applied) makes Reset demo keep accounts' People entries and refuse anonymous calls.
 # 2. Seed: load the Lumio Inc. demo (spec §25) and reset to it.
 npm run seed                      # = node scripts/gen-seed.mjs --push
 ```
