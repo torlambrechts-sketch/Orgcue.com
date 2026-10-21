@@ -1,13 +1,16 @@
 'use client';
 // "Become a beta user": adds the visitor to the beta list (public.beta_signups, insert-only for the anon role).
-// Plain fetch to PostgREST keeps supabase-js out of the marketing bundle.
+// Plain fetch to PostgREST keeps supabase-js out of the public pages' bundle. Styled for the splash design.
 import { useState } from 'react';
-import { fieldStyle } from '@/components/ds';
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 type State = { kind: 'idle' | 'sending' } | { kind: 'error'; msg: string } | { kind: 'done'; email: string; already: boolean };
+
+const field: React.CSSProperties = { boxSizing: 'border-box', height: 44, width: '100%', minWidth: 0, borderRadius: 10, border: '1px solid #DCD3DE', background: '#FBF9F7', padding: '0 13px', fontSize: 15, color: '#1F1A17', fontFamily: 'inherit', outline: 'none', transition: 'border-color .2s ease-in-out, box-shadow .2s ease-in-out' };
+const label: React.CSSProperties = { display: 'flex', flexDirection: 'column', gap: 6, minWidth: 0, fontSize: 13, fontWeight: 600, color: '#3A332D' };
+const optional = <span style={{ fontWeight: 400, color: '#6E665D' }}>(optional)</span>;
 
 export default function BetaSignup({ source }: { source: string }) {
   const [email, setEmail] = useState('');
@@ -19,9 +22,9 @@ export default function BetaSignup({ source }: { source: string }) {
 
   if (state.kind === 'done') {
     return (
-      <div role="status" className="flex flex-col gap-1.5 rounded-[16px] border border-op-line bg-op-sf p-5">
-        <strong className="font-display text-[20px] font-semibold">{state.already ? 'You’re already on the list.' : 'You’re on the beta list.'}</strong>
-        <p className="m-0 text-[14.5px] leading-[1.55] text-op-body">We’ll write to <strong>{state.email}</strong> when your beta place opens, and with product updates until you unsubscribe.</p>
+      <div role="status" style={{ display: 'flex', flexDirection: 'column', gap: 6, padding: '16px 18px', borderRadius: 14, background: '#E3F2F0', color: '#1F1A17' }}>
+        <strong style={{ fontFamily: 'var(--font-instrument),serif', fontWeight: 400, fontSize: 24, lineHeight: 1.1 }}>{state.already ? 'You’re already on the list.' : 'You’re on the beta list.'}</strong>
+        <span style={{ fontSize: 14, lineHeight: 1.5, color: '#3A332D' }}>We’ll write to <b>{state.email}</b> when your beta place opens, and with product updates until you unsubscribe.</span>
       </div>
     );
   }
@@ -48,22 +51,23 @@ export default function BetaSignup({ source }: { source: string }) {
     }
   }
 
-  const label = 'flex min-w-0 flex-col gap-1.5 text-[13px] font-semibold';
   const sending = state.kind === 'sending';
   return (
-    <form onSubmit={submit} noValidate className="flex flex-col gap-3" aria-label="Join the beta list">
-      <div className="grid gap-3 [grid-template-columns:repeat(auto-fit,minmax(200px,1fr))]">
-        <label className={label}>Work email<input type="email" name="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} style={fieldStyle('md')} /></label>
-        <label className={label}><span>Name <span className="font-normal text-op-mut">(optional)</span></span><input name="name" autoComplete="name" maxLength={120} value={name} onChange={(e) => setName(e.target.value)} style={fieldStyle('md')} /></label>
-        <label className={label}><span>Company <span className="font-normal text-op-mut">(optional)</span></span><input name="company" autoComplete="organization" maxLength={120} value={company} onChange={(e) => setCompany(e.target.value)} style={fieldStyle('md')} /></label>
+    <form onSubmit={submit} noValidate aria-label="Join the beta list" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <label style={label}>Work email<input className="sp-field" type="email" name="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} style={field} /></label>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,160px),1fr))', gap: 12 }}>
+        <label style={label}><span>Name {optional}</span><input className="sp-field" name="name" autoComplete="name" maxLength={120} value={name} onChange={(e) => setName(e.target.value)} style={field} /></label>
+        <label style={label}><span>Company {optional}</span><input className="sp-field" name="company" autoComplete="organization" maxLength={120} value={company} onChange={(e) => setCompany(e.target.value)} style={field} /></label>
       </div>
-      <label aria-hidden="true" className="absolute left-[-10000px] h-px w-px overflow-hidden">Website<input tabIndex={-1} autoComplete="off" value={trap} onChange={(e) => setTrap(e.target.value)} /></label>
-      <label className="flex items-start gap-2.5 text-[13.5px] leading-[1.5] text-op-body">
-        <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-[3px] h-4 w-4 flex-none accent-[var(--op-ink)]" />
-        <span>Add me to the Orgcue beta list. Email me about beta access and product updates. I can unsubscribe at any time.</span>
+      <label aria-hidden="true" style={{ position: 'absolute', left: -10000, width: 1, height: 1, overflow: 'hidden' }}>Website<input tabIndex={-1} autoComplete="off" value={trap} onChange={(e) => setTrap(e.target.value)} /></label>
+      <label style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 13.5, lineHeight: 1.5, color: '#3A332D', cursor: 'pointer' }}>
+        <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} style={{ marginTop: 3, width: 16, height: 16, flex: 'none', accentColor: '#4A1F3D' }} />
+        <span>Add me to the OrgCue beta list. Email me about beta access and product updates. I can unsubscribe at any time.</span>
       </label>
-      {state.kind === 'error' && <p role="alert" className="m-0 text-[13.5px] font-semibold text-[#8A3A16]">{state.msg}</p>}
-      <span><button type="submit" disabled={sending} className="inline-flex h-11 cursor-pointer items-center justify-center whitespace-nowrap rounded-[12px] border border-op-ink bg-op-ac px-5 text-[14.5px] font-bold text-op-ink disabled:cursor-default disabled:opacity-55">{sending ? 'Adding you…' : 'Become a beta user'}</button></span>
+      {state.kind === 'error' && <p role="alert" style={{ margin: 0, fontSize: 13.5, fontWeight: 600, color: '#A23A22' }}>{state.msg}</p>}
+      <button type="submit" disabled={sending} className="sp-lift" style={{ alignSelf: 'flex-start', whiteSpace: 'nowrap', height: 48, boxSizing: 'border-box', display: 'inline-flex', alignItems: 'center', padding: '0 22px', borderRadius: 10, border: 0, background: '#F2B33D', color: '#1F1A17', fontSize: 15, fontWeight: 700, fontFamily: 'inherit', cursor: sending ? 'default' : 'pointer', opacity: sending ? 0.6 : 1, boxShadow: '0 14px 30px rgba(242,179,61,.25)', transition: 'transform .2s ease-in-out' }}>
+        {sending ? 'Adding you…' : 'Become a beta user'}
+      </button>
     </form>
   );
 }

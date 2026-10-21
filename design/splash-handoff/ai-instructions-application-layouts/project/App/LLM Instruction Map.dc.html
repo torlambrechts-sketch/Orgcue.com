@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+html,body{margin:0;background:#F6F4F1;font-family:'Figtree',system-ui,sans-serif;color:#1F1A17}
+a{color:#3E5C9A}a:hover{color:#2B4373}
+button{font-family:inherit}
+textarea{font-family:inherit}
+@keyframes min{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes mslide{from{transform:translateX(30px);opacity:0}to{transform:none;opacity:1}}
+</style>
+</helmet>
+<div style="min-height:var(--shell-h,100vh);display:flex;flex-direction:column;font-size:14px">
+<sc-if value="{{ notEmbedded }}" hint-placeholder-val="{{ true }}"><header style="height:56px;flex:none;box-sizing:border-box;display:flex;align-items:center;gap:16px;padding:0 22px;background:#4A1F3D;color:#fff;position:sticky;top:0;z-index:20">
+<span style="display:flex;align-items:center;gap:9px"><span style="width:28px;height:28px;border-radius:6px;background:#fff;color:#4A1F3D;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">§</span><span style="font-size:17px;font-weight:700">specs</span></span>
+<span style="font-size:14px;opacity:.8">Research · LLM instruction map</span>
+<span style="flex:1"></span>
+<a href="../Archive/AI Instructions Prototype v5.dc.html" style="color:#fff;font-size:13.5px;font-weight:600;text-decoration:none">Open the prototype →</a>
+</header></sc-if>
+
+<div style="max-width:1600px;width:100%;box-sizing:border-box;margin:0 auto;padding:30px 32px 60px;display:flex;flex-direction:column;gap:26px">
+
+<div style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between">
+<div style="flex:1 1 560px;display:flex;flex-direction:column;gap:8px;max-width:820px">
+<span style="font-size:12px;font-weight:700;letter-spacing:.08em;color:#6E665D">RESEARCH &amp; EVALUATION</span>
+<span style="font-size:34px;font-weight:700;letter-spacing:-0.02em;line-height:1.08;text-wrap:balance">Anatomy of a great LLM instruction</span>
+<span style="font-size:15px;line-height:1.55;color:#3A332D;text-wrap:pretty">Thirteen parts and {{ leafN }} elements, all needed for an instruction an LLM can follow safely and well. Each element is tagged with where it lives — company, project or run — and whether it is fixed, changes through the lifecycle, or is dynamic. Rate each one to give your evaluation.</span>
+</div>
+<div style="flex:0 1 460px;background:#fff;border:1px solid #E5DFD7;border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:12px">
+<span style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-size:15px;font-weight:600">Your evaluation</span><span style="font-size:13px;color:#6E665D;white-space:nowrap">{{ evDone }} of {{ leafN }} rated</span></span>
+<div style="display:flex;gap:3px;height:6px;background:#EEEAE4;border-radius:3px;overflow:hidden"><sc-for list="{{ evBar }}" as="s" hint-placeholder-count="3"><span style="flex:{{ s.flex }};background:{{ s.c }}"></span></sc-for></div>
+<div style="display:flex;flex-wrap:wrap;row-gap:8px"><sc-for list="{{ evSum }}" as="s" hint-placeholder-count="4"><span style="display:flex;flex-direction:column;gap:2px;padding:0 16px;border-left:1px solid #E5DFD7;margin-left:-1px"><span style="display:flex;align-items:center;gap:7px;font-size:12.5px;color:#3A332D"><span style="width:8px;height:8px;border-radius:999px;background:{{ s.c }}"></span>{{ s.label }}</span><span style="font-size:20px;font-weight:700;padding-left:15px">{{ s.n }}</span></span></sc-for></div>
+<span style="display:flex;gap:8px"><button onClick="{{ copyEval }}" style="height:34px;padding:0 14px;border:0;border-radius:4px;background:#F2B33D;color:#1F1A17;font-size:13px;font-weight:600;cursor:pointer">Copy evaluation</button><button onClick="{{ clearEval }}" style="height:34px;padding:0 12px;border:1px solid #CDC5BA;border-radius:4px;background:#fff;color:#1F1A17;font-size:13px;font-weight:600;cursor:pointer">Clear</button></span>
+</div>
+</div>
+
+<div style="position:sticky;top:56px;z-index:10;background:#F6F4F1;padding:10px 0;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;border-bottom:1px solid #E5DFD7">
+<span style="display:flex;border:1px solid #CDC5BA;border-radius:4px;overflow:hidden"><sc-for list="{{ viewBtns }}" as="b" hint-placeholder-count="2"><span onClick="{{ b.onClick }}" style="padding:7px 14px;font-size:13px;font-weight:600;background:{{ b.bg }};color:{{ b.col }};cursor:pointer">{{ b.label }}</span></sc-for></span>
+<span style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span style="font-size:12.5px;font-weight:600;color:#6E665D">Lives in</span><sc-for list="{{ scopeBtns }}" as="b" hint-placeholder-count="4"><span onClick="{{ b.onClick }}" style="display:flex;align-items:center;gap:6px;height:30px;box-sizing:border-box;padding:0 11px;border-radius:999px;border:1px solid {{ b.bd }};background:{{ b.bg }};color:{{ b.col }};font-size:12.5px;font-weight:600;cursor:pointer"><span style="width:16px;height:16px;border-radius:4px;background:{{ b.chipBg }};color:{{ b.chipCol }};font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ b.letter }}</span>{{ b.label }}</span></sc-for></span>
+<span style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span style="font-size:12.5px;font-weight:600;color:#6E665D">Changes</span><sc-for list="{{ volBtns }}" as="b" hint-placeholder-count="4"><span onClick="{{ b.onClick }}" style="display:flex;align-items:center;gap:6px;height:30px;box-sizing:border-box;padding:0 11px;border-radius:999px;border:1px solid {{ b.bd }};background:{{ b.bg }};color:{{ b.col }};font-size:12.5px;font-weight:600;cursor:pointer"><span>{{ b.glyph }}</span>{{ b.label }}</span></sc-for></span>
+<span style="display:flex;align-items:center;gap:6px"><span style="font-size:12.5px;font-weight:600;color:#6E665D">Coverage</span><span style="display:flex;border:1px solid #CDC5BA;border-radius:4px;overflow:hidden"><sc-for list="{{ covBtns }}" as="b" hint-placeholder-count="3"><span onClick="{{ b.onClick }}" style="padding:6px 11px;font-size:12.5px;font-weight:600;background:{{ b.bg }};color:{{ b.col }};cursor:pointer">{{ b.label }}</span></sc-for></span></span>
+<span style="margin-left:auto;font-size:13px;color:#6E665D">{{ matchTxt }}</span>
+</div>
+
+<sc-if value="{{ showCov }}" hint-placeholder-val="{{ false }}"><div style="background:#fff;border:1px solid #E5DFD7;border-left:4px solid #4A1F3D;border-radius:6px;padding:14px 18px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px"><span style="display:flex;flex-direction:column;gap:3px"><span style="font-size:15px;font-weight:600">Coverage in {{ covTitle }}</span><span style="font-size:12.5px;color:#6E665D">{{ covDelta }}</span></span><span style="flex:1 1 240px;display:flex;gap:3px;height:8px;border-radius:4px;overflow:hidden"><sc-for list="{{ covSum }}" as="s" hint-placeholder-count="3"><span style="flex:{{ s.flex }};background:{{ s.c }}"></span></sc-for></span><span style="display:flex;gap:16px"><sc-for list="{{ covSum }}" as="s" hint-placeholder-count="3"><span style="display:flex;align-items:center;gap:6px;font-size:13px"><span style="width:9px;height:9px;border-radius:2px;background:{{ s.c }}"></span>{{ s.label }} <span style="font-weight:700">{{ s.n }}</span></span></sc-for></span><a href="{{ covLink }}" style="font-size:13px;font-weight:600">Open {{ covTitle }} →</a></div></sc-if>
+<sc-if value="{{ isMap }}" hint-placeholder-val="{{ true }}">
+<div style="background:#fff;border:1px solid #E5DFD7;border-radius:6px;overflow:auto">
+<div style="position:relative;width:1540px;height:{{ mapH }}px;margin:0 auto">
+<svg width="1540" height="{{ mapH }}" style="position:absolute;inset:0;pointer-events:none"><sc-for list="{{ lines }}" as="l" hint-placeholder-count="13"><path d="{{ l.d }}" stroke="{{ l.c }}" stroke-width="2.2" fill="none" opacity="{{ l.op }}"></path></sc-for></svg>
+<div style="position:absolute;left:660px;top:{{ cTop }}px;width:220px;height:150px;box-sizing:border-box;border-radius:8px;background:#4A1F3D;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:16px;box-shadow:0 18px 40px -24px rgba(31,26,23,.6)"><span style="font-size:11px;font-weight:700;letter-spacing:.1em;color:#F2B33D">THE INSTRUCTION</span><span style="font-size:21px;font-weight:700;line-height:1.15">A great LLM instruction</span><span style="font-size:12.5px;opacity:.8">13 parts · {{ leafN }} elements</span></div>
+<sc-for list="{{ branches }}" as="b" hint-placeholder-count="13">
+<div style="position:absolute;left:{{ b.x }}px;top:{{ b.y }}px;width:280px;box-sizing:border-box;background:#fff;border:1px solid {{ b.bd }};border-radius:6px;box-shadow:0 1px 2px rgba(31,26,23,.06);opacity:{{ b.op }};transition:opacity .15s">
+<div onClick="{{ b.onOpen }}" style="height:58px;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:0 12px 0 14px;border-bottom:1px solid #E5DFD7;border-left:4px solid {{ b.c }};border-radius:6px 6px 0 0;cursor:pointer;background:{{ b.headBg }}"><span style="font-size:12px;font-weight:700;color:{{ b.c }};width:20px">{{ b.num }}</span><span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:1px"><span style="font-size:14.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ b.t }}</span><span style="font-size:11.5px;color:#6E665D">{{ b.evTxt }}</span></span><span style="font-size:13px;color:#6E665D">›</span></div>
+<div style="padding:6px 0">
+<sc-for list="{{ b.leaves }}" as="l" hint-placeholder-count="5"><div onClick="{{ l.onOpen }}" title="{{ l.tip }}" style="height:30px;box-sizing:border-box;display:flex;align-items:center;gap:8px;padding:0 12px 0 16px;opacity:{{ l.op }};cursor:pointer" style-hover="background:#FBF9F6"><span style="width:9px;height:9px;flex:none;box-sizing:border-box;border-radius:999px;background:{{ l.evC }};border:1.5px solid {{ l.evBd }}"></span><span style="flex:1;min-width:0;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ l.t }}</span><span style="width:17px;height:17px;flex:none;border-radius:4px;background:{{ l.sBg }};color:{{ l.sCol }};font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ l.sL }}</span><span style="width:14px;flex:none;text-align:center;font-size:11px;color:{{ l.vCol }}">{{ l.vG }}</span><sc-if value="{{ showCov }}" hint-placeholder-val="{{ false }}"><span style="width:17px;height:17px;flex:none;border-radius:4px;background:{{ l.cBg }};color:{{ l.cCol }};font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ l.cG }}</span></sc-if></div></sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isList }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;align-items:start">
+<sc-for list="{{ branches }}" as="b" hint-placeholder-count="13">
+<div style="background:#fff;border:1px solid {{ b.bd }};border-radius:6px;opacity:{{ b.op }}">
+<div onClick="{{ b.onOpen }}" style="display:flex;align-items:center;gap:10px;padding:13px 14px;border-bottom:1px solid #E5DFD7;border-left:4px solid {{ b.c }};border-radius:6px 6px 0 0;cursor:pointer"><span style="font-size:12px;font-weight:700;color:{{ b.c }};width:20px">{{ b.num }}</span><span style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font-size:15px;font-weight:700">{{ b.t }}</span><span style="font-size:12.5px;line-height:1.4;color:#6E665D">{{ b.d }}</span></span></div>
+<div style="padding:6px 0">
+<sc-for list="{{ b.leaves }}" as="l" hint-placeholder-count="5"><div onClick="{{ l.onOpen }}" style="display:flex;align-items:center;gap:8px;padding:7px 14px 7px 18px;opacity:{{ l.op }};cursor:pointer"><span style="width:9px;height:9px;flex:none;box-sizing:border-box;border-radius:999px;background:{{ l.evC }};border:1.5px solid {{ l.evBd }}"></span><span style="flex:1;font-size:13.5px">{{ l.t }}</span><span style="border-radius:3px;padding:2px 6px;font-size:11px;font-weight:600;background:{{ l.sBg }};color:{{ l.sCol }}">{{ l.scope }}</span><span style="font-size:11.5px;color:{{ l.vCol }};white-space:nowrap">{{ l.vG }} {{ l.vol }}</span><sc-if value="{{ showCov }}" hint-placeholder-val="{{ false }}"><span style="width:17px;height:17px;flex:none;border-radius:4px;background:{{ l.cBg }};color:{{ l.cCol }};font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ l.cG }}</span></sc-if></div></sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<div style="display:flex;flex-wrap:wrap;gap:8px 22px;font-size:12.5px;color:#3A332D">
+<span style="display:flex;align-items:center;gap:6px"><span style="width:16px;height:16px;border-radius:4px;background:#4A1F3D;color:#fff;font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center">C</span>Company — set once, inherited by every instruction</span>
+<span style="display:flex;align-items:center;gap:6px"><span style="width:16px;height:16px;border-radius:4px;background:#E3F2F0;color:#1E5E55;font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center">P</span>Project — set per instruction</span>
+<span style="display:flex;align-items:center;gap:6px"><span style="width:16px;height:16px;border-radius:4px;background:#FDF1DC;color:#7A4D00;font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center">R</span>Run — supplied each time the model is called</span>
+<span>■ Fixed · ◐ Changes through the lifecycle · ● Dynamic</span>
+<sc-if value="{{ showCov }}" hint-placeholder-val="{{ false }}"><span>Coverage: <span style="color:#2A9D8F;font-weight:700">✓</span> covered · <span style="color:#F0A96B;font-weight:700">◐</span> partial · <span style="color:#C8432B;font-weight:700">✕</span> missing</span></sc-if>
+<span style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:999px;background:#2A9D8F"></span>Essential <span style="width:9px;height:9px;border-radius:999px;background:#F0A96B;margin-left:6px"></span>Nice to have <span style="width:9px;height:9px;border-radius:999px;background:#BDB5AA;margin-left:6px"></span>Not needed</span>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:14px;padding-top:12px">
+<span style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:700;letter-spacing:.08em;color:#6E665D">FIXED OR CHANGING</span><span style="font-size:26px;font-weight:700;letter-spacing:-0.01em">The instruction stack</span><span style="font-size:14.5px;line-height:1.5;color:#3A332D;max-width:860px;text-wrap:pretty">An instruction the model receives is four layers combined at run time. The higher the layer, the less it changes. A lower layer can narrow what a higher layer allows, but never override it.</span></span>
+<div style="display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ stack }}" as="s" hint-placeholder-count="4">
+<div style="margin-left:{{ s.indent }};display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr) 220px;gap:20px;align-items:start;background:#fff;border:1px solid #E5DFD7;border-left:6px solid {{ s.c }};border-radius:6px;padding:16px 20px">
+<span style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11.5px;font-weight:700;letter-spacing:.06em;color:{{ s.c }}">LAYER {{ s.n }}</span><span style="font-size:17px;font-weight:700">{{ s.t }}</span><span style="align-self:flex-start;border-radius:3px;padding:2px 8px;font-size:11.5px;font-weight:600;background:{{ s.chipBg }};color:{{ s.chipCol }}">{{ s.vol }}</span></span>
+<span style="display:flex;flex-direction:column;gap:8px"><span style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ s.items }}" as="i" hint-placeholder-count="5"><span style="border:1px solid #E5DFD7;border-radius:4px;padding:4px 9px;font-size:12.5px;background:#FBF9F6">{{ i }}</span></sc-for></span><span style="font-size:13px;line-height:1.5;color:#3A332D">{{ s.note }}</span></span>
+<span style="display:flex;flex-direction:column;gap:6px;font-size:12.5px"><span><span style="color:#6E665D">Owner · </span><span style="font-weight:600">{{ s.owner }}</span></span><span><span style="color:#6E665D">Changes when · </span><span style="font-weight:600">{{ s.when }}</span></span><span><span style="color:#6E665D">Stored as · </span><span style="font-weight:600">{{ s.store }}</span></span></span>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:14px;padding-top:12px">
+<span style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:700;letter-spacing:.08em;color:#6E665D">LIFECYCLE</span><span style="font-size:26px;font-weight:700;letter-spacing:-0.01em">What changes at each stage</span><span style="font-size:14.5px;line-height:1.5;color:#3A332D;max-width:860px">Each part is set, refined, checked and locked in a fixed order. After publishing, the instruction is watched in use. Inherited parts come from the company layer and are not changed.</span></span>
+<div style="background:#fff;border:1px solid #E5DFD7;border-radius:6px;overflow:auto">
+<div style="min-width:980px">
+<div style="display:grid;grid-template-columns:minmax(200px,1.4fr) repeat(6,minmax(110px,1fr));background:#F3EFEA;font-size:13px;font-weight:600"><span style="padding:12px 18px">Part</span><sc-for list="{{ stageHead }}" as="h" hint-placeholder-count="6"><span style="padding:12px 14px;border-left:1px solid #E5DFD7;display:flex;align-items:center;gap:7px"><span style="width:8px;height:8px;border-radius:999px;background:{{ h.c }}"></span>{{ h.t }}</span></sc-for></div>
+<sc-for list="{{ lifeRows }}" as="r" hint-placeholder-count="13"><div style="display:grid;grid-template-columns:minmax(200px,1.4fr) repeat(6,minmax(110px,1fr));border-top:1px solid #E5DFD7"><span style="padding:11px 18px;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:9px"><span style="width:4px;height:18px;border-radius:2px;background:{{ r.c }}"></span>{{ r.t }}</span><sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="6"><span style="padding:11px 14px;border-left:1px solid #fff;background:{{ c.bg }};color:{{ c.col }};font-size:12.5px;font-weight:600">{{ c.t }}</span></sc-for></div></sc-for>
+</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:8px 18px;font-size:12.5px;color:#3A332D"><sc-for list="{{ lifeLegend }}" as="l" hint-placeholder-count="6"><span style="display:flex;align-items:center;gap:7px"><span style="border-radius:3px;padding:2px 8px;background:{{ l.bg }};color:{{ l.col }};font-weight:600">{{ l.t }}</span>{{ l.d }}</span></sc-for></div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:14px;padding-top:12px">
+<span style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:700;letter-spacing:.08em;color:#6E665D">RESEARCH</span><span style="font-size:26px;font-weight:700;letter-spacing:-0.01em">How to gather the input</span><span style="font-size:14.5px;line-height:1.5;color:#3A332D;max-width:860px;text-wrap:pretty">No single method captures everything. Questionnaires reach many people fast, but tacit knowledge, real practice and boundaries need other methods. Match the method to the part you are filling.</span></span>
+<div style="background:#fff;border:1px solid #E5DFD7;border-radius:6px;overflow:auto"><div style="min-width:1100px">
+<div style="display:grid;grid-template-columns:200px minmax(0,1.2fr) 80px 80px minmax(0,1fr) minmax(0,1.1fr);gap:16px;padding:12px 18px;background:#F3EFEA;font-size:13px;font-weight:600"><span>Method</span><span>Best for</span><span>Effort</span><span>Reach</span><span>Feeds</span><span>How AI helps</span></div>
+<sc-for list="{{ methods }}" as="m" hint-placeholder-count="9"><div style="display:grid;grid-template-columns:200px minmax(0,1.2fr) 80px 80px minmax(0,1fr) minmax(0,1.1fr);gap:16px;align-items:start;padding:14px 18px;border-top:1px solid #E5DFD7">
+<span style="display:flex;flex-direction:column;gap:3px"><span style="font-size:14px;font-weight:700">{{ m.t }}</span><span style="font-size:12px;color:#6E665D">{{ m.mode }}</span></span>
+<span style="font-size:13.5px;line-height:1.45;color:#3A332D">{{ m.best }}</span>
+<span style="display:flex;gap:3px;padding-top:4px"><sc-for list="{{ m.effort }}" as="d" hint-placeholder-count="3"><span style="width:9px;height:9px;border-radius:999px;background:{{ d }}"></span></sc-for></span>
+<span style="display:flex;gap:3px;padding-top:4px"><sc-for list="{{ m.reach }}" as="d" hint-placeholder-count="3"><span style="width:9px;height:9px;border-radius:999px;background:{{ d }}"></span></sc-for></span>
+<span style="display:flex;flex-wrap:wrap;gap:5px"><sc-for list="{{ m.feeds }}" as="f" hint-placeholder-count="3"><span style="display:flex;align-items:center;gap:5px;border:1px solid #E5DFD7;border-radius:3px;padding:2px 7px;font-size:12px"><span style="width:7px;height:7px;border-radius:2px;background:{{ f.c }}"></span>{{ f.t }}</span></sc-for></span>
+<span style="font-size:13px;line-height:1.45;color:#3A332D">{{ m.ai }}</span>
+</div></sc-for>
+</div></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px">
+<sc-for list="{{ recs }}" as="r" hint-placeholder-count="8"><div style="background:#fff;border:1px solid #E5DFD7;border-top:3px solid #F2B33D;border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:7px"><span style="font-size:12px;font-weight:700;color:#6E665D">{{ r.n }}</span><span style="font-size:15px;font-weight:700;line-height:1.3">{{ r.t }}</span><span style="font-size:13.5px;line-height:1.5;color:#3A332D;text-wrap:pretty">{{ r.d }}</span></div></sc-for>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:14px;padding-top:12px">
+<span style="display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:700;letter-spacing:.08em;color:#6E665D">SPECIFICATIONS TO SIGN OFF</span><span style="font-size:26px;font-weight:700;letter-spacing:-0.01em">Security, development and quality</span><span style="font-size:14.5px;line-height:1.5;color:#3A332D;max-width:860px">Three checklists signed before an instruction goes live. Company items are written once and apply to every instruction. Project items are checked for each one.</span></span>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;align-items:start">
+<sc-for list="{{ specs }}" as="s" hint-placeholder-count="3"><div style="background:#fff;border:1px solid #E5DFD7;border-radius:6px;overflow:hidden">
+<div style="padding:14px 18px;background:#F3EFEA;border-left:4px solid {{ s.c }};display:flex;flex-direction:column;gap:3px"><span style="font-size:16px;font-weight:700">{{ s.t }}</span><span style="font-size:12.5px;color:#6E665D">Signed by {{ s.who }}</span></div>
+<sc-for list="{{ s.items }}" as="i" hint-placeholder-count="7"><div style="display:flex;align-items:flex-start;gap:10px;padding:10px 18px;border-top:1px solid #E5DFD7"><span style="width:16px;height:16px;flex:none;margin-top:1px;border-radius:4px;background:{{ i.sBg }};color:{{ i.sCol }};font-size:9.5px;font-weight:700;display:flex;align-items:center;justify-content:center">{{ i.sL }}</span><span style="font-size:13.5px;line-height:1.45">{{ i.t }}</span></div></sc-for>
+</div></sc-for>
+</div>
+</div>
+
+</div>
+
+<sc-if value="{{ hasSel }}" hint-placeholder-val="{{ false }}">
+<div style="position:fixed;top:56px;right:0;bottom:0;z-index:30;width:min(460px,94vw);background:#fff;border-left:1px solid #E5DFD7;box-shadow:-20px 0 50px -20px rgba(31,26,23,.3);display:flex;flex-direction:column;animation:mslide .2s ease">
+<div style="padding:18px 22px;border-bottom:1px solid #E5DFD7;border-top:4px solid {{ sel.c }};display:flex;gap:12px;align-items:flex-start">
+<span style="flex:1;display:flex;flex-direction:column;gap:5px"><span style="font-size:12px;font-weight:700;color:{{ sel.c }}">PART {{ sel.num }} OF 13</span><span style="font-size:22px;font-weight:700;line-height:1.15">{{ sel.t }}</span><span style="font-size:14px;line-height:1.5;color:#3A332D">{{ sel.d }}</span></span>
+<span onClick="{{ closeSel }}" style="width:32px;height:32px;flex:none;border:1px solid #CDC5BA;border-radius:999px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px">×</span>
+</div>
+<div style="flex:1;overflow:auto;padding:6px 0 20px">
+<div style="margin:12px 22px 4px;border-radius:6px;background:#FBF6EE;border:1px solid #F2E2C2;padding:11px 14px;font-size:13.5px;line-height:1.5"><span style="font-weight:700">Why it matters · </span>{{ sel.why }}</div>
+<sc-for list="{{ sel.leaves }}" as="l" hint-placeholder-count="5"><div id="{{ l.id }}" style="display:flex;flex-direction:column;gap:8px;padding:14px 22px;border-bottom:1px solid #E5DFD7;background:{{ l.hiBg }}">
+<span style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px"><span style="font-size:15px;font-weight:700">{{ l.t }}</span><span style="display:flex;gap:5px;flex:none"><span style="border-radius:3px;padding:2px 7px;font-size:11px;font-weight:600;background:{{ l.sBg }};color:{{ l.sCol }}">{{ l.scope }}</span><span style="border-radius:3px;padding:2px 7px;font-size:11px;font-weight:600;background:#F1EDE8;color:{{ l.vCol }}">{{ l.vG }} {{ l.vol }}</span></span></span>
+<span style="display:grid;grid-template-columns:96px minmax(0,1fr);gap:4px 10px;font-size:13px;line-height:1.45"><span style="color:#6E665D">How to gather</span><span>{{ l.how }}</span><span style="color:#6E665D">Ask</span><span>{{ l.who }}</span><span style="color:#6E665D">In prototype</span><span style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span style="font-weight:600;color:{{ l.c5C }}">v5 {{ l.c5L }}</span>→<span style="font-weight:600;color:{{ l.c6C }}">v6 {{ l.c6L }}</span><span style="color:#6E665D">· {{ l.where }}</span></span></span>
+<span style="display:flex;gap:6px;flex-wrap:wrap"><sc-for list="{{ l.evBtns }}" as="e" hint-placeholder-count="3"><span onClick="{{ e.onClick }}" style="display:flex;align-items:center;gap:6px;height:28px;box-sizing:border-box;padding:0 10px;border-radius:4px;border:1px solid {{ e.bd }};background:{{ e.bg }};color:{{ e.col }};font-size:12.5px;font-weight:600;cursor:pointer"><span style="width:8px;height:8px;border-radius:999px;background:{{ e.dot }}"></span>{{ e.label }}</span></sc-for></span>
+</div></sc-for>
+<div style="padding:16px 22px;display:flex;flex-direction:column;gap:8px"><span style="font-size:13.5px;font-weight:600">Your notes on this part</span><textarea value="{{ sel.note }}" onChange="{{ sel.onNote }}" placeholder="What is missing, wrong or most important here?" style="min-height:90px;box-sizing:border-box;border:1px solid #CDC5BA;border-radius:6px;padding:10px 12px;font-size:14px;line-height:1.5;resize:vertical;outline-color:#4A1F3D"></textarea></div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}"><div style="position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;border-radius:8px;background:#4A1F3D;color:#fff;padding:12px 18px;font-size:14px;font-weight:500;animation:min .25s ease">{{ toast }}</div></sc-if>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;embedded&quot;:{&quot;editor&quot;:null,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  B = [
+    ['purpose', 'Purpose & outcome', '#6B2F5C', 'Why the instruction exists and what a good result looks like.', 'Without a clear goal the model optimises for sounding right, not for being useful. Success criteria are what every test is scored against.', [
+      ['Goal in one sentence', 'P', 'L', 'Owner interview, then confirmed by the approver', 'Owner'],
+      ['Success criteria', 'P', 'L', 'Workshop with owner and doers; write as testable statements', 'Owner, Doer'],
+      ['Who reads the output', 'P', 'F', 'Persona mapping during Scope', 'Owner, Supervisor'],
+      ['Definition of done', 'P', 'L', 'Acceptance review before approval', 'Approver'],
+      ['Business value and KPI', 'C', 'F', 'Strategy documents and leadership', 'Leadership']]],
+    ['persona', 'Persona — who to imitate', '#2A9D8F', 'The role, expertise and voice the model takes on.', 'A persona built from real top performers makes answers sound like the best person in the company — not like a generic assistant.', [
+      ['Role and expertise', 'P', 'F', 'Interview the people others go to for help', 'Doer, Supervisor'],
+      ['Voice and tone', 'C', 'F', 'Company style guide', 'Communications'],
+      ['Point of view', 'P', 'L', 'Review example answers together', 'Owner'],
+      ['Reader’s level', 'P', 'F', 'Short audience survey', 'Doer'],
+      ['What it never does', 'C', 'F', 'Policy and legal review', 'Legal'],
+      ['Answers to imitate', 'P', 'L', 'Collect the best real answers', 'Doer, Supervisor']]],
+    ['context', 'Context & knowledge', '#E08A4B', 'The facts, terms and sources the model needs to be right.', 'Most wrong answers are missing context, not bad reasoning. Separate stable knowledge from what must be fetched fresh.', [
+      ['Company facts', 'C', 'F', 'Document mining of handbooks and policies', 'HR, Communications'],
+      ['Glossary and terms', 'C', 'L', 'Extract terms from documents; doers confirm', 'Doer'],
+      ['Source documents', 'P', 'L', 'Document mining; owner picks the trusted ones', 'Owner'],
+      ['Retrieval sources', 'P', 'D', 'System inventory with the system owner', 'System owner'],
+      ['Live data at run time', 'R', 'D', 'Integration, fetched per request', 'System owner'],
+      ['Known edge cases', 'P', 'L', 'Incident logs and interviews', 'Safety representative']]],
+    ['requirements', 'Requirements', '#3E5C9A', 'What the instruction must, should and could do — each traceable to a source.', 'Requirements turn opinions into decisions. A requirement without a source cannot be defended in review or audit.', [
+      ['Must / should / could', 'P', 'L', 'Questionnaire, then priority set in a workshop', 'All personas'],
+      ['Acceptance criteria', 'P', 'L', 'Workshop; one test per criterion', 'Approver'],
+      ['Length, speed, language', 'P', 'F', 'Interview the system owner', 'System owner'],
+      ['Regulatory duties', 'C', 'F', 'Legal review of laws and standards', 'Legal'],
+      ['Traced to the answer', 'P', 'L', 'Kept automatically from each answer', 'Assistant'],
+      ['Conflicts decided', 'P', 'L', 'Decision log kept by the owner', 'Owner']]],
+    ['output', 'Output specification', '#8C6BA8', 'The exact shape of what the model returns.', 'A precise format is what lets people and systems use the answer without editing it. Examples define it better than rules.', [
+      ['Format or schema', 'P', 'F', 'Specification with the system owner', 'System owner'],
+      ['Structure and sections', 'P', 'F', 'Taken from the template', 'Owner'],
+      ['Length and density', 'P', 'L', 'Review real examples with doers', 'Doer'],
+      ['Style rules', 'C', 'F', 'Company style guide', 'Communications'],
+      ['Good and bad examples', 'P', 'L', 'Example collection', 'Doer, Supervisor'],
+      ['Citations to sources', 'C', 'F', 'Policy', 'Auditor']]],
+    ['input', 'Input', '#C99A2E', 'What the model receives each time, and what it does when input is missing.', 'Real input is messier than the test input. Knowing the actual questions people ask prevents the most common failures.', [
+      ['Expected input types', 'P', 'F', 'Log and ticket analysis', 'System owner'],
+      ['Variables and slots', 'P', 'L', 'Template design', 'Owner'],
+      ['Validation rules', 'P', 'F', 'Specification', 'System owner'],
+      ['User’s language', 'R', 'D', 'Detected at run time', 'System'],
+      ['Attachments and files', 'R', 'D', 'Integration', 'System owner'],
+      ['Ask back when missing', 'P', 'F', 'Design rule agreed in Scope', 'Owner']]],
+    ['process', 'Process & reasoning', '#4F8A4B', 'The steps, decisions and checks the model follows before it answers.', 'Writing down how the best people actually reason is what turns a model from guessing to following practice.', [
+      ['Steps in order', 'P', 'L', 'Observation or shadowing of the work', 'Doer'],
+      ['Decision rules', 'P', 'L', 'Interview: “walk me through the last time…”', 'Supervisor'],
+      ['Checks before answering', 'P', 'F', 'Specification with the auditor', 'Auditor'],
+      ['When sources disagree', 'C', 'F', 'Company policy', 'Owner'],
+      ['Clarifying questions', 'P', 'F', 'Design rule', 'Owner']]],
+    ['boundaries', 'Boundaries & guardrails', '#C8432B', 'What the model must not do, and what it does instead.', 'Boundaries protect people and the company. They must be explicit, tested and inherited — never left to the model’s judgement.', [
+      ['In scope and out of scope', 'P', 'L', 'Owner interview, confirmed in review', 'Owner'],
+      ['Refuse and redirect', 'C', 'F', 'Company policy', 'Legal'],
+      ['Hand over to a human', 'P', 'F', 'Process mapping', 'Supervisor'],
+      ['Say “I don’t know”', 'C', 'F', 'Company policy', 'Owner'],
+      ['Never invent facts', 'C', 'F', 'Company policy', 'Auditor'],
+      ['Sensitive topics', 'C', 'F', 'HR and legal review', 'HR, Legal']]],
+    ['security', 'Security & privacy', '#3A2232', 'How data, access and attacks are handled.', 'Security is the part that must never change per project. One weak instruction can leak data or be turned against its users.', [
+      ['Data classification', 'C', 'F', 'Information security policy', 'Security'],
+      ['Personal data handling', 'C', 'F', 'GDPR review with the privacy officer', 'Legal'],
+      ['Prompt-injection defence', 'C', 'F', 'Red-team testing', 'Security'],
+      ['No secrets in prompts', 'C', 'F', 'Development policy', 'Security'],
+      ['Access by role', 'P', 'L', 'Access matrix', 'System owner'],
+      ['Logging and retention', 'C', 'F', 'Security policy', 'Security'],
+      ['Data residency (EU)', 'C', 'F', 'Vendor contract and DPA', 'Legal']]],
+    ['tools', 'Tools & actions', '#2C8FB0', 'What the model may look up or change, and with what rights.', 'Tools are where an LLM stops talking and starts acting. Rights must be the smallest that work.', [
+      ['Allowed tools', 'P', 'L', 'System inventory', 'System owner'],
+      ['Read or write rights', 'P', 'F', 'Access matrix', 'Security'],
+      ['Confirm before acting', 'C', 'F', 'Company policy', 'Security'],
+      ['Limits and quotas', 'P', 'F', 'Operations', 'System owner']]],
+    ['evaluation', 'Evaluation & quality', '#C46A8A', 'How we know the instruction works — before and after release.', 'Without tests every change is a guess. A small set of real cases catches most regressions.', [
+      ['Test cases (golden set)', 'P', 'L', 'Collect real cases from doers and logs', 'Doer'],
+      ['Scoring rubric', 'P', 'L', 'Workshop with owner and auditor', 'Owner, Auditor'],
+      ['Red-team prompts', 'C', 'L', 'Red-team session', 'Security'],
+      ['Human review sample', 'P', 'D', 'Weekly review rota', 'Reviewer'],
+      ['User feedback', 'R', 'D', 'Rating in the product', 'Doer'],
+      ['Regression before release', 'P', 'F', 'Automated test run', 'Developer']]],
+    ['governance', 'Lifecycle & governance', '#8A6A4F', 'Who owns it, how it changes and when it is reviewed.', 'Instructions go stale silently. Ownership and triggers make sure someone notices when the work changes.', [
+      ['Owner and approver', 'P', 'F', 'Assigned in Scope', 'Leadership'],
+      ['Version and change log', 'P', 'L', 'Kept automatically', 'Assistant'],
+      ['Review cadence', 'C', 'F', 'Company policy', 'Leadership'],
+      ['Change triggers', 'P', 'L', 'Incidents, process or system changes', 'Owner'],
+      ['Retirement', 'P', 'L', 'Owner decision', 'Owner']]],
+    ['development', 'Development & operations', '#7A8A3A', 'How the instruction is built, released, run and paid for.', 'Treating instructions like code — versioned, tested, monitored — is what keeps them reliable at scale.', [
+      ['Kept in version control', 'C', 'F', 'Development standard', 'Developer'],
+      ['Dev, test and production', 'C', 'F', 'Development standard', 'Developer'],
+      ['Model and parameters', 'P', 'L', 'Benchmark against the golden set', 'Developer'],
+      ['Model version pinned', 'P', 'L', 'Release process', 'Developer'],
+      ['Monitoring and cost', 'P', 'D', 'Dashboards', 'Operations'],
+      ['Fallback when it fails', 'P', 'F', 'Design review', 'Developer']]],
+  ];
+  COLS = [['context', 'input', 'process'], ['purpose', 'persona', 'requirements', 'output'], ['boundaries', 'security', 'evaluation'], ['tools', 'governance', 'development']];
+  COV = { purpose: ['PPYPN', 'YYYYN', 'AI behaviour · Purpose, Specification checks'], persona: ['NNNNNN', 'YYYYYY', 'AI behaviour · Persona, Company rules'], context: ['NNNNNP', 'YYYPNP', 'Company rules · facts, Sources tab'], requirements: ['PNNNYY', 'PYPYYY', 'Requirements, Tests, Company rules · legal'], output: ['NYNNNY', 'YYYYYY', 'AI behaviour · Output, File'], input: ['NNNNNN', 'YYYNNY', 'AI behaviour · Input'], process: ['PPNYN', 'PPPYY', 'File sections, AI behaviour'], boundaries: ['PNNNNN', 'YYYYYY', 'AI behaviour · Boundaries, Company rules'], security: ['NNNNNNN', 'YYYYYYY', 'Security tab, Company rules'], tools: ['NNNN', 'YYYN', 'AI behaviour · Tools and model'], evaluation: ['NNNNNN', 'YPYNNP', 'Tests tab'], governance: ['YYYPN', 'YYYPN', 'Lifecycle, sign-off, history'], development: ['NNNNNN', 'NNYYNY', 'AI behaviour · Tools and model'] };
+  state = { cov: 'off', view: 'map', scopeF: 'all', volF: 'all', sel: null, hi: null, ev: {}, notes: {}, toast: null };
+  componentDidMount() { try { const s = JSON.parse(localStorage.getItem('llm-map-eval') || 'null'); if (s) this.setState({ ev: s.ev || {}, notes: s.notes || {} }); } catch (e) {} }
+  componentDidUpdate() { try { const s = JSON.stringify({ ev: this.state.ev, notes: this.state.notes }); if (s !== this._saved) { this._saved = s; localStorage.setItem('llm-map-eval', s); } } catch (e) {} }
+  copyText(t) {
+    const fallback = () => { try { const ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.focus(); ta.select(); const ok = document.execCommand('copy'); ta.remove(); this.flash(ok ? 'Evaluation copied as a list' : 'Copy is blocked here — try again from the page'); } catch (e) { this.flash('Copy is blocked here — try again from the page'); } };
+    try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(() => this.flash('Evaluation copied as a list'), fallback); else fallback(); } catch (e) { fallback(); }
+  }
+  componentWillUnmount() { clearTimeout(this._t); }
+  flash(m) { clearTimeout(this._t); this.setState({ toast: m }); this._t = setTimeout(() => this.setState({ toast: null }), 2600); }
+  renderVals() {
+    const st = this.state;
+    const SC = { C: ['Company', '#4A1F3D', '#fff'], P: ['Project', '#E3F2F0', '#1E5E55'], R: ['Run', '#FDF1DC', '#7A4D00'] };
+    const VO = { F: ['Fixed', '■', '#3A332D'], L: ['Lifecycle', '◐', '#7A4D00'], D: ['Dynamic', '●', '#C8432B'] };
+    const EV = { e: ['Essential', '#2A9D8F'], n: ['Nice to have', '#F0A96B'], x: ['Not needed', '#BDB5AA'] };
+    const byK = {}; this.B.forEach((b, i) => { byK[b[0]] = { b, i }; });
+    const anySel = !!st.sel;
+    const mk = (b, i) => {
+      const [k, t, c, d, why, leaves] = b;
+      const ls = leaves.map((l, j) => {
+        const key = k + ':' + j, ev = st.ev[key], match = (st.scopeF === 'all' || l[1] === st.scopeF) && (st.volF === 'all' || l[2] === st.volF);
+        const CV = { Y: ['Covered', '✓', '#2A9D8F', '#fff'], P: ['Partial', '◐', '#F0A96B', '#1F1A17'], N: ['Missing', '✕', '#C8432B', '#fff'] }; const c5 = this.COV[k][0][j], c6 = this.COV[k][1][j], cc = st.cov === 'v6' ? c6 : c5;
+        return { c5L: CV[c5][0], c5C: CV[c5][2], c6L: CV[c6][0], c6C: CV[c6][2], where: this.COV[k][2], cG: CV[cc][1], cBg: CV[cc][2], cCol: CV[cc][3], key, id: 'lf-' + k + '-' + j, t: l[0], scope: SC[l[1]][0], sL: l[1], sBg: SC[l[1]][1], sCol: SC[l[1]][2], vol: VO[l[2]][0], vG: VO[l[2]][1], vCol: VO[l[2]][2], how: l[3], who: l[4], match, op: match ? 1 : 0.22, evC: ev ? EV[ev][1] : '#fff', evBd: ev ? EV[ev][1] : '#CDC5BA', tip: SC[l[1]][0] + ' · ' + VO[l[2]][0], hiBg: st.hi === key ? '#FBF6EE' : '#fff',
+          onOpen: () => { this.setState({ sel: k, hi: key }); setTimeout(() => { const el = document.getElementById('lf-' + k + '-' + j); if (el && el.parentNode) el.parentNode.scrollTop = el.offsetTop - 60; }, 60); },
+          evBtns: Object.entries(EV).map(([ek, [label, dot]]) => ({ label, dot, bg: ev === ek ? '#1F1A17' : '#fff', col: ev === ek ? '#fff' : '#1F1A17', bd: ev === ek ? '#1F1A17' : '#CDC5BA', onClick: () => this.setState((s) => { const n = { ...s.ev }; if (n[key] === ek) delete n[key]; else n[key] = ek; return { ev: n, hi: key }; }) })) };
+      });
+      const rated = ls.filter((l) => st.ev[l.key]).length;
+      return { k, num: String(i + 1).padStart(2, '0'), t, c, d, why, leaves: ls, mCount: ls.filter((l) => l.match).length, evTxt: ls.length + ' elements · ' + rated + ' rated', bd: st.sel === k ? c : '#E5DFD7', headBg: st.sel === k ? '#FBF9F6' : '#fff', op: anySel && st.sel !== k ? 0.4 : 1, onOpen: () => this.setState({ sel: k, hi: null }), note: st.notes[k] || '', onNote: (e) => { const val = e.target.value; this.setState((s) => ({ notes: { ...s.notes, [k]: val } })); } };
+    };
+    const all = this.B.map(mk);
+    const CX = [20, 330, 930, 1240], W = 280, ROW = 30, HEAD = 58, GAP = 22;
+    const hOf = (b) => HEAD + b.leaves.length * ROW + 13;
+    const colH = this.COLS.map((col) => col.reduce((n, k) => n + hOf(all[byK[k].i]), 0) + GAP * (col.length - 1));
+    const H = Math.max(...colH) + 60, cy = H / 2;
+    const pos = {};
+    this.COLS.forEach((col, ci) => { let y = (H - colH[ci]) / 2; col.forEach((k) => { pos[k] = { x: CX[ci], y: Math.round(y) }; y += hOf(all[byK[k].i]) + GAP; }); });
+    const branches = this.COLS.flat().map((k) => ({ ...all[byK[k].i], x: pos[k].x, y: pos[k].y }));
+    const lines = this.COLS.flatMap((col, ci) => col.map((k) => { const p = pos[k], left = ci < 2, x1 = left ? 660 : 880, x2 = left ? p.x + W : p.x, y2 = p.y + 29, mx = (x1 + x2) / 2; const b = all[byK[k].i]; return { d: `M ${x1} ${cy} C ${mx} ${cy}, ${mx} ${y2}, ${x2} ${y2}`, c: b.c, op: anySel && st.sel !== k ? 0.15 : 0.55 }; }));
+    const leaves = all.flatMap((b) => b.leaves), leafN = leaves.length;
+    const cnt = (k) => leaves.filter((l) => st.ev[l.key] === k).length;
+    const evDone = leaves.filter((l) => st.ev[l.key]).length;
+    const evSum = [['Essential', cnt('e'), '#2A9D8F'], ['Nice to have', cnt('n'), '#F0A96B'], ['Not needed', cnt('x'), '#BDB5AA'], ['Not rated', leafN - evDone, '#EEEAE4']].map(([label, n, c]) => ({ label, n: String(n), c }));
+    const evBar = [['e', '#2A9D8F'], ['n', '#F0A96B'], ['x', '#BDB5AA']].map(([k, c]) => ({ flex: String(cnt(k)), c, n: cnt(k) })).filter((x) => x.n > 0);
+    const pill = (on) => ({ bg: on ? '#1F1A17' : '#fff', col: on ? '#fff' : '#1F1A17', bd: on ? '#1F1A17' : '#CDC5BA' });
+    const scopeBtns = [['all', 'All', '·', '#EEEAE4', '#1F1A17'], ['C', 'Company', 'C', SC.C[1], SC.C[2]], ['P', 'Project', 'P', SC.P[1], SC.P[2]], ['R', 'Run', 'R', SC.R[1], SC.R[2]]].map(([k, label, letter, chipBg, chipCol]) => ({ label, letter, chipBg, chipCol, ...pill(st.scopeF === k), onClick: () => this.setState({ scopeF: k }) }));
+    const volBtns = [['all', 'All', '◇'], ['F', 'Fixed', '■'], ['L', 'Lifecycle', '◐'], ['D', 'Dynamic', '●']].map(([k, label, glyph]) => ({ label, glyph, ...pill(st.volF === k), onClick: () => this.setState({ volF: k }) }));
+    const mN = leaves.filter((l) => l.match).length;
+    const covAll = this.B.flatMap((b) => this.COV[b[0]][st.cov === 'v6' ? 1 : 0].split(''));
+    const cvN = (c) => covAll.filter((x) => x === c).length;
+    const covSum = [['Covered', cvN('Y'), '#2A9D8F'], ['Partial', cvN('P'), '#F0A96B'], ['Missing', cvN('N'), '#C8432B']].map(([label, n, c]) => ({ label, n: String(n), c, flex: String(n) }));
+    const v5c = this.B.flatMap((b) => this.COV[b[0]][0].split('')), v6c = this.B.flatMap((b) => this.COV[b[0]][1].split(''));
+    const covBtns = [['off', 'Off'], ['v5', 'Prototype v5'], ['v6', 'Prototype v6']].map(([k, label]) => ({ label, bg: st.cov === k ? '#4A1F3D' : '#fff', col: st.cov === k ? '#fff' : '#1F1A17', onClick: () => this.setState({ cov: k }) }));
+    const sel = st.sel ? all[byK[st.sel].i] : null;
+    const LV = { S: ['Set', '#F4E9F0', '#4A1F3D', 'Defined for the first time'], R: ['Refine', '#FDF1DC', '#7A4D00', 'Changes as input arrives'], C: ['Check', '#E3F2F0', '#1E5E55', 'Verified against tests and reviewers'], L: ['Lock', '#3A2232', '#fff', 'Frozen for this version'], W: ['Watch', '#E6ECF6', '#2B4373', 'Monitored in use; triggers a revision'], I: ['Inherited', '#F1EDE8', '#6E665D', 'Comes from the company layer'] };
+    const LR = { purpose: 'SRLCLW', persona: 'SRRCLW', context: 'SRRCLW', requirements: 'SRLCLW', output: 'SRRCLW', input: 'SRRCLW', process: 'SRRCLW', boundaries: 'IRLCLW', security: 'IIICLW', tools: 'SRLCLW', evaluation: 'SRRCLW', governance: 'SIICLW', development: 'IISCLW' };
+    const SG = [['Scope', '#BDB5AA'], ['Collect input', '#F0A96B'], ['AI draft', '#2A9D8F'], ['Review', '#8C6BA8'], ['Approve', '#3A2232'], ['Live', '#6B2F5C']];
+    const lifeRows = this.B.map((b) => ({ t: b[1], c: b[2], cells: LR[b[0]].split('').map((ch) => ({ t: LV[ch][0], bg: LV[ch][1], col: LV[ch][2] })) }));
+    const dots = (n) => [0, 1, 2].map((i) => (i < n ? '#4A1F3D' : '#E5DFD7'));
+    const F = (ks) => ks.map((k) => ({ t: byK[k].b[1].split(' — ')[0].split(' & ')[0], c: byK[k].b[2] }));
+    const methods = [
+      ['Targeted questionnaire', 'Async · many people', 'Facts, rules and numbers from many people, including people outside the company.', 1, 3, ['requirements', 'context', 'input'], 'Writes the questions from the template and gaps, and only shows each person the questions for their part.'],
+      ['One-to-one interview', 'Live · 30–45 min', 'Tacit knowledge, judgement, and how the best people reason.', 3, 1, ['persona', 'process', 'purpose'], 'Prepares the interview guide and turns the transcript into requirements.'],
+      ['Workshop', 'Live · 90 min, 4–8 people', 'Conflicts, priorities and success criteria that need a shared decision.', 2, 2, ['requirements', 'evaluation', 'boundaries'], 'Lists the conflicts in advance and records the decisions.'],
+      ['Observation / shadowing', 'On site', 'The gap between what people say and what they really do.', 3, 1, ['process', 'input', 'context'], 'Structures field notes into steps and exceptions.'],
+      ['Document mining', 'Desk research', 'Existing procedures, policies, incidents and contracts.', 1, 3, ['context', 'boundaries', 'security'], 'Extracts rules, terms and contradictions, with references.'],
+      ['Example collection', 'Async', 'Good and bad real outputs to imitate or avoid.', 1, 2, ['persona', 'output', 'evaluation'], 'Groups examples by pattern and drafts the style rules.'],
+      ['Log and ticket analysis', 'Data', 'The questions people really ask, in their own words.', 2, 3, ['input', 'evaluation', 'context'], 'Clusters real requests into input types and test cases.'],
+      ['Delphi rounds', 'Async · 2–3 anonymous rounds', 'Expert agreement where people disagree but cannot meet.', 2, 2, ['requirements', 'boundaries'], 'Summarises each round and shows where views converge.'],
+      ['Red-team session', 'Live · adversarial', 'Finding where boundaries and security fail.', 2, 1, ['boundaries', 'security', 'evaluation'], 'Generates attack prompts and turns failures into tests.'],
+    ].map(([t, mode, best, e, r, feeds, ai]) => ({ t, mode, best, effort: dots(e), reach: dots(r), feeds: F(feeds), ai }));
+    const recs = [
+      ['Ask for examples, not opinions', '“Show me the last time this went wrong” gives better input than “what could go wrong?”. Real cases become test cases too.'],
+      ['Ask each persona only what they know', 'Five questions or fewer, about five minutes, each tied to one part of the instruction. Fewer, sharper questions get more answers.'],
+      ['Collect company rules once', 'Security, legal, voice and refusal rules live in the company layer. Never ask for them again for each project — they are inherited.'],
+      ['Two sources for every Must', 'A requirement with one source is flagged. Must-level rules need two independent people or one person plus a document.'],
+      ['Let the owner decide conflicts', 'When answers disagree, show both side by side and let the owner decide. The AI should never average them.'],
+      ['Get dynamic input from systems', 'User role, language, live data and attachments come from integrations at run time — not from people writing them down.'],
+      ['Show people where their answer landed', 'Linking each rule to the person who gave it makes input visible and builds trust for the next round.'],
+      ['At revision, ask only for the changes', 'Re-ask the same people one question — what has changed? — instead of starting over.'],
+    ].map(([t, d], i) => ({ n: String(i + 1).padStart(2, '0'), t, d }));
+    const stack = [
+      ['Company constitution', 'Always fixed', '#4A1F3D', '#4A1F3D', '#fff', ['Values and voice', 'Legal duties', 'Security and privacy rules', 'Refusal and escalation policy', 'Citation rules', 'Never invent facts'], 'Written once and reviewed yearly. Every instruction inherits it, and no project can change it.', 'Leadership, Legal, Security', 'Policy or law changes', 'Shared company file', '0'],
+      ['Domain and project', 'Fixed per project', '#2A9D8F', '#E3F2F0', '#1E5E55', ['Persona to imitate', 'Glossary', 'Trusted sources', 'Allowed tools', 'Scope and boundaries', 'Readers'], 'Set during Scope and Collect input. Stays the same for the whole version, and changes only at a revision.', 'Instruction owner', 'A revision is started', 'Project file', '28px'],
+      ['Instruction file', 'Changes through the lifecycle', '#F0A96B', '#FDF1DC', '#7A4D00', ['Requirements', 'Output specification', 'Steps and decision rules', 'Examples', 'Test cases', 'Change log'], 'Built from the answers. Refined at every stage until it is approved, then locked and versioned.', 'Owner, reviewers, approver', 'Each stage, then each revision', 'Versioned instruction file', '56px'],
+      ['Run time', 'Dynamic, per request', '#C8432B', '#FCE8E3', '#A23A22', ['User input', 'Retrieved documents', 'Live data', 'User role and rights', 'Language', 'Conversation so far'], 'Assembled fresh on every call. Never stored in the instruction, and always checked against the layers above.', 'The system', 'Every call', 'Not stored, or logged as policy allows', '84px'],
+    ].map(([t, vol, c, chipBg, chipCol, items, note, owner, when, store, indent], i) => ({ n: i + 1, t, vol, c, chipBg, chipCol, items, note, owner, when, store, indent }));
+    const SP = (arr) => arr.map(([t, s]) => ({ t, sL: s, sBg: SC[s][1], sCol: SC[s][2] }));
+    const specs = [
+      { t: 'Security specification', c: '#3A2232', who: 'Security and the privacy officer', items: SP([['Every source is classified: public, internal, confidential or personal', 'C'], ['Personal data is minimised; no special-category data in prompts', 'C'], ['Prompt-injection tests pass for documents, email and web content', 'C'], ['No secrets, keys or passwords in instructions or examples', 'C'], ['Tool rights are the smallest that work; every write is confirmed', 'P'], ['Retention period is set and enforced; logs are readable by role', 'C'], ['Model provider has a DPA, keeps data in the EU and does not train on it', 'C'], ['Incident route: who is told, and how fast', 'C']]) },
+      { t: 'Development specification', c: '#7A8A3A', who: 'Developer and system owner', items: SP([['Instruction stored as a versioned file next to the code', 'C'], ['User input inserted through templated variables, never pasted raw', 'C'], ['Separate development, test and production instructions and keys', 'C'], ['Model, version and parameters pinned for each release', 'P'], ['Golden test set runs on every change; a regression blocks release', 'P'], ['Monitoring of cost, latency, refusal rate and user rating', 'P'], ['Fallback to a smaller model or a human when the model fails', 'P'], ['Each change in the log links to the requirement behind it', 'P']]) },
+      { t: 'Quality specification', c: '#C46A8A', who: 'Owner and auditor', items: SP([['Rubric agreed before testing starts', 'P'], ['Real test cases, including edge cases from incidents', 'P'], ['Red-team set for boundaries and refusals', 'C'], ['Pass threshold set before the first test run', 'P'], ['Human review of a regular sample in use', 'P'], ['User feedback flows into the next revision', 'P']]) },
+    ];
+    return { notEmbedded: !(this.props.embedded ?? false),
+      leafN: String(leafN), evDone: String(evDone), evSum, evBar,
+      copyEval: () => { const lines = all.map((b) => '## ' + b.t + '\n' + b.leaves.map((l) => '- ' + l.t + ' — ' + (st.ev[l.key] ? EV[st.ev[l.key]][0] : 'Not rated') + ' (' + l.scope + ', ' + l.vol + ')').join('\n') + (st.notes[b.k] ? '\nNotes: ' + st.notes[b.k] : '')).join('\n\n'); this.copyText(lines); },
+      clearEval: () => { this.setState({ ev: {}, notes: {} }); this.flash('Evaluation cleared'); },
+      viewBtns: [['map', 'Mind map'], ['list', 'List']].map(([k, label]) => ({ label, bg: st.view === k ? '#4A1F3D' : '#fff', col: st.view === k ? '#fff' : '#1F1A17', onClick: () => this.setState({ view: k }) })),
+      scopeBtns, volBtns, matchTxt: mN === leafN ? 'Showing all ' + leafN + ' elements' : mN + ' of ' + leafN + ' elements match',
+      isMap: st.view === 'map', isList: st.view === 'list', mapH: String(H), cTop: String(Math.round(cy - 75)), branches: st.view === 'map' ? branches : all, lines,
+      hasSel: !!sel, sel: sel || { leaves: [] }, closeSel: () => this.setState({ sel: null, hi: null }),
+      stack, stageHead: SG.map(([t, c]) => ({ t, c })), lifeRows, lifeLegend: Object.values(LV).map(([t, bg, col, d]) => ({ t, bg, col, d })),
+      methods, recs, specs, covBtns, showCov: st.cov !== 'off', covSum, covTitle: st.cov === 'v6' ? 'Prototype v6' : 'Prototype v5', covDelta: 'v5 covers ' + v5c.filter((x) => x === 'Y').length + ' fully · v6 covers ' + v6c.filter((x) => x === 'Y').length + ' fully, ' + v6c.filter((x) => x === 'P').length + ' partly', covLink: st.cov === 'v6' ? '../Archive/AI Instructions Prototype v6.dc.html' : '../Archive/AI Instructions Prototype v5.dc.html', hasToast: !!st.toast, toast: st.toast || '',
+    };
+  }
+}
+
+</script>
+</body>
+</html>

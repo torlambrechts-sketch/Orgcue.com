@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap">
+</helmet>
+<div style="font-family:'Figtree',system-ui,sans-serif">
+<section style="max-width:1240px;margin:0 auto;padding:24px clamp(16px,3vw,40px) 56px">
+<div style="position:relative;overflow:hidden;border-radius:28px;background:#2A1224;color:#fff;padding:clamp(28px,5vw,56px);display:flex;gap:28px;align-items:center;flex-wrap:wrap;box-shadow:0 40px 90px rgba(42,18,36,.28)">
+<span style="position:absolute;right:-120px;top:-120px;width:420px;height:420px;border-radius:999px;background:radial-gradient(circle,rgba(242,179,61,.35),transparent 65%)"></span>
+<span style="position:absolute;left:-80px;bottom:-160px;width:380px;height:380px;border-radius:999px;background:radial-gradient(circle,rgba(156,107,142,.45),transparent 65%)"></span>
+<span style="position:relative;flex:1 1 420px;display:flex;flex-direction:column;gap:10px"><span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#F2B33D">{{ eyebrow }}</span><span style="font-family:'Instrument Serif',serif;font-size:clamp(32px,4vw,52px);line-height:1.02;letter-spacing:-0.01em;text-wrap:balance">{{ title }}</span><span style="font-size:15.5px;opacity:.8;max-width:560px;text-wrap:pretty">{{ sub }}</span></span>
+<span style="position:relative;display:flex;gap:10px;flex-wrap:wrap"><a href="../App/Requirements Interviews.dc.html" style="white-space:nowrap;height:48px;box-sizing:border-box;display:inline-flex;align-items:center;padding:0 22px;border-radius:999px;background:#F2B33D;color:#1F1A17;font-size:15px;font-weight:700;text-decoration:none;transition:transform .2s ease-in-out" style-hover="transform:translateY(-1px)" style-active="transform:scale(.97)">Open the CRM example →</a><a href="{{ nextHref }}" style="white-space:nowrap;height:48px;box-sizing:border-box;display:inline-flex;align-items:center;padding:0 22px;border-radius:999px;border:1px solid rgba(255,255,255,.3);color:#fff;font-size:15px;font-weight:600;text-decoration:none;transition:background .2s ease-in-out" style-hover="background:rgba(255,255,255,.08)">{{ nextL }}</a></span>
+</div></section>
+<footer style="border-top:1px solid #E7E1EA"><div style="max-width:1240px;margin:0 auto;padding:24px clamp(16px,3vw,40px);display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:#6E665D;align-items:center"><img src="../assets/orgcue-mark.svg" alt="" width="22" height="22" style="display:block;border-radius:6px"><span style="font-weight:700;color:#1F1A17">OrgCue</span><span>orgcue.com · prototype, 21 October 2026</span><span style="flex:1"></span><a href="Home.dc.html" style="color:#4A1F3D;text-decoration:none">Home</a><a href="Plan.dc.html" style="color:#4A1F3D;text-decoration:none">Plan</a><a href="Collect.dc.html" style="color:#4A1F3D;text-decoration:none">Collect</a><a href="Decide.dc.html" style="color:#4A1F3D;text-decoration:none">Decide</a><a href="Deliver.dc.html" style="color:#4A1F3D;text-decoration:none">Deliver</a><a href="Platform.dc.html" style="color:#4A1F3D;text-decoration:none">Platform</a><a href="../App/LLM Instruction Map.dc.html" style="color:#4A1F3D;text-decoration:none">Instruction map</a></div></footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;eyebrow&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;SEE IT WORK&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;title&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Open the Northwind CRM example.&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;sub&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;nextHref&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Plan.dc.html&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;nextL&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Next: Plan →&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props;
+    return { eyebrow: p.eyebrow ?? 'SEE IT WORK', title: p.title ?? 'Open the Northwind CRM example.', sub: p.sub ?? 'Eleven stakeholders, 37 questions, real conflicts, a frozen MVP and a full handoff package.', nextHref: p.nextHref ?? 'Plan.dc.html', nextL: p.nextL ?? 'Next: Plan →' };
+  }
+}
+</script>
+</body>
+</html>

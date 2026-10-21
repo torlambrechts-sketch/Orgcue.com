@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+html,body{margin:0;background:#F7F5F2;font-family:'Figtree',system-ui,sans-serif;color:#1F1A17}
+a{color:#4A1F3D}a:hover{color:#2A1224}
+@keyframes pin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="min-height:100vh;font-size:15px;line-height:1.5;position:relative;overflow:hidden">
+<span style="position:absolute;right:-160px;top:-200px;width:820px;height:820px;background:radial-gradient(closest-side,rgba(196,170,214,.45),rgba(196,170,214,0));pointer-events:none"></span>
+<dc-import name="SplashNav" active="platform" hint-size="100%,68px"></dc-import>
+
+<section style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(40px,6vw,80px) clamp(16px,3vw,40px) 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;animation:pin .3s ease">
+<span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#4A1F3D">PLATFORM</span>
+<h1 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(42px,6vw,80px);line-height:.98;letter-spacing:-0.02em;max-width:960px;text-wrap:balance">Built for organisations that <i style="color:#4A1F3D">have to show their work.</i></h1>
+<p style="margin:0;font-size:18px;color:#3A332D;max-width:640px;text-wrap:pretty">Your choice of AI model, connections to the tools you already use, and an audit trail from every answer to every line of the handoff.</p>
+<div style="position:relative;width:100%;max-width:900px;height:360px;margin-top:20px">
+<span style="position:absolute;left:50%;top:50%;width:150px;height:150px;transform:translate(-50%,-50%);border-radius:36px;background:#4A1F3D;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:0 40px 80px rgba(74,31,61,.35);z-index:2"><img src="../assets/orgcue-mark.svg" alt="" width="64" height="64" style="display:block;border-radius:16px;box-shadow:0 0 0 2px rgba(255,255,255,.25)"><b style="font-size:15px;margin-top:6px">OrgCue</b></span>
+<span style="position:absolute;left:50%;top:50%;width:560px;height:290px;transform:translate(-50%,-50%);border-radius:999px;border:1.5px dashed #D9CFE0"></span>
+<span style="position:absolute;left:50%;top:50%;width:820px;max-width:100%;height:350px;transform:translate(-50%,-50%);border-radius:999px;border:1.5px dashed #E7E1EA"></span>
+<span style="position:absolute;left:14%;top:12%;padding:10px 14px;border-radius:14px;background:#fff;border:1px solid #EEE9E3;box-shadow:0 16px 34px rgba(31,26,23,.10);font-size:13px;font-weight:600;display:flex;gap:8px;align-items:center"><span style="width:22px;height:22px;border-radius:6px;background:#D97757;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center">C</span>Claude</span>
+<span style="position:absolute;right:14%;top:12%;padding:10px 14px;border-radius:14px;background:#fff;border:1px solid #EEE9E3;box-shadow:0 16px 34px rgba(31,26,23,.10);font-size:13px;font-weight:600">MCP server · read-only</span>
+<span style="position:absolute;left:3%;top:46%;padding:10px 14px;border-radius:14px;background:#fff;border:1px solid #EEE9E3;box-shadow:0 16px 34px rgba(31,26,23,.10);font-size:13px;font-weight:600">Teams · Slack · e-mail</span>
+<span style="position:absolute;right:3%;top:46%;padding:10px 14px;border-radius:14px;background:#fff;border:1px solid #EEE9E3;box-shadow:0 16px 34px rgba(31,26,23,.10);font-size:13px;font-weight:600">Jira · Linear · GitHub</span>
+<span style="position:absolute;left:16%;bottom:8%;padding:10px 14px;border-radius:14px;background:#fff;border:1px solid #EEE9E3;box-shadow:0 16px 34px rgba(31,26,23,.10);font-size:13px;font-weight:600">Entra ID · Google</span>
+<span style="position:absolute;right:16%;bottom:8%;padding:10px 14px;border-radius:14px;background:#fff;border:1px solid #EEE9E3;box-shadow:0 16px 34px rgba(31,26,23,.10);font-size:13px;font-weight:600">SharePoint · Drive · Confluence</span>
+</div></section>
+
+<section style="max-width:1240px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(16px,3vw,40px) 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:16px;align-items:stretch">
+<div style="background:#fff;border:1px solid #E7E1EA;border-radius:24px;padding:22px;display:flex;flex-direction:column;gap:12px"><span style="font-family:'Instrument Serif',serif;font-size:28px;line-height:1.05">AI, per job</span><span style="font-size:14px;color:#3A332D">Claude by default, with Azure OpenAI, OpenAI or Google Vertex as alternatives. Pick a model per job, choose the EU region, bring your own key and set a monthly cost cap. Everything AI writes is labelled, and a person approves it.</span>
+<div style="display:flex;flex-direction:column;gap:6px;font-size:12.5px">
+<span style="display:flex;justify-content:space-between;padding:8px 10px;border-radius:9px;background:#FBF9F7"><span>Drafting and gaps</span><b>Claude Sonnet</b></span>
+<span style="display:flex;justify-content:space-between;padding:8px 10px;border-radius:9px;background:#FBF9F7"><span>Requirement statements</span><b>Claude Sonnet</b></span>
+<span style="display:flex;justify-content:space-between;padding:8px 10px;border-radius:9px;background:#FBF9F7"><span>Conflict detection</span><b>Claude Haiku</b></span>
+<span style="display:flex;justify-content:space-between;padding:8px 10px;border-radius:9px;background:#F7F2F6"><span>Cost this month</span><b style="color:#4A1F3D">$41 of $200</b></span></div></div>
+<div style="background:#fff;border:1px solid #E7E1EA;border-radius:24px;padding:22px;display:flex;flex-direction:column;gap:12px"><span style="font-family:'Instrument Serif',serif;font-size:28px;line-height:1.05">Names on answers</span><span style="font-size:14px;color:#3A332D">Rank shapes answers. Choose a level for each project, and respondents see it on the first screen. Votes always count equally.</span>
+<div style="display:flex;flex-direction:column;gap:6px">
+<span style="display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;border:1px solid #E5DFD7"><span style="width:28px;height:28px;border-radius:999px;background:#EFE3EB;color:#4A1F3D;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">KN</span><span style="flex:1;font-size:13px"><b>Named</b> · the owner sees names</span></span>
+<span style="display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;border:2px solid #4A1F3D;background:#FBF3F8"><span style="width:28px;height:28px;border-radius:999px;background:#4A1F3D;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center">IT</span><span style="flex:1;font-size:13px"><b>Pseudonymised</b> · «IT A» while deciding</span></span>
+<span style="display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:12px;border:1px solid #E5DFD7"><span style="width:28px;height:28px;border-radius:999px;background:#F3EFEA;color:#6E665D;font-size:13px;display:flex;align-items:center;justify-content:center">?</span><span style="flex:1;font-size:13px"><b>Anonymous</b> · only the role is kept</span></span></div></div>
+<div style="background:#2A1224;color:#fff;border-radius:24px;padding:22px;display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden"><span style="position:absolute;left:-60px;bottom:-80px;width:260px;height:260px;border-radius:999px;background:radial-gradient(circle,rgba(156,107,142,.45),transparent 65%)"></span><span style="position:relative;font-family:'Instrument Serif',serif;font-size:28px;line-height:1.05">An audit log you can show an auditor</span><span style="position:relative;font-size:14px;opacity:.82">Append-only, with categories and filters by requirement, person and period. Export it as CSV. Each entry carries the hash of the one before, so tampering shows.</span>
+<div style="position:relative;display:flex;flex-direction:column;gap:6px;font-size:12px">
+<span style="display:grid;grid-template-columns:60px minmax(0,1fr) 54px;gap:8px;padding:8px 10px;border-radius:9px;background:rgba(255,255,255,.07)"><span style="opacity:.7">09:14</span><span>REQ-SEC-01 decided</span><span style="font-family:ui-monospace,Menlo,monospace;color:#F2B33D">#a91f</span></span>
+<span style="display:grid;grid-template-columns:60px minmax(0,1fr) 54px;gap:8px;padding:8px 10px;border-radius:9px;background:rgba(255,255,255,.07)"><span style="opacity:.7">09:20</span><span>Names revealed · logged</span><span style="font-family:ui-monospace,Menlo,monospace;color:#F2B33D">#3c07</span></span>
+<span style="display:grid;grid-template-columns:60px minmax(0,1fr) 54px;gap:8px;padding:8px 10px;border-radius:9px;background:rgba(255,255,255,.07)"><span style="opacity:.7">10:02</span><span>Handoff v1.1 prepared</span><span style="font-family:ui-monospace,Menlo,monospace;color:#F2B33D">#e5b2</span></span></div></div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:24px clamp(16px,3vw,40px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px">
+<div style="background:#fff;border:1px solid #E7E1EA;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:6px"><span style="font-size:22px">⌂</span><b style="font-size:15px">EU data</b><span style="font-size:13px;color:#6E665D">Stored and processed in the EU, retention per project.</span></div>
+<div style="background:#fff;border:1px solid #E7E1EA;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:6px"><span style="font-size:22px">☺</span><b style="font-size:15px">Four roles</b><span style="font-size:13px;color:#6E665D">Owner, approver, contributor and viewer.</span></div>
+<div style="background:#fff;border:1px solid #E7E1EA;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:6px"><span style="font-size:22px">✕</span><b style="font-size:15px">Right to erasure</b><span style="font-size:13px;color:#6E665D">Delete one person's answers on request, logged.</span></div>
+<div style="background:#fff;border:1px solid #E7E1EA;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:6px"><span style="font-size:22px">⌨</span><b style="font-size:15px">Accessible</b><span style="font-size:13px;color:#6E665D">Keyboard access and visible focus on every control.</span></div>
+<div style="background:#fff;border:1px solid #E7E1EA;border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:6px"><span style="font-size:22px">▣</span><b style="font-size:15px">Company layer</b><span style="font-size:13px;color:#6E665D">Voice, policies, systems, glossary and standards, set once.</span></div>
+</section>
+
+<section style="max-width:1240px;margin:0 auto;padding:clamp(40px,6vw,72px) clamp(16px,3vw,40px) 40px;display:flex;flex-direction:column;gap:22px">
+<div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px"><span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:#4A1F3D">WHERE WE ARE NOW · 21 OCTOBER 2026</span><h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(32px,4.2vw,52px);line-height:1;max-width:760px;text-wrap:balance">A complete prototype, ready for a closed pilot.</h2></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:14px;align-items:start">
+<div style="background:#fff;border:1px solid #E7E1EA;border-top:4px solid #2A9D8F;border-radius:22px;padding:20px 22px;display:flex;flex-direction:column;gap:10px"><span style="display:flex;justify-content:space-between;align-items:center"><span style="font-family:'Instrument Serif',serif;font-size:26px">Works today</span><span style="padding:3px 10px;border-radius:999px;background:#E3F2F0;color:#1E5E55;font-size:12px;font-weight:700">Real</span></span><ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;font-size:14px;color:#3A332D"><li>The whole flow, with demo data for Northwind CRM</li><li>Generated files, preview, copy and zip download</li><li>Claude for drafting, statements, criteria and conflict checks, when Claude is available</li><li>Settings, templates and company page, saved in the browser</li></ul></div>
+<div style="background:#fff;border:1px solid #E7E1EA;border-top:4px solid #E0A21F;border-radius:22px;padding:20px 22px;display:flex;flex-direction:column;gap:10px"><span style="display:flex;justify-content:space-between;align-items:center"><span style="font-family:'Instrument Serif',serif;font-size:26px">Simulated</span><span style="padding:3px 10px;border-radius:999px;background:#FEF3DC;color:#8A5300;font-size:12px;font-weight:700">Mock</span></span><ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;font-size:14px;color:#3A332D"><li>Sending invites and reminders</li><li>Connecting integrations and the MCP server</li><li>Respondents’ answers (demo data)</li><li>Roles are shown, not enforced</li></ul></div>
+<div style="background:#fff;border:1px solid #E7E1EA;border-top:4px solid #4A1F3D;border-radius:22px;padding:20px 22px;display:flex;flex-direction:column;gap:10px"><span style="display:flex;justify-content:space-between;align-items:center"><span style="font-family:'Instrument Serif',serif;font-size:26px">Next, for the pilot</span><span style="padding:3px 10px;border-radius:999px;background:#EFE3EB;color:#4A1F3D;font-size:12px;font-weight:700">Plan</span></span><ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;font-size:14px;color:#3A332D"><li>Backend (Supabase), with settings stored as data</li><li>Real sending, respondent links and sign-in</li><li>Enforced roles and permissions</li><li>MCP server and webhooks live</li><li>3–5 pilot customers, measuring time to first handoff</li></ul></div>
+</div></section>
+
+<dc-import name="SplashFooter" eyebrow="SEE IT WORK" title="Open the Northwind CRM example." sub="Eleven stakeholders, 37 questions, real conflicts, a frozen MVP and a full handoff package." next-href="Home.dc.html" next-l="Back to the start" hint-size="100%,360px"></dc-import>
+</div>
+</x-dc>
+</body>
+</html>

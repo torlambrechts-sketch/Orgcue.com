@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap">
+</helmet>
+<header style="position:sticky;top:0;z-index:20;padding:14px clamp(16px,3vw,40px);background:{{ hBg }};backdrop-filter:{{ hBlur }};font-family:'Figtree',system-ui,sans-serif">
+<div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+<a href="Home.dc.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:{{ ink }}"><img src="../assets/orgcue-mark.svg" alt="" width="34" height="34" style="display:block;border-radius:9px;box-shadow:{{ ring }}"><span style="display:flex;flex-direction:column;line-height:1"><span style="font-size:19px;font-weight:700;letter-spacing:-0.015em">Org<span style="color:{{ cue }}">Cue</span></span><span style="font-size:10.5px;color:{{ mut }};letter-spacing:.04em;margin-top:2px">orgcue.com</span></span></a>
+<span style="flex:1"></span>
+<nav style="display:flex;gap:2px;padding:4px;border-radius:999px;background:{{ navBg }};border:1px solid {{ navBd }};box-shadow:0 6px 20px rgba(74,31,61,.06);flex-wrap:wrap"><sc-for list="{{ links }}" as="l" hint-placeholder-count="6"><a href="{{ l.href }}" style="white-space:nowrap;padding:8px 14px;border-radius:999px;font-size:13.5px;font-weight:600;text-decoration:none;background:{{ l.bg }};color:{{ l.col }};transition:background .2s ease-in-out" style-hover="background:{{ hov }}">{{ l.l }}</a></sc-for></nav>
+<span style="flex:1"></span>
+<a href="../App/Requirements Interviews.dc.html" style="white-space:nowrap;height:40px;box-sizing:border-box;display:inline-flex;align-items:center;gap:8px;padding:0 18px;border-radius:999px;background:{{ ctaBg }};color:{{ ctaCol }};font-size:14px;font-weight:600;text-decoration:none;box-shadow:0 10px 24px rgba(31,26,23,.18);transition:transform .2s ease-in-out" style-hover="transform:translateY(-1px)" style-active="transform:scale(.97)">Open the app →</a>
+</div></header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;home&quot;,&quot;plan&quot;,&quot;collect&quot;,&quot;decide&quot;,&quot;deliver&quot;,&quot;platform&quot;],&quot;default&quot;:&quot;home&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const a = this.props.active || 'home', dk = !!this.props.dark;
+    const L = [['home', 'Home', 'Home.dc.html'], ['plan', 'Plan', 'Plan.dc.html'], ['collect', 'Collect', 'Collect.dc.html'], ['decide', 'Decide', 'Decide.dc.html'], ['deliver', 'Deliver', 'Deliver.dc.html'], ['platform', 'Platform', 'Platform.dc.html']];
+    return { ring: dk ? '0 0 0 1.5px rgba(255,255,255,.3)' : 'none', hBg: dk ? 'transparent' : 'linear-gradient(180deg,rgba(247,245,242,.96),rgba(247,245,242,.6))', hBlur: dk ? 'none' : 'blur(10px)', ink: dk ? '#fff' : '#1F1A17', cue: dk ? '#F2B33D' : '#4A1F3D', mut: dk ? 'rgba(255,255,255,.6)' : '#6E665D', navBg: dk ? 'rgba(255,255,255,.06)' : '#fff', navBd: dk ? 'rgba(255,255,255,.14)' : '#E7E1EA', hov: dk ? 'rgba(255,255,255,.1)' : '#F3EDF4', ctaBg: dk ? '#F2B33D' : '#1F1A17', ctaCol: dk ? '#1F1A17' : '#fff',
+      links: L.map(([k, l, href]) => ({ l, href, bg: a === k ? (dk ? '#fff' : '#1F1A17') : 'transparent', col: a === k ? (dk ? '#2A1224' : '#fff') : (dk ? 'rgba(255,255,255,.85)' : '#3A332D') })) };
+  }
+}
+</script>
+</body>
+</html>

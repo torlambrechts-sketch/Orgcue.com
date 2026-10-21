@@ -23,14 +23,16 @@ try {
   await page.goto(base + '/p/it-helpdesk/spec', { waitUntil: 'networkidle' });
   const u = new URL(page.url());
   ok('signed-out deep link goes to /login with next', u.pathname === '/login' && u.searchParams.get('next') === '/p/it-helpdesk/spec', page.url());
-  for (const p of ['/', '/pricing']) {
+  for (const p of ['/', '/plan', '/collect', '/decide', '/deliver', '/platform']) {
     await page.goto(base + p, { waitUntil: 'networkidle' });
-    ok('splash page ' + p + ' is public', new URL(page.url()).pathname === p && (await page.locator('h1').count()) === 1);
+    ok('splash page ' + p + ' is public', new URL(page.url()).pathname === p && (await page.locator('h1').count()) === 1 && (await page.locator('#beta form').count()) === 1);
   }
+  await page.goto(base + '/pricing', { waitUntil: 'networkidle' });
+  ok('old /pricing link lands on the home page', new URL(page.url()).pathname === '/');
   // Beta list: the hero CTA jumps to the form; the PostgREST insert is intercepted, so nothing is stored.
-  for (const p of ['/', '/pricing']) {
+  for (const p of ['/', '/decide']) {
     await page.goto(base + p, { waitUntil: 'networkidle' });
-    await page.getByRole('main').getByRole('link', { name: 'Become a beta user' }).first().click();
+    await page.getByRole('link', { name: /^Become a beta user/ }).first().click();
     await page.waitForURL('**#beta');
     const form = page.getByRole('form', { name: 'Join the beta list' });
     await form.getByLabel('Work email').fill('beta@');

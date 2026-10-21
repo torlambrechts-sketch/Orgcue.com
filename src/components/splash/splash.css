@@ -1,0 +1,21 @@
+/* Public site (splash design). Inline styles carry the layout; this file adds what inline styles can't: keyframes,
+   link colours, hover / focus / press states. */
+/* The design fades the hero in from opacity 0; sliding only keeps the motion without delaying the first paint (LCP). */
+@keyframes pin { from { transform: translateY(8px); } to { transform: none; } }
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.splash a { color: #4A1F3D; text-decoration: none; }
+.splash a:hover { color: #2A1224; text-decoration: none; }
+.splash :focus-visible { outline: 3px solid #F2B33D; outline-offset: 2px; border-radius: 10px; }
+.splash .sp-navlink:hover, .splash .sp-navlink:focus-visible { background: var(--sp-hov) !important; }
+.splash .sp-lift:hover, .splash .sp-lift:focus-visible { transform: translateY(-1px); }
+.splash .sp-lift:active { transform: scale(.97); }
+.splash .sp-ghost:hover, .splash .sp-ghost:focus-visible { background: rgba(255,255,255,.08) !important; }
+.splash .sp-field:hover { border-color: #B9A9BE !important; }
+.splash .sp-field:focus { border-color: #4A1F3D !important; box-shadow: 0 0 0 3px rgba(74,31,61,.15); background: #fff !important; }
+.splash .sp-field:focus-visible { outline: none; }
+@media (prefers-reduced-motion: reduce) { .splash *, .splash *::before, .splash *::after { animation: none !important; transition: none !important; } }
+.splash ul { list-style: disc; }
+@media (max-width: 760px) {
+  .splash .sp-hide-sm { display: none !important; }
+  .splash .sp-mock { width: calc(100% - 8px) !important; }
+}

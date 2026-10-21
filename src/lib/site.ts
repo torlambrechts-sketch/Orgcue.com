@@ -1,57 +1,22 @@
 import type { Metadata } from 'next';
-// Site-wide constants and the marketing copy (from design/Marketing.dc.html, adapted to the Orgcue product spec).
+// Site-wide constants and search metadata for the public pages.
 
 /** Canonical origin. Previews and local builds still point canonical URLs at production. */
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://orgcue.vercel.app').replace(/\/$/, '');
-export const SITE_NAME = 'Orgcue';
-export const TAGLINE = 'The intake and decision layer for AI work';
+export const SITE_NAME = 'OrgCue';
+export const TAGLINE = 'Specifications your whole organisation agrees on';
 export const DEFAULT_DESCRIPTION =
-  'Orgcue collects what your experts know, settles conflicts through one named decider, and turns it into a locked, traceable spec for Copilot Studio, Agentforce, Claude Code, Cursor and other AI tools.';
+  'OrgCue interviews sales, security, IT and customers in plain language, finds where they disagree, and hands a traceable spec to your coding agent or chat assistant.';
 
-export const STEPS = [
-  { n: '1', t: 'Ask the right people', d: 'Each person answers only what they know, privately, in about 12 minutes, on their phone.' },
-  { n: '2', t: 'Settle the conflicts', d: 'Everyone’s input is revealed at once. Duplicates merge, and real disagreements go to one decider with both sides.' },
-  { n: '3', t: 'Generate for your AI', d: 'A locked spec compiles to the tool you use, with every constraint verbatim and every line traced to its source.' },
-  { n: '4', t: 'Track it to done', d: 'Every decision ends in an owned, dated action, and every contributor hears what happened to their input.' },
-];
-
-export const TARGETS = ['Copilot Studio', 'Agentforce', 'Claude Code', 'Cursor', 'ChatGPT', 'Slack', 'Teams', 'ServiceNow'];
-
-export const TRUST = [
-  { t: 'Your data region', d: 'US or EU, chosen once per organization.' },
-  { t: 'SSO and SCIM', d: 'Entra ID, Okta and Google.' },
-  { t: 'Append-only audit log', d: 'Every change recorded and exportable.' },
-  { t: 'Never trained on your data', d: 'Zero-retention model endpoints.' },
-];
-
-export const USES = [
-  { t: 'AI agents', d: 'IT, HR and customer helpdesks that follow the rules your experts set.', ex: 'IT Helpdesk Agent v1 → Copilot Studio', bg: 'var(--op-sf)' },
-  { t: 'Software', d: 'Feature specs that engineers and coding agents can both build from.', ex: 'Expense Approval Service → Claude Code', bg: 'var(--op-sbg)' },
-  { t: 'Policies', d: 'AI-use and security policies written with the people who apply them.', ex: 'AI Acceptable Use Policy 2027 → policy draft', bg: 'var(--op-mint)' },
-  { t: 'Processes', d: 'Suppliers, inputs, steps and outputs from the people who run the work.', ex: 'Process input · SIPOC → BPMN 2.0', bg: 'var(--op-sf)' },
-];
-
-export const PRINCIPLES = [
-  { t: 'Blind first', d: 'Answers stay private until collection closes, then everyone sees them at once.' },
-  { t: 'Work, not people', d: 'Nobody is scored or ranked. Peers see function groups, not names.' },
-  { t: 'Constraints are sacred', d: 'Hard constraints are owned, inserted verbatim and can’t be voted out.' },
-  { t: 'Everything traces', d: 'Every generated line links to its input, its decision and its test.' },
-];
-
-// Plans without prices: no amounts, billing terms or limits until pricing is decided.
-export type Tier = { name: string; summary: string; features: string[]; recommended?: boolean };
-export const TIERS: Tier[] = [
-  { name: 'Team', summary: 'For a first project and the people who answer it.', features: ['Unlimited contributors', 'Slack, Teams and email', 'All generation targets', 'Actions and milestones'] },
-  { name: 'Business', summary: 'For organizations running several projects at once.', features: ['Everything in Team', 'Template builder', 'ServiceNow and Jira sync', 'Evidence packs'], recommended: true },
-  { name: 'Enterprise', summary: 'For organizations that need their own instance and identity setup.', features: ['Everything in Business', 'SSO and SCIM', 'Audit export to your SIEM', 'Dedicated instance', 'Template packs included'] },
-];
-
-export const FAQ = [
-  { q: 'Do contributors need an account?', a: 'No. Contributors and external respondents answer from a link and never need an account.' },
-  { q: 'Can we choose where data is stored?', a: 'Yes, US or EU, once per organization at setup. Answers, specs and actions stay in that region.' },
-  { q: 'Do you train models on our answers?', a: 'No. Every processing step uses in-region, zero-retention endpoints, and that is in the contract.' },
-  { q: 'We already use Jira. Do we need the actions module?', a: 'Actions are included. Track them in Orgcue, or sync each one to Jira or ServiceNow and see its status here.' },
-];
+/** The public pages (design/splash-handoff/.../Splash). Titles and descriptions follow each page's heading and intro. */
+export const SPLASH_PAGES = [
+  { path: '/', title: 'OrgCue · Specifications your whole organisation agrees on', description: DEFAULT_DESCRIPTION, priority: 1 },
+  { path: '/plan', title: 'Plan: agree on the MVP before the interviews', description: 'Set an OrgCue project up in minutes, write a first draft with Claude watching for gaps, and let stakeholders vote on the MVP before the interviews start.', priority: 0.8 },
+  { path: '/collect', title: 'Collect: interviews people actually finish', description: 'Each person gets only the questions their role can answer: no prompt jargon, a time estimate up front, and every question can be skipped. Packages per person, group or function.', priority: 0.8 },
+  { path: '/decide', title: 'Decide: disagreements made visible, never averaged', description: 'Answers become requirements with codes, evidence and acceptance criteria. Where people disagree, OrgCue shows both sides, you choose, and the reason is logged.', priority: 0.8 },
+  { path: '/deliver', title: 'Deliver: one specification, a file for every tool', description: 'A specification signed off section by section, then AGENTS.md, plan, tests, issues and a system prompt your coding agent, issue tracker or chat assistant can read.', priority: 0.8 },
+  { path: '/platform', title: 'Platform: AI models, integrations and an audit trail', description: 'Your choice of AI model, connections to the tools you already use, EU data, roles and an audit trail from every answer to every line of the handoff.', priority: 0.7 },
+] as const;
 
 /** Routes that are not for search engines: the signed-in app, auth flows and per-project respondent links. */
 export const PRIVATE_PATHS = ['/home', '/projects', '/templates', '/library', '/portfolio', '/settings', '/p/', '/phone', '/customer', '/auth/', '/reset-password'];
