@@ -13,9 +13,9 @@ Everyone signs in with an email and password (Supabase Auth). Every account join
 | Route | What it is |
 |---|---|
 | `/` | Landing page (design/Marketing.dc.html 1.1): hero with the animated DEC-03 decision card, how it works, generation targets, trust strip, project types, principles, call to action. |
-| `/pricing` | Plans (Team, Business, Enterprise), template packs, FAQ (native `<details>`, readable without JavaScript). |
+| `/pricing` | Plans (Team, Business, Enterprise) with what each includes and **no prices**, template packs and an FAQ (native `<details>`, readable without JavaScript). |
 
-Both are static, server-rendered pages: no Supabase call, and the middleware does not touch the session there. Search setup lives in `src/lib/site.ts` (`pageMeta()` gives every page its title, description, canonical URL, Open Graph and Twitter card) and the App Router files `robots.ts`, `sitemap.ts`, `manifest.ts`, `icon.svg`, `apple-icon.tsx` and `opengraph-image.tsx`. Landing and pricing carry schema.org JSON-LD (Organization, WebSite, SoftwareApplication with offers; Product, FAQPage, BreadcrumbList). The signed-in app, the auth pages and the customer link are `noindex`, and `robots.txt` keeps crawlers out of the app routes. Lighthouse (mobile, simulated slow 4G): performance 97, accessibility, best practices and SEO 100 on both pages.
+Both are static, server-rendered pages: no Supabase call, and the middleware does not touch the session there. Search setup lives in `src/lib/site.ts` (`pageMeta()` gives every page its title, description, canonical URL, Open Graph and Twitter card) and the App Router files `robots.ts`, `sitemap.ts`, `manifest.ts`, `icon.svg`, `apple-icon.tsx` and `opengraph-image.tsx`. Landing and pricing carry schema.org JSON-LD (Organization, WebSite, SoftwareApplication; FAQPage, BreadcrumbList). No prices appear anywhere, in the pages or in the structured data. The signed-in app, the auth pages and the customer link are `noindex`, and `robots.txt` keeps crawlers out of the app routes. Lighthouse (mobile, simulated slow 4G): performance 97, accessibility, best practices and SEO 100 on both pages.
 
 Set `NEXT_PUBLIC_SITE_URL` when the site moves to its own domain (default `https://orgcue.vercel.app`); canonical URLs, the sitemap and social cards follow it.
 

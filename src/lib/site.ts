@@ -38,16 +38,16 @@ export const PRINCIPLES = [
   { t: 'Everything traces', d: 'Every generated line links to its input, its decision and its test.' },
 ];
 
-export type Tier = { name: string; price: string; amount?: number; per: string; features: string[]; recommended?: boolean };
+// Plans without prices: no amounts, billing terms or limits until pricing is decided.
+export type Tier = { name: string; summary: string; features: string[]; recommended?: boolean };
 export const TIERS: Tier[] = [
-  { name: 'Team', price: '$9,600', amount: 9600, per: 'per year · up to 3 live projects', features: ['Unlimited contributors', 'Slack, Teams and email', 'All generation targets', 'Actions and milestones'] },
-  { name: 'Business', price: '$28,800', amount: 28800, per: 'per year · up to 10 live projects', features: ['Everything in Team', 'Template builder', 'ServiceNow and Jira sync', 'Evidence packs'], recommended: true },
-  { name: 'Enterprise', price: 'Custom', per: 'per year · sized to your live projects', features: ['Everything in Business', 'SSO and SCIM', 'Audit export to your SIEM', 'Dedicated instance', 'Template packs included'] },
+  { name: 'Team', summary: 'For a first project and the people who answer it.', features: ['Unlimited contributors', 'Slack, Teams and email', 'All generation targets', 'Actions and milestones'] },
+  { name: 'Business', summary: 'For organizations running several projects at once.', features: ['Everything in Team', 'Template builder', 'ServiceNow and Jira sync', 'Evidence packs'], recommended: true },
+  { name: 'Enterprise', summary: 'For organizations that need their own instance and identity setup.', features: ['Everything in Business', 'SSO and SCIM', 'Audit export to your SIEM', 'Dedicated instance', 'Template packs included'] },
 ];
 
 export const FAQ = [
-  { q: 'What counts as a live project?', a: 'A project whose spec is locked and generated, and in use. Projects in Frame, Collect, Review or Decide don’t count, and neither do archived ones.' },
-  { q: 'Do contributors need a license?', a: 'No. Contributors are free and unlimited on every plan. External respondents answer from a link and never need an account.' },
+  { q: 'Do contributors need an account?', a: 'No. Contributors and external respondents answer from a link and never need an account.' },
   { q: 'Can we choose where data is stored?', a: 'Yes, US or EU, once per organization at setup. Answers, specs and actions stay in that region.' },
   { q: 'Do you train models on our answers?', a: 'No. Every processing step uses in-region, zero-retention endpoints, and that is in the contract.' },
   { q: 'We already use Jira. Do we need the actions module?', a: 'Actions are included. Track them in Orgcue, or sync each one to Jira or ServiceNow and see its status here.' },

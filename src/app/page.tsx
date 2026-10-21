@@ -5,7 +5,7 @@ import { buttonStyle } from '@/components/ds';
 import { Eyebrow, SitePage } from '@/components/site/SiteChrome';
 import DecisionDemo from '@/components/site/DecisionDemo';
 import JsonLd from '@/components/site/JsonLd';
-import { DEFAULT_DESCRIPTION, pageMeta, PRINCIPLES, SITE_NAME, SITE_URL, STEPS, TAGLINE, TARGETS, TIERS, TRUST, USES } from '@/lib/site';
+import { DEFAULT_DESCRIPTION, pageMeta, PRINCIPLES, SITE_NAME, SITE_URL, STEPS, TAGLINE, TARGETS, TRUST, USES } from '@/lib/site';
 
 const TITLE = 'Orgcue · Get your team aligned before the AI builds it';
 
@@ -17,8 +17,7 @@ const ld = {
     { '@type': 'Organization', '@id': SITE_URL + '/#org', name: SITE_NAME, url: SITE_URL, logo: SITE_URL + '/icon.svg' },
     { '@type': 'WebSite', '@id': SITE_URL + '/#website', url: SITE_URL, name: SITE_NAME, description: DEFAULT_DESCRIPTION, publisher: { '@id': SITE_URL + '/#org' }, inLanguage: 'en' },
     {
-      '@type': 'SoftwareApplication', name: SITE_NAME, applicationCategory: 'BusinessApplication', operatingSystem: 'Web', url: SITE_URL, description: DEFAULT_DESCRIPTION,
-      offers: TIERS.filter((t) => t.amount).map((t) => ({ '@type': 'Offer', name: t.name, price: t.amount, priceCurrency: 'USD', url: SITE_URL + '/pricing' })),
+      '@type': 'SoftwareApplication', name: SITE_NAME, applicationCategory: 'BusinessApplication', operatingSystem: 'Web', url: SITE_URL, description: DEFAULT_DESCRIPTION
     },
   ],
 };
@@ -100,7 +99,7 @@ export default function Landing() {
           </span>
           <span className="flex flex-wrap gap-2.5">
             <Link href="/signup" style={buttonStyle('lg')}>Create an account</Link>
-            <Link href="/pricing" style={buttonStyle('lg', 'secondary')}>See pricing</Link>
+            <Link href="/pricing" style={buttonStyle('lg', 'secondary')}>Compare plans</Link>
           </span>
         </div>
       </section>

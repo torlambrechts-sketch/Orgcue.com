@@ -20,7 +20,7 @@ export function SiteHeader() {
         <Logo />
         <nav aria-label="Site" className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[14px]">
           <Link href="/#how" className="hidden text-op-ink sm:inline">Product</Link>
-          <Link href="/pricing" className="hidden text-op-ink sm:inline">Pricing</Link>
+          <Link href="/pricing" className="hidden text-op-ink sm:inline">Plans</Link>
           <AccountLinks cta={<Link href="/signup" style={buttonStyle('sm')}>Create an account</Link>} />
         </nav>
       </div>
@@ -35,7 +35,7 @@ export function SiteFooter() {
         <p className="m-0 max-w-[440px] leading-[1.55]"><strong className="text-op-ink">{SITE_NAME}</strong> · the intake and decision layer for AI work. Your data stays in the US or EU region you choose, and is never used for training.</p>
         <nav aria-label="Footer" className="flex flex-wrap items-start gap-3.5">
           <Link href="/#how">How it works</Link>
-          <Link href="/pricing">Pricing</Link>
+          <Link href="/pricing">Plans</Link>
           <Link href="/signup">Create an account</Link>
           <Link href="/login">Log in</Link>
           <span>© 2026 {SITE_NAME}</span>
