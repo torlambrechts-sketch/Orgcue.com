@@ -1,5 +1,7 @@
 # Applies new files in supabase/migrations to the hosted Supabase project (Orgcue.com, eu-west-3), so schema and data
-# changes never need the SQL editor. Runs when a migration changes on the deploy branch, or by hand from the Actions tab.
+# changes never need the SQL editor. Fallback only: migrations are normally applied directly from the Claude Code
+# session, so this runs only when started by hand (Actions tab → Supabase migrations → Run workflow) and uses no CI
+# minutes otherwise.
 #
 # One secret, set once under Settings → Secrets and variables → Actions:
 #   SUPABASE_DB_URL  the Session pooler connection string (Supabase dashboard → Connect → Session pooler),
@@ -7,9 +9,6 @@
 name: Supabase migrations
 
 on:
-  push:
-    branches: [claude/relaxed-goldberg-yjnnay]
-    paths: ['supabase/migrations/**', '.github/workflows/supabase-migrations.yml']
   workflow_dispatch:
 
 concurrency:

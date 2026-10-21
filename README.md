@@ -72,9 +72,9 @@ Variables already exported in your shell win over `.env.local` in Next.js. If yo
 
 ## Database
 
-**Migrations apply themselves.** Add a file to `supabase/migrations/` named `<UTC timestamp>_<what it does>.sql` (for example `20261022093000_invite_status.sql`, or `supabase migration new invite_status`) and push to `claude/relaxed-goldberg-yjnnay`. `.github/workflows/supabase-migrations.yml` then runs `supabase db push` against the hosted project and applies every file that isn't in its migration history yet. Its log lists the history before and after. Data changes (deletes, backfills) go the same way as schema changes, so nothing needs the SQL editor. You can also run it by hand from the Actions tab ("Supabase migrations" → Run workflow).
+**Migrations.** Add a file to `supabase/migrations/` named `<UTC timestamp>_<what it does>.sql` (for example `20261022093000_invite_status.sql`, or `supabase migration new invite_status`). It is applied to the hosted project directly from the Claude Code session. Data changes (deletes, backfills) go the same way as schema changes, so nothing needs the SQL editor. The fallback is `.github/workflows/supabase-migrations.yml`, which runs `supabase db push` and applies every file not yet in the migration history. It only runs when started by hand from the Actions tab ("Supabase migrations" → Run workflow), so it uses no CI minutes otherwise.
 
-It needs one repository secret, `SUPABASE_DB_URL`: the **Session pooler** connection string from the Supabase dashboard (Connect → Session pooler), with the database password filled in and percent-encoded. Without the secret the run stops with a message saying so.
+The fallback needs one repository secret, `SUPABASE_DB_URL`: the **Session pooler** connection string from the Supabase dashboard (Connect → Session pooler), with the database password filled in and percent-encoded. Without the secret the run stops with a message saying so.
 
 | File | What it does |
 |---|---|
