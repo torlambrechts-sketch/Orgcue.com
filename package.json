@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "seed": "node scripts/gen-seed.mjs --push",
+    "db": "node scripts/db.mjs",
     "test:smoke": "node tests/e2e/smoke.mjs",
     "test:e2e": "node tests/e2e/acceptance.mjs",
     "test:auth": "node tests/e2e/auth.mjs"

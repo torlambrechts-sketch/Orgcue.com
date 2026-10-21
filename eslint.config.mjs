@@ -18,6 +18,8 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      // Design handoff bundles: reference prototypes, not app code.
+      "design/**",
     ],
   },
 ];
