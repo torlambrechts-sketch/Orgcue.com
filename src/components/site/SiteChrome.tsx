@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { buttonStyle } from '@/components/ds';
 import { SITE_NAME } from '@/lib/site';
 import AccountLinks from './AccountLinks';
+import BetaSignup from './BetaSignup';
 
 export function Logo() {
   return (
@@ -21,7 +22,7 @@ export function SiteHeader() {
         <nav aria-label="Site" className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[14px]">
           <Link href="/#how" className="hidden text-op-ink sm:inline">Product</Link>
           <Link href="/pricing" className="hidden text-op-ink sm:inline">Plans</Link>
-          <AccountLinks cta={<Link href="/signup" style={buttonStyle('sm')}>Create an account</Link>} />
+          <AccountLinks cta={<Link href="#beta" style={buttonStyle('sm')}>Become a beta user</Link>} />
         </nav>
       </div>
     </header>
@@ -36,7 +37,7 @@ export function SiteFooter() {
         <nav aria-label="Footer" className="flex flex-wrap items-start gap-3.5">
           <Link href="/#how">How it works</Link>
           <Link href="/pricing">Plans</Link>
-          <Link href="/signup">Create an account</Link>
+          <Link href="#beta">Become a beta user</Link>
           <Link href="/login">Log in</Link>
           <span>© 2026 {SITE_NAME}</span>
         </nav>
@@ -47,6 +48,22 @@ export function SiteFooter() {
 
 export function Eyebrow({ children }: { children: React.ReactNode }) {
   return <span className="block text-[11px] font-bold uppercase tracking-[.12em] text-op-mut">{children}</span>;
+}
+
+/** The beta list band that ends every public page; header and in-page CTAs link to #beta. */
+export function BetaBand({ source, title = 'Become a beta user.' }: { source: string; title?: string }) {
+  return (
+    <section id="beta" aria-labelledby="beta-h" className="mx-4 mb-12 scroll-mt-20 sm:mx-auto sm:max-w-[1064px]">
+      <div className="flex flex-col gap-4 rounded-[24px] border border-op-line bg-op-sbg p-7">
+        <span className="flex min-w-0 flex-col gap-1.5">
+          <Eyebrow>Private beta</Eyebrow>
+          <h2 id="beta-h" className="m-0 font-display text-[26px] font-semibold leading-[1.2]">{title}</h2>
+          <p className="m-0 max-w-[640px] text-[14.5px] leading-[1.55] text-op-body">Orgcue is in private beta. Join the list and we’ll invite you as places open, starting with teams that have a first AI project in mind.</p>
+        </span>
+        <BetaSignup source={source} />
+      </div>
+    </section>
+  );
 }
 
 /** Shared frame for the public pages. */

@@ -27,10 +27,27 @@ try {
     await page.goto(base + p, { waitUntil: 'networkidle' });
     ok('splash page ' + p + ' is public', new URL(page.url()).pathname === p && (await page.locator('h1').count()) === 1);
   }
-  await page.goto(base + '/', { waitUntil: 'networkidle' });
-  await page.getByRole('link', { name: 'Try the demo workspace' }).click();
-  await page.waitForURL('**/signup');
-  ok('landing CTA opens sign-up', new URL(page.url()).pathname === '/signup');
+  // Beta list: the hero CTA jumps to the form; the PostgREST insert is intercepted, so nothing is stored.
+  for (const p of ['/', '/pricing']) {
+    await page.goto(base + p, { waitUntil: 'networkidle' });
+    await page.getByRole('main').getByRole('link', { name: 'Become a beta user' }).first().click();
+    await page.waitForURL('**#beta');
+    const form = page.getByRole('form', { name: 'Join the beta list' });
+    await form.getByLabel('Work email').fill('beta@');
+    await form.getByRole('button', { name: 'Become a beta user' }).click();
+    ok('beta form ' + p + ' checks the email first', /full email address/.test(await form.getByRole('alert').innerText()));
+    await form.getByLabel('Work email').fill('beta@lumio.test');
+    await form.getByRole('button', { name: 'Become a beta user' }).click();
+    ok('beta form ' + p + ' asks for consent', /Tick the box/.test(await form.getByRole('alert').innerText()));
+    let beta = null;
+    await page.route('**/rest/v1/beta_signups*', (route) => { beta = route.request().postDataJSON(); route.fulfill({ status: p === '/' ? 201 : 409, contentType: 'application/json', body: p === '/' ? '' : JSON.stringify({ code: '23505' }) }); });
+    await form.getByLabel('Company (optional)').fill('Lumio');
+    await form.getByRole('checkbox').check();
+    await form.getByRole('button', { name: 'Become a beta user' }).click();
+    await page.getByRole('status').waitFor({ timeout: 10000 });
+    const done = await page.getByRole('status').innerText();
+    ok('beta form ' + p + ' joins the list', beta && beta.email === 'beta@lumio.test' && beta.company === 'Lumio' && beta.consent === true && /beta@lumio.test/.test(done) && (p === '/' ? /on the beta list/ : /already on the list/).test(done), JSON.stringify(beta));
+  }
   await page.goto(base + '/reset-password', { waitUntil: 'networkidle' });
   ok('reset-password needs a session', new URL(page.url()).pathname === '/login');
   await page.goto(base + '/login?next=//evil.example', { waitUntil: 'networkidle' });

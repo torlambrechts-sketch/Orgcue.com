@@ -2,7 +2,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { buttonStyle } from '@/components/ds';
-import { Eyebrow, SitePage } from '@/components/site/SiteChrome';
+import { BetaBand, Eyebrow, SitePage } from '@/components/site/SiteChrome';
 import DecisionDemo from '@/components/site/DecisionDemo';
 import JsonLd from '@/components/site/JsonLd';
 import { DEFAULT_DESCRIPTION, pageMeta, PRINCIPLES, SITE_NAME, SITE_URL, STEPS, TAGLINE, TARGETS, TRUST, USES } from '@/lib/site';
@@ -35,7 +35,7 @@ export default function Landing() {
           <h1 className="m-0 font-display text-[34px] font-semibold leading-[1.05] tracking-[-0.01em] [text-wrap:balance] sm:text-[54px]">Get your team aligned before the AI builds it.</h1>
           <p className="m-0 max-w-[560px] text-[18px] leading-[1.55] text-op-body [text-wrap:pretty]">Orgcue turns what your experts know into a locked, traceable spec any AI tool can execute. Ask the right people, settle the conflicts, then generate.</p>
           <span className="flex flex-wrap gap-2.5">
-            <Link href="/signup" style={buttonStyle('lg')}>Try the demo workspace</Link>
+            <Link href="#beta" style={buttonStyle('lg')}>Become a beta user</Link>
             <Link href="#how" style={buttonStyle('lg', 'secondary')}>See how it works</Link>
           </span>
           <span className="text-[13px] text-op-mut">IT Helpdesk Agent v1 at Lumio: 8 people · 64 answers · 5 decisions · one spec for Copilot Studio in 6 weeks</span>
@@ -91,18 +91,7 @@ export default function Landing() {
         </dl>
       </section>
 
-      <section aria-labelledby="start-h" className="mx-4 mb-12 sm:mx-auto sm:max-w-[1064px]">
-        <div className="flex flex-wrap items-center justify-between gap-4 rounded-[24px] border border-op-line bg-op-sbg p-7">
-          <span className="flex min-w-0 flex-col gap-1.5">
-            <h2 id="start-h" className="m-0 font-display text-[26px] font-semibold leading-[1.2]">See it with a real project.</h2>
-            <p className="m-0 text-[14.5px] leading-[1.55] text-op-body">Open the Lumio Inc. demo workspace: an IT helpdesk agent from first question to generated files.</p>
-          </span>
-          <span className="flex flex-wrap gap-2.5">
-            <Link href="/signup" style={buttonStyle('lg')}>Create an account</Link>
-            <Link href="/pricing" style={buttonStyle('lg', 'secondary')}>Compare plans</Link>
-          </span>
-        </div>
-      </section>
+      <BetaBand source="landing" title="Get your team aligned first. Join the beta." />
     </SitePage>
   );
 }

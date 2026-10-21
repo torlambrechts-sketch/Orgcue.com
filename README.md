@@ -12,8 +12,10 @@ Everyone signs in with an email and password (Supabase Auth). Every account join
 
 | Route | What it is |
 |---|---|
-| `/` | Landing page (design/Marketing.dc.html 1.1): hero with the animated DEC-03 decision card, how it works, generation targets, trust strip, project types, principles, call to action. |
-| `/pricing` | Plans (Team, Business, Enterprise) with what each includes and **no prices**, template packs and an FAQ (native `<details>`, readable without JavaScript). |
+| `/` | Landing page (design/Marketing.dc.html 1.1): hero with the animated DEC-03 decision card, how it works, generation targets, trust strip, project types, principles, and the beta list. |
+| `/pricing` | Plans (Team, Business, Enterprise) with what each includes and **no prices**, template packs, an FAQ (native `<details>`, readable without JavaScript) and the beta list. |
+
+**Beta list.** Every "Become a beta user" button (header, hero, plan cards) jumps to the `#beta` form at the end of the page: work email, optional name and company, and a required consent box for beta and product-update emails. It posts straight to `public.beta_signups` (`supabase/migrations/0005_beta_signups.sql`, applied). Anonymous visitors may only insert, and only with consent; nobody can read the list through the API. A repeat address answers "You're already on the list". Read the list in the Supabase dashboard (Table editor → `beta_signups`), where `source` says which page it came from (`landing` or `plans`). Sign-up at `/signup` still works for the demo workspace but is no longer linked from the public pages.
 
 Both are static, server-rendered pages: no Supabase call, and the middleware does not touch the session there. Search setup lives in `src/lib/site.ts` (`pageMeta()` gives every page its title, description, canonical URL, Open Graph and Twitter card) and the App Router files `robots.ts`, `sitemap.ts`, `manifest.ts`, `icon.svg`, `apple-icon.tsx` and `opengraph-image.tsx`. Landing and pricing carry schema.org JSON-LD (Organization, WebSite, SoftwareApplication; FAQPage, BreadcrumbList). No prices appear anywhere, in the pages or in the structured data. The signed-in app, the auth pages and the customer link are `noindex`, and `robots.txt` keeps crawlers out of the app routes. Lighthouse (mobile, simulated slow 4G): performance 97, accessibility, best practices and SEO 100 on both pages.
 
@@ -56,6 +58,7 @@ Variables already exported in your shell win over `.env.local` in Next.js. If yo
 #    0003_auth.sql (applied) links accounts to people rows and turns on row-level security: signed-in users read and
 #    write, anonymous visitors may only submit the customer page. `npm run seed` now needs the test account below.
 #    0004_reset_keeps_accounts.sql (applied) makes Reset demo keep accounts' People entries and refuse anonymous calls.
+#    0005_beta_signups.sql (applied) adds the beta list: insert-only for visitors, unreadable through the API.
 # 2. Seed: load the Lumio Inc. demo (spec §25) and reset to it.
 npm run seed                      # = node scripts/gen-seed.mjs --push
 ```
@@ -69,7 +72,7 @@ Put a confirmed account in `.env.local` as `ORGCUE_TEST_EMAIL` and `ORGCUE_TEST_
 ```bash
 npm run test:smoke                # every route: page errors, failed requests, screenshots
 npm run test:e2e                  # spec §26 walk-through in Chromium, checks the Supabase rows (resets the demo)
-npm run test:auth                 # sign-up, log-in, reset and redirects; Supabase's email endpoints are intercepted
+npm run test:auth                 # beta form, sign-up, log-in, reset and redirects; email and beta-list writes are intercepted
 ```
 
 `tests/e2e/mock-auth.mjs` stands in for Supabase Auth with one fixed account and forwards data requests to the real project. Build with `NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321` and run the suites with `E2E_SUPABASE_URL=http://localhost:54321 ORGCUE_TEST_EMAIL=mock@orgcue.test ORGCUE_TEST_PASSWORD=mock-password-123`. That checks the signed-in app without a real account or email. It only worked before `0003_auth.sql`; now that the anon role reads nothing, use a real test account.

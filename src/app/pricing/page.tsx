@@ -2,7 +2,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { buttonStyle } from '@/components/ds';
-import { Eyebrow, SitePage } from '@/components/site/SiteChrome';
+import { BetaBand, Eyebrow, SitePage } from '@/components/site/SiteChrome';
 import JsonLd from '@/components/site/JsonLd';
 import { FAQ, pageMeta, SITE_NAME, SITE_URL, TIERS } from '@/lib/site';
 
@@ -39,7 +39,7 @@ export default function Plans() {
             <ul className="m-0 mt-1 flex list-none flex-col gap-[7px] p-0">
               {t.features.map((f) => <li key={f} className="flex gap-2 text-[14px] leading-[1.4]"><span aria-hidden="true" className="font-bold text-op-link">✓</span>{f}</li>)}
             </ul>
-            <span className="mt-auto pt-2.5"><Link href="/signup" style={buttonStyle('md', t.recommended ? 'primary' : 'secondary', true)}>Create an account</Link></span>
+            <span className="mt-auto pt-2.5"><Link href="#beta" style={buttonStyle('md', t.recommended ? 'primary' : 'secondary', true)}>Become a beta user</Link></span>
           </article>
         ))}
       </section>
@@ -59,6 +59,7 @@ export default function Plans() {
           ))}
         </div>
       </section>
+      <BetaBand source="plans" />
     </SitePage>
   );
 }
