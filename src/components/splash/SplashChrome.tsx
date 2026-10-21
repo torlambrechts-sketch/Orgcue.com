@@ -1,5 +1,6 @@
 // Header and closing band of the public site, from design/splash-handoff/.../Splash/SplashNav.dc.html and SplashFooter.dc.html.
-// "Open the app" / "Open the CRM example" became the beta list: every page ends with the form (#beta).
+// "Open the app" / "Open the CRM example" became the beta list: the header button opens /beta, and every page ends
+// with the same form (#beta). "Log in" sits beside it for people already invited.
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import BetaSignup from '@/components/site/BetaSignup';
@@ -17,7 +18,7 @@ export type SplashKey = (typeof SPLASH_LINKS)[number]['k'];
 
 const FONT = 'var(--font-figtree),system-ui,sans-serif';
 
-export function SplashNav({ active = 'home', dark = false }: { active?: SplashKey; dark?: boolean }) {
+export function SplashNav({ active = 'home', dark = false }: { active?: SplashKey | 'beta'; dark?: boolean }) {
   const dk = dark;
   const ink = dk ? '#fff' : '#1F1A17';
   const hov = dk ? 'rgba(255,255,255,.1)' : '#F3EDF4';
@@ -44,7 +45,8 @@ export function SplashNav({ active = 'home', dark = false }: { active?: SplashKe
           })}
         </nav>
         <span style={{ flex: 1 }} />
-        <a href="#beta" className="sp-lift" style={{ whiteSpace: 'nowrap', height: 40, boxSizing: 'border-box', display: 'inline-flex', alignItems: 'center', gap: 8, padding: '0 18px', borderRadius: 999, background: dk ? '#F2B33D' : '#1F1A17', color: dk ? '#1F1A17' : '#fff', fontSize: 14, fontWeight: 600, textDecoration: 'none', boxShadow: '0 10px 24px rgba(31,26,23,.18)', transition: 'transform .2s ease-in-out' }}>Become a beta user →</a>
+        <Link href="/login" style={{ whiteSpace: 'nowrap', fontSize: 14, fontWeight: 600, textDecoration: 'none', color: ink, padding: '8px 4px' }}>Log in</Link>
+        {active !== 'beta' && <Link href="/beta" className="sp-lift" style={{ whiteSpace: 'nowrap', height: 40, boxSizing: 'border-box', display: 'inline-flex', alignItems: 'center', gap: 8, padding: '0 18px', borderRadius: 999, background: dk ? '#F2B33D' : '#1F1A17', color: dk ? '#1F1A17' : '#fff', fontSize: 14, fontWeight: 600, textDecoration: 'none', boxShadow: '0 10px 24px rgba(31,26,23,.18)', transition: 'transform .2s ease-in-out' }}>Become a beta user →</Link>}
       </div>
     </header>
   );
@@ -65,28 +67,43 @@ export function SplashFooter({ eyebrow = 'SEE IT WORK', title, sub, nextHref, ne
               <Link href={nextHref} className="sp-ghost" style={{ whiteSpace: 'nowrap', height: 48, boxSizing: 'border-box', display: 'inline-flex', alignItems: 'center', padding: '0 22px', borderRadius: 999, border: '1px solid rgba(255,255,255,.3)', color: '#fff', fontSize: 15, fontWeight: 600, textDecoration: 'none', transition: 'background .2s ease-in-out' }}>{nextL}</Link>
             </span>
           </span>
-          <div style={{ position: 'relative', flex: '1 1 380px', minWidth: 0, background: '#fff', color: '#1F1A17', borderRadius: 20, padding: 'clamp(18px,2.4vw,26px)', boxShadow: '0 30px 60px rgba(0,0,0,.25)', display: 'flex', flexDirection: 'column', gap: 12 }}>
-            <span style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.1em', color: '#4A1F3D' }}>PRIVATE BETA</span>
-              <span style={{ fontFamily: 'var(--font-instrument),serif', fontSize: 28, lineHeight: 1.05 }}>Become a beta user.</span>
-              <span style={{ fontSize: 13.5, color: '#3A332D' }}>Join the list and we’ll invite you as places open. No account needed.</span>
-            </span>
-            <BetaSignup source={source} />
-          </div>
+          <BetaCard source={source} style={{ position: 'relative', flex: '1 1 380px' }} />
         </div>
       </section>
-      <footer style={{ borderTop: '1px solid #E7E1EA' }}>
-        <div style={{ maxWidth: 1240, margin: '0 auto', padding: '24px clamp(16px,3vw,40px)', display: 'flex', gap: 18, flexWrap: 'wrap', fontSize: 13, color: '#6E665D', alignItems: 'center' }}>
-          <img src="/orgcue-mark.svg" alt="" width={22} height={22} style={{ display: 'block', borderRadius: 6 }} />
-          <span style={{ fontWeight: 700, color: '#1F1A17' }}>OrgCue</span>
-          <span>orgcue.com · private beta</span>
-          <span style={{ flex: 1 }} />
-          <nav aria-label="Footer" style={{ display: 'flex', gap: 18, flexWrap: 'wrap' }}>
-            {SPLASH_LINKS.map((l) => <Link key={l.k} href={l.href} style={{ color: '#4A1F3D', textDecoration: 'none' }}>{l.l}</Link>)}
-            <Link href="/login" style={{ color: '#4A1F3D', textDecoration: 'none' }}>Log in</Link>
-          </nav>
-        </div>
-      </footer>
+      <SplashFootLinks />
     </div>
+  );
+}
+
+/** The beta form on a white card: in every page's closing band and on /beta. */
+export function BetaCard({ source, style }: { source: string; style?: React.CSSProperties }) {
+  return (
+    <div style={{ minWidth: 0, background: '#fff', color: '#1F1A17', borderRadius: 20, padding: 'clamp(18px,2.4vw,26px)', boxShadow: '0 30px 60px rgba(0,0,0,.25)', display: 'flex', flexDirection: 'column', gap: 12, ...style }}>
+      <span style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '.1em', color: '#4A1F3D' }}>PRIVATE BETA</span>
+        <span style={{ fontFamily: 'var(--font-instrument),serif', fontSize: 28, lineHeight: 1.05 }}>Become a beta user.</span>
+        <span style={{ fontSize: 13.5, color: '#3A332D' }}>Join the list and we’ll invite you as places open. No account needed.</span>
+      </span>
+      <BetaSignup source={source} />
+    </div>
+  );
+}
+
+/** The thin footer under every public page. */
+export function SplashFootLinks() {
+  return (
+    <footer style={{ borderTop: '1px solid #E7E1EA', fontFamily: FONT }}>
+      <div style={{ maxWidth: 1240, margin: '0 auto', padding: '24px clamp(16px,3vw,40px)', display: 'flex', gap: 18, flexWrap: 'wrap', fontSize: 13, color: '#6E665D', alignItems: 'center' }}>
+        <img src="/orgcue-mark.svg" alt="" width={22} height={22} style={{ display: 'block', borderRadius: 6 }} />
+        <span style={{ fontWeight: 700, color: '#1F1A17' }}>OrgCue</span>
+        <span>orgcue.com · private beta</span>
+        <span style={{ flex: 1 }} />
+        <nav aria-label="Footer" style={{ display: 'flex', gap: 18, flexWrap: 'wrap' }}>
+          {SPLASH_LINKS.map((l) => <Link key={l.k} href={l.href} style={{ color: '#4A1F3D', textDecoration: 'none' }}>{l.l}</Link>)}
+          <Link href="/beta" style={{ color: '#4A1F3D', textDecoration: 'none' }}>Beta</Link>
+          <Link href="/login" style={{ color: '#4A1F3D', textDecoration: 'none' }}>Log in</Link>
+        </nav>
+      </div>
+    </footer>
   );
 }

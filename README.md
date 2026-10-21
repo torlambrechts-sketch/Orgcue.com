@@ -10,7 +10,7 @@ Everyone signs in with an email and password (Supabase Auth). Every account join
 
 ## Public site and SEO
 
-The public site is the splash design in [`design/splash-handoff/`](design/splash-handoff/ai-instructions-application-layouts/project/Splash) (Claude Design handoff, 21 October 2026). Six static pages share one header and one closing band:
+The public site is the splash design in [`design/splash-handoff/`](design/splash-handoff/ai-instructions-application-layouts/project/Splash) (Claude Design handoff, 21 October 2026). Seven static pages share one header and one closing band:
 
 | Route | Design file | What it is |
 |---|---|---|
@@ -20,10 +20,11 @@ The public site is the splash design in [`design/splash-handoff/`](design/splash
 | `/decide` | `Splash/Decide.dc.html` | Phase 5: backlog with sources, conflicts side by side, margin comments. |
 | `/deliver` | `Splash/Deliver.dc.html` | Phases 6–7: signed specification, handoff files, system prompt, revisions. |
 | `/platform` | `Splash/Platform.dc.html` | AI models, integrations, security, where the product is today. |
+| `/beta` | (not in the design; built in its language) | The private beta: what beta users get, the form, and the three steps from the list to an account. |
 
 `scripts/splash-to-tsx.py` turns each design file into `src/components/splash/pages/*.tsx`, keeping every inline style. Hover, focus and press states go into `src/components/splash/splash-hover.css`. Run `python3 -I scripts/splash-to-tsx.py` again when the design changes; don't edit the generated pages by hand. The nav and the closing band are written by hand in `src/components/splash/SplashChrome.tsx`, with the fonts (Figtree, Instrument Serif) in `SplashShell.tsx`. Changes from the design:
 
-- "Open the app" and "Open the CRM example" became **Become a beta user**. They jump to the beta form in the closing band of every page (`#beta`). The design's "Prototype · demo data · no sign-up" line now reads "Private beta · join the list, no account needed". Platform's closing band invites people to the beta instead of the demo.
+- "Open the app" became **Become a beta user →** and opens `/beta`; a **Log in** link sits beside it. "Open the CRM example" in the home hero jumps to the beta form in the closing band, which every page has (`#beta`). The design's "Prototype · demo data · no sign-up" line now reads "Private beta · join the list, no account needed". Platform's closing band invites people to the beta instead of the demo.
 - Links to the app prototypes (`App/*.dc.html`) are dropped. The footer has **Log in** in their place.
 - On screens under 760px, the hero's floating cards are hidden and the app mock-up takes the full width. Without this they sat off-screen.
 - The hero slides in without the design's fade from transparent, so the headline paints at once.
@@ -31,7 +32,9 @@ The public site is the splash design in [`design/splash-handoff/`](design/splash
 
 The old plans page is gone: `/pricing` redirects to `/`.
 
-**Beta list.** The form asks for a work email, an optional name and company, and a required consent box for beta and product-update emails. It posts straight to `public.beta_signups` (`supabase/migrations/0005_beta_signups.sql`, applied). Anonymous visitors may only insert, and only with consent; nobody can read the list through the API. A repeat address answers "You're already on the list". Read the list in the Supabase dashboard (Table editor → `beta_signups`). `source` says which page it came from (`home`, `plan`, `collect`, `decide`, `deliver`, `platform`). Sign-up at `/signup` still works for the demo workspace but is not linked from the public pages and is `noindex`.
+**Beta list.** The form asks for a work email, an optional name and company, and a required consent box for beta and product-update emails. It posts straight to `public.beta_signups` (`supabase/migrations/0005_beta_signups.sql`, applied). Anonymous visitors may only insert, and only with consent; nobody can read the list through the API. A repeat address answers "You're already on the list". Read the list in the Supabase dashboard (Table editor → `beta_signups`). `source` says which page it came from (`home`, `plan`, `collect`, `decide`, `deliver`, `platform`, `beta`).
+
+**Sign-up and log-in.** `/signup`, `/login`, `/forgot-password` and `/reset-password` use the same look as the public site (`AuthFrame` in `src/components/auth/AuthUI.tsx`, inside `SplashShell`). Sign-up is for people invited to the beta, and links to `/beta` for everyone else; log-in links to both. Sign-up is not enforced against the list yet: anyone with the link can still create an account.
 
 **Search.** `src/lib/site.ts` holds every public page's title and description (`SPLASH_PAGES`). `pageMeta()` gives each page its canonical URL, Open Graph and Twitter card. `robots.ts`, `sitemap.ts`, `manifest.ts`, `icon.svg` (the OrgCue mark), `apple-icon.tsx` and `opengraph-image.tsx` (plum card in Instrument Serif) follow from it. The home page carries Organization, WebSite and SoftwareApplication JSON-LD; the other pages carry a BreadcrumbList. The signed-in app, the auth pages and the customer link are `noindex`, and `robots.txt` keeps crawlers out of the app routes. Lighthouse (mobile, simulated slow 4G): performance 91–93, accessibility 96, best practices and SEO 100. Accessibility misses full marks on one design choice: the "Outlook sync" card is dimmed to 60% to show a feature left out of the MVP.
 
@@ -61,7 +64,7 @@ Variables already exported in your shell win over `.env.local` in Next.js. If yo
 | `/auth/callback` | Where the emailed links land (PKCE `code` or `token_hash`). |
 | Account menu (top right) | The signed-in account, the demo role it views as, and **Log out**. |
 
-`src/middleware.ts` refreshes the session cookie on app requests and sends signed-out visitors to `/login`. Public: the six splash pages, the auth pages, `/auth/*` and `/customer`.
+`src/middleware.ts` refreshes the session cookie on app requests and sends signed-out visitors to `/login`. Public: the seven splash pages, the auth pages, `/auth/*` and `/customer`.
 
 **Supabase settings to make once** (Dashboard → Authentication):
 1. **URL Configuration:** Site URL `https://orgcue.vercel.app`. Redirect URLs `https://orgcue.vercel.app/**`, `https://*-tor-lambrechts-s-projects.vercel.app/**` and `http://localhost:3000/**`. Without these, the links in confirmation and reset emails point at the default Site URL.

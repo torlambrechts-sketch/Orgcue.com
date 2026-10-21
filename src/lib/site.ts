@@ -15,6 +15,7 @@ export const SPLASH_PAGES = [
   { path: '/collect', title: 'Collect: interviews people actually finish', description: 'Each person gets only the questions their role can answer: no prompt jargon, a time estimate up front, and every question can be skipped. Packages per person, group or function.', priority: 0.8 },
   { path: '/decide', title: 'Decide: disagreements made visible, never averaged', description: 'Answers become requirements with codes, evidence and acceptance criteria. Where people disagree, OrgCue shows both sides, you choose, and the reason is logged.', priority: 0.8 },
   { path: '/deliver', title: 'Deliver: one specification, a file for every tool', description: 'A specification signed off section by section, then AGENTS.md, plan, tests, issues and a system prompt your coding agent, issue tracker or chat assistant can read.', priority: 0.8 },
+  { path: '/beta', title: 'Become a beta user', description: 'Join the OrgCue private beta. We invite teams with a first AI project in mind to run it in OrgCue: interviews, decided conflicts and a traceable spec for their AI tools.', priority: 0.9 },
   { path: '/platform', title: 'Platform: AI models, integrations and an audit trail', description: 'Your choice of AI model, connections to the tools you already use, EU data, roles and an audit trail from every answer to every line of the handoff.', priority: 0.7 },
 ] as const;
 

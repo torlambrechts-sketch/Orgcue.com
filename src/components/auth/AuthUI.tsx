@@ -1,59 +1,79 @@
 'use client';
-// Sign-up, log-in and password screens. Orgpuls look: cream canvas, one hairline card, Playfair heading,
-// 48px sign-in fields with a 1.5px ink border, one saffron primary action per screen.
+// Sign-up, log-in and password screens, in the public site's look (design/splash-handoff Splash pages): warm canvas
+// with soft glows, the OrgCue mark, one white card, Instrument Serif heading, one gold primary action per screen.
+// The fonts and .splash styles come from SplashShell, which every auth page wraps this in.
+/* eslint-disable @next/next/no-img-element */
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import type { AuthError } from '@supabase/supabase-js';
 import { supabaseBrowser } from '@/lib/supabase/client';
 import { safeNext } from '@/lib/auth-paths';
-import { Button, Input } from '@/components/ds';
 import { css } from '@/components/Blocks';
 
 const MIN_PASSWORD = 8;
 
 export function AuthFrame({ eyebrow, title, lead, children, foot }: { eyebrow?: string; title: string; lead?: React.ReactNode; children: React.ReactNode; foot?: React.ReactNode }) {
   return (
-    <div style={css('min-height: 100vh; display: flex; flex-direction: column; background: var(--op-bg); color: var(--op-ink);')}>
-      <header style={css('display: flex; align-items: center; padding: 16px 20px;')}>
-        <Link href="/" aria-label="Orgcue home" style={css('display: flex; align-items: center; gap: 10px; color: var(--op-ink); text-decoration: none;')}>
-          <span style={css('display: flex; width: 32px; height: 32px; align-items: center; justify-content: center; border-radius: 9px; background: var(--op-ink); color: var(--op-bg); font-family: var(--font-display); font-size: 17px; font-weight: 600;')}>O</span>
-          <span style={css('font-family: var(--font-display); font-size: 20px; font-weight: 600;')}>Orgcue</span>
-        </Link>
+    <div style={css('min-height: 100vh; display: flex; flex-direction: column; position: relative; overflow: clip; font-size: 15px; line-height: 1.5;')}>
+      <span aria-hidden="true" style={css('position: absolute; left: 50%; top: -260px; width: 1000px; height: 820px; transform: translateX(-50%); background: radial-gradient(closest-side,rgba(196,170,214,.5),rgba(196,170,214,0)); pointer-events: none;')} />
+      <span aria-hidden="true" style={css('position: absolute; right: -220px; bottom: -220px; width: 620px; height: 620px; background: radial-gradient(closest-side,rgba(251,214,170,.45),rgba(251,214,170,0)); pointer-events: none;')} />
+      <header style={css('position: relative; padding: 14px clamp(16px,3vw,40px);')}>
+        <div style={css('max-width: 1240px; margin: 0 auto; display: flex; align-items: center; gap: 16px;')}>
+          <Link href="/" style={css('display: flex; align-items: center; gap: 10px; text-decoration: none; color: #1F1A17;')}>
+            <img src="/orgcue-mark.svg" alt="" width={34} height={34} style={css('display: block; border-radius: 9px;')} />
+            <span style={css('display: flex; flex-direction: column; line-height: 1;')}>
+              <span style={css('font-size: 19px; font-weight: 700; letter-spacing: -0.015em;')}>Org<span style={css('color: #4A1F3D;')}>Cue</span></span>
+              <span style={css('font-size: 10.5px; color: #6E665D; letter-spacing: .04em; margin-top: 2px;')}>orgcue.com</span>
+            </span>
+          </Link>
+        </div>
       </header>
-      <main className="animate-entry" style={css('flex: 1; display: flex; flex-direction: column; align-items: center; padding: 24px 16px 48px;')}>
-        <div style={css('width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 18px; border: 1px solid var(--op-line); border-radius: 20px; background: var(--op-sf); padding: 26px; box-sizing: border-box;')}>
-          <span style={css('display: flex; flex-direction: column; gap: 6px;')}>
-            {eyebrow && <span style={css('font-size: 11px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; color: var(--op-mut);')}>{eyebrow}</span>}
-            <h1 style={css('margin: 0; font-family: var(--font-display); font-size: 26px; line-height: 1.2; font-weight: 600; text-wrap: balance;')}>{title}</h1>
-            {lead && <p style={css('margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--op-body); text-wrap: pretty;')}>{lead}</p>}
+      <div className="sp-pin" style={css('position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; padding: clamp(16px,5vw,48px) 16px 56px;')}>
+        <div style={css('width: 100%; max-width: 440px; display: flex; flex-direction: column; gap: 18px; border: 1px solid #E7E1EA; border-radius: 24px; background: #fff; padding: clamp(22px,4vw,32px); box-sizing: border-box; box-shadow: 0 30px 70px rgba(74,31,61,.12);')}>
+          <span style={css('display: flex; flex-direction: column; gap: 8px;')}>
+            {eyebrow && <span style={css('font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #4A1F3D;')}>{eyebrow}</span>}
+            <h1 style={css('margin: 0; font-family: var(--font-instrument),serif; font-weight: 400; font-size: clamp(34px,6vw,42px); line-height: 1; letter-spacing: -0.01em; text-wrap: balance;')}>{title}</h1>
+            {lead && <p style={css('margin: 0; font-size: 14.5px; line-height: 1.55; color: #3A332D; text-wrap: pretty;')}>{lead}</p>}
           </span>
           {children}
         </div>
-        {foot && <div style={css('margin-top: 16px; font-size: 13.5px; color: var(--op-mut); text-align: center;')}>{foot}</div>}
-        <p style={css('margin: 22px 0 0; max-width: 420px; font-size: 12px; line-height: 1.5; color: var(--op-mut); text-align: center;')}>Data region: US · Answers stay private until collection closes.</p>
-      </main>
+        {foot && <div style={css('margin-top: 18px; font-size: 14px; color: #6E665D; text-align: center; display: flex; flex-direction: column; gap: 6px;')}>{foot}</div>}
+        <p style={css('margin: 22px 0 0; max-width: 440px; font-size: 12.5px; line-height: 1.5; color: #6E665D; text-align: center;')}>OrgCue is in private beta · EU data · answers stay private until collection closes.</p>
+      </div>
     </div>
   );
 }
 
+const fieldStyle = css('box-sizing: border-box; height: 48px; width: 100%; min-width: 0; border-radius: 10px; border: 1px solid #DCD3DE; background: #FBF9F7; padding: 0 14px; font-size: 15px; color: #1F1A17; font-family: inherit; outline: none; transition: border-color .2s ease-in-out, box-shadow .2s ease-in-out;');
+
 export function Field({ label, help, value, onChange, ...input }: { label: string; help?: string } & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'style'>) {
   return (
     <label style={css('display: flex; flex-direction: column; gap: 6px; min-width: 0;')}>
-      <span style={css('font-size: 13px; font-weight: 600;')}>{label}</span>
-      <Input size="signin" value={value as string} onChange={onChange as never} {...input} />
-      {help && <span style={css('font-size: 12px; color: var(--op-mut);')}>{help}</span>}
+      <span style={css('font-size: 13px; font-weight: 600; color: #3A332D;')}>{label}</span>
+      <input className="sp-field" style={fieldStyle} value={(value as string) ?? ''} onChange={onChange} {...input} />
+      {help && <span style={css('font-size: 12.5px; color: #6E665D;')}>{help}</span>}
     </label>
   );
 }
 
+/** The one primary action per screen: the splash design's gold button. */
+function Submit({ disabled, children }: { disabled?: boolean; children: React.ReactNode }) {
+  return (
+    <button type="submit" disabled={disabled} className="sp-lift"
+      style={css('width: 100%; height: 48px; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; border: 0; background: #F2B33D; color: #1F1A17; font-size: 15px; font-weight: 700; font-family: inherit; box-shadow: 0 14px 30px rgba(242,179,61,.25); transition: transform .2s ease-in-out;' + (disabled ? ' opacity: .55; cursor: default; box-shadow: none;' : ' cursor: pointer;'))}>
+      {children}
+    </button>
+  );
+}
+
 export function Notice({ tone = 'info', children }: { tone?: 'info' | 'error' | 'ok'; children: React.ReactNode }) {
-  const c = { info: ['var(--op-track)', 'var(--op-ink)'], error: ['var(--op-peach)', 'var(--op-dangerdeep)'], ok: ['var(--op-mint)', 'var(--op-greendeep)'] }[tone];
-  return <div role={tone === 'error' ? 'alert' : 'status'} style={{ borderRadius: 12, padding: '10px 13px', fontSize: 13.5, lineHeight: 1.5, background: c[0], color: c[1] }}>{children}</div>;
+  const c = { info: ['#F3EDF4', '#2A1224'], error: ['#FBE3DC', '#A23A22'], ok: ['#E3F2F0', '#1E5E55'] }[tone];
+  return <div role={tone === 'error' ? 'alert' : 'status'} style={{ borderRadius: 12, padding: '11px 14px', fontSize: 13.5, lineHeight: 1.5, background: c[0], color: c[1] }}>{children}</div>;
 }
 
 const form = css('display: flex; flex-direction: column; gap: 14px; margin: 0;');
-const linkBtn = css('border: none; background: transparent; padding: 0; cursor: pointer; font-family: inherit; font-size: 13.5px; font-weight: 600; color: var(--op-link); text-align: left;');
+const linkBtn = css('border: none; background: transparent; padding: 0; cursor: pointer; font-family: inherit; font-size: 13.5px; font-weight: 600; color: #4A1F3D; text-align: left;');
 
 function message(e: AuthError | null, fallback = 'Something went wrong. Try again in a moment.') {
   if (!e) return '';
@@ -76,10 +96,10 @@ function ResendLink({ email }: { email: string }) {
     const { error } = await supabaseBrowser().auth.resend({ type: 'signup', email, options: { emailRedirectTo: origin() + '/auth/callback?next=/home' } });
     setState(error ? message(error) : 'sent');
   };
-  if (state === 'sent') return <span style={css('font-size: 13.5px; color: var(--op-greendeep);')}>✓ Sent again. Check your inbox and spam folder.</span>;
+  if (state === 'sent') return <span style={css('font-size: 13.5px; color: #1E5E55;')}>✓ Sent again. Check your inbox and spam folder.</span>;
   return <span style={css('display: flex; flex-direction: column; gap: 6px;')}>
     <button type="button" onClick={resend} disabled={state === 'sending'} style={linkBtn}>{state === 'sending' ? 'Sending …' : 'Send the link again'}</button>
-    {state && state !== 'sending' && <span style={css('font-size: 12.5px; color: var(--op-dangerdeep);')}>{state}</span>}
+    {state && state !== 'sending' && <span style={css('font-size: 12.5px; color: #A23A22;')}>{state}</span>}
   </span>;
 }
 
@@ -107,8 +127,11 @@ export function LoginForm() {
   };
 
   return (
-    <AuthFrame eyebrow="Orgcue" title="Log in" lead="Use the email and password you signed up with."
-      foot={<>New to Orgcue? <Link href={'/signup' + (next !== '/home' ? '?next=' + encodeURIComponent(next) : '')} style={css('font-weight: 700;')}>Create an account</Link></>}>
+    <AuthFrame eyebrow="Welcome back" title="Log in" lead="Use the email and password you signed up with."
+      foot={<>
+        <span>New to OrgCue? <Link href="/beta" style={css('font-weight: 700;')}>Become a beta user</Link></span>
+        <span>Invited to the beta? <Link href={'/signup' + (next !== '/home' ? '?next=' + encodeURIComponent(next) : '')} style={css('font-weight: 700;')}>Create your account</Link></span>
+      </>}>
       {linkError && <Notice>{linkError === 'expired' ? 'That link has expired or was already used. Log in, or ask for a new one.' : 'We couldn’t finish signing you in from that link. If you just confirmed your email, log in below.'}</Notice>}
       {error && <Notice tone="error">{error}</Notice>}
       {unconfirmed && <Notice tone="error"><span style={css('display: flex; flex-direction: column; gap: 6px;')}>Confirm your email first. We sent a link to {email.trim()}.<ResendLink email={email.trim()} /></span></Notice>}
@@ -116,7 +139,7 @@ export function LoginForm() {
         <Field label="Email" type="email" name="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
         <Field label="Password" type="password" name="password" autoComplete="current-password" required value={password} onChange={(e) => setPassword(e.target.value)} />
         <Link href="/forgot-password" style={css('align-self: flex-start; font-size: 13.5px; font-weight: 600;')}>Forgot your password?</Link>
-        <Button type="submit" size="lg" block disabled={busy || !email.trim() || !password}>{busy ? 'Logging in …' : 'Log in'}</Button>
+        <Submit disabled={busy || !email.trim() || !password}>{busy ? 'Logging in …' : 'Log in'}</Submit>
       </form>
     </AuthFrame>
   );
@@ -154,21 +177,24 @@ export function SignupForm() {
   if (sentTo) return (
     <AuthFrame eyebrow="Almost done" title="Check your email" lead={<>We sent a confirmation link to <b>{sentTo}</b>. Open it on this device to finish creating your account.</>}
       foot={<Link href="/login" style={css('font-weight: 700;')}>Back to log in</Link>}>
-      <Notice>The link works once and expires after 24 hours. Nothing in Orgcue is shared until you confirm.</Notice>
+      <Notice>The link works once and expires after 24 hours. Nothing in OrgCue is shared until you confirm.</Notice>
       <ResendLink email={sentTo} />
     </AuthFrame>
   );
 
   return (
-    <AuthFrame eyebrow="Orgcue" title="Create your account" lead="You join the Lumio Inc. workspace as a member."
-      foot={<>Already have an account? <Link href="/login" style={css('font-weight: 700;')}>Log in</Link></>}>
+    <AuthFrame eyebrow="Beta access" title="Create your account" lead="For people invited to the beta. You join the Lumio Inc. demo workspace as a member."
+      foot={<>
+        <span>Already have an account? <Link href="/login" style={css('font-weight: 700;')}>Log in</Link></span>
+        <span>No invite yet? <Link href="/beta" style={css('font-weight: 700;')}>Join the beta list</Link></span>
+      </>}>
       {error && <Notice tone="error">{error}</Notice>}
       <form onSubmit={submit} style={form} noValidate>
         <Field label="Full name" name="name" autoComplete="name" required value={name} onChange={(e) => setName(e.target.value)} />
         <Field label="Work email" type="email" name="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
         <Field label="Password" type="password" name="new-password" autoComplete="new-password" required value={password} onChange={(e) => setPassword(e.target.value)}
           help={short ? (MIN_PASSWORD - password.length) + ' more characters' : 'At least ' + MIN_PASSWORD + ' characters'} />
-        <Button type="submit" size="lg" block disabled={busy || !name.trim() || !email.trim() || !password}>{busy ? 'Creating account …' : 'Create account'}</Button>
+        <Submit disabled={busy || !name.trim() || !email.trim() || !password}>{busy ? 'Creating account …' : 'Create account'}</Submit>
       </form>
     </AuthFrame>
   );
@@ -189,7 +215,7 @@ export function ForgotForm() {
     setSentTo(email.trim());
   };
   if (sentTo) return (
-    <AuthFrame eyebrow="Password" title="Check your email" lead={<>If <b>{sentTo}</b> has an Orgcue account, a link to set a new password is on its way.</>}
+    <AuthFrame eyebrow="Password" title="Check your email" lead={<>If <b>{sentTo}</b> has an OrgCue account, a link to set a new password is on its way.</>}
       foot={<Link href="/login" style={css('font-weight: 700;')}>Back to log in</Link>}>
       <Notice>Open the link on this device. It works once.</Notice>
     </AuthFrame>
@@ -200,7 +226,7 @@ export function ForgotForm() {
       {error && <Notice tone="error">{error}</Notice>}
       <form onSubmit={submit} style={form} noValidate>
         <Field label="Email" type="email" name="email" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
-        <Button type="submit" size="lg" block disabled={busy || !email.trim()}>{busy ? 'Sending …' : 'Send reset link'}</Button>
+        <Submit disabled={busy || !email.trim()}>{busy ? 'Sending …' : 'Send reset link'}</Submit>
       </form>
     </AuthFrame>
   );
@@ -227,7 +253,7 @@ export function ResetForm() {
       <form onSubmit={submit} style={form} noValidate>
         <Field label="New password" type="password" name="new-password" autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} help={'At least ' + MIN_PASSWORD + ' characters'} />
         <Field label="Repeat it" type="password" name="confirm-password" autoComplete="new-password" value={again} onChange={(e) => setAgain(e.target.value)} />
-        <Button type="submit" size="lg" block disabled={busy || !password || !again}>{busy ? 'Saving …' : 'Save password'}</Button>
+        <Submit disabled={busy || !password || !again}>{busy ? 'Saving …' : 'Save password'}</Submit>
       </form>
     </AuthFrame>
   );

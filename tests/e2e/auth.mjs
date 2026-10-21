@@ -23,17 +23,21 @@ try {
   await page.goto(base + '/p/it-helpdesk/spec', { waitUntil: 'networkidle' });
   const u = new URL(page.url());
   ok('signed-out deep link goes to /login with next', u.pathname === '/login' && u.searchParams.get('next') === '/p/it-helpdesk/spec', page.url());
-  for (const p of ['/', '/plan', '/collect', '/decide', '/deliver', '/platform']) {
+  for (const p of ['/', '/plan', '/collect', '/decide', '/deliver', '/platform', '/beta']) {
     await page.goto(base + p, { waitUntil: 'networkidle' });
     ok('splash page ' + p + ' is public', new URL(page.url()).pathname === p && (await page.locator('h1').count()) === 1 && (await page.locator('#beta form').count()) === 1);
   }
   await page.goto(base + '/pricing', { waitUntil: 'networkidle' });
   ok('old /pricing link lands on the home page', new URL(page.url()).pathname === '/');
   // Beta list: the hero CTA jumps to the form; the PostgREST insert is intercepted, so nothing is stored.
-  for (const p of ['/', '/decide']) {
+  await page.goto(base + '/decide', { waitUntil: 'networkidle' });
+  await page.locator('header a[href="/beta"]').click();
+  await page.waitForURL('**/beta');
+  ok('header CTA opens /beta', new URL(page.url()).pathname === '/beta' && (await page.locator('header a[href="/beta"]').count()) === 0);
+  for (const p of ['/', '/beta']) {
     await page.goto(base + p, { waitUntil: 'networkidle' });
-    await page.getByRole('link', { name: /^Become a beta user/ }).first().click();
-    await page.waitForURL('**#beta');
+    await page.locator('main a[href="#beta"]').first().click().catch(() => {});
+    if (p === '/') await page.waitForURL('**#beta');
     const form = page.getByRole('form', { name: 'Join the beta list' });
     await form.getByLabel('Work email').fill('beta@');
     await form.getByRole('button', { name: 'Become a beta user' }).click();
@@ -54,6 +58,7 @@ try {
   ok('reset-password needs a session', new URL(page.url()).pathname === '/login');
   await page.goto(base + '/login?next=//evil.example', { waitUntil: 'networkidle' });
   ok('login page renders', (await page.getByRole('heading', { name: 'Log in' }).count()) === 1);
+  ok('login points newcomers to the beta and invitees to sign-up', (await page.locator('a[href="/beta"]').count()) === 1 && (await page.locator('a[href="/signup"]').count()) === 1);
 
   // 2. Real Supabase error for wrong credentials (no email involved).
   await page.getByLabel('Email').fill('nobody-' + Date.now() + '@orgcue.test');
@@ -101,7 +106,7 @@ try {
   await page.getByLabel('Email').fill('kari@lumio.test');
   await page.getByRole('button', { name: 'Send reset link' }).click();
   await page.getByRole('heading', { name: 'Check your email' }).waitFor({ timeout: 10000 });
-  ok('forgot password sends to Supabase and confirms neutrally', recover && recover.email === 'kari@lumio.test' && /If .* has an Orgcue account/.test(await page.locator('main').innerText()));
+  ok('forgot password sends to Supabase and confirms neutrally', recover && recover.email === 'kari@lumio.test' && /If .* has an OrgCue account/.test(await page.locator('main').innerText()));
 
   // 5. Expired email links land on the login page with an explanation.
   await page.goto(base + '/auth/callback?code=not-a-real-code', { waitUntil: 'networkidle' });
