@@ -1,0 +1,3 @@
+# Supabase CLI settings. The migrations in supabase/migrations are applied to the hosted project by
+# .github/workflows/supabase-migrations.yml; this repo does not run a local Supabase stack.
+project_id = "orgcue"

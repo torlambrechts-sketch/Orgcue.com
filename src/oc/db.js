@@ -19,7 +19,7 @@ export const status = { online: false, error: '' };
 /** The signed-in account: { userId, email, personId, name, ini }. The demo bar's "View as" persona is separate. */
 let actor = null;
 export const getActor = () => actor;
-/** True once supabase/migrations/0003_auth.sql has run (people.user_id, audit_events.user_id, RLS). */
+/** True once the account migrations (supabase/migrations/20261019164415…164629_auth_*.sql) have run (people.user_id, audit_events.user_id, RLS). */
 let accountsSchema = false;
 const actorCol = () => (accountsSchema && actor ? { user_id: actor.userId } : {});
 

@@ -1,0 +1,51 @@
+# Applies new files in supabase/migrations to the hosted Supabase project (Orgcue.com, eu-west-3), so schema and data
+# changes never need the SQL editor. Runs when a migration changes on the deploy branch, or by hand from the Actions tab.
+#
+# One secret, set once under Settings → Secrets and variables → Actions:
+#   SUPABASE_DB_URL  the Session pooler connection string (Supabase dashboard → Connect → Session pooler),
+#                    with the database password filled in and percent-encoded.
+name: Supabase migrations
+
+on:
+  push:
+    branches: [claude/relaxed-goldberg-yjnnay]
+    paths: ['supabase/migrations/**', '.github/workflows/supabase-migrations.yml']
+  workflow_dispatch:
+
+concurrency:
+  group: supabase-migrations
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the secret is set
+        run: |
+          if [ -z "$SUPABASE_DB_URL" ]; then
+            echo "::error::Add the SUPABASE_DB_URL secret (Settings → Secrets and variables → Actions). See the comment at the top of this workflow."
+            exit 1
+          fi
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 2.121.0
+
+      - name: Migrations before
+        run: supabase migration list --db-url "$SUPABASE_DB_URL"
+
+      - name: Pending migrations
+        run: supabase db push --dry-run --db-url "$SUPABASE_DB_URL"
+
+      - name: Apply
+        run: supabase db push --yes --db-url "$SUPABASE_DB_URL"
+
+      - name: Migrations after
+        run: supabase migration list --db-url "$SUPABASE_DB_URL"

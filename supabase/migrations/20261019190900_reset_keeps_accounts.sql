@@ -1,5 +1,5 @@
--- Applied Oct 19, 2026 in the Supabase SQL editor (the connector holds statements containing TRUNCATE for a
--- confirmation the cloud session could not give).
+-- Applied Oct 19, 2026 in the Supabase SQL editor, before migrations ran from GitHub; recorded in the migration
+-- history afterwards so `supabase db push` does not run it again.
 -- Reset the demo but keep the people rows of real accounts, and refuse to run without a signed-in user.
 create or replace function public.reset_demo() returns void
 language plpgsql security definer set search_path = public as $fn$

@@ -2,7 +2,7 @@
 
 Milestones follow the kickoff. Tasks are about half a day each. Acceptance checks reference spec §26.
 
-**Status (Oct 19, 2026):** M0–M5 are built and deployed at https://orgcue.vercel.app. `npm run test:e2e` walks spec §26 and checks the database: 33 of 33 checks pass. M6 (real AI drafting) is not started. Sign-up and log-in are built (README → Accounts). `supabase/migrations/0003_auth.sql` (accounts and row-level security) is applied; so is `0004_reset_keeps_accounts.sql`.
+**Status (Oct 19, 2026):** M0–M5 are built and deployed at https://orgcue.vercel.app. `npm run test:e2e` walks spec §26 and checks the database: 33 of 33 checks pass. M6 (real AI drafting) is not started. Sign-up and log-in are built (README → Accounts). The account and row-level security migrations (`supabase/migrations/20261019164415…164629_auth_*.sql`) are applied; so is `20261019190900_reset_keeps_accounts.sql`. New migrations are applied by `.github/workflows/supabase-migrations.yml` (README → Database).
 
 ## M0 — Scaffold and deploy
 
@@ -10,7 +10,7 @@ Milestones follow the kickoff. Tasks are about half a day each. Acceptance check
 |---|---|---|
 | 0.1 | Next.js 15 (App Router, TS, React 19, Tailwind v4) in the repo root; Orgpuls tokens as CSS variables in `globals.css`; DM Sans + Playfair Display via `next/font/google` | `npm run build` passes; `/` renders "Hello Orgcue" in the right fonts and colours |
 | 0.2 | `src/lib/supabase.ts` client; `.env.local` with `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY`; `.env.example` | Client reads a table from the Orgcue.com project |
-| 0.3 | `supabase/migrations/0001_init.sql` (tables in ASSESSMENT §5, RLS off) applied via the management API | `list_tables` shows every table |
+| 0.3 | `supabase/migrations/20261019140057_init_orgcue_schema.sql` (tables in ASSESSMENT §5, RLS off) applied via the management API | `list_tables` shows every table |
 | 0.4 | `scripts/gen-seed.mjs` turns `prototype/oc-data.js` into `supabase/seed.sql`; apply it | Row counts match oc-data (9 people, 6 projects, 9 templates, 14 questions, 12 items, 7 ideas, 7 actions, 12 library rows …) |
 | 0.5 | Vercel project linked to this GitHub repo, env vars mirrored, first deploy | Public URL serves the app |
 

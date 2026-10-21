@@ -32,7 +32,7 @@ The public site is the splash design in [`design/splash-handoff/`](design/splash
 
 The old plans page is gone: `/pricing` redirects to `/`.
 
-**Beta list.** The form asks for a work email, an optional name and company, and a required consent box for beta and product-update emails. It posts straight to `public.beta_signups` (`supabase/migrations/0005_beta_signups.sql`, applied). Anonymous visitors may only insert, and only with consent; nobody can read the list through the API. A repeat address answers "You're already on the list". Read the list in the Supabase dashboard (Table editor → `beta_signups`). `source` says which page it came from (`home`, `plan`, `collect`, `decide`, `deliver`, `platform`, `beta`).
+**Beta list.** The form asks for a work email, an optional name and company, and a required consent box for beta and product-update emails. It posts straight to `public.beta_signups` (`supabase/migrations/20261021144612_beta_signups.sql`). Anonymous visitors may only insert, and only with consent; nobody can read the list through the API. A repeat address answers "You're already on the list". Read the list in the Supabase dashboard (Table editor → `beta_signups`). `source` says which page it came from (`home`, `plan`, `collect`, `decide`, `deliver`, `platform`, `beta`).
 
 **Sign-up and log-in.** `/signup`, `/login`, `/forgot-password` and `/reset-password` use the same look as the public site (`AuthFrame` in `src/components/auth/AuthUI.tsx`, inside `SplashShell`). Sign-up is for people invited to the beta, and links to `/beta` for everyone else; log-in links to both. Sign-up is not enforced against the list yet: anyone with the link can still create an account.
 
@@ -72,14 +72,23 @@ Variables already exported in your shell win over `.env.local` in Next.js. If yo
 
 ## Database
 
+**Migrations apply themselves.** Add a file to `supabase/migrations/` named `<UTC timestamp>_<what it does>.sql` (for example `20261022093000_invite_status.sql`, or `supabase migration new invite_status`) and push to `claude/relaxed-goldberg-yjnnay`. `.github/workflows/supabase-migrations.yml` then runs `supabase db push` against the hosted project and applies every file that isn't in its migration history yet. Its log lists the history before and after. Data changes (deletes, backfills) go the same way as schema changes, so nothing needs the SQL editor. You can also run it by hand from the Actions tab ("Supabase migrations" → Run workflow).
+
+It needs one repository secret, `SUPABASE_DB_URL`: the **Session pooler** connection string from the Supabase dashboard (Connect → Session pooler), with the database password filled in and percent-encoded. Without the secret the run stops with a message saying so.
+
+| File | What it does |
+|---|---|
+| `20261019140057_init_orgcue_schema.sql` | Tables (ASSESSMENT §5). |
+| `20261019140717_demo_seed_and_reset.sql` | `demo_seed` and `reset_demo()`. |
+| `20261019164415` … `20261019164629_auth_*.sql` | Accounts: people rows for auth users, row-level security, who may call what. |
+| `20261019190900_reset_keeps_accounts.sql` | Reset demo keeps accounts' People entries and refuses anonymous calls. Pasted in the SQL editor on 19 Oct, then recorded in the history. |
+| `20261021144612_beta_signups.sql` | The beta list: insert-only for visitors, unreadable through the API. |
+| `20261021160000_remove_beta_test_row.sql` | Removes the beta list's test row. |
+
+The file names match the versions in the project's migration history (`supabase migration list`), so `db push` only applies what's new.
+
 ```bash
-# 1. Schema: run supabase/migrations/*.sql in order (SQL editor or `supabase db push`).
-#    0003_auth.sql (applied) links accounts to people rows and turns on row-level security: signed-in users read and
-#    write, anonymous visitors may only submit the customer page. `npm run seed` now needs the test account below.
-#    0004_reset_keeps_accounts.sql (applied) makes Reset demo keep accounts' People entries and refuse anonymous calls.
-#    0005_beta_signups.sql (applied) adds the beta list: insert-only for visitors, unreadable through the API.
-# 2. Seed: load the Lumio Inc. demo (spec §25) and reset to it.
-npm run seed                      # = node scripts/gen-seed.mjs --push
+npm run seed                      # load the Lumio Inc. demo (spec §25) and reset to it (= node scripts/gen-seed.mjs --push)
 ```
 
 `scripts/gen-seed.mjs` reads `design/design_handoff_orgcue/prototype/oc-data.js`. It writes `supabase/seed.sql`, a standalone SQL-editor version. With `--push` it loads the rows into `demo_seed` and calls `reset_demo()`. The app's **Reset demo** link calls the same function.
@@ -94,7 +103,7 @@ npm run test:e2e                  # spec §26 walk-through in Chromium, checks t
 npm run test:auth                 # beta form, sign-up, log-in, reset and redirects; email and beta-list writes are intercepted
 ```
 
-`tests/e2e/mock-auth.mjs` stands in for Supabase Auth with one fixed account and forwards data requests to the real project. Build with `NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321` and run the suites with `E2E_SUPABASE_URL=http://localhost:54321 ORGCUE_TEST_EMAIL=mock@orgcue.test ORGCUE_TEST_PASSWORD=mock-password-123`. That checks the signed-in app without a real account or email. It only worked before `0003_auth.sql`; now that the anon role reads nothing, use a real test account.
+`tests/e2e/mock-auth.mjs` stands in for Supabase Auth with one fixed account and forwards data requests to the real project. Build with `NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321` and run the suites with `E2E_SUPABASE_URL=http://localhost:54321 ORGCUE_TEST_EMAIL=mock@orgcue.test ORGCUE_TEST_PASSWORD=mock-password-123`. That checks the signed-in app without a real account or email. It only worked before row-level security (`20261019164424_auth_rls_policies.sql`); now that the anon role reads nothing, use a real test account.
 
 All suites need a running app (`npm run build && npm start`) and a Chromium at `/opt/pw-browsers/chromium` (set `CHROMIUM_PATH` otherwise).
 

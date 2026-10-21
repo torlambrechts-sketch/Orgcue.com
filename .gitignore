@@ -43,3 +43,6 @@ next-env.d.ts
 # keep the template
 !.env.example
 tests/e2e/shots/
+
+# Supabase CLI working files
+supabase/.temp/

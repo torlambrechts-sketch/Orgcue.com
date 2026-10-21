@@ -84,7 +84,7 @@ console.log('wrote supabase/seed.sql', sql.length, 'bytes');
 if (process.argv.includes('--push')) {
   const env = Object.fromEntries(readFileSync(path.join(root, '.env.local'), 'utf8').split('\n').filter((l) => l.includes('=')).map((l) => [l.slice(0, l.indexOf('=')), l.slice(l.indexOf('=') + 1).trim()]));
   const url = env.NEXT_PUBLIC_SUPABASE_URL, key = env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  // After supabase/migrations/0003_auth.sql only signed-in users may write: use the test account when one is set.
+  // With row-level security on (supabase/migrations/20261019164424_auth_rls_policies.sql), only signed-in users may write: use the test account when one is set.
   let bearer = key;
   if (env.ORGCUE_TEST_EMAIL && env.ORGCUE_TEST_PASSWORD) {
     const t = await (await fetch(url + '/auth/v1/token?grant_type=password', { method: 'POST', headers: { apikey: key, 'Content-Type': 'application/json' }, body: JSON.stringify({ email: env.ORGCUE_TEST_EMAIL, password: env.ORGCUE_TEST_PASSWORD }) })).json();
