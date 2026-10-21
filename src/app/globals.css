@@ -215,8 +215,11 @@
 html{line-height:normal}
 html,body{margin:0;padding:0}
 body{min-height:100vh;background:var(--op-bg);color:var(--op-ink);font-family:var(--font-sans);font-size:14px;-webkit-font-smoothing:antialiased}
+/* In the base layer so Tailwind utilities (text-op-ink …) can override the link colour. */
+@layer base {
 a{color:var(--op-link);text-decoration:none}
 a:hover{color:var(--op-linkhover);text-decoration:underline}
+}
 input,select,textarea,button{font-family:inherit}
 input::placeholder,textarea::placeholder{color:var(--op-faint)}
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--op-ink);outline-offset:2px;border-radius:6px}
@@ -245,8 +248,11 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
 
 /* Prototype globals (Orgcue.dc.html helmet) */
 html, body { background: #FCF6E9; color: #191510; font-size: 14px; }
+/* In the base layer so Tailwind utilities (text-op-ink …) can override the link colour. */
+@layer base {
 a { color: #2F5D2A; text-decoration: none; }
 a:hover { color: #1E3D1A; text-decoration: underline; }
+}
 *:focus-visible { outline: 3px solid #191510; outline-offset: 2px; border-radius: 6px; }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 @media (max-width: 720px) {

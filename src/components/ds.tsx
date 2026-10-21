@@ -19,6 +19,13 @@ const TONE = {
 } as const;
 
 export type ButtonSize = keyof typeof SIZE;
+
+/** The Button's look on a link (marketing CTAs). Renders an <a>, so it works without JavaScript and is crawlable. */
+export function buttonStyle(size: string = 'md', tone: string = 'primary', block = false): Style {
+  const sz = SIZE[size as ButtonSize] || SIZE.md;
+  const t = TONE[tone as ButtonTone] || TONE.primary;
+  return { display: block ? 'flex' : 'inline-flex', width: block ? '100%' : undefined, flex: 'none', alignItems: 'center', justifyContent: 'center', whiteSpace: 'nowrap', height: sz.h, paddingInline: sz.px, borderRadius: sz.r, fontSize: sz.fs, fontWeight: t.fw, background: t.bg, border: '1px solid ' + t.bc, color: t.c, textDecoration: 'none', lineHeight: 'normal', boxSizing: 'border-box' };
+}
 export type ButtonTone = keyof typeof TONE;
 
 export function Button({ size = 'md', tone = 'primary', block, disabled, onClick, style, children, ...rest }: {

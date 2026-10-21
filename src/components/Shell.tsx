@@ -43,7 +43,6 @@ export default function Shell() {
     const sub = sb ? sb.auth.onAuthStateChange((event: string) => { if (event === 'SIGNED_OUT' && !K.publicMode) window.location.assign('/login'); }) : null;
     return () => { if (sub) sub.data.subscription.unsubscribe(); };
   }, []);
-  useEffect(() => { if (pathname === '/') router.replace('/home'); }, [pathname, router]);
 
   // The public customer answer page (no account): just the respondent's screen, no workspace chrome.
   if (ready && publicView) return <div style={css('min-height: 100vh; background: var(--op-bg); padding: 16px; box-sizing: border-box;')}><PhoneScreen path={path} bare /></div>;

@@ -23,8 +23,14 @@ try {
   await page.goto(base + '/p/it-helpdesk/spec', { waitUntil: 'networkidle' });
   const u = new URL(page.url());
   ok('signed-out deep link goes to /login with next', u.pathname === '/login' && u.searchParams.get('next') === '/p/it-helpdesk/spec', page.url());
+  for (const p of ['/', '/pricing']) {
+    await page.goto(base + p, { waitUntil: 'networkidle' });
+    ok('splash page ' + p + ' is public', new URL(page.url()).pathname === p && (await page.locator('h1').count()) === 1);
+  }
   await page.goto(base + '/', { waitUntil: 'networkidle' });
-  ok('signed-out / goes to /login', new URL(page.url()).pathname === '/login');
+  await page.getByRole('link', { name: 'Try the demo workspace' }).click();
+  await page.waitForURL('**/signup');
+  ok('landing CTA opens sign-up', new URL(page.url()).pathname === '/signup');
   await page.goto(base + '/reset-password', { waitUntil: 'networkidle' });
   ok('reset-password needs a session', new URL(page.url()).pathname === '/login');
   await page.goto(base + '/login?next=//evil.example', { waitUntil: 'networkidle' });

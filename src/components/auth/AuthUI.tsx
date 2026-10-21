@@ -16,7 +16,7 @@ export function AuthFrame({ eyebrow, title, lead, children, foot }: { eyebrow?: 
   return (
     <div style={css('min-height: 100vh; display: flex; flex-direction: column; background: var(--op-bg); color: var(--op-ink);')}>
       <header style={css('display: flex; align-items: center; padding: 16px 20px;')}>
-        <Link href="/login" style={css('display: flex; align-items: center; gap: 10px; color: var(--op-ink); text-decoration: none;')}>
+        <Link href="/" aria-label="Orgcue home" style={css('display: flex; align-items: center; gap: 10px; color: var(--op-ink); text-decoration: none;')}>
           <span style={css('display: flex; width: 32px; height: 32px; align-items: center; justify-content: center; border-radius: 9px; background: var(--op-ink); color: var(--op-bg); font-family: var(--font-display); font-size: 17px; font-weight: 600;')}>O</span>
           <span style={css('font-family: var(--font-display); font-size: 20px; font-weight: 600;')}>Orgcue</span>
         </Link>

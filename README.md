@@ -8,6 +8,17 @@ A working web prototype of Orgcue: collect what an organization knows, settle co
 
 Everyone signs in with an email and password (Supabase Auth). Every account joins the shared Lumio Inc. demo workspace. The customer answer page at `/customer` needs no account, as the spec requires. The dark "Demo controls" strip (View as / Phase / Show all features / Reset demo) is a dev tool, hidden when `NEXT_PUBLIC_DEMO_BAR=0`. View as changes the demo role you look through, not the account you are signed in with.
 
+## Public site and SEO
+
+| Route | What it is |
+|---|---|
+| `/` | Landing page (design/Marketing.dc.html 1.1): hero with the animated DEC-03 decision card, how it works, generation targets, trust strip, project types, principles, call to action. |
+| `/pricing` | Plans (Team, Business, Enterprise), template packs, FAQ (native `<details>`, readable without JavaScript). |
+
+Both are static, server-rendered pages: no Supabase call, and the middleware does not touch the session there. Search setup lives in `src/lib/site.ts` (`pageMeta()` gives every page its title, description, canonical URL, Open Graph and Twitter card) and the App Router files `robots.ts`, `sitemap.ts`, `manifest.ts`, `icon.svg`, `apple-icon.tsx` and `opengraph-image.tsx`. Landing and pricing carry schema.org JSON-LD (Organization, WebSite, SoftwareApplication with offers; Product, FAQPage, BreadcrumbList). The signed-in app, the auth pages and the customer link are `noindex`, and `robots.txt` keeps crawlers out of the app routes. Lighthouse (mobile, simulated slow 4G): performance 97, accessibility, best practices and SEO 100 on both pages.
+
+Set `NEXT_PUBLIC_SITE_URL` when the site moves to its own domain (default `https://orgcue.vercel.app`); canonical URLs, the sitemap and social cards follow it.
+
 ## Stack
 
 Next.js 15 (App Router) · React 19 · TypeScript · Tailwind v4 · Zustand · Supabase (Postgres) · Vercel.
@@ -32,7 +43,7 @@ Variables already exported in your shell win over `.env.local` in Next.js. If yo
 | `/auth/callback` | Where the emailed links land (PKCE `code` or `token_hash`). |
 | Account menu (top right) | The signed-in account, the demo role it views as, and **Log out**. |
 
-`src/middleware.ts` refreshes the session cookie on every request and sends signed-out visitors to `/login`. Only the auth pages, `/auth/*` and `/customer` are public.
+`src/middleware.ts` refreshes the session cookie on app requests and sends signed-out visitors to `/login`. Public: `/`, `/pricing`, the auth pages, `/auth/*` and `/customer`.
 
 **Supabase settings to make once** (Dashboard → Authentication):
 1. **URL Configuration:** Site URL `https://orgcue.vercel.app`. Redirect URLs `https://orgcue.vercel.app/**`, `https://*-tor-lambrechts-s-projects.vercel.app/**` and `http://localhost:3000/**`. Without these, the links in confirmation and reset emails point at the default Site URL.
