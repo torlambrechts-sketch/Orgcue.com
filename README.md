@@ -31,6 +31,11 @@ and V2MOM. The research behind them is in `docs/purpose-ambition-values.md`.
 with yearly targets, and measures to the initiatives expected to move them. Each initiative has its own page with tasks.
 See `docs/measures-and-portfolio.md`.
 
+The **Work** section (checklist icon, or `/#wk-my`) manages programmes, initiatives and tasks: My work and an inbox,
+Portfolio control (health, budget forecast, baselines, stage gates), a page per programme with status updates,
+Tasks as a list, board, timeline, calendar or workload, and Automation rules. Any task opens in a side panel with
+subtasks, dependencies, comments with @mentions and followers. See `docs/work-management.md`.
+
 Everything a visitor adds or changes is saved in their own browser only; Help → Reset demo data restores the sample.
 
 `npm run build` makes a production build and `npm run lint` runs ESLint.
