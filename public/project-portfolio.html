@@ -166,7 +166,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .av{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;font-size:10px;font-weight:800;color:#fff;margin-right:-4px;border:2px solid var(--card);flex:none}
 .avs{display:inline-flex;padding-right:7px;align-items:center}
 .av.more-n{background:var(--accent)}
-.av.lg{width:40px;height:40px;font-size:13px;border:0;margin:0}
+.av.xl{width:40px;height:40px;font-size:13px;border:0;margin:0}
 .bar{display:flex;align-items:center;gap:10px;min-width:110px}
 .bar .t{flex:1;height:7px;background:var(--track);border-radius:99px;overflow:hidden}
 .bar .t i{display:block;height:100%;background:var(--accent);border-radius:99px}
@@ -308,13 +308,15 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .lnk a,.lnk span.u{color:var(--accent-ink);font-size:12.5px;word-break:break-all}
 
 /* resources */
-.res-top{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:14px}
+.res-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.2fr) minmax(0,1.2fr);gap:14px;margin-bottom:14px}
 .mini-card{padding:14px 16px}
 .mini-card h3{font-size:13px;color:var(--muted);font-weight:700;margin-bottom:10px}
-.pp{display:flex;gap:14px;overflow-x:auto}
-.pp div{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--muted);text-align:center;min-width:56px}
+.pp{display:flex;gap:8px;justify-content:space-between}
+.pp div{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:11px;color:var(--muted);text-align:center;white-space:nowrap}
+.pp div b{color:var(--ink);font-size:12px;font-weight:700;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:6px}
 .pp .av{margin:0;width:42px;height:42px;font-size:13px;border:0}
-.pp .av.ring-r{box-shadow:0 0 0 3px #fff,0 0 0 6px #e55a5a}
+.pp .av.ring-r{box-shadow:0 0 0 2px var(--card),0 0 0 4px #e55a5a}
+.pp .av.more-n{background:var(--accent-soft);color:var(--accent-ink)}
 .heat{width:100%;min-width:640px}
 .heat td,.heat th{text-align:center}
 .heat td:first-child,.heat th:first-child{text-align:left}
@@ -341,6 +343,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .chart text,.wd text{fill:var(--muted);font:600 11px var(--font)}
 .chart .gl{stroke:var(--card-line);stroke-width:1}
 .wd .ctr,.chart .ctr{fill:var(--ink);font:800 15px var(--font)}
+.wd .ctr.big{font-size:36px}
 .chart .vl{fill:var(--ink)}
 .chart .av2{fill:#fff;font:800 8.5px var(--font)}
 .legend{display:flex;gap:16px;color:var(--muted);font-size:12.5px;flex-wrap:wrap}
@@ -456,7 +459,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
   .top-actions .btn span{display:none}.tb-search{display:none}
   .sso{grid-template-columns:minmax(0,1fr)}
 }
-.res-top .lg li{gap:6px}.res-top .lg b{overflow:visible;text-overflow:clip;white-space:nowrap;max-width:none}.res-top .lg li{flex-wrap:wrap}.res-top .lg span{flex-basis:100%;padding-left:14px;font-size:11px;margin-top:-4px}
+.res-top .wd{padding:8px 16px 14px;gap:14px;flex-direction:row;align-items:center}.res-top .wd-fig{width:96px;align-self:center}.res-top .lg li{padding:3px 0;border-top:0;font-size:12px;gap:8px}.res-top .lg b{font-weight:600}.res-top .lg span{font-weight:700;color:var(--ink)}
 /* pages added for OrgCue */
 .kpi-row.k4{grid-template-columns:repeat(4,minmax(0,1fr))}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;align-items:start;margin-top:18px}
@@ -660,7 +663,7 @@ var NAV=[
   {id:"scope",label:"Scope of projects",icon:"scope",sub:"What each project will deliver, and what it will not."},
   {id:"raid",label:"RAID Log",icon:"book",sub:"Risks, assumptions, issues and dependencies across all projects."},
   {id:"budgets",label:"Budgets",icon:"budget",sub:"Structured milestones and key tasks ensure effective management and successful project execution."},
-  {id:"resources",label:"Resources",icon:"users",sub:"Structured milestones and key tasks ensure effective management and successful project execution."},
+  {id:"resources",label:"Resources",icon:"users",sub:"Who works on what, who is away and who is overloaded."},
   {id:"governance",label:"Governance",icon:"cal",sub:"Guidance for smooth and fair operations."},
   {id:"prelaunch",label:"Pre-launch checklist",icon:"check",sub:"Everything that must be true before a project goes live."},
   {id:"closure",label:"Project closure",icon:"folder-check",sub:"Close projects cleanly: hand over, report and capture lessons."},
@@ -770,13 +773,15 @@ var GOV=[
 
 /* resources */
 var HEAT=[
-  [0,[.75,1.2,.75,.75,.5]],[1,[.75,1,.75,.75,.75]],[2,[.5,.75,.75,.5,1]],[3,[null,null,null,.75,1]],[4,[.75,null,.5,1,.75]]
+  [0,[.75,1.2,.75,.75,.5]],[1,[.75,1,.75,.75,.75]],[2,[.5,.75,.75,.5,1]],[3,[null,null,null,.75,1]],[4,[.75,null,.5,1,.75]],
+  [5,[1,1.2,1.4,1.4,1.4]],[6,[1,1.25,1.3,1.3,1.3]],[7,[.75,1,1.25,1.25,1.25]],[8,[1,1,1.2,1.2,1.2]],[9,[.5,.75,.75,1,.75]]
 ];
 var MONTHS=["Jan 2023","Feb 2023","Mar 2023","Apr 2023","May 2023"];
-var VAC=[["Project man...","MB"],["Project man...","AB"],["Business an...","LW"],["Finance...","LM"],["Dianne","DJ"]];
-var LOADED=[["Ashley Brown","AB"],["Olivia Adams","OA"],["Liza Martines","LM"],["Dianne Johnson","DJ"],["Mike Dayson","MD"]];
+var VAC=[["Milena","MB","4 Oct"],["Ashley","AB","9 Oct"],["Luc","LW","16 Oct"],["Liza","LM","23 Oct"],["Dianne","DJ","30 Oct"]];
+/* most loaded in the latest month of the workload table */
+var LOADED=[["Ashley","AB","140%"],["Olivia","OA","130%"],["Liza","LM","125%"],["Dianne","DJ","120%"],["Luc","LW","100%"]];
 var ROLES=[{n:"Business analyst",v:2,c:CH.deep},{n:"Project manager",v:8,c:CH.pink},{n:"Finance analyst",v:5,c:CH.lil},{n:"Data manager",v:4,c:CH.vio},{n:"IT Consultant",v:3,c:CH.lil2},{n:"Other",v:12,c:CH.pale}];
-var RSTAT=[{n:"Working",v:24,c:CH.pink},{n:"On holidays",v:7,c:CH.vio},{n:"Sick leave",v:3,c:CH.lil},{n:"Other",v:3,c:CH.lil2}];
+var RSTAT=[{n:"Working",v:26,c:CH.pink},{n:"On holidays",v:5,c:CH.vio},{n:"Sick leave",v:2,c:CH.lil},{n:"Other",v:1,c:CH.lil2}];
 var STATUSES=[{n:"In progress",v:64,c:CH.pink},{n:"Completed",v:36,c:CH.vio},{n:"Not started",v:32,c:CH.lil},{n:"Withdrawn",v:24,c:CH.lil2},{n:"Under Review",v:36,c:CH.pale},{n:"Delayed",v:36,c:CH.pale2}];
 var PHASES=[{n:"Initiation and Scoping",v:12,c:CH.deep},{n:"As-is assessment",v:58,c:CH.pink},{n:"Design",v:24,c:CH.lil},{n:"Validation",v:8,c:CH.vio},{n:"Implementation",v:13,c:CH.lil2},{n:"Not selected",v:9,c:CH.pale}];
 var PRIORITIES=[{n:"Urgent",v:16,c:CH.pale},{n:"High",v:55,c:CH.pink},{n:"Normal",v:32,c:CH.vio},{n:"Low",v:42,c:CH.lil},{n:"Not selected",v:15,c:CH.lil2}];
@@ -826,7 +831,7 @@ function donutSvg(items,center,lbl){
   var t=items.reduce(function(s,d){return s+d.v},0),cum=0,s="";
   items.forEach(function(d){var p=d.v/t*100;
     s+='<circle cx="100" cy="100" r="76" fill="none" stroke="'+d.c+'" stroke-width="26" pathLength="100" stroke-dasharray="'+(p-0.8).toFixed(2)+' '+(100-p+0.8).toFixed(2)+'" stroke-dashoffset="'+(-cum).toFixed(2)+'" transform="rotate(-90 100 100)"/>';cum+=p});
-  return '<svg viewBox="0 0 200 200" role="img" aria-label="'+(lbl||"Donut chart")+'">'+s+'<text x="100" y="97" text-anchor="middle" class="ctr">'+(center||t)+'</text><text x="100" y="116" text-anchor="middle">'+(center?"":"tasks")+'</text></svg>';
+  return '<svg viewBox="0 0 200 200" role="img" aria-label="'+(lbl||"Donut chart")+'">'+s+'<text x="100" y="'+(center?100:97)+'" text-anchor="middle"'+(center?' dominant-baseline="central" class="ctr big"':' class="ctr"')+'>'+(center||t)+'</text><text x="100" y="116" text-anchor="middle">'+(center?"":"tasks")+'</text></svg>';
 }
 function priorSvg(items){
   var W=420,H=230,L=36,B=30,T=16,R=8,max=60,iw=W-L-R,ih=H-T-B,step=iw/items.length,bw=step*.68,s="";
@@ -1026,7 +1031,7 @@ function viewPlan(pi){
     var who={};ts.forEach(function(t){t.who.forEach(function(w){who[w]=who[w]||{n:0,d:0};who[w].n++;if(t.status==="Completed")who[w].d++})});
     var keys=Object.keys(who),mx=Math.max.apply(null,keys.map(function(k){return who[k].n}));
     var PN={ML:"Marta Lindqvist",JK:"Jonas Keller",AS:"Amara Singh",PR:"Paul Reyes",DN:"Dana Nowak",TW:"Tom Weiss"};
-    body='<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">'+keys.map(function(k){return '<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:12px"><div class="person"><span class="av lg" style="flex:none;width:44px;height:44px;min-width:44px;background:'+(COL[k]||"#777")+'">'+k+'</span><div>'+(PN[k]||k)+'<small>'+who[k].n+' tasks · '+who[k].d+' completed</small></div></div><div class="bar"><div class="t"><i style="width:'+Math.round(who[k].d/who[k].n*100)+'%"></i></div><span>'+Math.round(who[k].d/who[k].n*100)+'%</span></div></div>'}).join("")+'</div>';
+    body='<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">'+keys.map(function(k){return '<div class="card" style="padding:16px;display:flex;flex-direction:column;gap:12px"><div class="person"><span class="av xl" style="width:44px;height:44px;background:'+(COL[k]||"#777")+'">'+k+'</span><div>'+(PN[k]||k)+'<small>'+who[k].n+' tasks · '+who[k].d+' completed</small></div></div><div class="bar"><div class="t"><i style="width:'+Math.round(who[k].d/who[k].n*100)+'%"></i></div><span>'+Math.round(who[k].d/who[k].n*100)+'%</span></div></div>'}).join("")+'</div>';
   }else if(ST.planTab==="kpi"){
     var more2='<button class="more" aria-label="More options">···</button>';
     body='<div class="kpi-2"><section class="card"><div class="card-h"><h2>Statuses</h2>'+more2+'</div><div class="wd"><div class="wd-fig">'+pieSvg(STATUSES,"Tasks by status")+'</div>'+legend(STATUSES)+'</div></section>'+
@@ -1045,10 +1050,12 @@ function planTabs(){return '<div class="tabs" role="tablist" aria-label="Project
 function heatCls(v){return v==null?"n":v>1?"r":v===1?"o":"g"}
 function viewResources(){
   var head=pageHead("Resources",navSub("resources"),projSel("resProj",ST.resProj)+'<button class="btn primary">'+icon("plus")+'Add person</button>'+moreBtn());
-  var top='<div class="res-top"><section class="card mini-card"><h3>Upcoming vacations ('+VAC.length+')</h3><div class="pp">'+VAC.map(function(v){return '<div>'+av(v[1],"lg")+v[0]+'</div>'}).join("")+'</div></section>'+
-    '<section class="card mini-card"><h3>Top most loaded people</h3><div class="pp">'+LOADED.map(function(v,i){return '<div><span class="av lg ring-r" style="background:'+(COL[v[1]]||"#777")+'">'+v[1]+'</span>'+v[0]+'</div>'}).join("")+'</div></section>'+
-    '<section class="card"><div class="card-h" style="padding-top:12px"><h3 style="font-size:14px">Roles</h3><span style="color:var(--muted);font-size:12px">All projects</span></div><div class="wd" style="padding:8px 14px 14px;gap:12px"><div class="wd-fig" style="width:84px">'+donutSvg(ROLES,"34","Roles")+'</div>'+legendP(ROLES,"people")+'</div></section>'+
-    '<section class="card"><div class="card-h" style="padding-top:12px"><h3 style="font-size:14px">Statuses</h3><span style="color:var(--muted);font-size:12px">24 people</span></div><div class="wd" style="padding:8px 14px 14px;gap:12px"><div class="wd-fig" style="width:84px">'+pieSvg(RSTAT,"People by status")+'</div>'+legendP(RSTAT,"people")+'</div></section></div>';
+  var people=function(list,ring){return '<div class="pp">'+list.slice(0,3).map(function(v){return '<div><span class="av'+(ring?' ring-r':'')+'" style="background:'+(COL[v[1]]||"#777")+'">'+v[1]+'</span><b>'+esc(v[0])+'</b>'+esc(v[2])+'</div>'}).join("")+(list.length>3?'<div><span class="av more-n">+'+(list.length-3)+'</span><b>more</b>&nbsp;</div>':'')+'</div>'};
+  var legendN=function(items){return '<ul class="lg">'+items.map(function(d){return '<li><i style="background:'+d.c+'"></i><b>'+d.n+'</b><span>'+d.v+'</span></li>'}).join("")+'</ul>'};
+  var top='<div class="res-top"><section class="card mini-card"><h3>Upcoming vacations ('+VAC.length+')</h3>'+people(VAC,false)+'</section>'+
+    '<section class="card mini-card"><h3>Top most loaded people</h3>'+people(LOADED,true)+'</section>'+
+    '<section class="card"><div class="card-h" style="padding-top:12px"><h3 style="font-size:14px">Roles</h3><span style="color:var(--muted);font-size:12px">34 people</span></div><div class="wd"><div class="wd-fig">'+donutSvg(ROLES,"34","People by role")+'</div>'+legendN(ROLES)+'</div></section>'+
+    '<section class="card"><div class="card-h" style="padding-top:12px"><h3 style="font-size:14px">Statuses</h3><span style="color:var(--muted);font-size:12px">34 people</span></div><div class="wd"><div class="wd-fig">'+pieSvg(RSTAT,"People by status")+'</div>'+legendN(RSTAT)+'</div></section></div>';
   var tb=tabs("resTab",[["workload","Workload","table"],["workdays","Work days","calendar"],["kpi","KPI","trend"]],ST.resTab);
   var body="";
   if(ST.resTab==="workload"){
@@ -1061,11 +1068,11 @@ function viewResources(){
     var days=["Fri 29 Sep","Sat 30 Sep","Sun 1 Oct","Mon 2 Oct","Tue 3 Oct","Wed 4 Oct","Thu 5 Oct"];
     var pat=[["Working","Weekend","Weekend","Working","Working","Working","Working"],["Working","Weekend","Weekend","Working","Sick leave","Sick leave","Working"],["Working","Weekend","Weekend","Working","Working","Working","Working"],["Working","Weekend","Weekend","Working","Working","On holidays","On holidays"],["Weekend?","Weekend","Weekend","Working","Working","Working","Working"]];
     pat[4][0]="Working";
-    body='<div class="toolbar">'+liveSearch("Search person")+'</div><section class="card"><div class="tbl-wrap"><table class="heat live-rows" style="min-width:760px"><thead><tr><th>Person</th>'+days.map(function(d){return '<th>'+d+'</th>'}).join("")+'</tr></thead><tbody>'+HEAT.map(function(h,ri){var p=PEOPLE[h[0]];return '<tr data-q="'+esc(p.n.toLowerCase())+'"><td><div class="person">'+av(p.i)+'<div>'+p.n+'<small>'+p.r+'</small></div></div></td>'+pat[ri].map(function(s){var c=s==="Working"?"g":s==="Weekend"?"we":s==="Sick leave"?"sk":"o";return '<td class="hc '+c+'">'+s+'</td>'}).join("")+'</tr>'}).join("")+'</tbody></table></div></section>';
+    body='<div class="toolbar">'+liveSearch("Search person")+'</div><section class="card"><div class="tbl-wrap"><table class="heat live-rows" style="min-width:760px"><thead><tr><th>Person</th>'+days.map(function(d){return '<th>'+d+'</th>'}).join("")+'</tr></thead><tbody>'+HEAT.map(function(h,ri){var p=PEOPLE[h[0]];return '<tr data-q="'+esc(p.n.toLowerCase())+'"><td><div class="person">'+av(p.i)+'<div>'+p.n+'<small>'+p.r+'</small></div></div></td>'+pat[ri%pat.length].map(function(s){var c=s==="Working"?"g":s==="Weekend"?"we":s==="Sick leave"?"sk":"o";return '<td class="hc '+c+'">'+s+'</td>'}).join("")+'</tr>'}).join("")+'</tbody></table></div></section>';
   }else{
-    var pc=[125,100,70,50,25,10],nm=["MD","DM","LW","MB","MS","AB"];
-    var bars='<svg viewBox="0 0 520 240" role="img" aria-label="Team workload percent">'+[0,25,50,100,125].map(function(v){var y=200-v*1.3;return '<line class="gl" x1="40" x2="510" y1="'+y+'" y2="'+y+'" stroke-dasharray="3 4"/><text x="32" y="'+(y+4)+'" text-anchor="end">'+v+'</text>'}).join("")+pc.map(function(v,i){var x=70+i*72,h=v*1.3;return '<rect x="'+x+'" y="'+(200-h)+'" width="40" height="'+h+'" rx="3" fill="'+[CH.pink,CH.vio,CH.lil,CH.lil2,CH.pale,CH.pale2][i]+'"/><circle cx="'+(x+20)+'" cy="'+(200-h-16)+'" r="12" fill="'+COL[nm[i]]+'"/><text x="'+(x+20)+'" y="'+(200-h-12)+'" text-anchor="middle" style="fill:#fff;font-size:8px">'+nm[i]+'</text>'}).join("")+'</svg>';
-    var pts=[[40,150],[110,120],[180,135],[250,95],[320,105],[390,70],[460,85]],ln='<svg viewBox="0 0 520 240" role="img" aria-label="Average workload">'+[0.5,1,1.25].map(function(v){var y=200-v*120;return '<line class="gl" x1="40" x2="510" y1="'+y+'" y2="'+y+'" stroke-dasharray="3 4"/><text x="32" y="'+(y+4)+'" text-anchor="end">'+v+'</text>'}).join("")+'<path d="M'+pts.map(function(p){return p.join(" ")}).join(" L")+' L460 200 L40 200 Z" fill="'+CH.lil2+'" opacity=".35"/><polyline fill="none" stroke="'+CH.vio+'" stroke-width="2.5" points="'+pts.map(function(p){return p.join(",")}).join(" ")+'"/>'+pts.map(function(p){return '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="3.5" fill="'+CH.vio+'"/>'}).join("")+'</svg>';
+    var pc=[140,130,125,120,100,100],nm=["AB","OA","LM","DJ","LW","MB"];
+    var bars='<svg viewBox="0 0 520 240" role="img" aria-label="Team workload percent">'+[0,25,50,75,100,125,150].map(function(v){var y=200-v*1.15;return '<line class="gl" x1="40" x2="510" y1="'+y+'" y2="'+y+'" stroke-dasharray="3 4"/><text x="32" y="'+(y+4)+'" text-anchor="end">'+v+'</text>'}).join("")+pc.map(function(v,i){var x=70+i*72,h=v*1.15;return '<rect x="'+x+'" y="'+(200-h)+'" width="40" height="'+h+'" rx="3" fill="'+[CH.pink,CH.vio,CH.lil,CH.lil2,CH.pale,CH.pale2][i]+'"/><circle cx="'+(x+20)+'" cy="'+(200-h-16)+'" r="12" fill="'+COL[nm[i]]+'"/><text x="'+(x+20)+'" y="'+(200-h-12)+'" text-anchor="middle" style="fill:#fff;font-size:8px">'+nm[i]+'</text>'}).join("")+'</svg>';
+    var pts=[[40,150],[110,120],[180,135],[250,95],[320,105],[390,70],[460,85]],ln='<svg viewBox="0 0 520 240" role="img" aria-label="Average workload">'+[0.5,0.75,1,1.25].map(function(v){var y=200-v*120;return '<line class="gl" x1="40" x2="510" y1="'+y+'" y2="'+y+'" stroke-dasharray="3 4"/><text x="32" y="'+(y+4)+'" text-anchor="end">'+v+'</text>'}).join("")+'<path d="M'+pts.map(function(p){return p.join(" ")}).join(" L")+' L460 200 L40 200 Z" fill="'+CH.lil2+'" opacity=".35"/><polyline fill="none" stroke="'+CH.vio+'" stroke-width="2.5" points="'+pts.map(function(p){return p.join(",")}).join(" ")+'"/>'+pts.map(function(p){return '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="3.5" fill="'+CH.vio+'"/>'}).join("")+'</svg>';
     body='<div class="kpi-2"><section class="card"><div class="card-h"><h2>Team workload</h2><span style="color:var(--muted);font-size:12px">Workload, %</span></div><div class="chart">'+bars+'</div></section><section class="card"><div class="card-h"><h2>Average workload</h2><span style="color:var(--muted);font-size:12px">Workload</span></div><div class="chart">'+ln+'</div></section></div>';
   }
   return head+top+tb+body;
