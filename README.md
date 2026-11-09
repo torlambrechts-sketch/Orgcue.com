@@ -22,6 +22,13 @@ strategy canvas, business model canvas, SWOT and PESTLE, value driver tree, init
 strategy heat map and organisation alignment. They also appear first in the Templates gallery (`/#templates`).
 The research behind them, covering 20 strategy applications, is in `docs/strategy-app-research.md`.
 
+A **Purpose and value** group (also in the Strategy section) presents the company's ambition, purpose, values and value:
+Ambition (north-star tracker), Purpose and values (Golden Circle and values as behaviours), Values in action
+(value-tagged recognition and a values pulse heat map), Value creation (stakeholders, value bridge, value creation model)
+and V2MOM. The research behind them is in `docs/purpose-ambition-values.md`.
+
+Everything a visitor adds or changes is saved in their own browser only; Help → Reset demo data restores the sample.
+
 `npm run build` makes a production build and `npm run lint` runs ESLint.
 Pushes to `claude/relaxed-goldberg-yjnnay` deploy to https://orgcue.vercel.app.
 

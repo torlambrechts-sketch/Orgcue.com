@@ -704,6 +704,76 @@ button.rm-bar{border:0;text-align:left;cursor:pointer;font:inherit;font-size:11p
 .rm-now{pointer-events:none}
 .kb{align-items:stretch}.kb-col{display:flex;flex-direction:column}.kb-col .kb-cards{flex:1}
 .rm-ms{pointer-events:none}
+/* purpose, ambition, values and value creation */
+.amb-hero{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,1fr);gap:18px;background:linear-gradient(95deg,#5f17b2,#a43be4);color:#fff;border-radius:14px;padding:22px 24px;margin-bottom:18px;align-items:center}
+.amb-hero small{font-weight:800;letter-spacing:.06em;font-size:11px;text-transform:uppercase;opacity:.85}
+.amb-hero h2{font-size:22px;font-weight:800;margin-top:4px;text-wrap:balance}
+.amb-edit{color:#fff!important;opacity:.9;display:inline-flex;align-items:center;gap:6px;margin-top:8px}.amb-edit svg{width:14px;height:14px}
+.amb-ns{background:rgba(255,255,255,.14);border-radius:12px;padding:14px 16px}.amb-ns b{display:block;font-size:34px;font-weight:800;line-height:1.1;margin-top:4px}.amb-ns span{font-size:13px;opacity:.92}
+.amb-ns .hbar{background:rgba(255,255,255,.25)}
+.amb-s{font-size:12.5px;color:var(--muted)}.bad-t{color:var(--bad)}.good-t{color:var(--good)}
+.amb-2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:18px;margin-top:18px;align-items:start}
+.cbx{width:18px;height:18px;accent-color:var(--accent);margin:0;cursor:pointer}
+.vchip{display:inline-flex;align-items:center;height:22px;padding:0 9px;border-radius:99px;font-size:11.5px;font-weight:800;color:var(--vc);background:color-mix(in srgb,var(--vc) 14%,transparent);white-space:nowrap}
+.pp2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px;align-items:start}
+.gc{display:grid;grid-template-columns:minmax(200px,280px) minmax(0,1fr);gap:20px;padding:20px;align-items:center}
+.gc-fig svg{width:100%;height:auto;display:block}.gcr{cursor:pointer}.gcr:focus{outline:none}.gcr:focus-visible circle{stroke:var(--brand);stroke-width:3}
+.gct{font:800 13px var(--font);fill:#3d1b8a;letter-spacing:.08em;pointer-events:none}
+.gc-txt small,.stm small{font-weight:800;letter-spacing:.06em;font-size:11px;text-transform:uppercase;color:var(--accent-ink)}
+.gc-txt>p:first-of-type{font-size:19px;font-weight:800;margin:6px 0 12px;text-wrap:balance}
+.gc-tabs{display:flex;gap:6px;margin-top:14px}.chip.off2{background:var(--head);color:var(--muted)}.gc-note{color:var(--muted);font-size:12.5px;margin-top:10px}
+.pp2 .cards{margin-top:0;grid-template-columns:minmax(0,1fr)!important;gap:12px}
+.stm p{font-weight:700;font-size:14.5px;color:var(--ink);margin:4px 0}.stm span{color:var(--muted);font-size:12px}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.vcard{padding:16px;border-top:5px solid var(--vc);display:flex;flex-direction:column;gap:10px}
+.vc-h{display:flex;align-items:center;gap:10px}.vc-h h3{flex:1;font-size:17px;font-weight:800}
+.vnum{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--vc,var(--accent));color:#fff;font-weight:800;font-size:12px;flex:none}
+.vdesc{font-size:13.5px;font-weight:600}
+.vdo{display:grid;gap:8px}.vdo b{font-size:12px;color:var(--muted)}
+.vcard .ul.no svg{color:var(--bad)}
+.vfoot{display:flex;align-items:center;gap:12px;padding-top:10px;border-top:1px solid var(--card-line);margin-top:auto}.vfoot .person{flex:1;min-width:0;font-size:12.5px}.vfoot .person small{display:block}
+.vm{display:flex;flex-direction:column;align-items:flex-end}.vm b{font-size:16px}.vm small{color:var(--muted);font-size:11px}
+.vrec{justify-content:center}
+.vadd{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:200px;border:1.5px dashed var(--muted-2);color:var(--accent-ink);font-weight:800;box-shadow:none}.vadd svg{width:22px;height:22px}.vadd:hover{border-color:var(--accent)}
+.kd-wrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
+.kd-feed{display:flex;flex-direction:column;gap:12px}
+.kd{padding:14px 16px}.kd-h{display:flex;align-items:center;gap:8px}.kd-h>div{flex:1;min-width:0}.kd-h b{display:block}.kd-h small{color:var(--muted);font-size:12px}
+.kd-h .av{margin:0}.kd-arrow svg{width:14px;height:14px;color:var(--muted)}
+.kd p{margin:10px 0 8px;font-size:14px}
+.kd-like{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-weight:700;font-size:12.5px;padding:4px 10px;border-radius:99px;border:1px solid var(--card-line)}.kd-like svg{width:15px;height:15px}.kd-like.on{color:var(--accent-ink);background:var(--accent-soft);border-color:var(--accent)}
+.kd-side{display:flex;flex-direction:column;gap:14px}
+.kv{display:grid;grid-template-columns:110px minmax(0,1fr) 24px;gap:8px;align-items:center;font-size:12.5px;margin-top:10px}.kv .t{height:8px;border-radius:99px;background:var(--track);overflow:hidden}.kv .t i{display:block;height:100%}.kv b{text-align:right}
+.pq{color:var(--muted);font-size:12px;font-weight:500;font-style:italic;max-width:320px}
+.sk-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.sk{padding:16px;border-top:5px solid var(--sc);display:flex;flex-direction:column;gap:8px}
+.sk-h{display:flex;align-items:center;gap:10px}.sk-i{width:36px;height:36px;border-radius:10px;background:color-mix(in srgb,var(--sc) 15%,transparent);color:var(--sc);display:grid;place-items:center}.sk-i svg{width:18px;height:18px}
+.sk-h small{color:var(--muted);font-size:11px;font-weight:700}.sk-h h3{font-size:17px;font-weight:800}
+.sk-head{font-weight:700;font-size:13.5px}
+.sk-k{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:baseline;padding:7px 0;border-top:1px dashed var(--card-line);font-size:12.5px}.sk-k b{font-size:15px}
+.sk-k em{font-style:normal;font-weight:700;font-size:11.5px}.sk-k em.up{color:var(--good)}.sk-k em.dn{color:var(--bad)}
+.sk-s{color:var(--muted);font-size:12.5px;margin-top:auto}
+.vcm{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1.1fr) 28px minmax(0,.8fr) 28px minmax(0,1fr);gap:6px;align-items:stretch}
+.vcm-arrow{display:grid;place-items:center;color:var(--muted)}.vcm-arrow svg{width:22px;height:22px}
+.vcm-i{display:flex;flex-direction:column;padding:8px 10px;border-radius:8px;background:var(--bg);margin-top:8px;font-size:12px;text-align:left;width:100%}.vcm-i b{font-size:13px}.vcm-i span{color:var(--muted)}
+.vcm-l:hover{box-shadow:0 0 0 1px var(--accent) inset}
+.vcm-core{border:2px solid var(--accent)}.vcm-p{font-weight:700;font-size:13px;color:var(--accent-ink)!important}
+.vcm-v{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.vcm-o{padding:10px 0;border-top:1px dashed var(--card-line)}.vcm-o b{display:block;font-size:22px;font-weight:800}.vcm-o span{color:var(--muted);font-size:12px}
+.v2{display:grid;grid-template-columns:56px minmax(0,1fr);margin-bottom:14px;overflow:hidden}
+.v2-l{background:linear-gradient(180deg,#5f17b2,#a43be4);color:#fff;font-size:24px;font-weight:800;display:grid;place-items:start center;padding-top:16px}
+.v2-b{padding:14px 18px;min-width:0}.v2-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.v2-h h3{font-size:16px;font-weight:800}.v2-h span{color:var(--muted);font-size:12.5px;flex:1}
+.v2-big{font-size:18px;font-weight:800;margin:6px 0 4px}
+.v2-list{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.v2-list li{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:var(--bg);border:1px solid transparent}
+.v2-list li[data-rec]:hover{border-color:var(--accent)}
+.v2-list li b{display:block;font-size:13.5px}.v2-list li small{color:var(--muted);font-size:12px}.v2-list li>div{flex:1;min-width:0}
+.ud{display:inline-flex;gap:2px}.ud .mx{width:28px;height:28px}.ud .mx:disabled{opacity:.3;cursor:default}
+.cb{width:22px;height:22px;border-radius:6px;border:2px solid var(--muted-2);display:grid;place-items:center;flex:none;color:#fff}.cb.on{background:var(--good);border-color:var(--good)}.cb svg{width:14px;height:14px;stroke-width:3}
+.v2-done b{text-decoration:line-through;color:var(--muted)}
+@media (max-width:1100px){.amb-2,.pp2,.kd-wrap{grid-template-columns:minmax(0,1fr)}.sk-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.vcm{grid-template-columns:minmax(0,1fr)}.vcm-arrow{transform:rotate(90deg);height:24px}}
+@media (max-width:700px){.amb-hero,.gc{grid-template-columns:minmax(0,1fr)}.gc-fig{max-width:240px;margin:0 auto}.v2{grid-template-columns:40px minmax(0,1fr)}.v2-list li{flex-wrap:wrap}}
+@media (max-width:520px){.sk-grid{grid-template-columns:minmax(0,1fr)}}
+.tagx{display:inline-block;margin-top:8px;font-style:normal;font-size:11px;font-weight:700;color:var(--muted);background:var(--head);border-radius:99px;padding:2px 9px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
@@ -775,6 +845,7 @@ button.rm-bar{border:0;text-align:left;cursor:pointer;font:inherit;font-size:11p
     <symbol id="i-org" viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="5" rx="1"/><rect x="3" y="15.5" width="6" height="5" rx="1"/><rect x="15" y="15.5" width="6" height="5" rx="1"/><path d="M12 8.5V12M6 15.5V12h12v3.5"/></symbol>
     <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"/></symbol>
     <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 9V4h10v5"/><rect x="4" y="9" width="16" height="7" rx="2"/><path d="M7 14h10v6H7z"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.3a4.2 4.2 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20Z"/></symbol>
     <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.8"/></symbol>
   </defs>
 </svg>
@@ -1475,7 +1546,7 @@ function viewStHouse(){
     return '<section class="sh-p" style="--pc:'+p[3]+'"><small>'+p[1]+'</small><h3>'+p[2]+'</h3>'+os.map(function(o){
       return '<button class="sh-o" data-go="st-map" data-sobj="'+o.id+'">'+sdot(o.st)+'<span><b>'+o.id+' · '+esc(o.n)+'</b>'+esc(o.kpi)+': '+ofmt(o,o.a)+' of '+ofmt(o,o.t)+'</span></button>'}).join("")+
       '<div class="sh-i">'+INIT.filter(function(i){return i.p===p[0]}).length+' initiatives</div></section>'}).join("")+'</div>';
-  var found='<div class="sh-found"><small>Values</small><div>'+SG.values.map(function(v){return '<div><b>'+v[0]+'</b><span>'+v[1]+'</span></div>'}).join("")+'</div></div>';
+  var found='<div class="sh-found"><small>Values</small><div>'+VALS.map(function(v){return '<div><b>'+esc(v.n)+'</b><span>'+esc(v.d)+'</span></div>'}).join("")+'</div></div>';
   return stHead("st-house")+roof+bands+pillars+found;
 }
 
@@ -1518,7 +1589,7 @@ function viewStScore(){
     rows+='<tr class="grp"><td colspan="11" style="border-left:4px solid '+p[3]+'"><b style="color:'+p[3]+'">'+p[1]+'</b><span>'+p[2]+' · '+avg+'% of the way to target</span></td></tr>';
     os.forEach(function(o){var pg=oprog(o),col=OST[o.st][2],n=INIT.filter(function(i){return i.obj.indexOf(o.id)>=0}).length;
       rows+='<tr data-q="'+esc((o.id+" "+o.n+" "+o.kpi).toLowerCase())+'"'+ffs({Perspective:p[1],Status:OST[o.st][0],Owner:sname(o.o)})+'><td style="font-weight:800;color:var(--accent-ink)">'+o.id+'</td><td style="font-weight:700">'+esc(o.n)+'</td><td>'+esc(o.kpi)+'</td><td class="num">'+ofmt(o,o.b)+'</td><td class="num" style="font-weight:800">'+ofmt(o,o.a)+'</td><td class="num">'+ofmt(o,o.t)+'</td><td>'+stBar(pg,col)+'</td><td>'+spark(o.tr,col)+'</td><td>'+opill(o)+'</td><td>'+avs([o.o])+'</td><td><button class="link" data-go="st-roadmap">'+n+'</button></td></tr>'})});
-  return stHead("st-scorecard",'<button class="btn ghost" data-go="st-map">'+icon("map")+'Strategy map</button>')+kpis+'<div class="toolbar">'+liveSearch("Search objectives or measures")+'<span class="grow"></span>'+fltBtn()+setBtn()+'</div><section class="card"><div class="tbl-wrap"><table class="live-rows sc" style="min-width:1080px"><thead><tr><th>Ref</th><th>Objective</th><th>Measure</th><th class="num">Baseline</th><th class="num">Actual</th><th class="num">Target 2026</th><th>Progress</th><th>Trend</th><th>Status</th><th>Owner</th><th>Initiatives</th></tr></thead><tbody>'+rows+'</tbody></table></div></section>';
+  return stHead("st-scorecard",'<button class="btn ghost" data-go="st-map">'+icon("map")+'Strategy map</button>')+kpis+'<div class="toolbar">'+liveSearch("Search objectives or measures")+'<span class="grow"></span>'+fltBtn()+setBtn()+'</div><section class="card"><div class="tbl-wrap"><table class="live-rows sc" style="min-width:1080px"><thead><tr><th>Ref</th><th>Objective</th><th>Measure</th><th class="num">Baseline</th><th class="num">Actual</th><th class="num">Target 2024</th><th>Progress</th><th>Trend</th><th>Status</th><th>Owner</th><th>Initiatives</th></tr></thead><tbody>'+rows+'</tbody></table></div></section>';
 }
 
 /* 4. OKR alignment tree */
@@ -1541,7 +1612,7 @@ var OGSM={o:"Double recurring revenue to £60M by 2026, while keeping 90% of our
      ["Turn client success into a proactive service",["Health check for all 40 key clients","NPS of 45"],["I5"],"ML","on"],
      ["Build the skills and data we need to scale",["60% of staff certified","10 systems on the data platform"],["I2","I8","I10"],"DN","risk"]]};
 function viewStOgsm(){
-  var goals=OGSM.goals.map(function(id){var o=objById(id);return '<div class="og-g">'+sdot(o.st)+'<div style="flex:1;min-width:0"><b>'+esc(o.kpi)+'</b><div style="color:var(--muted);font-size:12px">'+ofmt(o,o.a)+' now · '+ofmt(o,o.t)+' by 2026</div>'+stBar(oprog(o),OST[o.st][2])+'</div></div>'}).join("");
+  var goals=OGSM.goals.map(function(id){var o=objById(id);return '<div class="og-g">'+sdot(o.st)+'<div style="flex:1;min-width:0"><b>'+esc(o.kpi)+'</b><div style="color:var(--muted);font-size:12px">'+ofmt(o,o.a)+' now · '+ofmt(o,o.t)+' target for 2024</div>'+stBar(oprog(o),OST[o.st][2])+'</div></div>'}).join("");
   var rows=OGSM.s.map(function(r,i){return '<tr><td style="font-weight:800;color:var(--accent-ink)">S'+(i+1)+'</td><td style="font-weight:700">'+esc(r[0])+'</td><td><ul class="ul">'+r[1].map(function(m){return '<li>'+icon("target")+esc(m)+'</li>'}).join("")+'</ul></td><td><div class="chips">'+r[2].map(function(id){var x=initById(id);return '<button class="chip" data-go="st-roadmap">'+esc(x.n)+'</button>'}).join("")+'</div></td><td>'+avs([r[3]])+'</td><td>'+opill({st:r[4]})+'</td></tr>'}).join("");
   return stHead("st-ogsm")+'<section class="og-o"><small>Objective</small><p>'+esc(OGSM.o)+'</p></section>'+
     '<div class="og"><section class="card pad"><h3>Goals</h3><p>What success looks like, in numbers.</p>'+goals+'</section>'+
@@ -1771,6 +1842,12 @@ function viewStReview(){
 var STRAT_NAV=[{sec:"Overview"},
   {id:"st-house",label:"Strategy on a page",icon:"house",sub:"Vision, mission, strategic pillars and values on one page."},
   {id:"st-review",label:"Strategy review",icon:"doc",sub:"The quarterly pack for the steering group: exceptions, decisions and risks."},
+  {sec:"Purpose and value"},
+  {id:"st-ambition",label:"Ambition",icon:"flag",sub:"Where we are on the road to the 2026 ambition, and what closes the gap."},
+  {id:"st-purpose",label:"Purpose and values",icon:"heart",sub:"Why we exist, and our values written as behaviours."},
+  {id:"st-kudos",label:"Values in action",icon:"thumb",sub:"How people live the values: recognition and the values pulse survey."},
+  {id:"st-value",label:"Value creation",icon:"budget",sub:"The value we create for clients, people, owners and society."},
+  {id:"st-v2mom",label:"V2MOM",icon:"check",sub:"Vision, values, methods, obstacles and measures on one page."},
   {sec:"Frameworks"},
   {id:"st-map",label:"Strategy map",icon:"map",sub:"How objectives in four perspectives cause each other, with live status."},
   {id:"st-scorecard",label:"Balanced scorecard",icon:"table",sub:"Objectives, measures, targets and initiatives across four perspectives."},
@@ -1789,10 +1866,211 @@ var STRAT_NAV=[{sec:"Overview"},
   {id:"st-org",label:"Organisation alignment",icon:"org",sub:"Which units and teams own which objectives, and how they are doing."}];
 function isStrat(id){return /^st-/.test(id||"")}
 function stNav(id){return STRAT_NAV.filter(function(n){return n.id===id})[0]}
-var STV={"st-house":viewStHouse,"st-review":viewStReview,"st-map":viewStMap,"st-scorecard":viewStScore,"st-okr":viewStOkr,"st-ogsm":viewStOgsm,"st-xmatrix":viewStXm,
+var STV={"st-ambition":viewStAmbition,"st-purpose":viewStPurpose,"st-kudos":viewStKudos,"st-value":viewStValue,"st-v2mom":viewStV2mom,"st-house":viewStHouse,"st-review":viewStReview,"st-map":viewStMap,"st-scorecard":viewStScore,"st-okr":viewStOkr,"st-ogsm":viewStOgsm,"st-xmatrix":viewStXm,
   "st-canvas":viewStCanvas,"st-bmc":viewStBmc,"st-swot":viewStSwot,"st-tree":viewStTree,"st-roadmap":viewStRoadmap,"st-priority":viewStPriority,"st-heat":viewStHeat,"st-org":viewStOrg};
 function stNavHtml(id,tag){return STRAT_NAV.map(function(n){if(n.sec)return '<div class="nav-label">'+n.sec+'</div>';
   return (tag==="b"?'<button class="nav-item'+(n.id===id?' active':'')+'" data-go="'+n.id+'">':'<div class="nav-item'+(n.id===id?' active':'')+'">')+icon(n.icon)+'<span>'+n.label+'</span>'+(tag==="b"?'</button>':'</div>')}).join("")}
+/* ================= PURPOSE, AMBITION, VALUES AND VALUE CREATION ================= */
+SG.why="We believe every organisation can deliver the change it plans.";
+SG.how="By making strategy visible, measurable and owned, from the board to every team.";
+SG.what="Advisory, delivery and training, run on our own planning platform.";
+var VALS=[
+  {n:"Client first",d:"We measure ourselves by our clients' results.",doo:["Start every plan from the client's outcome","Share bad news early, with a fix"],dont:["Sell work the client does not need","Hide behind the contract"],champ:"ML",c:"#7c4ddb"},
+  {n:"Own the outcome",d:"We finish what we start, and say so early when we can't.",doo:["Name one owner for every result","Finish the job, or hand it over cleanly"],dont:["Say “not my job”","Let deadlines slip in silence"],champ:"PR",c:"#c2409f"},
+  {n:"Learn fast",d:"We test, measure and share what we learn.",doo:["Run small tests before big bets","Write down what we learned and share it"],dont:["Repeat the same mistake twice","Blame people for honest failures"],champ:"DN",c:"#2f6fd8"},
+  {n:"One team",d:"We win together across practices and countries.",doo:["Help another team before you are asked","Celebrate shared wins"],dont:["Hoard clients or knowledge","Win at another team's expense"],champ:"JK",c:"#17946a"}];
+var KUDOS=[
+  ["PR","ML","Client first","Stayed late to rescue the Northwind go-live and kept the client calm all the way.","2 hours ago",6],
+  ["ML","AS","Own the outcome","Took over the phishing simulation when the vendor dropped out, and still hit the date.","Yesterday",9],
+  ["JK","DN","Learn fast","Turned the failed pilot into a one-page lessons note that every team now uses.","2 days ago",4],
+  ["DN","JK","One team","Lent two engineers to the Nordics bid without being asked.","3 days ago",7],
+  ["AS","PR","Client first","Rewrote the proposal around the client's outcome instead of our services.","4 days ago",3],
+  ["LM","TW","Own the outcome","Closed the budget review two days early, with every variance explained.","Last week",5],
+  ["TW","LM","One team","Shared the finance model so every bid team can reuse it.","Last week",2],
+  ["ML","JK","Learn fast","Tested two onboarding emails and doubled sign-ups with the winner.","2 weeks ago",8]];
+var PULSE={stmt:{"Client first":"People here put clients' results first, even when it is hard.","Own the outcome":"When something goes wrong, people own it and fix it.","Learn fast":"We try new ideas and share what we learn.","One team":"Teams help each other without being asked."},
+  resp:{"Q3 2024":84,"Q2 2024":79},
+  q:{"Q3 2024":{"Client first":[82,78,71,74,69],"Own the outcome":[70,64,73,68,75],"Learn fast":[66,72,79,81,58],"One team":[61,70,66,77,63]},
+     "Q2 2024":{"Client first":[80,75,70,71,66],"Own the outcome":[66,60,71,65,72],"Learn fast":[61,68,74,78,55],"One team":[60,64,63,75,62]}}};
+var AMB={qs:["Q2 ’23","Q3 ’23","Q4 ’23","Q1 ’24","Q2 ’24","Q3 ’24","Q4 ’24","Q1 ’25","Q2 ’25","Q3 ’25","Q4 ’25","Q1 ’26","Q2 ’26","Q3 ’26","Q4 ’26"],base:30,target:60,
+  goals:[["F1",60,"£60M by 2026"],["C1",90,"90% every year"],["F2",18,"18%, top quartile"]],
+  levers:[["I9",4],["I7",6.5],["I5",2.5],["I6",1],["I8",1.5]]};
+var STAKE=[
+  {n:"Clients",icon:"building",c:"#7c4ddb",head:"Change that delivers, with proof",kpis:[["Client retention","88%","+2 pts",1],["Net Promoter Score","38","+3",1],["Milestones hit on time","81%","+6 pts",1]],story:"Health checks with key clients and faster starts lifted retention and satisfaction."},
+  {n:"People",icon:"users",c:"#c2409f",head:"Careers that grow with the company",kpis:[["Employee engagement","71","+1",1],["Staff digitally certified","31%","+4 pts",1],["Voluntary turnover","13%","+1 pt",0]],story:"The new career framework helps, but certification is behind plan."},
+  {n:"Owners",icon:"trend",c:"#2f6fd8",head:"Profitable, recurring growth",kpis:[["Recurring revenue","£38M","+£1.5M",1],["Operating margin","15.2%","+0.2 pts",1],["Cash conversion","92%","+3 pts",1]],story:"Service bundles drive recurring revenue; margin improves slowly."},
+  {n:"Society",icon:"spark",c:"#17946a",head:"Better public services, lighter footprint",kpis:[["Public-sector projects delivered","46","+5",1],["Carbon per employee (tonnes)","2.1","−0.3",1],["Pro bono hours","1,250","+310",1]],story:"Most of our public-sector work improves services for residents."}];
+var EVD=[{n:"Employees",v:30.7,c:"#6a3bc4"},{n:"Suppliers",v:6.3,c:"#d96ae0"},{n:"Reinvested",v:3.6,c:"#a98de6"},{n:"Taxes",v:2.0,c:"#8450d6"},{n:"Owners",v:1.8,c:"#c9b3f0"},{n:"Communities",v:0.8,c:"#e6dcfa"}];
+var BRIDGE={y24:{t:"Operating profit, 2023 to 2024 forecast (£M)",from:["2023",5.2],to:["2024 forecast",6.8],steps:[["Recurring growth",2.4],["Higher utilisation",0.6],["Automation savings",0.4],["Wage inflation",-0.9],["Nordics investment",-0.7],["Other",-0.2]]},
+  y26:{t:"Operating profit, 2024 forecast to 2026 ambition (£M)",from:["2024 forecast",6.8],to:["2026 ambition",10.8],steps:[["Bundles and retention",3.0],["Nordics revenue",1.2],["Higher utilisation",0.8],["Automation savings",0.5],["Wage inflation",-0.9],["Data platform",-0.6]]}};
+var V2={methods:[
+    {t:"Sell recurring service bundles to existing clients",o:"LM",init:"I9",meas:["F1","F2"]},
+    {t:"Enter the Nordics with a local team",o:"PR",init:"I7",meas:["C2","F3"]},
+    {t:"Make delivery predictable with one method",o:"ML",init:"I6",meas:["P1","C3"]},
+    {t:"Turn client success into a proactive service",o:"ML",init:"I5",meas:["C1","C3"]},
+    {t:"Build the skills and data we need to scale",o:"DN",init:"I8",meas:["L1","L3"]}],
+  obstacles:[{t:"Hiring a country lead for the Nordics is slow",m:1,done:false},{t:"Teams see the standard method as extra paperwork",m:2,done:false},{t:"Senior experts are scarce and expensive",m:4,done:false},{t:"Data is spread across 10 systems",m:4,done:false},{t:"Bundles need a new contract template",m:0,done:true}]};
+var PV_IDS=["st-ambition","st-purpose","st-kudos","st-value","st-v2mom"];
+function valBy(n){return VALS.filter(function(v){return v.n===n})[0]}
+function vcol(n){var v=valBy(n);return v?v.c:"#7c4ddb"}
+function vchip(n){return '<span class="vchip" style="--vc:'+vcol(n)+'">'+esc(n)+'</span>'}
+function pulseAvg(n,q){var r=PULSE.q[q||"Q3 2024"][n];if(!r)return null;return Math.round(r.reduce(function(a,b){return a+b},0)/r.length)}
+function moneyM(v){return "£"+(Math.round(v*10)/10)+"M"}
+
+/* 1. ambition: north star tracker */
+function viewStAmbition(){
+  var f1=objById("F1"),act=f1.tr.slice(),n=AMB.qs.length,last=act.length-1,cur=act[last],sel=ST.ambLev||[];
+  var req=function(i){return AMB.base+(AMB.target-AMB.base)*i/(n-1)},slope=(act[last]-act[0])/last;
+  var lev=AMB.levers.filter(function(l){return sel.indexOf(l[0])>=0}).reduce(function(s,l){return s+l[1]},0);
+  var fB=function(i){return cur+slope*(i-last)},fL=function(i){return fB(i)+lev*(i-last)/(n-1-last)};
+  var endB=fB(n-1),endL=fL(n-1),gapNow=req(last)-cur,pct=Math.round((cur-AMB.base)/(AMB.target-AMB.base)*100);
+  var W=900,H=330,L=48,R=150,T=18,B=36,iw=W-L-R,ih=H-T-B,lo=25,hi=Math.max(65,Math.ceil(endL/5)*5+5),X=function(i){return L+iw*i/(n-1)},Y=function(v){return T+ih-(v-lo)/(hi-lo)*ih},s="";
+  for(var g=lo;g<=hi;g+=5)s+='<line class="gl" x1="'+L+'" x2="'+(L+iw)+'" y1="'+Y(g)+'" y2="'+Y(g)+'" stroke-dasharray="3 4"/><text x="'+(L-8)+'" y="'+(Y(g)+4)+'" text-anchor="end">'+g+'</text>';
+  AMB.qs.forEach(function(q,i){if(i%2===0)s+='<text x="'+X(i)+'" y="'+(H-12)+'" text-anchor="middle">'+q+'</text>'});
+  s+='<line x1="'+X(last)+'" x2="'+X(last)+'" y1="'+T+'" y2="'+(T+ih)+'" stroke="#e255c9" stroke-width="1.5"/><text x="'+(X(last)+4)+'" y="'+(T+10)+'" style="fill:#e255c9">Today</text>';
+  s+='<line x1="'+L+'" x2="'+(L+iw)+'" y1="'+Y(AMB.target)+'" y2="'+Y(AMB.target)+'" stroke="#1f9d6b" stroke-width="1.5"/>';
+  var path=function(f,a,b){var pts=[];for(var i=a;i<=b;i++)pts.push(X(i).toFixed(1)+","+Y(f(i)).toFixed(1));return pts.join(" ")};
+  s+='<polyline fill="none" stroke="#a9a6b8" stroke-width="2" stroke-dasharray="6 5" points="'+path(req,0,n-1)+'"/>';
+  s+='<polyline fill="none" stroke="#7c4ddb" stroke-width="2" stroke-dasharray="4 4" points="'+path(fB,last,n-1)+'"/>';
+  if(lev)s+='<polyline fill="none" stroke="#1f9d6b" stroke-width="2.5" stroke-dasharray="2 3" points="'+path(fL,last,n-1)+'"/>';
+  s+='<polyline fill="none" stroke="#5f17b2" stroke-width="3.5" stroke-linejoin="round" points="'+path(function(i){return act[i]},0,last)+'"/>'+act.map(function(v,i){return '<circle cx="'+X(i)+'" cy="'+Y(v)+'" r="4" fill="#5f17b2"/>'}).join("");
+  var lab=[[AMB.target,"Ambition "+moneyM(AMB.target),"#1f9d6b"],[endB,"Current pace "+moneyM(endB),"#7c4ddb"]];if(lev)lab.push([endL,"With selected "+moneyM(endL),"#17946a"]);
+  lab.sort(function(a,b){return b[0]-a[0]});var ly=-99;lab.forEach(function(l){var y=Math.max(Y(l[0])+4,ly+15);ly=y;s+='<text x="'+(L+iw+8)+'" y="'+y+'" style="fill:'+l[2]+';font-weight:800">'+l[1]+'</text>'});
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Recurring revenue against the path to the 2026 ambition">'+s+'</svg>';
+  var hero='<section class="amb-hero"><div><small>Our ambition</small><h2>'+esc(SG.ambition)+'</h2><button class="link amb-edit" data-ui="editstmt:ambition">'+icon("scope")+'Edit</button></div><div class="amb-ns"><small>North star · '+esc(f1.kpi)+'</small><b>'+moneyM(cur)+'</b><span>of '+moneyM(AMB.target)+' · '+pct+'% of the way from '+moneyM(AMB.base)+'</span><div class="hbar"><i style="width:'+pct+'%;background:#fff"></i></div></div></section>';
+  var cards='<div class="kpi-row k4"><div class="kc gray"><div class="l">Required by today</div><div class="v">'+moneyM(req(last))+'</div><div class="amb-s">'+(gapNow>0?'<b class="bad-t">'+moneyM(gapNow)+' behind</b> the straight path':'<b class="good-t">'+moneyM(-gapNow)+' ahead</b> of the path')+'</div></div>'+
+    '<div class="kc"><div class="l">At current pace, 2026</div><div class="v">'+moneyM(endB)+'</div><div class="amb-s">'+moneyM(AMB.target-endB)+' short of the ambition</div></div>'+
+    '<div class="kc"><div class="l">With selected initiatives</div><div class="v" style="color:'+(endL>=AMB.target?'var(--good)':'var(--warn)')+'">'+moneyM(endL)+'</div><div class="amb-s">'+(endL>=AMB.target?'Closes the gap':moneyM(AMB.target-endL)+' still to find')+'</div></div>'+
+    '<div class="kc"><div class="l">Quarters left</div><div class="v">'+(n-1-last)+'</div><div class="amb-s">Need '+moneyM((AMB.target-cur)/(n-1-last))+' a quarter, now '+moneyM(slope)+'</div></div></div>';
+  var goals='<section class="card pad"><h3>The ambition in three goals</h3><p>Each goal is measured from the 2023 baseline to the 2026 ambition.</p>'+AMB.goals.map(function(gl){var o=objById(gl[0]),p=Math.max(0,Math.min(100,Math.round((o.a-o.b)/(gl[1]-o.b)*100)));return '<div class="og-g">'+sdot(o.st)+'<div style="flex:1;min-width:0"><b>'+esc(o.kpi)+'</b><div style="color:var(--muted);font-size:12px">'+ofmt(o,o.a)+' now · ambition '+esc(gl[2])+'</div>'+stBar(p,OST[o.st][2])+'</div></div>'}).join("")+'</section>';
+  var levers='<section class="card"><div class="card-h" style="padding-bottom:6px"><h2>Close the gap</h2><span style="color:var(--muted);font-size:12.5px">Tick initiatives to see their effect on 2026</span></div><div class="tbl-wrap"><table><thead><tr><th></th><th>Initiative</th><th>Status</th><th class="num">Added ARR by 2026</th></tr></thead><tbody>'+
+    AMB.levers.map(function(l){var x=initById(l[0]),on=sel.indexOf(l[0])>=0;return '<tr><td style="width:36px"><input type="checkbox" class="cbx" data-amb="'+l[0]+'"'+(on?' checked':'')+' aria-label="Include '+esc(x.n)+'"></td><td><b>'+esc(x.n)+'</b><div style="color:var(--muted);font-size:12px">'+sname(x.o)+' · '+QTR[x.s]+' to '+QTR[x.e]+'</div></td><td>'+ipill(x.st)+'</td><td class="num" style="font-weight:800">+'+moneyM(l[1])+'</td></tr>'}).join("")+
+    '<tr><td></td><td style="font-weight:800">Selected total</td><td></td><td class="num" style="font-weight:800">+'+moneyM(lev)+'</td></tr></tbody></table></div></section>';
+  var leg='<div class="legend" style="justify-content:center;padding:0 0 12px"><span><i style="background:#5f17b2"></i>Actual</span><span><i style="background:#a9a6b8"></i>Straight path to the ambition</span><span><i style="background:#7c4ddb"></i>Current pace</span><span><i style="background:#1f9d6b"></i>With selected initiatives</span></div>';
+  return stHead("st-ambition")+hero+cards+'<section class="card"><div class="card-h"><h2>Path to '+moneyM(AMB.target)+'</h2><span style="color:var(--muted);font-size:12.5px">Recurring revenue, £M per quarter</span></div><div class="chart" style="overflow-x:auto"><div style="min-width:640px">'+svg+'</div></div>'+leg+'</section><div class="amb-2">'+goals+levers+'</div>';
+}
+
+/* 2. purpose and values: golden circle and culture code */
+function viewStPurpose(){
+  var gs=ST.gcSel||"why",rings=[["what",140,"#e4d9fa","What","What we do"],["how",96,"#b898ee","How","How we do it"],["why",52,"#6a3bc4","Why","Why we exist"]];
+  var s=rings.map(function(r){var on=gs===r[0];return '<g class="gcr'+(on?' on':'')+'" data-ui="gc:'+r[0]+'" role="button" tabindex="0" aria-pressed="'+on+'" aria-label="'+r[4]+'"><circle cx="150" cy="150" r="'+r[1]+'" fill="'+r[2]+'"/>'+(on?'<circle cx="150" cy="150" r="'+(r[1]-2)+'" fill="none" stroke="#e255c9" stroke-width="3"/>':'')+'</g>'}).join("")+
+    '<text x="150" y="156" text-anchor="middle" class="gct" style="fill:#fff">WHY</text><text x="150" y="80" text-anchor="middle" class="gct">HOW</text><text x="150" y="30" text-anchor="middle" class="gct">WHAT</text>';
+  var cur=rings.filter(function(r){return r[0]===gs})[0];
+  var gc='<section class="card gc"><div class="gc-fig"><svg viewBox="0 0 300 300" role="img" aria-label="Golden circle: why, how, what">'+s+'</svg></div><div class="gc-txt"><small>'+cur[4]+'</small><p>'+esc(SG[gs])+'</p><button class="btn ghost" data-ui="editstmt:'+gs+'">'+icon("scope")+'Edit</button><div class="gc-tabs">'+rings.slice().reverse().map(function(r){return '<button class="chip'+(r[0]===gs?'':' off2')+'" data-ui="gc:'+r[0]+'">'+r[3]+'</button>'}).join("")+'</div><p class="gc-note">Start with why: people follow a purpose before they buy a product.</p></div></section>';
+  var st=[["mission","Mission","What we do every day, and for whom","Core ideology · timeless"],["vision","Vision","The future we are building","Core ideology · timeless"],["ambition","Ambition","The measurable goal for 2026","Envisioned future · 2026"]];
+  var stm='<div class="cards" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr))">'+st.map(function(x){return '<section class="card pad stm"><div style="display:flex;align-items:center;justify-content:space-between"><small>'+x[1]+'</small><button class="mx" data-ui="editstmt:'+x[0]+'" aria-label="Edit '+x[1]+'">'+icon("scope")+'</button></div><p>'+esc(SG[x[0]])+'</p><span>'+x[2]+'</span><em class="tagx">'+x[3]+'</em></section>'}).join("")+'</div>';
+  var vals='<div class="vgrid">'+VALS.map(function(v,i){var ps=pulseAvg(v.n),kc=KUDOS.filter(function(k){return k[2]===v.n}).length;
+    return '<article class="card vcard" style="--vc:'+v.c+'"><div class="vc-h"><span class="vnum">'+(i+1)+'</span><h3>'+esc(v.n)+'</h3><button class="mx" data-ui="editval:'+i+'" aria-label="Edit '+esc(v.n)+'">'+icon("scope")+'</button></div><p class="vdesc">'+esc(v.d)+'</p>'+
+      '<div class="vdo"><div><b>We do</b><ul class="ul yes">'+v.doo.map(function(x){return '<li>'+icon("tick")+esc(x)+'</li>'}).join("")+'</ul></div><div><b>We don’t</b><ul class="ul no">'+v.dont.map(function(x){return '<li>'+icon("x")+esc(x)+'</li>'}).join("")+'</ul></div></div>'+
+      '<div class="vfoot"><span class="person">'+av(v.champ)+'<span>'+sname(v.champ)+'<small>Champion</small></span></span><span class="vm"><b>'+(ps==null?'–':ps+'%')+'</b><small>lived well</small></span><span class="vm"><b>'+kc+'</b><small>recognitions</small></span></div>'+
+      '<button class="btn ghost vrec" data-add="kudos:'+esc(v.n)+'">'+icon("thumb")+'Recognise someone for this</button></article>'}).join("")+
+    '<button class="card vadd" data-add="value">'+icon("plus")+'<span>Add a value</span></button></div>';
+  return stHead("st-purpose")+'<div class="pp2">'+gc+'<div>'+stm+'</div></div><h2 class="st-h2">Our values, written as behaviours</h2>'+vals;
+}
+
+/* 3. values in action: recognition feed and values pulse */
+function viewStKudos(){
+  var tab=ST.valTab||"rec",body="";
+  if(tab==="rec"){
+    var feed=KUDOS.map(function(k,i){var liked=(ST.kLiked||[]).indexOf(i)>=0;return '<article class="card kd" data-q="'+esc((sname(k[0])+" "+sname(k[1])+" "+k[2]+" "+k[3]).toLowerCase())+'"'+ffs({Value:k[2],"Given by":sname(k[0]),"Received by":sname(k[1])})+'>'+
+      '<div class="kd-h">'+av(k[0])+'<span class="kd-arrow">'+icon("chevr")+'</span>'+av(k[1])+'<div><b>'+sname(k[1])+'</b><small>from '+sname(k[0])+' · '+esc(k[4])+'</small></div>'+vchip(k[2])+'</div><p>'+esc(k[3])+'</p>'+
+      '<button class="kd-like'+(liked?' on':'')+'" data-ui="klike:'+i+'" aria-pressed="'+liked+'">'+icon("thumb")+'<span>'+k[5]+'</span></button></article>'}).join("");
+    var counts=VALS.map(function(v){return {n:v.n,v:KUDOS.filter(function(k){return k[2]===v.n}).length,c:v.c}}),mx=Math.max.apply(null,counts.map(function(c){return c.v}).concat([1]));
+    var people={};KUDOS.forEach(function(k){people[k[1]]=(people[k[1]]||0)+1});var top=Object.keys(people).sort(function(a,b){return people[b]-people[a]}).slice(0,4);
+    var side='<aside class="kd-side"><section class="card pad"><h3>Recognition by value</h3><p>'+KUDOS.length+' recognitions this quarter.</p>'+counts.map(function(c){return '<div class="kv"><span>'+esc(c.n)+'</span><div class="t"><i style="width:'+(c.v/mx*100)+'%;background:'+c.c+'"></i></div><b>'+c.v+'</b></div>'}).join("")+'</section>'+
+      '<section class="card pad"><h3>Most recognised</h3>'+top.map(function(p){return '<div class="person" style="padding:6px 0">'+av(p)+'<div>'+sname(p)+'<small>'+people[p]+' recognition'+(people[p]===1?'':'s')+'</small></div></div>'}).join("")+'</section></aside>';
+    body='<div class="toolbar">'+liveSearch("Search recognition")+'<span class="grow"></span>'+fltBtn()+'</div><div class="kd-wrap"><div class="kd-feed">'+(feed||'<div class="card pad">No recognition yet. Be the first.</div>')+'</div>'+side+'</div>';
+  }else{
+    var q=ST.pulseQ||"Q3 2024",mode=ST.pulseMode||"score",prev=q==="Q3 2024"?"Q2 2024":null,dcol=function(d){return d>=5?"#9fdcb8":d>=1?"#c8efb3":d>-1?"#f3f1f9":d>-5?"#fddba3":"#f8c4c4"},rows=VALS.map(function(v){var r=PULSE.q[q][v.n];if(!r)return "";var a=pulseAvg(v.n,q),pa=prev?pulseAvg(v.n,prev):null,d=pa==null?null:a-pa;
+      return '<tr><td><b>'+esc(v.n)+'</b><div class="pq">“'+esc(PULSE.stmt[v.n]||v.d)+'”</div></td>'+r.map(function(x){return mode==="diff"?'<td class="hm-c" style="background:'+dcol(x-a)+'">'+(x-a>0?'+':'')+(x-a)+'</td>':'<td class="hm-c" style="background:'+hcol(x)+'">'+x+'</td>'}).join("")+'<td class="hm-c" style="background:'+hcol(a)+';font-weight:800">'+a+'</td><td class="hm-c" style="background:transparent;color:'+(d==null?'var(--muted)':d>=0?'var(--good)':'var(--bad)')+'!important">'+(d==null?'–':(d>=0?'+':'')+d)+'</td></tr>'}).join("");
+    var cells=[];VALS.forEach(function(v){var r=PULSE.q[q][v.n];if(r)r.forEach(function(x,i){cells.push([x,v.n,UNITS[i]])})});cells.sort(function(a,b){return a[0]-b[0]});
+    body='<div class="toolbar"><label class="chiplabel">Survey '+sel("pulseQ",[["Q3 2024","Q3 2024"],["Q2 2024","Q2 2024"]],q,"sm")+'</label><label class="chiplabel">Show '+sel("pulseMode",[["score","% who agree"],["diff","Difference from company average"]],mode,"sm")+'</label><span class="chiplabel">'+icon("users")+PULSE.resp[q]+'% response rate</span></div>'+
+      '<section class="card"><div class="tbl-wrap"><table class="hm" style="min-width:860px"><thead><tr><th>Value and survey statement</th>'+UNITS.map(function(u){return '<th class="hm-c">'+u+'</th>'}).join("")+'<th class="hm-c">Average</th><th class="hm-c">Change</th></tr></thead><tbody>'+rows+'</tbody></table></div></section>'+
+      '<div class="legend" style="margin-top:12px">'+(mode==="diff"?'<span>Points above or below the company average for each value. </span>':'<span>% of people who agree. </span>')+(mode==="diff"?[["+5 or more","#9fdcb8"],["+1 to +4","#c8efb3"],["About the same","#f3f1f9"],["−1 to −4","#fddba3"],["−5 or less","#f8c4c4"]]:[["80+","#9fdcb8"],["70–79","#c8efb3"],["60–69","#fde9a8"],["50–59","#fddba3"],["Below 50","#f8c4c4"]]).map(function(x){return '<span><i style="background:'+x[1]+'"></i>'+x[0]+'</span>'}).join("")+'</div>'+
+      '<h2 class="st-h2">Where values are least lived</h2><div class="cards">'+cells.slice(0,3).map(function(c){return '<section class="card pad"><div style="display:flex;justify-content:space-between;align-items:center">'+vchip(c[1])+'<b style="font-size:22px;color:var(--bad)">'+c[0]+'%</b></div><h3 style="margin-top:8px">'+esc(c[2])+'</h3><p>“'+esc(PULSE.stmt[c[1]]||"")+'”</p></section>'}).join("")+'</div>';
+  }
+  return stHead("st-kudos",'<button class="btn primary" data-add="kudos">'+icon("thumb")+'Give recognition</button>')+tabs("valTab",[["rec","Recognition","thumb"],["pulse","Values pulse","heat"]],tab)+body;
+}
+
+/* 4. value creation: stakeholders, value bridge, value creation model */
+function viewStValue(){
+  var tab=ST.vcTab||"stake",body="";
+  if(tab==="stake"){
+    var total=EVD.reduce(function(s,e){return s+e.v},0);
+    body='<div class="sk-grid">'+STAKE.map(function(k){return '<section class="card sk" style="--sc:'+k.c+'"><div class="sk-h"><span class="sk-i">'+icon(k.icon)+'</span><div><small>Value for</small><h3>'+k.n+'</h3></div></div><p class="sk-head">'+esc(k.head)+'</p>'+
+      k.kpis.map(function(x){return '<div class="sk-k"><span>'+esc(x[0])+'</span><b>'+esc(x[1])+'</b><em class="'+(x[3]?'up':'dn')+'">'+esc(x[2])+'</em></div>'}).join("")+'<p class="sk-s">'+esc(k.story)+'</p></section>'}).join("")+'</div>'+
+      '<section class="card" style="margin-top:18px"><div class="card-h"><h2>How the value we earn is shared</h2><span style="color:var(--muted);font-size:12.5px">Economic value distributed, 2024 forecast</span></div><div class="wd"><div class="wd-fig" style="width:170px">'+donutSvg(EVD,moneyM(total),"Economic value distributed")+'</div><ul class="lg">'+EVD.map(function(e){return '<li><i style="background:'+e.c+'"></i><b>'+e.n+'</b><span>'+moneyM(e.v)+' · '+Math.round(e.v/total*100)+'%</span></li>'}).join("")+'</ul></div></section>';
+  }else if(tab==="bridge"){
+    var br=BRIDGE[ST.bridgeSel||"y24"],W=900,H=340,L=46,T=26,B=64,R=12,items=[[br.from[0],br.from[1],"t"]].concat(br.steps.map(function(x){return [x[0],x[1],"s"]})).concat([[br.to[0],br.to[1],"t"]]);
+    var run=0,mx=0;items.forEach(function(it){if(it[2]==="t"){run=it[1]}else run+=it[1];mx=Math.max(mx,run,it[2]==="t"?it[1]:run-it[1])});mx=Math.ceil(mx*1.15);
+    var iw=W-L-R,ih=H-T-B,bw=iw/items.length,Y=function(v){return T+ih-v/mx*ih},s="";
+    for(var g=0;g<=mx;g+=2)s+='<line class="gl" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(g)+'" y2="'+Y(g)+'" stroke-dasharray="3 4"/><text x="'+(L-8)+'" y="'+(Y(g)+4)+'" text-anchor="end">'+g+'</text>';
+    run=0;items.forEach(function(it,i){var x=L+i*bw+bw*.18,w=bw*.64,y0,y1,col;
+      if(it[2]==="t"){y0=0;y1=it[1];run=it[1];col="#5f17b2"}else{y0=run;y1=run+it[1];run=y1;col=it[1]>=0?"#1f9d6b":"#d2394f"}
+      var top=Y(Math.max(y0,y1)),h=Math.abs(Y(y0)-Y(y1));
+      s+='<rect x="'+x.toFixed(1)+'" y="'+top.toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+Math.max(h,1).toFixed(1)+'" rx="3" fill="'+col+'"/>';
+      if(i<items.length-1)s+='<line x1="'+(x+w).toFixed(1)+'" x2="'+(x+bw).toFixed(1)+'" y1="'+Y(run).toFixed(1)+'" y2="'+Y(run).toFixed(1)+'" stroke="#a9a6b8" stroke-dasharray="3 3"/>';
+      s+='<text x="'+(x+w/2).toFixed(1)+'" y="'+(top-6).toFixed(1)+'" text-anchor="middle" class="vl">'+(it[2]==="t"?'£'+it[1]+'M':(it[1]>0?'+':'−')+Math.abs(it[1]))+'</text>';
+      var words=it[0].split(" "),l1=words.slice(0,2).join(" "),l2=words.slice(2).join(" ");
+      s+='<text x="'+(x+w/2).toFixed(1)+'" y="'+(H-B+18)+'" text-anchor="middle">'+esc(l1)+'</text>'+(l2?'<text x="'+(x+w/2).toFixed(1)+'" y="'+(H-B+32)+'" text-anchor="middle">'+esc(l2)+'</text>':'')});
+    body='<div class="toolbar"><label class="chiplabel">Bridge '+sel("bridgeSel",[["y24","2023 to 2024"],["y26","2024 to the 2026 ambition"]],ST.bridgeSel||"y24","sm")+'</label></div><section class="card"><div class="card-h"><h2>'+esc(br.t)+'</h2></div><div class="chart" style="overflow-x:auto"><div style="min-width:640px"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(br.t)+'">'+s+'</svg></div></div><div class="legend" style="justify-content:center;padding-bottom:14px"><span><i style="background:#5f17b2"></i>Total</span><span><i style="background:#1f9d6b"></i>Adds value</span><span><i style="background:#d2394f"></i>Reduces value</span></div></section>';
+  }else{
+    var caps=[["Financial","£45M revenue, £9M cash"],["Human","320 consultants and trainers"],["Intellectual","Standard method, OrgCue platform"],["Relationships","180 clients, 40 partners"],["Social","Public-sector trust and references"],["Natural","Offices and travel (2.1 t CO₂ a head)"]];
+    var acts=[["Advise","Shape strategy and portfolios"],["Deliver","Run programmes to the standard method"],["Train","Certify client and own staff"],["Platform","Make plans live and measurable"]];
+    var outs=[["312","projects delivered"],["4,200","people trained"],["9,800","platform users"]];
+    body='<div class="vcm"><section class="card pad"><h3>Inputs</h3><p>The six capitals we draw on</p>'+caps.map(function(c){return '<div class="vcm-i"><b>'+c[0]+'</b><span>'+c[1]+'</span></div>'}).join("")+'</section><div class="vcm-arrow">'+icon("chevr")+'</div>'+
+      '<section class="card pad vcm-core"><h3>Business model</h3><p class="vcm-p">'+esc(SG.why)+'</p>'+acts.map(function(a){return '<div class="vcm-i"><b>'+a[0]+'</b><span>'+a[1]+'</span></div>'}).join("")+'<div class="vcm-v">'+VALS.map(function(v){return vchip(v.n)}).join("")+'</div></section><div class="vcm-arrow">'+icon("chevr")+'</div>'+
+      '<section class="card pad"><h3>Outputs</h3><p>What we produced in 2024</p>'+outs.map(function(o){return '<div class="vcm-o"><b>'+o[0]+'</b><span>'+o[1]+'</span></div>'}).join("")+'</section><div class="vcm-arrow">'+icon("chevr")+'</div>'+
+      '<section class="card pad"><h3>Outcomes</h3><p>Value for each stakeholder</p>'+STAKE.map(function(k){return '<button class="vcm-i vcm-l" data-tab="vcTab:stake"><b style="color:'+k.c+'">'+k.n+'</b><span>'+esc(k.head)+'</span></button>'}).join("")+'</section></div>'+
+      '<div class="legend" style="margin-top:12px"><span>Laid out like the Integrated Reporting value creation process: capitals in, business model, outputs, outcomes.</span></div>';
+  }
+  return stHead("st-value")+tabs("vcTab",[["stake","Value for stakeholders","users"],["bridge","Value bridge","trend"],["model","How we create value","map"]],tab)+body;
+}
+
+/* 5. V2MOM */
+function viewStV2mom(){
+  var ud=function(list,i,len){return '<span class="ud"><button class="mx" data-ui="v2up:'+list+':'+i+'" aria-label="Move up"'+(i===0?' disabled':'')+'>'+icon("chev").replace('class="i"','class="i" style="transform:rotate(180deg)"')+'</button><button class="mx" data-ui="v2down:'+list+':'+i+'" aria-label="Move down"'+(i===len-1?' disabled':'')+'>'+icon("chev")+'</button></span>'};
+  var vision='<section class="card v2 v2-v"><div class="v2-l">V</div><div class="v2-b"><div class="v2-h"><h3>Vision</h3><span>What do we want?</span><button class="mx" data-ui="editstmt:vision" aria-label="Edit vision">'+icon("scope")+'</button></div><p class="v2-big">'+esc(SG.vision)+'</p><p style="color:var(--muted);font-size:13px">'+esc(SG.ambition)+'</p></div></section>';
+  var values='<section class="card v2"><div class="v2-l">V</div><div class="v2-b"><div class="v2-h"><h3>Values</h3><span>What is most important to us, in order?</span></div><ol class="v2-list">'+VALS.map(function(v,i){return '<li><span class="vnum" style="--vc:'+v.c+'">'+(i+1)+'</span><div><b>'+esc(v.n)+'</b><small>'+esc(v.d)+'</small></div>'+ud("val",i,VALS.length)+'</li>'}).join("")+'</ol></div></section>';
+  var methods='<section class="card v2"><div class="v2-l">M</div><div class="v2-b"><div class="v2-h"><h3>Methods</h3><span>How do we get there, in priority order?</span><button class="link" data-add="method">+ Add method</button></div><ol class="v2-list">'+V2.methods.map(function(m,i){var x=initById(m.init);
+      return '<li data-rec="method:'+i+'" tabindex="0"><span class="vnum">'+(i+1)+'</span><div style="flex:1;min-width:0"><b>'+esc(m.t)+'</b><small>'+sname(m.o)+(x?' · '+esc(x.n):'')+'</small><div class="chips" style="margin-top:6px">'+m.meas.map(objChip).join("")+'</div></div>'+(x?ipill(x.st):'')+ud("method",i,V2.methods.length)+'</li>'}).join("")+'</ol></div></section>';
+  var obst='<section class="card v2"><div class="v2-l">O</div><div class="v2-b"><div class="v2-h"><h3>Obstacles</h3><span>What could stop us?</span><button class="link" data-add="obstacle">+ Add obstacle</button></div><ul class="v2-list">'+V2.obstacles.map(function(o,i){var m=V2.methods[o.m];
+      return '<li data-rec="obst:'+i+'" tabindex="0" class="'+(o.done?'v2-done':'')+'"><button class="cb'+(o.done?' on':'')+'" data-ui="obst:'+i+'" aria-pressed="'+o.done+'" aria-label="Mark as '+(o.done?'open':'resolved')+'">'+(o.done?icon("tick"):'')+'</button><div style="flex:1;min-width:0"><b>'+esc(o.t)+'</b><small>'+(m?'Blocks method '+(o.m+1)+': '+esc(m.t):'Not linked to a method')+'</small></div><span class="pill '+(o.done?'good':'warn')+'">'+(o.done?'Resolved':'Open')+'</span></li>'}).join("")+'</ul></div></section>';
+  var ids=[];V2.methods.forEach(function(m){m.meas.forEach(function(id){if(ids.indexOf(id)<0)ids.push(id)})});
+  var meas='<section class="card v2"><div class="v2-l">M</div><div class="v2-b"><div class="v2-h"><h3>Measures</h3><span>How will we know we got there?</span></div><div class="tbl-wrap"><table><thead><tr><th>Measure</th><th class="num">Actual</th><th class="num">Target</th><th>Progress</th><th>Status</th></tr></thead><tbody>'+ids.map(function(id){var o=objById(id);return '<tr data-go="st-map" data-sobj="'+id+'"><td><b>'+o.id+'</b> '+esc(o.kpi)+'</td><td class="num" style="font-weight:800">'+ofmt(o,o.a)+'</td><td class="num">'+ofmt(o,o.t)+'</td><td>'+stBar(oprog(o),OST[o.st][2])+'</td><td>'+opill(o)+'</td></tr>'}).join("")+'</tbody></table></div></div></section>';
+  return stHead("st-v2mom")+'<div class="legend" style="margin-bottom:12px"><span>Vision, Values, Methods, Obstacles, Measures: the one-page plan Salesforce has used since 1999. Order matters: drag priorities with the arrows.</span></div>'+vision+values+methods+obst+meas;
+}
+
+/* actions for these pages */
+var STMT_L={mission:"Mission",vision:"Vision",ambition:"Ambition",why:"Why we exist",how:"How we do it",what:"What we do"};
+function editStmt(k){openForm({title:"Edit "+STMT_L[k].toLowerCase(),fields:[{k:"v",l:STMT_L[k],t:"textarea",v:SG[k],req:1}],submit:"Save",done:STMT_L[k]+" saved",save:function(v){SG[k]=v.v}})}
+function valueForm(i){var isNew=i==null,v=isNew?{n:"",d:"",doo:[],dont:[],champ:"ML",c:"#2a9db5"}:VALS[i];
+  openForm({title:isNew?"Add a value":"Edit “"+v.n+"”",intro:"Write values as behaviours people can see.",fields:[{k:"n",l:"Value",v:v.n,req:1},{k:"champ",l:"Champion",t:"select",o:personOpts(),v:v.champ},{k:"d",l:"What it means",v:v.d,req:1,full:1},{k:"doo",l:"We do (one per line)",t:"textarea",v:v.doo.join("\n")},{k:"dont",l:"We don’t (one per line)",t:"textarea",v:v.dont.join("\n")},{k:"c",l:"Colour",t:"select",o:[["#7c4ddb","Purple"],["#c2409f","Pink"],["#2f6fd8","Blue"],["#17946a","Green"],["#2a9db5","Teal"],["#e0a030","Amber"]],v:v.c}],
+    submit:isNew?"Add value":"Save value",done:isNew?"Value added":"Value saved",danger:isNew||VALS.length<2?null:"Delete value",onDanger:function(){VALS.splice(i,1);toast("Value deleted")},
+    save:function(x){if(VALS.some(function(o,j){return o.n.toLowerCase()===x.n.toLowerCase()&&j!==i}))return "A value with this name already exists.";
+      var old=v.n,lines=function(t){return t.split("\n").map(function(l){return l.trim()}).filter(Boolean)};v.n=x.n;v.d=x.d;v.doo=lines(x.doo);v.dont=lines(x.dont);v.champ=x.champ;v.c=x.c;
+      if(isNew)VALS.push(v);else if(old!==x.n){KUDOS.forEach(function(k){if(k[2]===old)k[2]=x.n});["Q3 2024","Q2 2024"].forEach(function(q){if(PULSE.q[q][old]){PULSE.q[q][x.n]=PULSE.q[q][old];delete PULSE.q[q][old]}});if(PULSE.stmt[old]){PULSE.stmt[x.n]=PULSE.stmt[old];delete PULSE.stmt[old]}}}})}
+function giveKudos(val){openForm({title:"Give recognition",fields:[{k:"to",l:"Who are you recognising?",t:"select",o:personOpts().filter(function(o){return o[0]!=="OA"}),v:"ML"},{k:"val",l:"Which value did they show?",t:"select",o:VALS.map(function(v){return v.n}),v:val||VALS[0].n},{k:"msg",l:"What did they do?",t:"textarea",req:1,ph:"Be specific: what happened, and why it mattered."}],submit:"Send recognition",done:"Recognition sent",
+  save:function(v){if(!SNAME.OA)SNAME.OA="Olivia Adams";KUDOS.unshift(["OA",v.to,v.val,v.msg,"Just now",0]);ST.valTab="rec";ST.kLiked=(ST.kLiked||[]).map(function(x){return x+1})}})}
+function methodForm(i){var isNew=i==null,m=isNew?{t:"",o:"ML",init:"",meas:[]}:V2.methods[i];
+  openForm({title:isNew?"Add method":"Edit method "+(i+1),fields:[{k:"t",l:"Method",v:m.t,req:1,full:1},{k:"o",l:"Owner",t:"select",o:personOpts(),v:m.o},{k:"init",l:"Initiative",t:"select",o:[["","None"]].concat(INIT.map(function(x){return [x.id,x.n]})),v:m.init},{k:"meas",l:"Measures",t:"checks",o:OBJ.slice().sort(byId).map(function(o){return [o.id,o.id+" "+o.kpi]}),v:m.meas}],
+    submit:isNew?"Add method":"Save method",done:isNew?"Method added":"Method saved",danger:isNew?null:"Delete method",onDanger:function(){V2.methods.splice(i,1);V2.obstacles.forEach(function(o){if(o.m===i)o.m=-1;else if(o.m>i)o.m--})},
+    save:function(v){m.t=v.t;m.o=v.o;m.init=v.init;m.meas=v.meas||[];if(isNew)V2.methods.push(m)}})}
+function obstForm(i){var isNew=i==null,o=isNew?{t:"",m:0,done:false}:V2.obstacles[i];
+  openForm({title:isNew?"Add obstacle":"Edit obstacle",fields:[{k:"t",l:"Obstacle",v:o.t,req:1,full:1},{k:"m",l:"Blocks",t:"select",o:[["-1","No method"]].concat(V2.methods.map(function(m,j){return [String(j),(j+1)+". "+m.t]})),v:String(o.m)},{k:"st",l:"Status",t:"select",o:[["open","Open"],["done","Resolved"]],v:o.done?"done":"open"}],
+    submit:isNew?"Add obstacle":"Save",done:isNew?"Obstacle added":"Obstacle saved",danger:isNew?null:"Delete obstacle",onDanger:function(){V2.obstacles.splice(i,1)},
+    save:function(v){o.t=v.t;o.m=+v.m;o.done=v.st==="done";if(isNew)V2.obstacles.push(o)}})}
+function pvUi(p){
+  if(p[0]==="editstmt"){editStmt(p[1]);return true}
+  if(p[0]==="editval"){valueForm(+p[1]);return true}
+  if(p[0]==="gc"){ST.gcSel=p[1];rerender();return true}
+  if(p[0]==="klike"){var i=+p[1],l=ST.kLiked=ST.kLiked||[],at=l.indexOf(i);if(at<0){l.push(i);KUDOS[i][5]++}else{l.splice(at,1);KUDOS[i][5]--}rerender();return true}
+  if(p[0]==="v2up"||p[0]==="v2down"){var list=p[1]==="val"?VALS:V2.methods,j=+p[2],k=p[0]==="v2up"?j-1:j+1;if(k<0||k>=list.length)return true;var t=list[j];list[j]=list[k];list[k]=t;
+    if(p[1]==="method")V2.obstacles.forEach(function(o){if(o.m===j)o.m=k;else if(o.m===k)o.m=j});rerender();toast("Priority changed");return true}
+  if(p[0]==="obst"){var o=V2.obstacles[+p[1]];o.done=!o.done;rerender();toast(o.done?"Marked as resolved":"Reopened");return true}
+  return false}
+
+ST.ambLev=["I9","I5"];ST.gcSel="why";ST.valTab="rec";ST.pulseQ="Q3 2024";ST.pulseMode="score";ST.vcTab="stake";ST.bridgeSel="y24";ST.kLiked=[];
 /* login + settings */
 function viewLogin(){
   return '<div class="login"><form class="lcard" id="loginForm" novalidate><div class="brand"><span><svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><circle cx="12" cy="5.5" r="3.4"/><circle cx="5.5" cy="12" r="3.4"/><circle cx="18.5" cy="12" r="3.4"/><circle cx="12" cy="18.5" r="3.4"/></svg></span>OrgCue</div>'+
@@ -1840,7 +2118,8 @@ ST.scopeProj="all";ST.raidProj="all";ST.raidTab="all";ST.chkProj="0";ST.benProj=
 var PLAN_VIEWS={};NAV.forEach(function(n){if(n.view)PLAN_VIEWS[n.id]=n.view});
 var isPlan=function(id){return !!PLAN_VIEWS[id]};
 var TPL_GROUPS=[
-  ["Strategy",STRAT_NAV.filter(function(n){return n.id}).map(function(n){return n.id})],
+  ["Purpose and value",PV_IDS],
+  ["Strategy",STRAT_NAV.filter(function(n){return n.id&&PV_IDS.indexOf(n.id)<0}).map(function(n){return n.id})],
   ["Project Plan",NAV.filter(function(n){return n.view}).map(function(n){return n.id})],
   ["Portfolio",NAV.filter(function(n){return !n.view}).map(function(n){return n.id})],
   ["Settings",["settings-account","settings-devices","settings-company","settings-workspaces","settings-notifications","settings-workspace","settings-billing"]],
@@ -2060,13 +2339,14 @@ function baseF(){return ST.budBase==="1"?0.9:0.95}
 
 /* saving: everything the visitor changes is kept in this browser */
 function saveState(){try{var st={};for(var k in ST)if(k!=="route")st[k]=ST[k];
-  localStorage.setItem(STORE_KEY,JSON.stringify({ST:st,PROJECTS:PROJECTS,PK:PK,TASKS:TASKS,DASH_T:DASH_T,DASH_A:DASH_A,BUD:BUD,FILES:FILES,GOV:GOV,PEOPLE:PEOPLE,HEAT:HEAT,COL:COL,RAID:RAID,SCOPE:SCOPE,CLOSE:CLOSE,RETROS:RETROS,BEN:BEN,OBJ:OBJ,INIT:INIT,SPACES:SPACES,DEVICES:DEVICES,AI:{applied:AI.applied,added:AI.added}}))}catch(e){}}
+  localStorage.setItem(STORE_KEY,JSON.stringify({ST:st,SG:SG,VALS:VALS,KUDOS:KUDOS,PULSE:PULSE,V2:V2,PROJECTS:PROJECTS,PK:PK,TASKS:TASKS,DASH_T:DASH_T,DASH_A:DASH_A,BUD:BUD,FILES:FILES,GOV:GOV,PEOPLE:PEOPLE,HEAT:HEAT,COL:COL,RAID:RAID,SCOPE:SCOPE,CLOSE:CLOSE,RETROS:RETROS,BEN:BEN,OBJ:OBJ,INIT:INIT,SPACES:SPACES,DEVICES:DEVICES,AI:{applied:AI.applied,added:AI.added}}))}catch(e){}}
 function loadState(){try{var d=JSON.parse(localStorage.getItem(STORE_KEY)||"null");if(!d)return;
   for(var k in d.ST)ST[k]=d.ST[k];
   PROJECTS=d.PROJECTS||PROJECTS;PK=d.PK||PK;TASKS=d.TASKS||TASKS;DASH_T=d.DASH_T||DASH_T;DASH_A=d.DASH_A||DASH_A;BUD=d.BUD||BUD;FILES=d.FILES||FILES;GOV=d.GOV||GOV;PEOPLE=d.PEOPLE||PEOPLE;HEAT=d.HEAT||HEAT;
   if(d.COL)for(var c in d.COL)COL[c]=d.COL[c];
   RAID=d.RAID||RAID;SCOPE=d.SCOPE||SCOPE;CLOSE=d.CLOSE||CLOSE;RETROS=d.RETROS||RETROS;BEN=d.BEN||BEN;OBJ=d.OBJ||OBJ;INIT=d.INIT||INIT;SPACES=d.SPACES||SPACES;DEVICES=d.DEVICES||DEVICES;
   if(d.AI){AI.applied=d.AI.applied;AI.added=d.AI.added}
+  if(d.SG)for(var sk in d.SG)SG[sk]=d.SG[sk];VALS=d.VALS||VALS;KUDOS=d.KUDOS||KUDOS;PULSE=d.PULSE||PULSE;V2=d.V2||V2;
   if(ST.theme)document.documentElement.setAttribute("data-theme",ST.theme);
 }catch(e){}}
 function resetDemo(){try{localStorage.removeItem(STORE_KEY)}catch(e){}location.hash="dashboard";location.reload()}
@@ -2149,7 +2429,7 @@ function setBtn(){return '<button class="chipbtn" data-ui="settings" aria-haspop
 function searchIndex(){var a=[];NAV.forEach(function(n){if(!n.view)a.push([n.label,"Page","go",n.id])});STRAT_NAV.forEach(function(n){if(n.id)a.push([n.label,"Strategy page","go",n.id])});SET_NAV.forEach(function(n){if(n.id&&n.id!=="login")a.push([n.label,"Settings","go",n.id])});
   PK.forEach(function(n,i){a.push([n,"Project","proj",i])});TASKS.forEach(function(ts,i){ts.forEach(function(t,k){a.push([t.name,"Task · "+PK[i],"task","plan:"+i+":"+k])})});
   RAID.forEach(function(r){a.push([r[0]+" "+r[2],"RAID log · "+r[3],"go","raid"])});FILES.forEach(function(f){a.push([f.n.replace(/_/g," "),"Document · "+f.e,"go","documents"])});GOV.forEach(function(g){a.push([g.t,"Governance group","go","governance"])});
-  BUD.forEach(function(b){a.push([b.id+" "+b.detail,"Budget item · "+b.proj,"go","budgets"])});INIT.forEach(function(x){a.push([x.n,"Initiative · "+x.st,"init",x.id])});OBJ.forEach(function(o){a.push([o.id+" "+o.n,"Objective · "+o.kpi,"obj",o.id])});return a}
+  BUD.forEach(function(b){a.push([b.id+" "+b.detail,"Budget item · "+b.proj,"go","budgets"])});INIT.forEach(function(x){a.push([x.n,"Initiative · "+x.st,"init",x.id])});VALS.forEach(function(v){a.push([v.n,"Company value · "+v.d,"go","st-purpose"])});OBJ.forEach(function(o){a.push([o.id+" "+o.n,"Objective · "+o.kpi,"obj",o.id])});return a}
 function globalSearch(q,show){q=(q||"").trim().toLowerCase();var inp=$("#topSearch");if(!q){if(pop.getAttribute("data-for")==="search")closePop();return}
   var hits=searchIndex().filter(function(x){return (x[0]+" "+x[1]).toLowerCase().indexOf(q)>=0}).slice(0,8);pop.setAttribute("data-for","search");
   pop.innerHTML='<div class="sp-h">Results for “'+esc(q)+'”</div>'+(hits.length?hits.map(function(x){var at=x[2]==="go"?' data-go="'+x[3]+'"':x[2]==="proj"?' data-go="plan-table" data-proj="'+x[3]+'"':x[2]==="obj"?' data-go="st-map" data-sobj="'+x[3]+'"':x[2]==="init"?' data-go="st-roadmap"':' data-searchtask="'+x[3]+'"';
@@ -2242,7 +2522,7 @@ function newSpace(){openForm({title:"Create new space",fields:[{k:"n",l:"Space n
 function viewPhoto(i){openForm({title:"Photo "+(i+1)+" · November 2, 2023",submit:false,html:'<div class="ph-big" style="background:'+(i?'linear-gradient(135deg,#d9a77a,#7a4b3a)':'linear-gradient(135deg,#6b8fb5,#2d3f66)')+'"></div>'})}
 
 /* buttons that do not fit a record */
-function uiAction(a,el){var p=a.split(":");
+function uiAction(a,el){var p=a.split(":");if(pvUi(p))return;
   if(p[0]==="close"){closeModal();return}
   if(p[0]==="danger"){if(MODAL&&MODAL.onDanger){var f=MODAL.onDanger;closeModal();f();rerender()}return}
   if(p[0]==="filters"){if(pop.getAttribute("data-for")==="filters"){closePop();return}openFilters(el);return}
@@ -2268,9 +2548,9 @@ function uiAction(a,el){var p=a.split(":");
   if(p[0]==="rdone"){var a2=RETROS[+ST.retroSel].a[+p[1]];a2[2]=!a2[2];rerender();return}
 }
 function addAction(a){var p=a.split(":");
-  ({tasks:function(){addTaskDash("tasks")},actions:function(){addTaskDash("actions")},task:function(){addTaskPlan(p.slice(1).join(":")||"Not started")},project:addProject,budget:function(){budgetForm(null)},doc:addDocument,person:addPerson,scope:addScope,
+  ({kudos:function(){giveKudos(p.slice(1).join(":"))},value:function(){valueForm(null)},method:function(){methodForm(null)},obstacle:function(){obstForm(null)},tasks:function(){addTaskDash("tasks")},actions:function(){addTaskDash("actions")},task:function(){addTaskPlan(p.slice(1).join(":")||"Not started")},project:addProject,budget:function(){budgetForm(null)},doc:addDocument,person:addPerson,scope:addScope,
     raid:function(){raidForm(null)},closure:startClosure,retro:newRetro,note:function(){addNote(p[1])},benefit:function(){benefitForm(null)},group:addGroup,plan:changePlan,space:newSpace}[p[0]]||function(){})()}
-function openRecord(ref){var p=ref.split(":");if(p[0]==="bud")budgetForm(BUD[+p[1]],+p[1]);else if(p[0]==="raid")raidForm(RAID[+p[1]],+p[1]);else if(p[0]==="ben")benefitForm(BEN[+p[1]],+p[1]);else if(p[0]==="init")editInit(p[1])}
+function openRecord(ref){var p=ref.split(":");if(p[0]==="bud")budgetForm(BUD[+p[1]],+p[1]);else if(p[0]==="raid")raidForm(RAID[+p[1]],+p[1]);else if(p[0]==="ben")benefitForm(BEN[+p[1]],+p[1]);else if(p[0]==="init")editInit(p[1]);else if(p[0]==="method")methodForm(+p[1]);else if(p[0]==="obst")obstForm(+p[1])}
 
 /* kanban drag and drop */
 document.addEventListener("dragstart",function(e){var c=e.target.closest&&e.target.closest("[data-task][draggable]");if(!c)return;e.dataTransfer.setData("text/plain",c.getAttribute("data-task"));e.dataTransfer.effectAllowed="move";c.classList.add("dragging")});
@@ -2325,7 +2605,7 @@ document.addEventListener("keydown",function(e){
   if(tg&&tg.id==="topSearch"&&e.key==="ArrowDown"){var f2=$("#pop .sr");if(f2){e.preventDefault();f2.focus()}return}
   if(!typing&&!MODAL&&e.key==="/"){e.preventDefault();$("#topSearch").focus();return}
   if(!typing&&!MODAL&&e.key==="?"){e.preventDefault();openHelp();return}
-  if((e.key==="Enter"||e.key===" ")&&tg&&tg.matches&&tg.matches("[data-task],[data-rec],[data-add]")&&tg.tagName!=="BUTTON"){e.preventDefault();tg.click();return}
+  if((e.key==="Enter"||e.key===" ")&&tg&&tg.matches&&tg.matches("[data-task],[data-rec],[data-add],[data-ui]")&&tg.tagName!=="BUTTON"){e.preventDefault();tg.click();return}
   if(e.key==="Escape"){closePop();if(AI.open){aiClose();$("#aiFab").focus()}}
   if((e.key==="Enter"||e.key===" ")&&e.target&&e.target.getAttribute&&e.target.getAttribute("role")==="button"&&e.target.hasAttribute("data-go")){e.preventDefault();if(e.target.hasAttribute("data-proj"))ST.planProj=+e.target.getAttribute("data-proj");go(e.target.getAttribute("data-go"))}
 });
@@ -2335,6 +2615,7 @@ document.addEventListener("change",function(e){
 });
 document.addEventListener("change",function(e){
   var t=e.target;if(t.hasAttribute&&t.hasAttribute("data-chk")){ST.chk[t.getAttribute("data-chk")]=t.checked;rerender();return}
+  if(t.hasAttribute&&t.hasAttribute("data-amb")){var al=ST.ambLev=ST.ambLev||[],aid=t.getAttribute("data-amb");if(t.checked){if(al.indexOf(aid)<0)al.push(aid)}else al.splice(al.indexOf(aid),1);rerender();return}
   if(t.hasAttribute&&t.hasAttribute("data-flt")){var fk=t.getAttribute("data-flt"),fl=ST.flt[ST.route]=ST.flt[ST.route]||{},arr=fl[fk]=fl[fk]||[];if(t.checked){if(arr.indexOf(t.value)<0)arr.push(t.value)}else arr.splice(arr.indexOf(t.value),1);applyView();saveState();return}
   if(t.hasAttribute&&t.hasAttribute("data-col")){var hc=ST.cols[ST.route]=ST.cols[ST.route]||[],ci=+t.getAttribute("data-col");if(t.checked)hc.splice(hc.indexOf(ci),1);else if(hc.indexOf(ci)<0)hc.push(ci);applyView();saveState();return}
   if(t.hasAttribute&&t.hasAttribute("data-compact")){ST.compact[ST.route]=t.checked;applyView();saveState();return}
