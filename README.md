@@ -8,7 +8,13 @@ npm install
 npm run dev
 ```
 
-Open http://localhost:3000. The home page is `src/app/page.tsx`.
+Open http://localhost:3000.
+
+## The MVP site
+
+The whole site is one static page, `public/project-portfolio.html`, with every screen inside it
+(dashboard, project plan, budgets, RAID log and so on, switched by the address hash, for example `/#budgets`).
+`next.config.ts` rewrites `/` to that file. Edit the HTML file directly; it needs no build step of its own.
 
 `npm run build` makes a production build and `npm run lint` runs ESLint.
 Pushes to `claude/relaxed-goldberg-yjnnay` deploy to https://orgcue.vercel.app.

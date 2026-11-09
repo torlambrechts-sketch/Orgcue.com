@@ -1,7 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // The MVP site is one static HTML file: serve it at the root address.
+  async rewrites() {
+    return {
+      beforeFiles: [{ source: "/", destination: "/project-portfolio.html" }],
+      afterFiles: [],
+      fallback: [],
+    };
+  },
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
