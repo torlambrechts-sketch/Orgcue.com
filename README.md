@@ -27,6 +27,10 @@ Ambition (north-star tracker), Purpose and values (Golden Circle and values as b
 (value-tagged recognition and a values pulse heat map), Value creation (stakeholders, value bridge, value creation model)
 and V2MOM. The research behind them is in `docs/purpose-ambition-values.md`.
 
+**Measures and targets** (`/#st-kpis`) and the **Initiative portfolio** (`/#st-portfolio`) connect objectives to measures
+with yearly targets, and measures to the initiatives expected to move them. Each initiative has its own page with tasks.
+See `docs/measures-and-portfolio.md`.
+
 Everything a visitor adds or changes is saved in their own browser only; Help → Reset demo data restores the sample.
 
 `npm run build` makes a production build and `npm run lint` runs ESLint.

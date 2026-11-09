@@ -774,6 +774,34 @@ button.rm-bar{border:0;text-align:left;cursor:pointer;font:inherit;font-size:11p
 @media (max-width:700px){.amb-hero,.gc{grid-template-columns:minmax(0,1fr)}.gc-fig{max-width:240px;margin:0 auto}.v2{grid-template-columns:40px minmax(0,1fr)}.v2-list li{flex-wrap:wrap}}
 @media (max-width:520px){.sk-grid{grid-template-columns:minmax(0,1fr)}}
 .tagx{display:inline-block;margin-top:8px;font-style:normal;font-size:11px;font-weight:700;color:var(--muted);background:var(--head);border-radius:99px;padding:2px 9px}
+/* measures, portfolio, initiative pages */
+.tsel{background:var(--accent-soft)!important;font-weight:800}
+.cov{flex:1;min-width:120px;height:9px;border-radius:99px;background:var(--track);overflow:hidden;display:flex}.cov i{display:block;height:100%}.cov .ca{background:#5f17b2}.cov .cp{background:#9fdcb8}
+.kd-facts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;grid-column:1/-1}.kd-facts>div{background:var(--bg);border-radius:10px;padding:8px 10px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.kd-facts small{color:var(--muted);font-size:11px;font-weight:700}.kd-facts b{font-size:17px}.kd-facts .pill{align-self:flex-start;margin-top:2px}
+.modal-b .chart{grid-column:1/-1}.kd-acts{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
+.kd-h3{grid-column:1/-1;font-size:14px;font-weight:800;margin-top:6px}
+.kd-ini{grid-column:1/-1;display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;background:var(--bg);text-align:left;border:1px solid transparent}.kd-ini:hover{border-color:var(--accent)}
+.kd-ini>span:first-child{flex:1;min-width:0;display:flex;flex-direction:column}.kd-ini small{color:var(--muted);font-size:12px}.kd-imp{font-size:14px;color:var(--good)}
+.kd-none{grid-column:1/-1;color:var(--muted);font-size:13px}
+.kd-cov{grid-column:1/-1;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);padding-top:4px}
+.modal:has(.kd-facts){width:min(720px,100%)}
+.pf-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:12px}
+.pf{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.pf-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.pf-k{color:var(--ink)!important;font-size:14.5px;text-align:left}.pf-v{margin-left:auto;color:var(--muted);font-size:12.5px;font-weight:600}
+.pf-cov{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pf-ins{display:flex;flex-wrap:wrap;gap:6px}
+.pf-i{display:inline-flex;align-items:center;gap:7px;padding:5px 10px;border-radius:8px;background:var(--bg);border:1px solid var(--card-line);font-size:12.5px;font-weight:600}.pf-i:hover{border-color:var(--accent)}.pf-i b{color:var(--good)}
+.pf-none{color:var(--bad);font-size:12.5px;font-weight:700}
+.it-list{list-style:none;margin:0;padding:6px 20px 16px;display:flex;flex-direction:column;gap:8px}
+.it-list li{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:var(--bg);border:1px solid transparent}.it-list li[data-rec]:hover{border-color:var(--accent)}
+.it-list li>div{flex:1;min-width:0}.it-list li b{display:block;font-size:13.5px}.it-list li small{color:var(--muted);font-size:12px}
+.it-done b{text-decoration:line-through;color:var(--muted)}.it-empty{color:var(--muted);justify-content:center}
+button.sm-i{width:100%;text-align:left;border-radius:6px}button.sm-i:hover{background:var(--accent-soft)}button.sm-i b{font-size:12px;white-space:nowrap}
+@media (max-width:900px){.kd-facts{grid-template-columns:repeat(2,minmax(0,1fr))}.pf-list{grid-template-columns:minmax(0,1fr)}}
+.sm-side svg.i{width:16px;height:16px;display:inline-block}
+.acts{white-space:nowrap;width:76px}
+.acts .mx{display:inline-grid;vertical-align:middle}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
@@ -1468,10 +1496,10 @@ var SNAME={DM:"Dianne Miles",PR:"Paul Reyes",ML:"Marta Lindqvist",JK:"Jonas Kell
 var OBJ=[
   {id:"F3",p:"F",n:"Diversify revenue",o:"PR",kpi:"Revenue from new markets",b:8,a:9,t:15,u:"%",st:"off",tr:[8,8.2,8.1,8.6,8.8,9],c:"Nordic sales are slower than planned; only 2 of 4 target clients signed."},
   {id:"F1",p:"F",n:"Grow recurring revenue",o:"PR",kpi:"Recurring revenue (ARR)",b:30,a:38,t:45,u:"£M",st:"on",tr:[30,31.5,33,34.8,36.5,38],c:"Up £1.5M this quarter, driven by service bundles."},
-  {id:"F2",p:"F",n:"Improve operating margin",o:"LM",kpi:"Operating margin",b:14,a:15.2,t:18,u:"%",st:"risk",tr:[14,14.1,14.6,14.4,15,15.2],c:"Improving, but utilisation is still 7 points below target."},
+  {id:"F2",p:"F",n:"Improve operating margin",o:"LM",kpi:"Operating margin",b:14,a:15.2,t:16,u:"%",st:"risk",tr:[14,14.1,14.6,14.4,15,15.2],c:"Improving, but utilisation is still 7 points below target."},
   {id:"C2",p:"C",n:"Win in two new markets",o:"PR",kpi:"New clients in new markets",b:0,a:6,t:20,u:"",st:"risk",tr:[0,1,2,3,5,6],c:"Pipeline is healthy; conversion needs a local country lead."},
-  {id:"C1",p:"C",n:"Raise client retention",o:"ML",kpi:"Client retention",b:84,a:88,t:90,u:"%",st:"on",tr:[84,85,86,86,87,88],c:"Health checks with key clients are working."},
-  {id:"C3",p:"C",n:"Be easy to work with",o:"ML",kpi:"Net Promoter Score",b:31,a:38,t:45,u:"",st:"on",tr:[31,32,34,35,37,38],c:"Faster starts and clearer reporting lift scores."},
+  {id:"C1",p:"C",n:"Raise client retention",o:"ML",kpi:"Client retention",b:84,a:88,t:88,u:"%",st:"on",tr:[84,85,86,86,87,88],c:"Health checks with key clients are working."},
+  {id:"C3",p:"C",n:"Be easy to work with",o:"ML",kpi:"Net Promoter Score",b:31,a:38,t:40,u:"",st:"on",tr:[31,32,34,35,37,38],c:"Faster starts and clearer reporting lift scores."},
   {id:"P3",p:"P",n:"Secure by design",o:"AS",kpi:"Phishing click rate",b:18,a:9,t:5,u:"%",st:"on",tr:[18,16,14,12,10,9],c:"Quarterly simulations halved the click rate."},
   {id:"P1",p:"P",n:"Standardise delivery",o:"ML",kpi:"Projects on standard method",b:40,a:58,t:80,u:"%",st:"risk",tr:[40,42,47,50,55,58],c:"Adoption is voluntary; make it the default for new work."},
   {id:"P2",p:"P",n:"Digitise core processes",o:"JK",kpi:"Core processes automated",b:25,a:44,t:60,u:"%",st:"on",tr:[25,28,33,37,41,44],c:"The management system rollout is ahead of plan."},
@@ -1576,7 +1604,7 @@ function viewStMap(){
     '<p style="margin-top:10px;font-size:13px;color:var(--ink)">'+esc(sel.c)+'</p><button class="btn ghost" data-ui="editobj:'+sel.id+'" style="margin-top:10px">'+icon("trend")+'Update progress</button>'+
     '<div class="lbl">Driven by</div><div class="chips">'+(causes.map(function(c){return '<button class="chip" data-act="sobj:'+c+'">'+sdot(objById(c).st)+c+' · '+esc(objById(c).n)+'</button>'}).join("")||'<span style="color:var(--muted);font-size:12.5px">Foundation objective</span>')+'</div>'+
     '<div class="lbl">Drives</div><div class="chips">'+(effects.map(function(c){return '<button class="chip" data-act="sobj:'+c+'">'+sdot(objById(c).st)+c+' · '+esc(objById(c).n)+'</button>'}).join("")||'<span style="color:var(--muted);font-size:12.5px">Top-line outcome</span>')+'</div>'+
-    '<div class="lbl">Initiatives ('+inits.length+')</div>'+(inits.map(function(i){return '<div class="sm-i"><span>'+esc(i.n)+'</span>'+ipill(i.st)+'</div>'}).join("")||'<div style="color:var(--muted);font-size:12.5px">None yet: a gap to fill.</div>')+'</aside>';
+    '<div class="lbl">Measures</div>'+KPIS.filter(function(k){return k.obj===sel.id}).map(function(k){return '<button class="sm-i" data-rec="kpi:'+k.id+'"><span>'+esc(k.n)+'</span><b>'+kFmt(k,kA(k))+' / '+kFmt(k,k.tg["2024"])+'</b></button>'}).join("")+'<div class="lbl">Initiatives ('+inits.length+')</div>'+(inits.map(function(i){return '<button class="sm-i" data-go="st-init" data-init="'+i.id+'"><span>'+esc(i.n)+'</span>'+ipill(i.st)+'</button>'}).join("")||'<div style="color:var(--muted);font-size:12.5px">None yet: a gap to fill.</div>')+'</aside>';
   var legend='<div class="legend" style="margin-bottom:12px"><span><i style="background:#1f9d6b"></i>On track</span><span><i style="background:#e0a030"></i>At risk</span><span><i style="background:#d2394f"></i>Off track</span><span style="margin-left:auto">Select an objective to trace its causes and effects.</span></div>';
   return stHead("st-map")+legend+'<div class="smap"><section class="card" style="padding:14px;overflow-x:auto"><div style="min-width:760px">'+svg+'</div></section>'+side+'</div>';
 }
@@ -1860,15 +1888,18 @@ var STRAT_NAV=[{sec:"Overview"},
   {id:"st-swot",label:"SWOT and PESTLE",icon:"grid",sub:"Strengths, weaknesses and the outside forces that shape the plan."},
   {id:"st-tree",label:"Value driver tree",icon:"tree",sub:"The levers that move operating profit, each against its target."},
   {sec:"Execution"},
+  {id:"st-kpis",label:"Measures and targets",icon:"target",sub:"Every measure with its baseline, yearly targets, trend and the initiatives behind it."},
+  {id:"st-portfolio",label:"Initiative portfolio",icon:"layers",sub:"Initiatives grouped by the targets they move, with budget, tasks and gaps."},
+  {id:"st-init",label:"Initiative",icon:"layers",hidden:1,sub:"An initiative, the targets it moves and its tasks."},
   {id:"st-roadmap",label:"Initiative roadmap",icon:"gantt",sub:"Strategic initiatives over three years, in one lane per pillar."},
   {id:"st-priority",label:"Portfolio prioritisation",icon:"bubble",sub:"Which initiatives to fund, ranked by value, ease and confidence."},
   {id:"st-heat",label:"Strategy heat map",icon:"heat",sub:"Objective health in every business unit, so hot spots stand out."},
   {id:"st-org",label:"Organisation alignment",icon:"org",sub:"Which units and teams own which objectives, and how they are doing."}];
 function isStrat(id){return /^st-/.test(id||"")}
 function stNav(id){return STRAT_NAV.filter(function(n){return n.id===id})[0]}
-var STV={"st-ambition":viewStAmbition,"st-purpose":viewStPurpose,"st-kudos":viewStKudos,"st-value":viewStValue,"st-v2mom":viewStV2mom,"st-house":viewStHouse,"st-review":viewStReview,"st-map":viewStMap,"st-scorecard":viewStScore,"st-okr":viewStOkr,"st-ogsm":viewStOgsm,"st-xmatrix":viewStXm,
+var STV={"st-kpis":viewStKpis,"st-portfolio":viewStPortfolio,"st-init":viewStInit,"st-ambition":viewStAmbition,"st-purpose":viewStPurpose,"st-kudos":viewStKudos,"st-value":viewStValue,"st-v2mom":viewStV2mom,"st-house":viewStHouse,"st-review":viewStReview,"st-map":viewStMap,"st-scorecard":viewStScore,"st-okr":viewStOkr,"st-ogsm":viewStOgsm,"st-xmatrix":viewStXm,
   "st-canvas":viewStCanvas,"st-bmc":viewStBmc,"st-swot":viewStSwot,"st-tree":viewStTree,"st-roadmap":viewStRoadmap,"st-priority":viewStPriority,"st-heat":viewStHeat,"st-org":viewStOrg};
-function stNavHtml(id,tag){return STRAT_NAV.map(function(n){if(n.sec)return '<div class="nav-label">'+n.sec+'</div>';
+function stNavHtml(id,tag){return STRAT_NAV.map(function(n){if(n.hidden)return "";if(n.sec)return '<div class="nav-label">'+n.sec+'</div>';
   return (tag==="b"?'<button class="nav-item'+(n.id===id?' active':'')+'" data-go="'+n.id+'">':'<div class="nav-item'+(n.id===id?' active':'')+'">')+icon(n.icon)+'<span>'+n.label+'</span>'+(tag==="b"?'</button>':'</div>')}).join("")}
 /* ================= PURPOSE, AMBITION, VALUES AND VALUE CREATION ================= */
 SG.why="We believe every organisation can deliver the change it plans.";
@@ -1921,7 +1952,7 @@ function moneyM(v){return "£"+(Math.round(v*10)/10)+"M"}
 function viewStAmbition(){
   var f1=objById("F1"),act=f1.tr.slice(),n=AMB.qs.length,last=act.length-1,cur=act[last],sel=ST.ambLev||[];
   var req=function(i){return AMB.base+(AMB.target-AMB.base)*i/(n-1)},slope=(act[last]-act[0])/last;
-  var lev=AMB.levers.filter(function(l){return sel.indexOf(l[0])>=0}).reduce(function(s,l){return s+l[1]},0);
+  var lev=ambLevers().filter(function(l){return sel.indexOf(l[0])>=0}).reduce(function(s,l){return s+l[1]},0);
   var fB=function(i){return cur+slope*(i-last)},fL=function(i){return fB(i)+lev*(i-last)/(n-1-last)};
   var endB=fB(n-1),endL=fL(n-1),gapNow=req(last)-cur,pct=Math.round((cur-AMB.base)/(AMB.target-AMB.base)*100);
   var W=900,H=330,L=48,R=150,T=18,B=36,iw=W-L-R,ih=H-T-B,lo=25,hi=Math.max(65,Math.ceil(endL/5)*5+5),X=function(i){return L+iw*i/(n-1)},Y=function(v){return T+ih-(v-lo)/(hi-lo)*ih},s="";
@@ -1944,7 +1975,7 @@ function viewStAmbition(){
     '<div class="kc"><div class="l">Quarters left</div><div class="v">'+(n-1-last)+'</div><div class="amb-s">Need '+moneyM((AMB.target-cur)/(n-1-last))+' a quarter, now '+moneyM(slope)+'</div></div></div>';
   var goals='<section class="card pad"><h3>The ambition in three goals</h3><p>Each goal is measured from the 2023 baseline to the 2026 ambition.</p>'+AMB.goals.map(function(gl){var o=objById(gl[0]),p=Math.max(0,Math.min(100,Math.round((o.a-o.b)/(gl[1]-o.b)*100)));return '<div class="og-g">'+sdot(o.st)+'<div style="flex:1;min-width:0"><b>'+esc(o.kpi)+'</b><div style="color:var(--muted);font-size:12px">'+ofmt(o,o.a)+' now · ambition '+esc(gl[2])+'</div>'+stBar(p,OST[o.st][2])+'</div></div>'}).join("")+'</section>';
   var levers='<section class="card"><div class="card-h" style="padding-bottom:6px"><h2>Close the gap</h2><span style="color:var(--muted);font-size:12.5px">Tick initiatives to see their effect on 2026</span></div><div class="tbl-wrap"><table><thead><tr><th></th><th>Initiative</th><th>Status</th><th class="num">Added ARR by 2026</th></tr></thead><tbody>'+
-    AMB.levers.map(function(l){var x=initById(l[0]),on=sel.indexOf(l[0])>=0;return '<tr><td style="width:36px"><input type="checkbox" class="cbx" data-amb="'+l[0]+'"'+(on?' checked':'')+' aria-label="Include '+esc(x.n)+'"></td><td><b>'+esc(x.n)+'</b><div style="color:var(--muted);font-size:12px">'+sname(x.o)+' · '+QTR[x.s]+' to '+QTR[x.e]+'</div></td><td>'+ipill(x.st)+'</td><td class="num" style="font-weight:800">+'+moneyM(l[1])+'</td></tr>'}).join("")+
+    ambLevers().map(function(l){var x=initById(l[0]),on=sel.indexOf(l[0])>=0;return '<tr><td style="width:36px"><input type="checkbox" class="cbx" data-amb="'+l[0]+'"'+(on?' checked':'')+' aria-label="Include '+esc(x.n)+'"></td><td><b>'+esc(x.n)+'</b><div style="color:var(--muted);font-size:12px">'+sname(x.o)+' · '+QTR[x.s]+' to '+QTR[x.e]+'</div></td><td>'+ipill(x.st)+'</td><td class="num" style="font-weight:800">+'+moneyM(l[1])+'</td></tr>'}).join("")+
     '<tr><td></td><td style="font-weight:800">Selected total</td><td></td><td class="num" style="font-weight:800">+'+moneyM(lev)+'</td></tr></tbody></table></div></section>';
   var leg='<div class="legend" style="justify-content:center;padding:0 0 12px"><span><i style="background:#5f17b2"></i>Actual</span><span><i style="background:#a9a6b8"></i>Straight path to the ambition</span><span><i style="background:#7c4ddb"></i>Current pace</span><span><i style="background:#1f9d6b"></i>With selected initiatives</span></div>';
   return stHead("st-ambition")+hero+cards+'<section class="card"><div class="card-h"><h2>Path to '+moneyM(AMB.target)+'</h2><span style="color:var(--muted);font-size:12.5px">Recurring revenue, £M per quarter</span></div><div class="chart" style="overflow-x:auto"><div style="min-width:640px">'+svg+'</div></div>'+leg+'</section><div class="amb-2">'+goals+levers+'</div>';
@@ -2071,6 +2102,179 @@ function pvUi(p){
   return false}
 
 ST.ambLev=["I9","I5"];ST.gcSel="why";ST.valTab="rec";ST.pulseQ="Q3 2024";ST.pulseMode="score";ST.vcTab="stake";ST.bridgeSel="y24";ST.kLiked=[];
+/* ================= MEASURES (KPIs), TARGETS, INITIATIVE PORTFOLIO AND INITIATIVE TASKS ================= */
+var YRS=["2024","2025","2026"];
+/* primary measures read their actual, trend and status from the objective they headline */
+var KPIS=[
+  {id:"K01",obj:"F1",n:"Recurring revenue (ARR)",u:"£M",dir:1,b:30,tg:{"2024":45,"2025":52,"2026":60},own:"PR",src:"Finance system",freq:"Monthly",primary:1},
+  {id:"K02",obj:"F2",n:"Operating margin",u:"%",dir:1,b:14,tg:{"2024":16,"2025":17,"2026":18},own:"LM",src:"Finance system",freq:"Monthly",primary:1},
+  {id:"K03",obj:"F3",n:"Revenue from new markets",u:"%",dir:1,b:8,tg:{"2024":15,"2025":18,"2026":22},own:"PR",src:"Finance system",freq:"Quarterly",primary:1},
+  {id:"K04",obj:"C2",n:"New clients in new markets",u:"",dir:1,b:0,tg:{"2024":20,"2025":35,"2026":50},own:"PR",src:"CRM",freq:"Monthly",primary:1},
+  {id:"K05",obj:"C1",n:"Client retention",u:"%",dir:1,b:84,tg:{"2024":88,"2025":89,"2026":90},own:"ML",src:"CRM",freq:"Quarterly",primary:1},
+  {id:"K06",obj:"C3",n:"Net Promoter Score",u:"",dir:1,b:31,tg:{"2024":40,"2025":43,"2026":45},own:"ML",src:"Client survey",freq:"Quarterly",primary:1},
+  {id:"K07",obj:"P3",n:"Phishing click rate",u:"%",dir:-1,b:18,tg:{"2024":5,"2025":4,"2026":3},own:"AS",src:"Security platform",freq:"Quarterly",primary:1},
+  {id:"K08",obj:"P1",n:"Projects on standard method",u:"%",dir:1,b:40,tg:{"2024":80,"2025":90,"2026":95},own:"ML",src:"OrgCue",freq:"Monthly",primary:1},
+  {id:"K09",obj:"P2",n:"Core processes automated",u:"%",dir:1,b:25,tg:{"2024":60,"2025":70,"2026":80},own:"JK",src:"Process register",freq:"Quarterly",primary:1},
+  {id:"K10",obj:"L2",n:"Employee engagement",u:"",dir:1,b:68,tg:{"2024":75,"2025":77,"2026":78},own:"DN",src:"Engagement survey",freq:"Quarterly",primary:1},
+  {id:"K11",obj:"L1",n:"Staff digitally certified",u:"%",dir:1,b:22,tg:{"2024":60,"2025":70,"2026":80},own:"DN",src:"Learning platform",freq:"Monthly",primary:1},
+  {id:"K12",obj:"L3",n:"Systems on data platform",u:"",dir:1,b:3,tg:{"2024":10,"2025":12,"2026":14},own:"JK",src:"IT asset register",freq:"Quarterly",primary:1},
+  {id:"K13",obj:"F1",n:"Revenue from service bundles",u:"£M",dir:1,b:0,a:3.1,tr:[0,0.4,1,1.6,2.4,3.1],st:"risk",tg:{"2024":5,"2025":7,"2026":8},own:"LM",src:"CRM",freq:"Monthly"},
+  {id:"K14",obj:"F2",n:"Consultant utilisation",u:"%",dir:1,b:66,a:71,tr:[66,67,68,69,70,71],st:"risk",tg:{"2024":78,"2025":80,"2026":82},own:"ML",src:"Timesheets",freq:"Monthly"},
+  {id:"K15",obj:"C2",n:"Qualified Nordic pipeline",u:"£M",dir:1,b:0,a:2.1,tr:[0,0,0.3,0.8,1.5,2.1],st:"on",tg:{"2024":3,"2025":5,"2026":7},own:"PR",src:"CRM",freq:"Monthly"},
+  {id:"K16",obj:"C1",n:"Key clients with a health check",u:"",dir:1,b:0,a:28,tr:[0,0,4,12,20,28],st:"on",tg:{"2024":40,"2025":40,"2026":40},own:"ML",src:"CRM",freq:"Monthly"},
+  {id:"K17",obj:"P1",n:"Milestones hit on time",u:"%",dir:1,b:72,a:81,tr:[72,73,75,77,79,81],st:"risk",tg:{"2024":90,"2025":92,"2026":95},own:"ML",src:"OrgCue",freq:"Monthly"},
+  {id:"K18",obj:"L1",n:"Training hours per person",u:"h",dir:1,b:12,a:18,tr:[12,13,14,15,17,18],st:"off",tg:{"2024":30,"2025":36,"2026":40},own:"DN",src:"Learning platform",freq:"Quarterly"}];
+/* what each initiative is expected to add to each measure by 2026, plus its own tasks */
+var INIT_X={
+  I1:{desc:"Replace spreadsheets with one management system for plans, budgets and approvals.",spent:310,kpi:[["K09",20],["K12",3],["K02",0.5]],tasks:[["Roll out to Finance and the PMO","ML","Q1 2024","Done"],["Migrate the project register","JK","Q2 2024","Done"],["Roll out to Delivery teams","ML","Q3 2024","In progress"],["Retire the old budget spreadsheets","LM","Q4 2024","Not started"],["Train team leads on approvals","DN","Q4 2024","Not started"]]},
+  I2:{desc:"Launch an online learning platform so every consultant can certify in core digital skills.",spent:520,kpi:[["K11",25],["K18",12],["K10",2]],tasks:[["Choose the platform vendor","JK","Q2 2024","Done"],["Build the first 10 courses","DN","Q3 2024","In progress"],["Pilot with two practices","DN","Q4 2024","Not started"],["Launch to all staff","JK","Q4 2024","Not started"]]},
+  I3:{desc:"Raise security awareness in every team before the annual audit.",spent:198,kpi:[["K07",-6],["K05",0.5]],tasks:[["Run quarterly phishing simulations","AS","Q3 2024","In progress"],["Publish the e-learning module","AS","Q2 2024","Done"],["Harden field laptops","TW","Q3 2024","Done"],["Report results to the audit committee","AS","Q4 2024","Not started"]]},
+  I4:{desc:"Size demand in the Nordics and the Netherlands before committing investment.",spent:371,kpi:[["K03",2],["K04",5]],tasks:[["Interview 30 prospective clients","PR","Q2 2024","Done"],["Complete the competitor review","PR","Q3 2024","In progress"],["Write the go / no-go recommendation","PR","Q4 2024","Not started"]]},
+  I5:{desc:"Turn client success into a proactive service with health checks and recovery plans.",spent:120,kpi:[["K01",2.5],["K05",1.5],["K06",4],["K16",40]],tasks:[["Define the client health score","ML","Q3 2024","Done"],["Health check for the top 40 clients","ML","Q4 2024","In progress"],["Recovery plans for at-risk clients","ML","Q1 2025","Not started"]]},
+  I6:{desc:"Make one delivery method the default for all new projects.",spent:0,kpi:[["K01",1],["K08",30],["K17",10],["K02",1]],tasks:[["Agree the method with practice leads","ML","Q4 2024","Not started"],["Build templates in OrgCue","JK","Q1 2025","Not started"],["Make the method the default","ML","Q1 2025","Not started"]]},
+  I7:{desc:"Open an office in Oslo with a local country lead and win our first Nordic clients.",spent:0,kpi:[["K01",6.5],["K03",8],["K04",30],["K15",5]],tasks:[["Hire a Nordic country lead","PR","Q1 2025","In progress"],["Sign two channel partners","PR","Q2 2025","Not started"],["Open the Oslo office","PR","Q2 2025","Not started"],["Win the first five clients","PR","Q4 2025","Not started"]]},
+  I8:{desc:"Bring finance, delivery and client data onto one shared data platform.",spent:0,kpi:[["K01",1.5],["K12",6],["K09",10]],tasks:[["Approve the funding","JK","Q4 2024","Not started"],["Select the platform","JK","Q2 2025","Not started"],["Connect finance and CRM","LM","Q4 2025","Not started"]]},
+  I9:{desc:"Package our services into recurring bundles and sell them to existing clients.",spent:95,kpi:[["K01",4],["K13",8],["K02",0.5]],tasks:[["Design three bundles","LM","Q3 2024","Done"],["New contract template","LM","Q3 2024","Done"],["Train account managers","PR","Q4 2024","In progress"],["Sell to the top 20 clients","PR","Q4 2024","In progress"]]},
+  I10:{desc:"Develop the next generation of practice leaders.",spent:0,kpi:[["K10",2],["K11",5]],tasks:[["Design the programme","DN","Q1 2025","Not started"],["Select the first cohort","DN","Q2 2025","Not started"]]}};
+var TASK_ST=["Not started","In progress","Done"];
+function normalizeData(){
+  INIT.forEach(function(x){var e=INIT_X[x.id];
+    if(!x.kpi)x.kpi=e?e.kpi.map(function(l){return {k:l[0],imp:l[1]}}):[];
+    if(!x.tasks)x.tasks=e?e.tasks.map(function(t){return {n:t[0],o:t[1],due:t[2],st:t[3]}}):[];
+    if(x.spent==null)x.spent=e?e.spent:0;if(x.desc==null)x.desc=e?e.desc:"";});
+  if(!ST.initSel||!initById(ST.initSel))ST.initSel="I7";
+}
+function kpiById(id){return KPIS.filter(function(k){return k.id===id})[0]}
+function kObj(k){return objById(k.obj)}
+function kA(k){return k.primary?kObj(k).a:k.a}
+function kTr(k){return k.primary?kObj(k).tr:k.tr}
+function kSt(k){return k.primary?kObj(k).st:k.st}
+function kFmt(k,v){if(v==null||v===""||isNaN(v))return "–";var r=Math.round(v*10)/10;return k.u==="£M"?"£"+r+"M":k.u==="%"?r+"%":k.u==="h"?r+" h":String(r)}
+function kImp(k,v){return Math.abs(v)<0.05?kFmt(k,0):(v>0?"+":"−")+kFmt(k,Math.abs(v))}
+function kProg(k,yr){var t=+k.tg[yr||"2024"],b=+k.b,a=+kA(k);if(t===b)return 100;return Math.max(0,Math.min(100,Math.round((a-b)/(t-b)*100)))}
+function kGap(k){return +k.tg["2026"]-kA(k)}
+function kPlanned(k){var s=0;INIT.forEach(function(x){(x.kpi||[]).forEach(function(l){if(l.k===k.id)s+=+l.imp})});return Math.round(s*10)/10}
+function kCover(k){var g=kGap(k);if(k.dir<0?g>=0:g<=0)return 100;return Math.max(0,Math.round(kPlanned(k)/g*100))}
+function kInits(k){return INIT.filter(function(x){return (x.kpi||[]).some(function(l){return l.k===k.id})})}
+function itProg(x){var t=x.tasks||[];if(!t.length)return 0;return Math.round(t.filter(function(y){return y.st==="Done"}).length/t.length*100)}
+function covCls(c){return c>=100?"good":c>=60?"warn":"bad"}
+function ambLevers(){var out=[];INIT.forEach(function(x){(x.kpi||[]).forEach(function(l){if(l.k==="K01"&&l.imp>0)out.push([x.id,+l.imp])})});return out}
+function initLink(x,label){return '<button class="link" data-go="st-init" data-init="'+x.id+'" style="color:var(--ink);font-weight:700;text-align:left">'+esc(label||x.n)+'</button>'}
+function covBar(k){var D=+k.tg["2026"]-k.b;if(!D)return '';var ach=Math.max(0,Math.min(1,(kA(k)-k.b)/D)),pl=Math.max(0,Math.min(1-ach,kPlanned(k)/D)),c=kCover(k);
+  return '<div class="cov" title="Achieved '+Math.round(ach*100)+'%, planned '+Math.round(pl*100)+'% of the distance to the 2026 target"><i class="ca" style="width:'+(ach*100).toFixed(1)+'%"></i><i class="cp" style="width:'+(pl*100).toFixed(1)+'%"></i></div><span class="pill '+covCls(c)+'">'+(c>=100?'Covered':c+'% covered')+'</span>'}
+
+/* measures and targets */
+function viewStKpis(){
+  var yr=ST.kpiYear||"2024",c={on:0,risk:0,off:0},none=0;KPIS.forEach(function(k){c[kSt(k)]++;if(!kInits(k).length)none++});
+  var tiles='<div class="kpi-row k4"><div class="kc gray"><div class="l">Measures</div><div class="v">'+KPIS.length+'</div><div class="amb-s">'+KPIS.filter(function(k){return k.primary}).length+' headline, '+KPIS.filter(function(k){return !k.primary}).length+' supporting</div></div>'+
+    '<div class="kc"><div class="l">On track</div><div class="v" style="color:var(--good)">'+c.on+'</div><div class="amb-s">at the last check-in</div></div><div class="kc"><div class="l">At risk or off track</div><div class="v bad">'+(c.risk+c.off)+'</div><div class="amb-s">'+c.off+' off track</div></div>'+
+    '<div class="kc"><div class="l">No initiative behind it</div><div class="v'+(none?' bad':'')+'">'+none+'</div><div class="amb-s">measures nothing is planned to move</div></div></div>';
+  var rows="";PERSP.forEach(function(p){var ks=KPIS.filter(function(k){return kObj(k)&&kObj(k).p===p[0]});if(!ks.length)return;
+    rows+='<tr><td colspan="12" style="background:var(--head);border-left:4px solid '+p[3]+'"><b style="color:'+p[3]+'">'+p[1]+'</b></td></tr>';
+    ks.forEach(function(k){var o=kObj(k),st=kSt(k),pg=kProg(k,yr),n=kInits(k).length;
+      rows+='<tr data-q="'+esc((k.id+" "+k.n+" "+o.n).toLowerCase())+'"'+ffs({Perspective:p[1],Status:OST[st][0],Owner:sname(k.own),Type:k.primary?"Headline":"Supporting"})+' data-rec="kpi:'+k.id+'" tabindex="0">'+
+        '<td><b>'+esc(k.n)+'</b>'+(k.primary?' <span class="chip sm">Headline</span>':'')+'<div style="color:var(--muted);font-size:12px">'+k.id+' · '+esc(k.src)+' · '+k.freq.toLowerCase()+'</div></td><td>'+objChip(o.id)+'</td><td>'+avs([k.own])+'</td>'+
+        '<td class="num">'+kFmt(k,k.b)+'</td><td class="num" style="font-weight:800">'+kFmt(k,kA(k))+'</td>'+YRS.map(function(y){return '<td class="num'+(y===yr?' tsel':'')+'">'+kFmt(k,k.tg[y])+'</td>'}).join("")+
+        '<td>'+stBar(pg,OST[st][2])+'</td><td>'+spark(kTr(k),OST[st][2])+'</td><td>'+opill({st:st})+'</td><td class="num">'+(n?n:'<span class="pill bad">0</span>')+'</td></tr>'})});
+  return stHead("st-kpis",'<button class="btn primary" data-add="kpi">'+icon("plus")+'Add measure</button>')+tiles+
+    '<div class="toolbar">'+liveSearch("Search measures")+'<span class="grow"></span><label class="chiplabel">Progress to '+sel("kpiYear",YRS.map(function(y){return [y,y+" target"]}),yr,"sm")+'</label>'+fltBtn()+setBtn()+'</div>'+
+    '<section class="card"><div class="tbl-wrap"><table class="live-rows" style="min-width:1180px"><thead><tr><th>Measure</th><th>Objective</th><th>Owner</th><th class="num">Baseline</th><th class="num">Actual</th><th class="num">2024</th><th class="num">2025</th><th class="num">2026</th><th>Progress to '+yr+'</th><th>Trend</th><th>Status</th><th class="num">Initiatives</th></tr></thead><tbody>'+rows+'</tbody></table></div></section>'+
+    '<div class="legend" style="margin-top:10px"><span>Click a measure to see its trend, record a new value, change its targets or see the initiatives behind it.</span></div>';
+}
+function kpiChart(k){var tr=kTr(k),W=560,H=210,L=44,R=14,T=14,B=30,n=15,iw=W-L-R,ih=H-T-B,vals=tr.concat([k.b,k.tg["2024"],k.tg["2025"],k.tg["2026"]]),lo=Math.min.apply(null,vals),hi=Math.max.apply(null,vals),pad=(hi-lo)*.12||1;lo-=pad;hi+=pad;
+  var X=function(i){return L+iw*i/(n-1)},Y=function(v){return T+ih-(v-lo)/(hi-lo)*ih},s="";
+  [0,.5,1].forEach(function(f){var v=lo+(hi-lo)*f;s+='<line class="gl" x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke-dasharray="3 4"/><text x="'+(L-6)+'" y="'+(Y(v)+4)+'" text-anchor="end">'+(Math.round(v*10)/10)+'</text>'});
+  ["Q2 ’23","Q4 ’23","Q2 ’24","Q4 ’24","Q2 ’25","Q4 ’25","Q2 ’26","Q4 ’26"].forEach(function(q,i){s+='<text x="'+X(i*2)+'" y="'+(H-8)+'" text-anchor="middle">'+q+'</text>'});
+  var tp=[[5,tr[5]],[6,k.tg["2024"]],[10,k.tg["2025"]],[14,k.tg["2026"]]];
+  s+='<polyline fill="none" stroke="#a9a6b8" stroke-width="2" stroke-dasharray="5 4" points="'+tp.map(function(p){return X(p[0])+","+Y(p[1])}).join(" ")+'"/>';
+  s+='<polyline fill="none" stroke="#5f17b2" stroke-width="3" points="'+tr.map(function(v,i){return X(i)+","+Y(v)}).join(" ")+'"/>'+tr.map(function(v,i){return '<circle cx="'+X(i)+'" cy="'+Y(v)+'" r="3.5" fill="#5f17b2"/>'}).join("");
+  tp.slice(1).forEach(function(p,i){s+='<rect x="'+(X(p[0])-6)+'" y="'+(Y(p[1])-6)+'" width="12" height="12" transform="rotate(45 '+X(p[0])+' '+Y(p[1])+')" fill="#1f9d6b"/><text x="'+X(p[0])+'" y="'+(Y(p[1])-12)+'" text-anchor="middle" class="vl">'+kFmt(k,p[1])+'</text>'});
+  return '<div class="chart" style="padding:0"><svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(k.n)+': actual values and targets">'+s+'</svg><div class="legend" style="justify-content:center"><span><i style="background:#5f17b2"></i>Actual</span><span><i style="background:#1f9d6b"></i>Year-end target</span><span><i style="background:#a9a6b8"></i>Path to targets</span></div></div>'}
+function openKpi(id){var k=kpiById(id);if(!k)return;var o=kObj(k),st=kSt(k),ins=kInits(k);
+  openForm({title:k.n,submit:false,intro:(k.primary?'Headline measure for ':'Supporting measure for ')+esc(o.id+" "+o.n)+' · owner '+sname(k.own)+' · '+esc(k.src)+', '+k.freq.toLowerCase(),
+    html:'<div class="kd-facts"><div><small>Actual</small><b>'+kFmt(k,kA(k))+'</b>'+opill({st:st})+'</div><div><small>Baseline</small><b>'+kFmt(k,k.b)+'</b></div>'+YRS.map(function(y){return '<div><small>Target '+y+'</small><b>'+kFmt(k,k.tg[y])+'</b><span class="amb-s">'+kProg(k,y)+'% of the way</span></div>'}).join("")+'</div>'+kpiChart(k)+
+      '<div class="kd-acts"><button type="button" class="btn primary" data-ui="kcheck:'+k.id+'">'+icon("trend")+'Record a new value</button><button type="button" class="btn ghost" data-ui="ktarget:'+k.id+'">'+icon("target")+'Edit targets</button><button type="button" class="btn ghost" data-go="st-map" data-sobj="'+o.id+'">'+icon("map")+'Open objective</button></div>'+
+      '<h3 class="kd-h3">Initiatives expected to move it ('+ins.length+')</h3>'+(ins.length?ins.map(function(x){var l=x.kpi.filter(function(l){return l.k===k.id})[0];return '<button type="button" class="kd-ini" data-go="st-init" data-init="'+x.id+'"><span><b>'+esc(x.n)+'</b><small>'+sname(x.o)+' · '+QTR[x.s]+' to '+QTR[x.e]+'</small></span>'+ipill(x.st)+'<b class="kd-imp">'+kImp(k,l.imp)+'</b></button>'}).join(""):'<p class="kd-none">No initiative is planned to move this measure. Link one from an initiative page.</p>')+
+      '<div class="kd-cov"><span>2026 gap '+kImp(k,kGap(k)).replace(/^\+/,"")+' · planned '+kImp(k,kPlanned(k))+'</span>'+covBar(k)+'</div>'})}
+function kpiCheckIn(id){var k=kpiById(id),o=kObj(k);openForm({title:"Record "+k.n,intro:"Latest value. Target for 2024: "+kFmt(k,k.tg["2024"])+".",fields:[{k:"a",l:"Value"+(k.u?" ("+k.u+")":""),t:"number",step:"any",v:kA(k),req:1},{k:"st",l:"Status",t:"select",o:[["on","On track"],["risk","At risk"],["off","Off track"]],v:kSt(k)},{k:"c",l:"Comment",t:"textarea",v:k.primary?o.c:(k.c||"")}],submit:"Save value",done:"Value recorded",
+  save:function(v){var a=+v.a;if(isNaN(a))return "Enter a number.";if(k.primary){o.a=a;o.st=v.st;o.c=v.c;o.tr=o.tr.slice(1).concat([a])}else{k.a=a;k.st=v.st;k.c=v.c;k.tr=k.tr.slice(1).concat([a])}}})}
+function kpiTargets(id){var k=kpiById(id);openForm({title:"Targets for "+k.n,intro:(k.dir<0?"Lower is better for this measure. ":"")+"Targets are year-end values.",fields:[{k:"b",l:"Baseline (2023)",t:"number",step:"any",v:k.b,req:1}].concat(YRS.map(function(y){return {k:"t"+y,l:"Target "+y,t:"number",step:"any",v:k.tg[y],req:1}})),submit:"Save targets",done:"Targets saved",
+  save:function(v){var nums=[v.b,v.t2024,v.t2025,v.t2026].map(Number);if(nums.some(isNaN))return "Every target must be a number.";k.b=nums[0];k.tg={"2024":nums[1],"2025":nums[2],"2026":nums[3]};if(k.primary){var o=kObj(k);o.b=nums[0];o.t=nums[1]}}})}
+function kpiNew(){openForm({title:"Add measure",fields:[{k:"n",l:"Measure",req:1,full:1,ph:"e.g. Average days to start a project"},{k:"obj",l:"Objective",t:"select",o:OBJ.slice().sort(byId).map(function(o){return [o.id,o.id+" "+o.n]}),v:"F1"},{k:"u",l:"Unit",t:"select",o:[["","Number"],["%","Percent"],["£M","£ million"],["h","Hours"]],v:""},{k:"dir",l:"Better when",t:"select",o:[["1","Higher"],["-1","Lower"]],v:"1"},
+  {k:"b",l:"Baseline (2023)",t:"number",step:"any",req:1},{k:"a",l:"Latest value",t:"number",step:"any",req:1},{k:"t2024",l:"Target 2024",t:"number",step:"any",req:1},{k:"t2025",l:"Target 2025",t:"number",step:"any",req:1},{k:"t2026",l:"Target 2026",t:"number",step:"any",req:1},{k:"own",l:"Owner",t:"select",o:personOpts(),v:"ML"},{k:"src",l:"Data source",v:"OrgCue"},{k:"freq",l:"Updated",t:"select",o:["Weekly","Monthly","Quarterly"],v:"Monthly"}],
+  submit:"Add measure",done:"Measure added",save:function(v){var nums=[v.b,v.a,v.t2024,v.t2025,v.t2026].map(Number);if(nums.some(isNaN))return "Baseline, value and targets must be numbers.";var n=1;while(kpiById("K"+(n<10?"0":"")+n))n++;var b=nums[0],a=nums[1];
+    KPIS.push({id:"K"+(n<10?"0":"")+n,obj:v.obj,n:v.n,u:v.u,dir:+v.dir,b:b,a:a,tr:[0,1,2,3,4,5].map(function(i){return Math.round((b+(a-b)*i/5)*10)/10}),st:"on",tg:{"2024":nums[2],"2025":nums[3],"2026":nums[4]},own:v.own,src:v.src||"OrgCue",freq:v.freq})}})}
+
+/* initiative portfolio */
+function viewStPortfolio(){
+  var tab=ST.pfTab||"target",act=INIT.filter(function(x){return x.st!=="Planned"}),bud=INIT.reduce(function(s,x){return s+x.cost},0),spent=INIT.reduce(function(s,x){return s+(x.spent||0)},0);
+  var gapK=KPIS.filter(function(k){return kCover(k)<100}),noKpi=INIT.filter(function(x){return !(x.kpi||[]).length}),covered=KPIS.length-gapK.length;
+  var tiles='<div class="kpi-row k4"><div class="kc gray"><div class="l">Initiatives</div><div class="v">'+INIT.length+'</div><div class="amb-s">'+act.length+' running, '+(INIT.length-act.length)+' planned</div></div>'+
+    '<div class="kc"><div class="l">Budget</div><div class="v">£'+(bud/1000).toFixed(2)+'M</div><div class="amb-s">£'+(spent/1000).toFixed(2)+'M spent so far</div></div>'+
+    '<div class="kc"><div class="l">2026 targets covered by plans</div><div class="v">'+covered+' <span style="font-size:15px;color:var(--muted)">of '+KPIS.length+'</span></div><div class="amb-s">'+gapK.length+' measures still have a gap</div></div>'+
+    '<div class="kc"><div class="l">Initiatives with no measure</div><div class="v'+(noKpi.length?' bad':'')+'">'+noKpi.length+'</div><div class="amb-s">'+(noKpi.length?'link them to a target':'every initiative moves a target')+'</div></div></div>';
+  var body="";
+  if(tab==="target"){
+    body=PERSP.map(function(p){var ks=KPIS.filter(function(k){return kObj(k)&&kObj(k).p===p[0]});if(!ks.length)return "";
+      return '<h2 class="st-h2" style="color:'+p[3]+'">'+p[1]+' <span style="color:var(--muted);font-size:13px;font-weight:600">'+p[2]+'</span></h2><div class="pf-list">'+ks.map(function(k){var ins=kInits(k),c=kCover(k);
+        return '<article class="card pf" data-q="'+esc((k.n+" "+ins.map(function(x){return x.n}).join(" ")).toLowerCase())+'"'+ffs({Perspective:p[1],Coverage:c>=100?"Covered":c>=60?"Partly covered":"Big gap",Status:OST[kSt(k)][0]})+'>'+
+          '<div class="pf-h"><button class="link pf-k" data-rec="kpi:'+k.id+'"><b>'+esc(k.n)+'</b></button>'+opill({st:kSt(k)})+'<span class="pf-v">'+kFmt(k,kA(k))+' now · '+kFmt(k,k.tg["2026"])+' by 2026</span></div>'+
+          '<div class="pf-cov">'+covBar(k)+'<span class="amb-s">gap '+kImp(k,kGap(k)).replace(/^\+/,"")+' · planned '+kImp(k,kPlanned(k))+'</span></div>'+
+          '<div class="pf-ins">'+(ins.length?ins.map(function(x){var l=x.kpi.filter(function(l){return l.k===k.id})[0];return '<button class="pf-i" data-go="st-init" data-init="'+x.id+'"><i class="sdot" style="background:'+ICOL[x.st]+'"></i><span>'+esc(x.n)+'</span><b>'+kImp(k,l.imp)+'</b></button>'}).join(""):'<span class="pf-none">No initiative planned</span>')+'</div></article>'}).join("")+'</div>'}).join("");
+    body='<div class="toolbar">'+liveSearch("Search measures or initiatives")+'<span class="grow"></span>'+fltBtn()+'</div><div class="legend" style="margin-bottom:6px"><span><i style="background:#5f17b2"></i>Achieved since 2023</span><span><i style="background:#9fdcb8"></i>Expected from planned initiatives</span><span><i style="background:var(--track)"></i>Still to find</span></div>'+body;
+  }else{
+    var rows=INIT.map(function(x){var p=PERSP[PI[x.p]],tp=itProg(x),done=(x.tasks||[]).filter(function(t){return t.st==="Done"}).length;
+      return '<tr data-q="'+esc((x.id+" "+x.n+" "+sname(x.o)).toLowerCase())+'"'+ffs({Pillar:p[2],Status:x.st,Owner:sname(x.o),Measures:(x.kpi||[]).length?"Linked":"None linked"})+' data-go="st-init" data-init="'+x.id+'" tabindex="0">'+
+        '<td><b>'+esc(x.n)+'</b><div style="color:var(--muted);font-size:12px">'+x.id+' · '+esc(p[2])+'</div></td><td>'+avs([x.o])+'</td><td>'+ipill(x.st)+'</td><td style="white-space:nowrap">'+QTR[x.s]+' – '+QTR[x.e]+'</td>'+
+        '<td class="num">£'+x.cost+'k</td><td class="num">£'+(x.spent||0)+'k</td><td>'+stBar(tp,'var(--accent)')+'<div class="amb-s">'+done+' of '+(x.tasks||[]).length+' tasks</div></td>'+
+        '<td><div class="chips">'+((x.kpi||[]).length?x.kpi.map(function(l){var k=kpiById(l.k);return k?'<span class="chip sm" title="'+esc(k.n)+'">'+esc(k.n.length>22?k.n.slice(0,21)+"…":k.n)+' '+kImp(k,l.imp)+'</span>':''}).join(""):'<span class="pill bad">None</span>')+'</div></td></tr>'}).join("");
+    body='<div class="toolbar">'+liveSearch("Search initiatives")+'<span class="grow"></span>'+fltBtn()+setBtn()+'</div><section class="card"><div class="tbl-wrap"><table class="live-rows" style="min-width:1100px"><thead><tr><th>Initiative</th><th>Owner</th><th>Status</th><th>Timeline</th><th class="num">Budget</th><th class="num">Spent</th><th>Tasks</th><th>Targets it moves (by 2026)</th></tr></thead><tbody>'+rows+'</tbody></table></div></section>';
+  }
+  return stHead("st-portfolio",'<button class="btn primary" data-add="initiative">'+icon("plus")+'Add initiative</button>')+tiles+tabs("pfTab",[["target","By target","target"],["list","Initiatives","table"]],tab)+body;
+}
+
+/* initiative page with its own tasks */
+function viewStInit(){
+  var x=initById(ST.initSel)||INIT[0],p=PERSP[PI[x.p]],tasks=x.tasks||[],show=ST.itShow||"all",tp=itProg(x);
+  var list=tasks.map(function(t,i){return [t,i]}).filter(function(ti){return show==="all"||(show==="open"?ti[0].st!=="Done":ti[0].st==="Done")});
+  var head='<div class="ph"><div><button class="link" data-go="st-portfolio" style="font-size:13px">'+icon("chevl").replace('class="i"','class="i" style="width:14px;height:14px;vertical-align:-2px"')+' Initiative portfolio</button><h1>'+esc(x.n)+'</h1><p>'+esc(x.desc||"")+'</p></div><div class="ph-act">'+ipill(x.st)+'<button class="btn ghost" data-ui="editinit:'+x.id+'">'+icon("scope")+'Edit initiative</button>'+(x.proj!=null&&PK[x.proj]?'<button class="btn ghost" data-go="plan-table" data-proj="'+x.proj+'">'+icon("layers")+'Project plan</button>':'')+'</div></div>';
+  var tiles='<div class="kpi-row k4"><div class="kc gray"><div class="l">Owner and pillar</div><div class="person" style="margin-top:4px">'+av(x.o)+'<div>'+sname(x.o)+'<small>'+esc(p[2])+'</small></div></div></div>'+
+    '<div class="kc"><div class="l">Timeline</div><div class="v" style="font-size:18px">'+QTR[x.s]+' – '+QTR[x.e]+'</div><div class="amb-s">'+(x.ms||[]).length+' milestones</div></div>'+
+    '<div class="kc"><div class="l">Budget</div><div class="v" style="font-size:20px">£'+(x.spent||0)+'k <span style="font-size:14px;color:var(--muted)">of £'+x.cost+'k</span></div><div class="hbar"><i style="width:'+Math.min(100,Math.round((x.spent||0)/Math.max(x.cost,1)*100))+'%;background:var(--accent)"></i></div></div>'+
+    '<div class="kc"><div class="l">Tasks done</div><div class="v">'+tp+'%</div><div class="amb-s">'+tasks.filter(function(t){return t.st==="Done"}).length+' of '+tasks.length+' tasks</div></div></div>';
+  var kt='<section class="card"><div class="card-h" style="padding-bottom:8px"><h2>Targets this initiative moves</h2><button class="btn ghost" data-ui="klink:'+x.id+'">'+icon("link")+'Link a measure</button></div><div class="tbl-wrap"><table><thead><tr><th>Measure</th><th class="num">Now</th><th class="num">Target 2026</th><th class="num">Expected impact</th><th>Share of the gap</th><th></th></tr></thead><tbody>'+
+    ((x.kpi||[]).length?x.kpi.map(function(l){var k=kpiById(l.k);if(!k)return "";var g=kGap(k),sh=g?Math.max(0,Math.min(100,Math.round(l.imp/g*100))):100;
+      return '<tr data-rec="kpi:'+k.id+'" tabindex="0"><td><b>'+esc(k.n)+'</b><div style="color:var(--muted);font-size:12px">'+k.id+' · '+esc(kObj(k).n)+'</div></td><td class="num" style="font-weight:800">'+kFmt(k,kA(k))+'</td><td class="num">'+kFmt(k,k.tg["2026"])+'</td><td class="num" style="font-weight:800">'+kImp(k,l.imp)+'</td><td>'+stBar(sh,'#1f9d6b')+'</td><td class="acts"><button class="mx" data-ui="kimp:'+x.id+':'+k.id+'" aria-label="Change expected impact">'+icon("scope")+'</button><button class="mx" data-ui="kunlink:'+x.id+':'+k.id+'" aria-label="Unlink '+esc(k.n)+'">'+icon("x")+'</button></td></tr>'}).join(""):'<tr><td colspan="6" style="color:var(--muted);text-align:center;padding:22px">Not linked to any measure yet. Link the targets this initiative is meant to move.</td></tr>')+'</tbody></table></div></section>';
+  var tk='<section class="card" style="margin-top:18px"><div class="card-h" style="padding-bottom:8px"><h2>Tasks</h2><div class="r" style="display:flex;gap:10px;align-items:center">'+tabs("itShow",[["all","All ("+tasks.length+")"],["open","Open"],["done","Done"]],show,"plain")+'<button class="btn primary" data-add="itask:'+x.id+'">'+icon("plus")+'Add task</button></div></div>'+
+    '<ul class="it-list">'+(list.length?list.map(function(ti){var t=ti[0],i=ti[1],dn=t.st==="Done";return '<li class="'+(dn?'it-done':'')+'" data-rec="itask:'+x.id+':'+i+'" tabindex="0"><button class="cb'+(dn?' on':'')+'" data-ui="itdone:'+x.id+':'+i+'" aria-pressed="'+dn+'" aria-label="Mark '+esc(t.n)+' as '+(dn?'not done':'done')+'">'+(dn?icon("tick"):'')+'</button><div><b>'+esc(t.n)+'</b><small>'+sname(t.o)+' · due '+esc(t.due)+'</small></div><span class="pill '+(dn?'good':t.st==="In progress"?'info':'mute')+'">'+t.st+'</span></li>'}).join(""):'<li class="it-empty">No tasks here yet.</li>')+'</ul></section>';
+  var ms='<section class="card pad" style="margin-top:18px"><h3>Milestones and objectives</h3><ul class="steps">'+(x.ms||[]).map(function(m){var ok=m+1<=NOWQ;return '<li class="'+(ok?'ok':'')+'"><i>'+(ok?icon("tick"):'')+'</i>End of '+QTR[m]+'</li>'}).join("")+'</ul><div class="lbl">Supports objectives</div><div class="chips">'+x.obj.map(objChip).join("")+'</div></section>';
+  return head+tiles+kt+tk+ms;
+}
+
+/* actions */
+function initNew(){var q=QTR.map(function(n,i){return [String(i),n]});openForm({title:"Add initiative",fields:[{k:"n",l:"Initiative",req:1,full:1},{k:"desc",l:"What it will do",t:"textarea"},{k:"p",l:"Pillar",t:"select",o:PERSP.map(function(p){return [p[0],p[2]]}),v:"F"},{k:"o",l:"Owner",t:"select",o:personOpts(),v:"ML"},{k:"s",l:"Starts",t:"select",o:q,v:"3"},{k:"e",l:"Ends",t:"select",o:q,v:"7"},{k:"cost",l:"Budget (£k)",t:"number",min:0,v:"200"},{k:"st",l:"Status",t:"select",o:["Planned","On track","At risk","Off track"],v:"Planned"},{k:"obj",l:"Objectives it supports",t:"checks",o:OBJ.slice().sort(byId).map(function(o){return [o.id,o.id+" "+o.n]}),v:[]}],
+  submit:"Add initiative",done:"Initiative added",save:function(v){if(+v.e<+v.s)return "The end quarter must be after the start quarter.";var n=1;while(initById("I"+n))n++;var id="I"+n;
+    INIT.push({id:id,n:v.n,p:v.p,obj:v.obj||[],s:+v.s,e:+v.e,st:v.st,o:v.o,cost:+v.cost||0,val:6,eff:5,risk:"Medium",proj:null,ms:[+v.e],kpi:[],tasks:[],spent:0,desc:v.desc});ST.initSel=id;ST.route="st-init";location.hash="st-init"}})}
+function initEdit(id){var x=initById(id),q=QTR.map(function(n,i){return [String(i),n]});openForm({title:"Edit "+x.n,fields:[{k:"n",l:"Initiative",v:x.n,req:1,full:1},{k:"desc",l:"What it will do",t:"textarea",v:x.desc},{k:"st",l:"Status",t:"select",o:["Planned","On track","At risk","Off track"],v:x.st},{k:"o",l:"Owner",t:"select",o:personOpts(),v:x.o},{k:"s",l:"Starts",t:"select",o:q,v:String(x.s)},{k:"e",l:"Ends",t:"select",o:q,v:String(x.e)},{k:"cost",l:"Budget (£k)",t:"number",min:0,v:x.cost},{k:"spent",l:"Spent (£k)",t:"number",min:0,v:x.spent||0}],
+  submit:"Save initiative",done:"Initiative saved",save:function(v){if(+v.e<+v.s)return "The end quarter must be after the start quarter.";x.n=v.n;x.desc=v.desc;x.st=v.st;x.o=v.o;x.s=+v.s;x.e=+v.e;x.cost=+v.cost||0;x.spent=+v.spent||0}})}
+function kpiLink(id,kid){var x=initById(id),isNew=!kid,l=isNew?null:x.kpi.filter(function(y){return y.k===kid})[0],avail=KPIS.filter(function(k){return isNew?!x.kpi.some(function(y){return y.k===k.id}):k.id===kid});
+  if(!avail.length){toast("This initiative is already linked to every measure");return}
+  openForm({title:isNew?"Link a measure":"Expected impact",intro:"How much will this initiative change the measure by 2026? Use a negative number for measures where lower is better.",fields:[{k:"k",l:"Measure",t:"select",o:avail.map(function(k){return [k.id,k.id+" "+k.n+(k.u?" ("+k.u+")":"")]}),v:avail[0].id},{k:"imp",l:"Expected change by 2026",t:"number",step:"any",v:l?l.imp:"",req:1}],submit:isNew?"Link measure":"Save",done:isNew?"Measure linked":"Impact saved",
+    save:function(v){var n=+v.imp;if(isNaN(n))return "Enter a number.";if(isNew)x.kpi.push({k:v.k,imp:n});else l.imp=n}})}
+function itaskForm(id,i){var x=initById(id),isNew=i==null,t=isNew?{n:"",o:x.o,due:QTR[Math.min(x.e,QTR.length-1)],st:"Not started"}:x.tasks[i];
+  openForm({title:isNew?"Add task to "+x.n:"Edit task",fields:[{k:"n",l:"Task",v:t.n,req:1,full:1},{k:"o",l:"Owner",t:"select",o:personOpts(),v:t.o},{k:"due",l:"Due",t:"select",o:QTR,v:t.due},{k:"st",l:"Status",t:"select",o:TASK_ST,v:t.st}],submit:isNew?"Add task":"Save task",done:isNew?"Task added":"Task saved",
+    danger:isNew?null:"Delete task",onDanger:function(){x.tasks.splice(i,1);toast("Task deleted")},save:function(v){t.n=v.n;t.o=v.o;t.due=v.due;t.st=v.st;if(isNew)x.tasks.push(t)}})}
+function kpUi(p){
+  if(p[0]==="kcheck"){kpiCheckIn(p[1]);return true}
+  if(p[0]==="ktarget"){kpiTargets(p[1]);return true}
+  if(p[0]==="editinit"){initEdit(p[1]);return true}
+  if(p[0]==="klink"){kpiLink(p[1]);return true}
+  if(p[0]==="kimp"){kpiLink(p[1],p[2]);return true}
+  if(p[0]==="kunlink"){var x=initById(p[1]);x.kpi=x.kpi.filter(function(l){return l.k!==p[2]});rerender();toast("Measure unlinked");return true}
+  if(p[0]==="itdone"){var t=initById(p[1]).tasks[+p[2]];t.st=t.st==="Done"?"In progress":"Done";rerender();toast(t.st==="Done"?"Task done":"Task reopened");return true}
+  return false}
+
+ST.kpiYear="2024";ST.pfTab="target";ST.itShow="all";ST.initSel="I7";
 /* login + settings */
 function viewLogin(){
   return '<div class="login"><form class="lcard" id="loginForm" novalidate><div class="brand"><span><svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><circle cx="12" cy="5.5" r="3.4"/><circle cx="5.5" cy="12" r="3.4"/><circle cx="18.5" cy="12" r="3.4"/><circle cx="12" cy="18.5" r="3.4"/></svg></span>OrgCue</div>'+
@@ -2119,13 +2323,14 @@ var PLAN_VIEWS={};NAV.forEach(function(n){if(n.view)PLAN_VIEWS[n.id]=n.view});
 var isPlan=function(id){return !!PLAN_VIEWS[id]};
 var TPL_GROUPS=[
   ["Purpose and value",PV_IDS],
-  ["Strategy",STRAT_NAV.filter(function(n){return n.id&&PV_IDS.indexOf(n.id)<0}).map(function(n){return n.id})],
+  ["Strategy",STRAT_NAV.filter(function(n){return n.id&&!n.hidden&&PV_IDS.indexOf(n.id)<0}).map(function(n){return n.id})],
   ["Project Plan",NAV.filter(function(n){return n.view}).map(function(n){return n.id})],
   ["Portfolio",NAV.filter(function(n){return !n.view}).map(function(n){return n.id})],
   ["Settings",["settings-account","settings-devices","settings-company","settings-workspaces","settings-notifications","settings-workspace","settings-billing"]],
   ["Account",["login"]]
 ];
 function routeInfo(id){
+  if(id==="st-init"){var ix=initById(ST.initSel)||INIT[0];return {title:ix.n,sub:"Initiative",crumb:"Initiative portfolio / "+ix.n}}
   var sn=stNav(id);if(sn)return {title:sn.label,sub:sn.sub,crumb:sn.label};
   var n=NAV.filter(function(x){return x.id===id})[0];
   if(n&&n.view)return {title:"Project Plan · "+n.label,sub:n.sub,crumb:"Project Plan: "+PK[ST.planProj||0]};
@@ -2333,20 +2538,20 @@ var TASKS=PK.map(function(n,i){return tasksFor(i)});
 FILES.forEach(function(f,i){if(!f.p)f.p=["Management system","Demo project","Management system","Educational platform","Market research and analysis"][i]||PK[0]});
 ST.q={};ST.flt={};ST.cols={};ST.compact={};ST.forms={};ST.calView="month";ST.resGroup="none";ST.plan="Enterprise";ST.signup=false;ST.notifRead=false;ST.kbSort="none";
 var MODAL=null,MENU=[];
-function personOpts(){var o=[];for(var k in PN_ALL)o.push([k,PN_ALL[k]]);return o}
+function personOpts(){var o=[],all={};for(var k in PN_ALL)all[k]=PN_ALL[k];for(var k2 in SNAME)all[k2]=SNAME[k2];for(var k3 in all)o.push([k3,all[k3]]);return o}
 function todayStr(){return new Date().toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"})}
 function baseF(){return ST.budBase==="1"?0.9:0.95}
 
 /* saving: everything the visitor changes is kept in this browser */
 function saveState(){try{var st={};for(var k in ST)if(k!=="route")st[k]=ST[k];
-  localStorage.setItem(STORE_KEY,JSON.stringify({ST:st,SG:SG,VALS:VALS,KUDOS:KUDOS,PULSE:PULSE,V2:V2,PROJECTS:PROJECTS,PK:PK,TASKS:TASKS,DASH_T:DASH_T,DASH_A:DASH_A,BUD:BUD,FILES:FILES,GOV:GOV,PEOPLE:PEOPLE,HEAT:HEAT,COL:COL,RAID:RAID,SCOPE:SCOPE,CLOSE:CLOSE,RETROS:RETROS,BEN:BEN,OBJ:OBJ,INIT:INIT,SPACES:SPACES,DEVICES:DEVICES,AI:{applied:AI.applied,added:AI.added}}))}catch(e){}}
+  localStorage.setItem(STORE_KEY,JSON.stringify({ST:st,KPIS:KPIS,SG:SG,VALS:VALS,KUDOS:KUDOS,PULSE:PULSE,V2:V2,PROJECTS:PROJECTS,PK:PK,TASKS:TASKS,DASH_T:DASH_T,DASH_A:DASH_A,BUD:BUD,FILES:FILES,GOV:GOV,PEOPLE:PEOPLE,HEAT:HEAT,COL:COL,RAID:RAID,SCOPE:SCOPE,CLOSE:CLOSE,RETROS:RETROS,BEN:BEN,OBJ:OBJ,INIT:INIT,SPACES:SPACES,DEVICES:DEVICES,AI:{applied:AI.applied,added:AI.added}}))}catch(e){}}
 function loadState(){try{var d=JSON.parse(localStorage.getItem(STORE_KEY)||"null");if(!d)return;
   for(var k in d.ST)ST[k]=d.ST[k];
   PROJECTS=d.PROJECTS||PROJECTS;PK=d.PK||PK;TASKS=d.TASKS||TASKS;DASH_T=d.DASH_T||DASH_T;DASH_A=d.DASH_A||DASH_A;BUD=d.BUD||BUD;FILES=d.FILES||FILES;GOV=d.GOV||GOV;PEOPLE=d.PEOPLE||PEOPLE;HEAT=d.HEAT||HEAT;
   if(d.COL)for(var c in d.COL)COL[c]=d.COL[c];
   RAID=d.RAID||RAID;SCOPE=d.SCOPE||SCOPE;CLOSE=d.CLOSE||CLOSE;RETROS=d.RETROS||RETROS;BEN=d.BEN||BEN;OBJ=d.OBJ||OBJ;INIT=d.INIT||INIT;SPACES=d.SPACES||SPACES;DEVICES=d.DEVICES||DEVICES;
   if(d.AI){AI.applied=d.AI.applied;AI.added=d.AI.added}
-  if(d.SG)for(var sk in d.SG)SG[sk]=d.SG[sk];VALS=d.VALS||VALS;KUDOS=d.KUDOS||KUDOS;PULSE=d.PULSE||PULSE;V2=d.V2||V2;
+  if(d.SG)for(var sk in d.SG)SG[sk]=d.SG[sk];VALS=d.VALS||VALS;KPIS=d.KPIS||KPIS;KUDOS=d.KUDOS||KUDOS;PULSE=d.PULSE||PULSE;V2=d.V2||V2;
   if(ST.theme)document.documentElement.setAttribute("data-theme",ST.theme);
 }catch(e){}}
 function resetDemo(){try{localStorage.removeItem(STORE_KEY)}catch(e){}location.hash="dashboard";location.reload()}
@@ -2426,13 +2631,13 @@ function fltBtn(){return '<button class="chipbtn" data-ui="filters" aria-haspopu
 function setBtn(){return '<button class="chipbtn" data-ui="settings" aria-haspopup="true">'+icon("gear")+'<span>Settings</span></button>'}
 
 /* global search in the top bar */
-function searchIndex(){var a=[];NAV.forEach(function(n){if(!n.view)a.push([n.label,"Page","go",n.id])});STRAT_NAV.forEach(function(n){if(n.id)a.push([n.label,"Strategy page","go",n.id])});SET_NAV.forEach(function(n){if(n.id&&n.id!=="login")a.push([n.label,"Settings","go",n.id])});
+function searchIndex(){var a=[];NAV.forEach(function(n){if(!n.view)a.push([n.label,"Page","go",n.id])});STRAT_NAV.forEach(function(n){if(n.id&&!n.hidden)a.push([n.label,"Strategy page","go",n.id])});KPIS.forEach(function(k){a.push([k.n,"Measure · "+k.id,"go","st-kpis"])});SET_NAV.forEach(function(n){if(n.id&&n.id!=="login")a.push([n.label,"Settings","go",n.id])});
   PK.forEach(function(n,i){a.push([n,"Project","proj",i])});TASKS.forEach(function(ts,i){ts.forEach(function(t,k){a.push([t.name,"Task · "+PK[i],"task","plan:"+i+":"+k])})});
   RAID.forEach(function(r){a.push([r[0]+" "+r[2],"RAID log · "+r[3],"go","raid"])});FILES.forEach(function(f){a.push([f.n.replace(/_/g," "),"Document · "+f.e,"go","documents"])});GOV.forEach(function(g){a.push([g.t,"Governance group","go","governance"])});
   BUD.forEach(function(b){a.push([b.id+" "+b.detail,"Budget item · "+b.proj,"go","budgets"])});INIT.forEach(function(x){a.push([x.n,"Initiative · "+x.st,"init",x.id])});VALS.forEach(function(v){a.push([v.n,"Company value · "+v.d,"go","st-purpose"])});OBJ.forEach(function(o){a.push([o.id+" "+o.n,"Objective · "+o.kpi,"obj",o.id])});return a}
 function globalSearch(q,show){q=(q||"").trim().toLowerCase();var inp=$("#topSearch");if(!q){if(pop.getAttribute("data-for")==="search")closePop();return}
   var hits=searchIndex().filter(function(x){return (x[0]+" "+x[1]).toLowerCase().indexOf(q)>=0}).slice(0,8);pop.setAttribute("data-for","search");
-  pop.innerHTML='<div class="sp-h">Results for “'+esc(q)+'”</div>'+(hits.length?hits.map(function(x){var at=x[2]==="go"?' data-go="'+x[3]+'"':x[2]==="proj"?' data-go="plan-table" data-proj="'+x[3]+'"':x[2]==="obj"?' data-go="st-map" data-sobj="'+x[3]+'"':x[2]==="init"?' data-go="st-roadmap"':' data-searchtask="'+x[3]+'"';
+  pop.innerHTML='<div class="sp-h">Results for “'+esc(q)+'”</div>'+(hits.length?hits.map(function(x){var at=x[2]==="go"?' data-go="'+x[3]+'"':x[2]==="proj"?' data-go="plan-table" data-proj="'+x[3]+'"':x[2]==="obj"?' data-go="st-map" data-sobj="'+x[3]+'"':x[2]==="init"?' data-go="st-init" data-init="'+x[3]+'"':' data-searchtask="'+x[3]+'"';
     return '<button class="sp sr"'+at+'><span><b>'+esc(x[0])+'</b><small>'+esc(x[1])+'</small></span></button>'}).join(""):'<div style="color:var(--muted);padding:6px 8px">No matches.</div>');
   place(pop,inp,"below");if(show){var f=$("#pop .sr");if(f)f.focus()}}
 
@@ -2522,7 +2727,7 @@ function newSpace(){openForm({title:"Create new space",fields:[{k:"n",l:"Space n
 function viewPhoto(i){openForm({title:"Photo "+(i+1)+" · November 2, 2023",submit:false,html:'<div class="ph-big" style="background:'+(i?'linear-gradient(135deg,#d9a77a,#7a4b3a)':'linear-gradient(135deg,#6b8fb5,#2d3f66)')+'"></div>'})}
 
 /* buttons that do not fit a record */
-function uiAction(a,el){var p=a.split(":");if(pvUi(p))return;
+function uiAction(a,el){var p=a.split(":");if(pvUi(p)||kpUi(p))return;
   if(p[0]==="close"){closeModal();return}
   if(p[0]==="danger"){if(MODAL&&MODAL.onDanger){var f=MODAL.onDanger;closeModal();f();rerender()}return}
   if(p[0]==="filters"){if(pop.getAttribute("data-for")==="filters"){closePop();return}openFilters(el);return}
@@ -2548,9 +2753,9 @@ function uiAction(a,el){var p=a.split(":");if(pvUi(p))return;
   if(p[0]==="rdone"){var a2=RETROS[+ST.retroSel].a[+p[1]];a2[2]=!a2[2];rerender();return}
 }
 function addAction(a){var p=a.split(":");
-  ({kudos:function(){giveKudos(p.slice(1).join(":"))},value:function(){valueForm(null)},method:function(){methodForm(null)},obstacle:function(){obstForm(null)},tasks:function(){addTaskDash("tasks")},actions:function(){addTaskDash("actions")},task:function(){addTaskPlan(p.slice(1).join(":")||"Not started")},project:addProject,budget:function(){budgetForm(null)},doc:addDocument,person:addPerson,scope:addScope,
+  ({kpi:kpiNew,initiative:initNew,itask:function(){itaskForm(p[1])},kudos:function(){giveKudos(p.slice(1).join(":"))},value:function(){valueForm(null)},method:function(){methodForm(null)},obstacle:function(){obstForm(null)},tasks:function(){addTaskDash("tasks")},actions:function(){addTaskDash("actions")},task:function(){addTaskPlan(p.slice(1).join(":")||"Not started")},project:addProject,budget:function(){budgetForm(null)},doc:addDocument,person:addPerson,scope:addScope,
     raid:function(){raidForm(null)},closure:startClosure,retro:newRetro,note:function(){addNote(p[1])},benefit:function(){benefitForm(null)},group:addGroup,plan:changePlan,space:newSpace}[p[0]]||function(){})()}
-function openRecord(ref){var p=ref.split(":");if(p[0]==="bud")budgetForm(BUD[+p[1]],+p[1]);else if(p[0]==="raid")raidForm(RAID[+p[1]],+p[1]);else if(p[0]==="ben")benefitForm(BEN[+p[1]],+p[1]);else if(p[0]==="init")editInit(p[1]);else if(p[0]==="method")methodForm(+p[1]);else if(p[0]==="obst")obstForm(+p[1])}
+function openRecord(ref){var p=ref.split(":");if(p[0]==="bud")budgetForm(BUD[+p[1]],+p[1]);else if(p[0]==="raid")raidForm(RAID[+p[1]],+p[1]);else if(p[0]==="ben")benefitForm(BEN[+p[1]],+p[1]);else if(p[0]==="init"){ST.initSel=p[1];go("st-init")}else if(p[0]==="kpi")openKpi(p[1]);else if(p[0]==="itask")itaskForm(p[1],+p[2]);else if(p[0]==="method")methodForm(+p[1]);else if(p[0]==="obst")obstForm(+p[1])}
 
 /* kanban drag and drop */
 document.addEventListener("dragstart",function(e){var c=e.target.closest&&e.target.closest("[data-task][draggable]");if(!c)return;e.dataTransfer.setData("text/plain",c.getAttribute("data-task"));e.dataTransfer.effectAllowed="move";c.classList.add("dragging")});
@@ -2572,7 +2777,7 @@ document.addEventListener("click",function(e){
   var rec=t.closest("[data-rec]");if(rec&&(rec===t||!t.closest("button:not([data-rec]),a,select,input,label"))){openRecord(rec.getAttribute("data-rec"));return}
   var tk=t.closest("[data-task]");if(tk&&!t.closest("button,a,select,input,label")){openTask(tk.getAttribute("data-task"));return}
   var g=t.closest("[data-go]");
-  if(g){e.preventDefault();var id=g.getAttribute("data-go");if(g.hasAttribute("data-proj"))ST.planProj=+g.getAttribute("data-proj");if(g.hasAttribute("data-sobj"))ST.stObj=g.getAttribute("data-sobj");if(id==="login"&&g.closest(".lcard")){return}go(id);return}
+  if(g){e.preventDefault();var id=g.getAttribute("data-go");if(g.hasAttribute("data-proj"))ST.planProj=+g.getAttribute("data-proj");if(g.hasAttribute("data-sobj"))ST.stObj=g.getAttribute("data-sobj");if(g.hasAttribute("data-init"))ST.initSel=g.getAttribute("data-init");if(id===ST.route&&(g.hasAttribute("data-init")||g.hasAttribute("data-proj"))){closeModal();rerender();return}closeModal();if(id==="login"&&g.closest(".lcard")){return}go(id);return}
   var tb=t.closest("[data-tab]");
   if(tb){var p=tb.getAttribute("data-tab").split(":");ST[p[0]]=p[1];rerender();return}
   var a=t.closest("[data-act]");
@@ -2605,7 +2810,7 @@ document.addEventListener("keydown",function(e){
   if(tg&&tg.id==="topSearch"&&e.key==="ArrowDown"){var f2=$("#pop .sr");if(f2){e.preventDefault();f2.focus()}return}
   if(!typing&&!MODAL&&e.key==="/"){e.preventDefault();$("#topSearch").focus();return}
   if(!typing&&!MODAL&&e.key==="?"){e.preventDefault();openHelp();return}
-  if((e.key==="Enter"||e.key===" ")&&tg&&tg.matches&&tg.matches("[data-task],[data-rec],[data-add],[data-ui]")&&tg.tagName!=="BUTTON"){e.preventDefault();tg.click();return}
+  if((e.key==="Enter"||e.key===" ")&&tg&&tg.matches&&tg.matches("[data-task],[data-rec],[data-add],[data-ui],tr[data-go],li[data-go]")&&tg.tagName!=="BUTTON"){e.preventDefault();tg.click();return}
   if(e.key==="Escape"){closePop();if(AI.open){aiClose();$("#aiFab").focus()}}
   if((e.key==="Enter"||e.key===" ")&&e.target&&e.target.getAttribute&&e.target.getAttribute("role")==="button"&&e.target.hasAttribute("data-go")){e.preventDefault();if(e.target.hasAttribute("data-proj"))ST.planProj=+e.target.getAttribute("data-proj");go(e.target.getAttribute("data-go"))}
 });
@@ -2641,7 +2846,7 @@ document.addEventListener("submit",function(e){
 });
 
 /* ---------- start ---------- */
-loadState();
+loadState();normalizeData();
 var h0=(location.hash||"").slice(1);
 ST.route=validRoute(h0)?h0:"dashboard";ST.recent=[ST.route];if(isPlan(ST.route))ST.planTab=PLAN_VIEWS[ST.route];
 if(window.innerWidth<=700)app.classList.add("collapsed");
