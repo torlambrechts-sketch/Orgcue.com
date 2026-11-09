@@ -876,6 +876,42 @@ button.sm-i{width:100%;text-align:left;border-radius:6px}button.sm-i:hover{backg
 @media (max-width:1100px){.pg-2{grid-template-columns:minmax(0,1fr)}.rules{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:700px){.su-g{grid-template-columns:minmax(0,1fr)}.dw-grid{grid-template-columns:minmax(0,1fr)}.st-chips{margin-left:0}}
 .wk-t{table-layout:fixed}.wk-t th:nth-child(1){width:52px}.wk-t th:nth-child(3){width:22%}.wk-t th:nth-child(4){width:96px}.wk-t th:nth-child(5){width:86px}.wk-t th:nth-child(6){width:104px}.wk-t th:nth-child(7){width:130px}.wk-t th:nth-child(8){width:92px}.wk-t td{overflow:hidden;text-overflow:ellipsis}
+/* measurement engine, decisions, requests, first run, roadmap */
+.kd-why{font-size:12.5px;color:var(--muted);margin:10px 0 0;line-height:1.5}
+.kd-hist{list-style:none;margin:0;padding:0}.kd-hist li{display:grid;grid-template-columns:90px minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:8px 0;border-top:1px solid var(--card-line);font-size:13px}
+.kd-hist li small{color:var(--muted);font-size:12px}.kd-hist li p{grid-column:2/-1;margin:0;color:var(--muted);font-size:12.5px}
+.kr.kr-c{grid-template-columns:minmax(0,1fr) 130px 64px 12px;cursor:pointer;border-radius:6px}.kr.kr-c:hover,.kr.kr-c:focus{background:var(--head)}
+.cf{width:10px;height:10px;border-radius:50%;background:var(--track);display:inline-block}.cf-high{background:#1f9d6b}.cf-medium{background:#e0a030}.cf-low{background:#d2394f}
+.rl{margin:0;font-size:13px;text-align:left}.rl.done{text-decoration:line-through;color:var(--muted)}
+.dec-why{max-width:280px;color:var(--muted);font-size:12.5px}
+.rq-a{white-space:nowrap}.rq-a .btn+.btn{margin-left:6px}
+.welcome{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:20px;align-items:center;padding:22px 24px;margin:18px 24px 0;position:relative;background:linear-gradient(120deg,var(--accent-soft),var(--card) 60%)}
+.welcome small{font-weight:800;color:var(--accent-ink);text-transform:uppercase;letter-spacing:.06em;font-size:11px}.welcome h2{font-size:20px;margin:6px 0 8px}.welcome p{margin:0;color:var(--muted);font-size:13.5px}
+.wl-o{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.wl-o button{text-align:left;border:1px solid var(--card-line);background:var(--card);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:4px;color:var(--ink)}
+.wl-o button:hover,.wl-o button:focus{border-color:var(--accent)}.wl-o b{font-size:14px}.wl-o small{text-transform:none;letter-spacing:0;color:var(--muted);font-weight:500;font-size:12px}
+.wl-x{position:absolute;top:8px;right:8px}
+.tour{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:47;background:var(--card);border:1px solid var(--accent);border-radius:14px;box-shadow:0 14px 44px rgba(30,10,80,.28);padding:12px 14px 12px 18px;display:flex;gap:16px;align-items:center;width:min(720px,calc(100vw - 32px))}
+.tour-s{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;font-size:13px}.tour-s small{color:var(--accent-ink);font-weight:800}.tour-s span{color:var(--muted)}
+.tour-a{display:flex;gap:6px;align-items:center}
+.ai-src{display:block;color:var(--muted);font-size:11px;margin-top:6px}
+.ai-draft{border:1px solid var(--card-line);border-radius:8px;padding:8px 10px;margin:8px 0;background:var(--bg);font-size:12.5px}.ai-draft p{margin:0 0 6px}.ai-draft ul{margin:2px 0 6px;padding-left:18px}
+.rm-b .kb-col{min-width:0}.rm-c{cursor:pointer}.rm-c:hover,.rm-c:focus{border-color:var(--accent)}
+.rm-top{display:flex;justify-content:space-between;gap:6px;align-items:center}.rm-c b{font-size:13.5px}
+.rm-ref{color:var(--muted);font-size:11.5px;flex:1;min-width:0}
+.rm-vote{display:inline-flex;align-items:center;gap:4px;height:26px;padding:0 8px;border-radius:13px;border:1px solid var(--card-line);font-weight:800;font-size:12px;color:var(--muted)}
+.rm-vote svg.i{width:14px;height:14px}.rm-vote.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.rm-sh{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.rm-sh h3{display:flex;align-items:center;gap:8px}.rm-sh h3 small{color:var(--muted);font-weight:600}
+.rm-l{margin:0;font-size:inherit;text-align:left}
+.rm-v{color:var(--muted);font-size:12.5px;max-width:260px}
+.rm-pn{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+.rm-q{margin:12px 0 0;padding:10px 12px;border-left:3px solid var(--accent);background:var(--head);border-radius:0 8px 8px 0;font-style:italic;font-size:13px}
+.rm-note{margin:0 0 12px}.rm-d p{margin:10px 0;font-size:13.5px;line-height:1.5}
+@media (max-width:1100px){.rm-sh{grid-template-columns:repeat(2,minmax(0,1fr))}.welcome{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:700px){.rm-sh,.rm-pn,.wl-o{grid-template-columns:minmax(0,1fr)}.welcome{margin:12px 12px 0}.tour{flex-direction:column;align-items:stretch}}
+.rq-o{flex-wrap:nowrap}.rq-t td:first-child{max-width:300px}.welcome{padding-right:48px}
+.kd-hist,.kd-why{grid-column:1/-1;width:100%}
+.rm-cons h3{display:flex;gap:8px;align-items:center}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
@@ -969,6 +1005,7 @@ button.sm-i{width:100%;text-align:left;border-radius:6px}button.sm-i:hover{backg
       <button class="rail-btn" id="railProjects" data-go="dashboard" aria-label="My projects" title="My projects"><svg class="i"><use href="#i-layers"/></svg></button>
       <button class="rail-btn" id="railPeople" data-go="resources" aria-label="Resources" title="Resources"><svg class="i"><use href="#i-users"/></svg></button>
       <button class="rail-btn" id="railTpl" data-go="templates" aria-label="All pages" title="All pages"><svg class="i"><use href="#i-toggles"/></svg></button>
+      <button class="rail-btn" id="railRoadmap" data-go="roadmap" aria-label="Product roadmap" title="Product roadmap"><svg class="i"><use href="#i-flag"/></svg></button>
     </div>
     <div class="rail-spacer"></div>
     <div class="rail-group" style="padding-bottom:6px">
@@ -1110,7 +1147,7 @@ var BUD=[
   {id:"B-004",type:"Resource",detail:"Data Manager",proj:"Management system",cls:"Opex",spread:"Monthly",status:"Over budget",bud:70000,fc:88000,spent:36000},
   {id:"B-005",type:"Other",detail:"No detail",proj:"Demo project",cls:"Opex",spread:"Manual",status:"Within budget",bud:18000,fc:15000,spent:6500},
   {id:"B-006",type:"Hardware",detail:"Laptop",proj:"Cybersecurity awareness and training",cls:"Capex",spread:"One-off",status:"Within budget",bud:36000,fc:33000,spent:28000},
-  {id:"B-007",type:"Software",detail:"Office 365",proj:"Management system",cls:"Capex",spread:"Monthly",status:"Over budget",bud:137000,fc:198000,spent:56000}
+  {id:"B-007",type:"Software",detail:"Office 365",proj:"Management system",cls:"Opex",spread:"Monthly",status:"Over budget",bud:137000,fc:198000,spent:56000}
 ];
 var BUD_PROJ=["Management system","Cybersecurity awareness and training","Demo project"];
 
@@ -1126,7 +1163,7 @@ var FILES=[
 /* governance groups */
 var GOV=[
   {t:"Weekly status meeting",c:"#5f17b2",info:["Review overall progress on the plan","10:00 - 10:30 am","Every weekday (Monday to Friday)","Management system"],ev:"Monday, October 14, 10:00 - 10:30 am",det:"No details",items:[["t1","T-002 - Define objectives and deliverables"],["t2","T-002.001 - Project Scope Definition"],["t3","R-001 - Risk of missing go-live"],["t1","T-005.000 - Document current processes"],["t2","T-003.000 - Identify stakeholders"],["t3","I-004 - SSO integration issue"]],ppl:["ML","JK","AS"],more:5,likes:0},
-  {t:"Design Feedback Session",c:"#f2c230",info:["Discuss and exchange feedback on project design.","9:00 - 10:00 am","Monthly (first Friday)","Management system"],ev:"Friday, November 4, 9:00 - 10:00 am",det:"Formulate specific steps we plan to take in near future to enhance our work and achieve project goals.",items:[["t1","T-010.000 - Project Initiation Document"]],ppl:["PR","DN"],more:0,likes:2},
+  {t:"Design Feedback Session",c:"#f2c230",info:["Discuss and exchange feedback on project design.","9:00 - 10:00 am","Monthly (first Friday)","Management system"],ev:"Friday, October 4, 9:00 - 10:00 am",det:"Formulate specific steps we plan to take in near future to enhance our work and achieve project goals.",items:[["t1","T-010.000 - Project Initiation Document"]],ppl:["PR","DN"],more:0,likes:2},
   {t:"Project Progress Review",c:"#2f7be8",info:["To track project progress, challenges, and alignment with the plan.","Thursday, November 7, 5:00 - 6:00 pm","Does not repeat","Educational platform"],ev:"Thursday, November 7, 5:00 - 6:00 pm",det:"No details",items:[["t2","T-004.000 - Phase gate evidence"],["t3","R-003 - Vendor delivery risk"]],ppl:["JK","PR","TW"],more:0,likes:1},
   {t:"Project Kickoff Meeting",c:"#b5b3c0",info:["Launch a new project: align on roles, goals and tasks.","Thursday, October 10, 9:30 - 10:00 am","Does not repeat","Demo project"],ev:"Thursday, October 10, 9:30 - 10:00 am",det:"No details",items:[["t1","T-001.000 - Project kick off meeting"]],ppl:["DN","TW"],more:13,likes:0}
 ];
@@ -1289,7 +1326,7 @@ function viewBudgets(){
     '<div class="kc"><div class="l"><span>Total forecast '+icon("info").replace('class="i"','class="i" style="width:13px;height:13px"')+(tb?'<span class="badge-r">'+pct+'%</span>':'')+'</span>'+moreBtn()+'</div><div class="v">'+money(tf)+'</div></div>'+
     '<div class="kc"><div class="l">Spend to date'+moreBtn()+'</div><div class="v">'+money(ts)+'</div></div>'+
     '<div class="kc"><div class="l">Remaining forecast'+moreBtn()+'</div><div class="v">'+money(tf-ts)+'</div></div>'+
-    '<div class="kc"><div class="l">Unbudgeted costs'+moreBtn()+'</div><div class="v bad">'+money(un)+'</div></div></div>';
+    '<div class="kc"><div class="l">Forecast overspend'+moreBtn()+'</div><div class="v bad">'+money(un)+'</div></div></div>';
   var tb2=tabs("budTab",[["list","List","table"],["table","Table","grid"],["kanban","Kanban","kanban"],["kpi","KPI","trend"]],ST.budTab);
   var tools='<div class="toolbar">'+liveSearch("Search budget item")+'<span class="grow"></span>'+tog("budCmp",ST.budCmp,"Compare with")+sel("budBase",[["2","Baseline budget 2"],["1","Baseline budget 1"]],ST.budBase||"2","sm")+''+fltBtn()+''+
     '<label class="chipbtn pu">'+icon("layers")+'Group by: <select class="sel sm" data-sel="budGroup" style="border:0;background-color:transparent;min-width:0;padding-left:4px;color:inherit;font-weight:700">'+[["none","None"],["type","Cost type"],["proj","Project"],["cls","Classification"]].map(function(o){return '<option value="'+o[0]+'"'+(o[0]===ST.budGroup?' selected':'')+'>'+o[1]+'</option>'}).join("")+'</select></label>'+setBtn()+'</div>';
@@ -1569,7 +1606,7 @@ var PI={F:0,C:1,P:2,L:3};
 var SNAME={DM:"Dianne Miles",PR:"Paul Reyes",ML:"Marta Lindqvist",JK:"Jonas Keller",DN:"Dana Nowak",LM:"Liza Martines",AS:"Amara Singh",TW:"Tom Weiss"};
 /* order inside each perspective = left-to-right position on the strategy map */
 var OBJ=[
-  {id:"F3",p:"F",n:"Diversify revenue",o:"PR",kpi:"Revenue from new markets",b:8,a:9,t:15,u:"%",st:"off",tr:[8,8.2,8.1,8.6,8.8,9],c:"Nordic sales are slower than planned; only 2 of 4 target clients signed."},
+  {id:"F3",p:"F",n:"Diversify revenue",o:"PR",kpi:"Revenue from new markets",b:8,a:9,t:15,u:"%",st:"off",tr:[8,8.2,8.1,8.6,8.8,9],c:"New-market revenue is flat; the Nordics investment decision is due at the October review."},
   {id:"F1",p:"F",n:"Grow recurring revenue",o:"PR",kpi:"Recurring revenue (ARR)",b:30,a:38,t:45,u:"£M",st:"on",tr:[30,31.5,33,34.8,36.5,38],c:"Up £1.5M this quarter, driven by service bundles."},
   {id:"F2",p:"F",n:"Improve operating margin",o:"LM",kpi:"Operating margin",b:14,a:15.2,t:16,u:"%",st:"risk",tr:[14,14.1,14.6,14.4,15,15.2],c:"Improving, but utilisation is still 7 points below target."},
   {id:"C2",p:"C",n:"Win in two new markets",o:"PR",kpi:"New clients in new markets",b:0,a:6,t:20,u:"",st:"risk",tr:[0,1,2,3,5,6],c:"Pipeline is healthy; conversion needs a local country lead."},
@@ -1612,7 +1649,7 @@ var ORG={n:"MosaicX",lead:"DM",role:"Chief executive",kids:[
   {n:"People & Culture",lead:"DN",role:"Chief people officer",teams:[["Talent","L2"],["Learning","L1"]]},
   {n:"Finance",lead:"LM",role:"Chief financial officer",teams:[["FP&A","F2"],["Procurement",""]]}]};
 var OKRS=[
-  {o:"Win our first clients in the Nordics",own:"PR",obj:"C2",kr:[["Sign new Nordic clients",2,4],["Discovery meetings booked",24,30],["Local case studies published",1,2]],kids:[
+  {o:"Win our first clients in the Nordics",own:"PR",obj:"C2",kr:[["Nordic prospects in active talks",2,4],["Discovery meetings booked",24,30],["Local case studies published",1,2]],kids:[
     {t:"Sales",own:"PR",o:"Build a Nordic pipeline",kr:[["Qualified pipeline (£M)",2.1,3],["Partner agreements signed",1,2]]},
     {t:"Marketing",own:"TW",o:"Make MosaicX known in Oslo and Stockholm",kr:[["Event leads",140,200],["Share of voice (%)",6,10]]}]},
   {o:"Make every client want to stay",own:"ML",obj:"C1",kr:[["Client retention (%)",88,90],["Net Promoter Score",38,40]],kids:[
@@ -1634,7 +1671,7 @@ function ipill(st){return '<span class="pill '+IST[st]+'">'+st+'</span>'}
 function sdot(st){return '<i class="sdot" style="background:'+OST[st][2]+'"></i>'}
 function sname(i){return SNAME[i]||i}
 function okrPct(kr){var s=0;kr.forEach(function(k){s+=Math.min(1,k[1]/k[2])});return Math.round(s/kr.length*100)}
-function pctSt(p){return p>=70?"on":p>=50?"risk":"off"} /* week 9 of 13: about 70% of the quarter has passed */
+function pctSt(p){return p>=70?"on":p>=55?"risk":"off"} /* week 12 of 13: 85% of the quarter has passed; on track within 15 points */
 function spark(vals,col){var mn=Math.min.apply(null,vals),mx=Math.max.apply(null,vals),r=mx-mn||1;
   return '<svg viewBox="0 0 84 26" width="84" height="26" aria-hidden="true"><polyline fill="none" stroke="'+col+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="'+vals.map(function(v,i){return (i*16+2)+","+(23-(v-mn)/r*20).toFixed(1)}).join(" ")+'"/></svg>'}
 function stBar(p,col){return '<div class="bar"><div class="t"><i style="width:'+p+'%'+(col?';background:'+col:'')+'"></i></div><span>'+p+'%</span></div>'}
@@ -1698,13 +1735,13 @@ function viewStScore(){
 /* 4. OKR alignment tree */
 function viewStOkr(){
   var onlyRisk=!!ST.okrRisk;
-  var krRows=function(kr){return kr.map(function(k){var p=Math.min(100,Math.round(k[1]/k[2]*100));return '<div class="kr"><span>'+esc(k[0])+'</span>'+stBar(p,OST[pctSt(p)][2])+'<b>'+k[1]+' / '+k[2]+'</b></div>'}).join("")};
+  var krRows=function(kr,path){return kr.map(function(k,ri){var p=Math.min(100,Math.round(k[1]/k[2]*100));return '<div class="kr kr-c" role="button" tabindex="0" data-ui="krcheck:'+path+'.'+ri+'" title="Check in on this key result"><span>'+esc(k[0])+'</span>'+stBar(p,OST[pctSt(p)][2])+'<b>'+k[1]+' / '+k[2]+'</b>'+cfDot(k)+'</div>'}).join("")};
   var blocks=OKRS.map(function(c){var cp=okrPct(c.kr),kids=c.kids.filter(function(k){return !onlyRisk||pctSt(okrPct(k.kr))!=="on"});
     if(onlyRisk&&!kids.length&&pctSt(cp)==="on")return "";
-    return '<div class="okr"><section class="card okr-co"><div class="okr-h"><span class="chip">Company</span>'+objChip(c.obj)+'<span style="margin-left:auto">'+sdot(pctSt(cp))+'</span></div><h3>'+esc(c.o)+'</h3><div class="person">'+av(c.own)+'<div>'+sname(c.own)+'<small>'+cp+'% complete</small></div></div>'+krRows(c.kr)+'</section>'+
-      '<div class="okr-kids">'+kids.map(function(k){var kp=okrPct(k.kr);return '<section class="card okr-k"><div class="okr-h"><span class="chip" style="background:var(--head);color:var(--ink)">'+esc(k.t)+'</span><span style="margin-left:auto">'+'<span class="pill '+OST[pctSt(kp)][1]+'">'+kp+'%</span></span></div><h4>'+esc(k.o)+'</h4><div class="person" style="margin-bottom:4px">'+av(k.own)+'<div>'+sname(k.own)+'</div></div>'+krRows(k.kr)+'</section>'}).join("")+'</div></div>'}).join("");
-  return stHead("st-okr",'<span class="chip" style="background:var(--head);color:var(--ink)">'+icon("clock")+'Q3 2024 · week 9 of 13</span>'+tog("okrRisk",onlyRisk,"Only what needs attention"))+
-    '<div class="legend" style="margin-bottom:14px"><span>Company objectives on the left, the team OKRs that ladder up to them on the right. We are 9 weeks into a 13-week quarter, so about 70% progress is on track; 50 to 69% is at risk.</span></div>'+(blocks||'<div class="card pad">Everything is on track.</div>');
+    return '<div class="okr"><section class="card okr-co"><div class="okr-h"><span class="chip">Company</span>'+objChip(c.obj)+'<span style="margin-left:auto">'+sdot(pctSt(cp))+'</span></div><h3>'+esc(c.o)+'</h3><div class="person">'+av(c.own)+'<div>'+sname(c.own)+'<small>'+cp+'% complete</small></div></div>'+krRows(c.kr,OKRS.indexOf(c)+".-1")+'</section>'+
+      '<div class="okr-kids">'+kids.map(function(k){var kp=okrPct(k.kr);return '<section class="card okr-k"><div class="okr-h"><span class="chip" style="background:var(--head);color:var(--ink)">'+esc(k.t)+'</span><span style="margin-left:auto">'+'<span class="pill '+OST[pctSt(kp)][1]+'">'+kp+'%</span></span></div><h4>'+esc(k.o)+'</h4><div class="person" style="margin-bottom:4px">'+av(k.own)+'<div>'+sname(k.own)+'</div></div>'+krRows(k.kr,OKRS.indexOf(c)+"."+c.kids.indexOf(k))+'</section>'}).join("")+'</div></div>'}).join("");
+  return stHead("st-okr",'<span class="chip" style="background:var(--head);color:var(--ink)">'+icon("clock")+'Q3 2024 · week 12 of 13</span>'+tog("okrRisk",onlyRisk,"Only what needs attention"))+
+    '<div class="legend" style="margin-bottom:14px"><span>Company objectives on the left, the team OKRs that ladder up to them on the right. We are 11 weeks into a 13-week quarter, so a key result at 70% or more is on track and 55 to 69% is at risk. Click a key result to check in with your confidence (the dot: green high, amber medium, red low).</span></div>'+(blocks||'<div class="card pad">Everything is on track.</div>');
 }
 
 /* 5. OGSM */
@@ -1867,10 +1904,10 @@ function viewStPriority(){
   s+='<text x="'+(L+iw/2)+'" y="'+(H-8)+'" text-anchor="middle">Effort →</text><text transform="translate(14 '+(T+ih/2)+') rotate(-90)" text-anchor="middle">Strategic value →</text>';
   INIT.slice().sort(function(a,b){return b.cost-a.cost}).forEach(function(i){var r=7+Math.sqrt(i.cost)/2.4;s+='<g><title>'+esc(i.n+": value "+i.val+", effort "+i.eff+", £"+i.cost+"k")+'</title><circle cx="'+X(i.eff)+'" cy="'+Y(i.val)+'" r="'+r.toFixed(1)+'" fill="'+PERSP[PI[i.p]][3]+'" fill-opacity=".78" stroke="#fff" stroke-width="1.5"/><text x="'+X(i.eff)+'" y="'+(Y(i.val)+4)+'" text-anchor="middle" class="bl2">'+i.id+'</text></g>'});
   var svg='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Initiatives by strategic value and effort; bubble size shows cost">'+s+'</svg>';
-  var ranked=INIT.slice().sort(function(a,b){return iscore(b)-iscore(a)}),budget=+ST.budCap,run=0;
-  var rows=ranked.map(function(i,k){run+=i.cost;var fund=run<=budget,sc=iscore(i);return '<tr><td style="font-weight:800">'+(k+1)+'</td><td><b>'+esc(i.n)+'</b><div style="color:var(--muted);font-size:12px">'+i.id+' · '+PERSP[PI[i.p]][2]+'</div></td><td class="num">'+i.val+'</td><td class="num">'+i.eff+'</td><td>'+i.risk+'</td><td class="num">£'+i.cost+'k</td><td>'+stBar(Math.round(sc*10),'var(--accent)').replace('%</span>','</span>').replace('>'+Math.round(sc*10)+'<','>'+sc+'<')+'</td><td>'+(fund?'<span class="pill good">Fund</span>':'<span class="pill mute">Hold</span>')+'</td></tr>'}).join("");
+  var isCom=function(i){return ["Approved","Delivery","Closing"].indexOf(i.stg)>=0},byS=function(a,b){return iscore(b)-iscore(a)},ranked=INIT.filter(isCom).sort(byS).concat(INIT.filter(function(i){return !isCom(i)}).sort(byS)),budget=+ST.budCap,run=0;
+  var rows=ranked.map(function(i,k){run+=i.cost;var fund=run<=budget,sc=iscore(i);return '<tr><td style="font-weight:800">'+(k+1)+'</td><td><b>'+esc(i.n)+'</b><div style="color:var(--muted);font-size:12px">'+i.id+' · '+PERSP[PI[i.p]][2]+'</div></td><td class="num">'+i.val+'</td><td class="num">'+i.eff+'</td><td>'+i.risk+'</td><td class="num">£'+i.cost+'k</td><td>'+stBar(Math.round(sc*10),'var(--accent)').replace('%</span>','</span>').replace('>'+Math.round(sc*10)+'<','>'+sc+'<')+'</td><td>'+(isCom(i)?'<span class="pill info">Committed</span>':fund?'<span class="pill good">Fund</span>':'<span class="pill mute">Hold</span>')+'</td></tr>'}).join("");
   var wt=function(k,l){return '<label class="wt"><span>'+l+'</span><input type="range" min="0" max="10" step="1" value="'+ST[k]+'" data-sel="'+k+'" aria-label="Weight for '+l+'"><b>'+ST[k]+'</b></label>'};
-  var funded=0,spent=0;ranked.forEach(function(i){if(spent+i.cost<=budget){spent+=i.cost;funded++}});
+  var funded=0,spent=0;ranked.forEach(function(i){if(isCom(i)||spent+i.cost<=budget){spent+=i.cost;funded++}});
   return stHead("st-priority")+'<div class="pri"><section class="card"><div class="card-h"><h2>Value and effort</h2><span style="color:var(--muted);font-size:12.5px">Bubble size shows cost, colour shows pillar</span></div><div class="chart">'+svg+'<div class="legend">'+PERSP.map(function(p){return '<span><i style="background:'+p[3]+'"></i>'+p[2]+'</span>'}).join("")+'</div></div></section>'+
     '<section class="card pad"><h3>Scoring weights</h3><p>Move the sliders to see how the ranking changes.</p>'+wt("wVal","Strategic value")+wt("wEase","Ease of delivery")+wt("wConf","Confidence (low risk)")+
     '<div class="lbl">Budget for new and running initiatives</div>'+sel("budCap",[["3000","£3.0M"],["4000","£4.0M"],["5200","£5.2M"]],ST.budCap)+'<p style="margin-top:10px;color:var(--ink);font-size:13px"><b>'+funded+' of '+INIT.length+'</b> initiatives fit in the budget, using £'+(spent/1000).toFixed(2)+'M.</p></section></div>'+
@@ -1916,30 +1953,30 @@ function viewStOrg(){
 }
 
 /* 15. quarterly strategy review (board pack) */
-var REVIEW={q:"Q3 2024",date:"Steering group · 15 October 2024",
-  heads:["Recurring revenue is on track at £38M, up £1.5M on last quarter.","Nordic entry is behind: 2 of 4 target clients signed, and revenue from new markets is flat at 9%.","Digital certification is off track at 31% against 60%; the educational platform slipped a quarter."],
+var REVIEW={q:"Q3 2024",date:"Pack for the steering group on 15 October 2024 · draft of 16 September",
+  heads:["Recurring revenue is £38M, up £1.5M on last quarter, but behind the path to £45M by December.","The Nordics decision is due: the market study is closing late, and revenue from new markets is flat at 9%.","Digital certification is off track at 31% against 60%; the educational platform slipped a quarter."],
   dec:[["Approve £1.2M for the Nordics market entry from Q1 2025","PR","Approve"],["Move the leadership academy to Q2 2025 to free trainers for certification","DN","Discuss"],["Make the standard delivery method the default for new projects from January","ML","Approve"]],
-  focus:["Close 2 more Nordic clients before year end","Get certification back on track: 40% by December","Go live with the management system in 3 more teams"]};
+  focus:["Decide on the Nordics and hire the country lead","Get certification back on track: 40% by December","Go live with the management system in 3 more teams"]};
 function viewStReview(){
   var c={on:0,risk:0,off:0};OBJ.forEach(function(o){c[o.st]++});
-  var active=INIT.filter(function(i){return i.st!=="Planned"}),ion=active.filter(function(i){return i.st==="On track"}).length,spend=active.reduce(function(s,i){return s+i.cost},0);
+  var active=INIT.filter(function(i){return ["Approved","Delivery","Closing"].indexOf(i.stg)>=0}),ion=active.filter(function(i){return i.st==="On track"}).length,spend=active.reduce(function(s,i){return s+i.cost},0);
   var ex=OBJ.filter(function(o){return o.st!=="on"}).sort(function(a,b){return a.st===b.st?0:a.st==="off"?-1:1});
-  var noInit=OBJ.filter(function(o){return o.st!=="on"&&!INIT.some(function(i){return i.obj.indexOf(o.id)>=0&&i.st!=="Planned"})});
+  var noInit=OBJ.filter(function(o){return o.st!=="on"&&!active.some(function(i){return i.obj.indexOf(o.id)>=0})});
   var risks=RAID.filter(function(r){return r[5]==="High"&&r[6]!=="Closed"});
-  var atRiskMoney=active.filter(function(i){return i.st!=="On track"}).reduce(function(s,i){return s+i.cost},0);
+  var atRiskMoney=active.filter(function(i){return i.st==="At risk"||i.st==="Off track"}).reduce(function(s,i){return s+i.cost},0);
   var q=function(h,v,sub,cls){return '<div class="kc'+(cls?' '+cls:'')+'"><div class="l">'+h+'</div><div class="v'+(cls==='warnv'?' bad':'')+'">'+v+'</div><div style="color:var(--muted);font-size:12.5px">'+sub+'</div></div>'};
   var tiles='<div class="kpi-row k4 brief">'+q("Are we on track?",c.on+' <span style="font-size:15px;color:var(--muted)">of '+OBJ.length+' objectives</span>',ion+" of "+active.length+" active initiatives on track","gray")+
     q("Where is money at risk?","£"+(atRiskMoney/1000).toFixed(2)+"M","in initiatives at risk or off track, of £"+(spend/1000).toFixed(2)+"M committed","warnv")+
-    q("What needs us?",REVIEW.dec.length+" decisions","listed below, with a proposal for each")+
+    q("What needs us?",revDecs().filter(function(d){return d.st==="Pending"}).length+" decisions","waiting below, with "+ACTS.filter(function(a){return a.st==="Open"}).length+" open actions")+
     q("What needs a look?",(c.risk+c.off)+" exceptions",c.off+" off track and "+c.risk+" at risk")+'</div>';
   var heads='<section class="card pad rv-s"><h3>Headlines</h3><ol class="rv-ol">'+REVIEW.heads.map(function(h){return '<li>'+esc(h)+'</li>'}).join("")+'</ol></section>';
-  var dec='<section class="card pad rv-s"><h3>Decisions for the steering group</h3>'+REVIEW.dec.map(function(d,i){return '<div class="rv-d"><span class="chip">D'+(i+1)+'</span><div style="flex:1;min-width:0"><b>'+esc(d[0])+'</b><div style="color:var(--muted);font-size:12px">Proposed by '+sname(d[1])+'</div></div><span class="pill '+(d[2]==="Approve"?'info':'warn')+'">'+d[2]+'</span></div>'}).join("")+'</section>';
+  var dec=revDecHtml();
   var exc='<section class="card rv-s"><div class="card-h" style="padding-bottom:10px"><h2>Exceptions only</h2><span style="color:var(--muted);font-size:12.5px">Objectives at risk or off track. The '+c.on+' on track are in the scorecard.</span></div><div class="tbl-wrap"><table style="min-width:720px"><thead><tr><th>Objective</th><th>Measure</th><th class="num">Actual</th><th class="num">Target</th><th>Status</th><th>Owner’s comment</th></tr></thead><tbody>'+ex.map(function(o){return '<tr><td><b>'+o.id+'</b> '+esc(o.n)+'</td><td>'+esc(o.kpi)+'</td><td class="num" style="font-weight:800">'+ofmt(o,o.a)+'</td><td class="num">'+ofmt(o,o.t)+'</td><td>'+opill(o)+'</td><td style="max-width:320px">'+esc(o.c)+'</td></tr>'}).join("")+'</tbody></table></div></section>';
   var gaps='<section class="card pad rv-s"><h3>Gaps</h3>'+(noInit.length?noInit.map(function(o){return '<div class="rv-d">'+sdot(o.st)+'<div><b>'+o.id+' '+esc(o.n)+'</b><div style="color:var(--muted);font-size:12px">Not on track, and no active initiative behind it</div></div></div>'}).join(""):'<p>Every objective that is not on track has an active initiative behind it.</p>')+'</section>';
   var rk='<section class="card pad rv-s"><h3>Top risks</h3>'+risks.slice(0,4).map(function(r){return '<div class="rv-d"><span class="chip" style="background:var(--bad-bg);color:var(--bad)">'+r[0]+'</span><div style="flex:1;min-width:0"><b>'+esc(r[2])+'</b><div style="color:var(--muted);font-size:12px">'+esc(r[3])+' · '+r[6]+'</div></div></div>'}).join("")+'<button class="link" data-go="raid" style="margin-top:6px">Open the RAID log</button></section>';
   var focus='<section class="card pad rv-s"><h3>Focus for next quarter</h3><ul class="ul yes">'+REVIEW.focus.map(function(f){return '<li>'+icon("target")+esc(f)+'</li>'}).join("")+'</ul></section>';
   return stHead("st-review",'<button class="btn primary" data-act="print">'+icon("print")+'Print or save as PDF</button>')+
-    '<div class="rv-top"><b>'+REVIEW.q+' strategy review</b><span>'+REVIEW.date+'</span></div>'+tiles+'<div class="rv">'+heads+dec+'</div>'+exc+'<div class="rv3">'+gaps+rk+focus+'</div>';
+    '<div class="rv-top"><b>'+REVIEW.q+' strategy review</b><span>'+REVIEW.date+'</span></div>'+tiles+'<div class="rv">'+heads+dec+'</div>'+exc+revActHtml()+'<div class="rv3">'+gaps+rk+focus+'</div>';
 }
 /* strategy navigation: its own panel section, rail button and Templates group */
 var STRAT_NAV=[{sec:"Overview"},
@@ -2204,10 +2241,10 @@ var INIT_X={
   I1:{desc:"Replace spreadsheets with one management system for plans, budgets and approvals.",spent:310,kpi:[["K09",20],["K12",3],["K02",0.5]],tasks:[["Roll out to Finance and the PMO","ML","Q1 2024","Done"],["Migrate the project register","JK","Q2 2024","Done"],["Roll out to Delivery teams","ML","Q3 2024","In progress"],["Retire the old budget spreadsheets","LM","Q4 2024","Not started"],["Train team leads on approvals","DN","Q4 2024","Not started"]]},
   I2:{desc:"Launch an online learning platform so every consultant can certify in core digital skills.",spent:520,kpi:[["K11",25],["K18",12],["K10",2]],tasks:[["Choose the platform vendor","JK","Q2 2024","Done"],["Build the first 10 courses","DN","Q3 2024","In progress"],["Pilot with two practices","DN","Q4 2024","Not started"],["Launch to all staff","JK","Q4 2024","Not started"]]},
   I3:{desc:"Raise security awareness in every team before the annual audit.",spent:198,kpi:[["K07",-6],["K05",0.5]],tasks:[["Run quarterly phishing simulations","AS","Q3 2024","In progress"],["Publish the e-learning module","AS","Q2 2024","Done"],["Harden field laptops","TW","Q3 2024","Done"],["Report results to the audit committee","AS","Q4 2024","Not started"]]},
-  I4:{desc:"Size demand in the Nordics and the Netherlands before committing investment.",spent:371,kpi:[["K03",2],["K04",5]],tasks:[["Interview 30 prospective clients","PR","Q2 2024","Done"],["Complete the competitor review","PR","Q3 2024","In progress"],["Write the go / no-go recommendation","PR","Q4 2024","Not started"]]},
+  I4:{desc:"Size demand in the Nordics and the Netherlands before committing investment.",spent:371,kpi:[["K03",2],["K04",5]],tasks:[["Interview 30 prospective clients","PR","Q2 2024","Done"],["Complete the competitor review","PR","Q3 2024","Done"],["Write the go / no-go recommendation","PR","Q4 2024","In progress"]]},
   I5:{desc:"Turn client success into a proactive service with health checks and recovery plans.",spent:120,kpi:[["K01",2.5],["K05",1.5],["K06",4],["K16",40]],tasks:[["Define the client health score","ML","Q3 2024","Done"],["Health check for the top 40 clients","ML","Q4 2024","In progress"],["Recovery plans for at-risk clients","ML","Q1 2025","Not started"]]},
   I6:{desc:"Make one delivery method the default for all new projects.",spent:0,kpi:[["K01",1],["K08",30],["K17",10],["K02",1]],tasks:[["Agree the method with practice leads","ML","Q4 2024","Not started"],["Build templates in OrgCue","JK","Q1 2025","Not started"],["Make the method the default","ML","Q1 2025","Not started"]]},
-  I7:{desc:"Open an office in Oslo with a local country lead and win our first Nordic clients.",spent:0,kpi:[["K01",6.5],["K03",8],["K04",30],["K15",5]],tasks:[["Hire a Nordic country lead","PR","Q1 2025","In progress"],["Sign two channel partners","PR","Q2 2025","Not started"],["Open the Oslo office","PR","Q2 2025","Not started"],["Win the first five clients","PR","Q4 2025","Not started"]]},
+  I7:{desc:"Open an office in Oslo with a local country lead and win our first Nordic clients.",spent:0,kpi:[["K01",6.5],["K03",8],["K04",30],["K15",5]],tasks:[["Hire a Nordic country lead","PR","Q4 2024","In progress"],["Sign two channel partners","PR","Q2 2025","Not started"],["Open the Oslo office","PR","Q2 2025","Not started"],["Win the first five clients","PR","Q4 2025","Not started"]]},
   I8:{desc:"Bring finance, delivery and client data onto one shared data platform.",spent:0,kpi:[["K01",1.5],["K12",6],["K09",10]],tasks:[["Approve the funding","JK","Q4 2024","Not started"],["Select the platform","JK","Q2 2025","Not started"],["Connect finance and CRM","LM","Q4 2025","Not started"]]},
   I9:{desc:"Package our services into recurring bundles and sell them to existing clients.",spent:95,kpi:[["K01",4],["K13",8],["K02",0.5]],tasks:[["Design three bundles","LM","Q3 2024","Done"],["New contract template","LM","Q3 2024","Done"],["Train account managers","PR","Q4 2024","In progress"],["Sell to the top 20 clients","PR","Q4 2024","In progress"]]},
   I10:{desc:"Develop the next generation of practice leaders.",spent:0,kpi:[["K10",2],["K11",5]],tasks:[["Design the programme","DN","Q1 2025","Not started"],["Select the first cohort","DN","Q2 2025","Not started"]]}};
@@ -2268,13 +2305,11 @@ function kpiChart(k){var tr=kTr(k),W=560,H=210,L=44,R=14,T=14,B=30,n=15,iw=W-L-R
 function openKpi(id){var k=kpiById(id);if(!k)return;var o=kObj(k),st=kSt(k),ins=kInits(k);
   openForm({title:k.n,submit:false,intro:(k.primary?'Headline measure for ':'Supporting measure for ')+esc(o.id+" "+o.n)+' · owner '+sname(k.own)+' · '+esc(k.src)+', '+k.freq.toLowerCase(),
     html:'<div class="kd-facts"><div><small>Actual</small><b>'+kFmt(k,kA(k))+'</b>'+opill({st:st})+'</div><div><small>Baseline</small><b>'+kFmt(k,k.b)+'</b></div>'+YRS.map(function(y){return '<div><small>Target '+y+'</small><b>'+kFmt(k,k.tg[y])+'</b><span class="amb-s">'+kProg(k,y)+'% of the way</span></div>'}).join("")+'</div>'+kpiChart(k)+
-      '<div class="kd-acts"><button type="button" class="btn primary" data-ui="kcheck:'+k.id+'">'+icon("trend")+'Record a new value</button><button type="button" class="btn ghost" data-ui="ktarget:'+k.id+'">'+icon("target")+'Edit targets</button><button type="button" class="btn ghost" data-go="st-map" data-sobj="'+o.id+'">'+icon("map")+'Open objective</button></div>'+
-      '<h3 class="kd-h3">Initiatives expected to move it ('+ins.length+')</h3>'+(ins.length?ins.map(function(x){var l=x.kpi.filter(function(l){return l.k===k.id})[0];return '<button type="button" class="kd-ini" data-go="st-init" data-init="'+x.id+'"><span><b>'+esc(x.n)+'</b><small>'+sname(x.o)+' · '+QTR[x.s]+' to '+QTR[x.e]+'</small></span>'+ipill(x.st)+'<b class="kd-imp">'+kImp(k,l.imp)+'</b></button>'}).join(""):'<p class="kd-none">No initiative is planned to move this measure. Link one from an initiative page.</p>')+
+      '<p class="kd-why">'+esc(stWhy(k))+'</p><div class="kd-acts"><button type="button" class="btn primary" data-ui="kcheck:'+k.id+'">'+icon("trend")+'Check in</button><button type="button" class="btn ghost" data-ui="ktarget:'+k.id+'">'+icon("target")+'Edit targets</button><button type="button" class="btn ghost" data-go="st-map" data-sobj="'+o.id+'">'+icon("map")+'Open objective</button></div>'+
+      kHistHtml(k)+'<h3 class="kd-h3">Initiatives expected to move it ('+ins.length+')</h3>'+(ins.length?ins.map(function(x){var l=x.kpi.filter(function(l){return l.k===k.id})[0];return '<button type="button" class="kd-ini" data-go="st-init" data-init="'+x.id+'"><span><b>'+esc(x.n)+'</b><small>'+sname(x.o)+' · '+QTR[x.s]+' to '+QTR[x.e]+'</small></span>'+ipill(x.st)+'<b class="kd-imp">'+kImp(k,l.imp)+'</b></button>'}).join(""):'<p class="kd-none">No initiative is planned to move this measure. Link one from an initiative page.</p>')+
       '<div class="kd-cov"><span>2026 gap '+kImp(k,kGap(k)).replace(/^\+/,"")+' · planned '+kImp(k,kPlanned(k))+'</span>'+covBar(k)+'</div>'})}
-function kpiCheckIn(id){var k=kpiById(id),o=kObj(k);openForm({title:"Record "+k.n,intro:"Latest value. Target for 2024: "+kFmt(k,k.tg["2024"])+".",fields:[{k:"a",l:"Value"+(k.u?" ("+k.u+")":""),t:"number",step:"any",v:kA(k),req:1},{k:"st",l:"Status",t:"select",o:[["on","On track"],["risk","At risk"],["off","Off track"]],v:kSt(k)},{k:"c",l:"Comment",t:"textarea",v:k.primary?o.c:(k.c||"")}],submit:"Save value",done:"Value recorded",
-  save:function(v){var a=+v.a;if(isNaN(a))return "Enter a number.";if(k.primary){o.a=a;o.st=v.st;o.c=v.c;o.tr=o.tr.slice(1).concat([a])}else{k.a=a;k.st=v.st;k.c=v.c;k.tr=k.tr.slice(1).concat([a])}}})}
 function kpiTargets(id){var k=kpiById(id);openForm({title:"Targets for "+k.n,intro:(k.dir<0?"Lower is better for this measure. ":"")+"Targets are year-end values.",fields:[{k:"b",l:"Baseline (2023)",t:"number",step:"any",v:k.b,req:1}].concat(YRS.map(function(y){return {k:"t"+y,l:"Target "+y,t:"number",step:"any",v:k.tg[y],req:1}})),submit:"Save targets",done:"Targets saved",
-  save:function(v){var nums=[v.b,v.t2024,v.t2025,v.t2026].map(Number);if(nums.some(isNaN))return "Every target must be a number.";k.b=nums[0];k.tg={"2024":nums[1],"2025":nums[2],"2026":nums[3]};if(k.primary){var o=kObj(k);o.b=nums[0];o.t=nums[1]}}})}
+  save:function(v){var nums=[v.b,v.t2024,v.t2025,v.t2026].map(Number);if(nums.some(isNaN))return "Every target must be a number.";var oldT=JSON.stringify(k.tg);k.b=nums[0];k.tg={"2024":nums[1],"2025":nums[2],"2026":nums[3]};if(k.primary){var o=kObj(k);o.b=nums[0];o.t=nums[1]}recalcStatus();if(oldT!==JSON.stringify(k.tg))(k.hist=k.hist||[]).unshift({p:"Targets",t:1,when:tISO(),by:ME,c:"2024 "+kFmt(k,nums[1])+", 2025 "+kFmt(k,nums[2])+", 2026 "+kFmt(k,nums[3])})}})}
 function kpiNew(){openForm({title:"Add measure",fields:[{k:"n",l:"Measure",req:1,full:1,ph:"e.g. Average days to start a project"},{k:"obj",l:"Objective",t:"select",o:OBJ.slice().sort(byId).map(function(o){return [o.id,o.id+" "+o.n]}),v:"F1"},{k:"u",l:"Unit",t:"select",o:[["","Number"],["%","Percent"],["£M","£ million"],["h","Hours"]],v:""},{k:"dir",l:"Better when",t:"select",o:[["1","Higher"],["-1","Lower"]],v:"1"},
   {k:"b",l:"Baseline (2023)",t:"number",step:"any",req:1},{k:"a",l:"Latest value",t:"number",step:"any",req:1},{k:"t2024",l:"Target 2024",t:"number",step:"any",req:1},{k:"t2025",l:"Target 2025",t:"number",step:"any",req:1},{k:"t2026",l:"Target 2026",t:"number",step:"any",req:1},{k:"own",l:"Owner",t:"select",o:personOpts(),v:"ML"},{k:"src",l:"Data source",v:"OrgCue"},{k:"freq",l:"Updated",t:"select",o:["Weekly","Monthly","Quarterly"],v:"Monthly"}],
   submit:"Add measure",done:"Measure added",save:function(v){var nums=[v.b,v.a,v.t2024,v.t2025,v.t2026].map(Number);if(nums.some(isNaN))return "Baseline, value and targets must be numbers.";var n=1;while(kpiById("K"+(n<10?"0":"")+n))n++;var b=nums[0],a=nums[1];
@@ -2369,7 +2404,7 @@ var PROGS=[
   {id:"PG2",n:"Client excellence",lead:"ML",c:"#c2409f",desc:"Make every client want to stay, with predictable delivery."},
   {id:"PG3",n:"Digital core",lead:"JK",c:"#2f6fd8",desc:"Automate core processes on secure, shared data."},
   {id:"PG4",n:"People and skills",lead:"DN",c:"#17946a",desc:"Build the skills and leaders we need to scale."}];
-var WK_INIT={I1:{pg:"PG3",stg:"Delivery",eac:440},I2:{pg:"PG4",stg:"Delivery",be:3,eac:900,dep:[]},I3:{pg:"PG3",stg:"Delivery"},I4:{pg:"PG1",stg:"Delivery",be:2,eac:560},I5:{pg:"PG2",stg:"Delivery"},
+var WK_INIT={I1:{pg:"PG3",stg:"Delivery",eac:440},I2:{pg:"PG4",stg:"Delivery",be:3,eac:900,dep:[]},I3:{pg:"PG3",stg:"Delivery"},I4:{pg:"PG1",stg:"Closing",be:2,eac:560},I5:{pg:"PG2",stg:"Delivery"},
   I6:{pg:"PG2",stg:"Approved",dep:["I1"]},I7:{pg:"PG1",stg:"Business case",be:7,eac:1250,dep:["I4"]},I8:{pg:"PG3",stg:"Business case",dep:["I1"]},I9:{pg:"PG1",stg:"Delivery"},I10:{pg:"PG4",stg:"Idea",dep:["I2"]}};
 var RAID_INIT={"R-001":"I1","R-002":"I2","R-003":"I2","A-002":"I1","I-001":"I4","I-004":"I1","D-001":"I1","D-002":"I3"};
 var SU=[
@@ -2412,7 +2447,7 @@ function workNormalize(){
     add("I2",{n:"Review the course outlines",o:ME,dd:"2024-09-27",st:"Not started",est:4});
     add("I7",{n:"Shortlist Oslo office options",o:ME,dd:"2024-11-15",st:"Not started",est:8});
     var tk=function(id){var r=taskById(id);return r&&r.t};
-    var s=tk("I7-1");if(s){s.subs=[{n:"Write the role profile",d:true},{n:"Brief two recruiters",d:true},{n:"First interviews",d:false},{n:"Final panel",d:false}];s.desc="A senior hire who knows the Nordic public sector.";
+    var s=tk("I7-1");if(s){s.sd="2024-08-19";s.act=[{who:"PR",when:"2024-08-19",what:"created the task"}];s.subs=[{n:"Write the role profile",d:true},{n:"Brief two recruiters",d:true},{n:"First interviews",d:false},{n:"Final panel",d:false}];s.desc="A senior hire who knows the Nordic public sector.";
       s.com=[{who:"PR",when:"2024-09-12",text:"Two strong candidates from Stockholm. @Olivia Adams can you join the final panel?"},{who:ME,when:"2024-09-13",text:"Yes, I'm free on Thursday."}];s.fol=[ME,"PR"]}
     s=tk("I1-3");if(s){s.subs=[{n:"Consulting",d:true},{n:"Training",d:true},{n:"PMO",d:false},{n:"Client success",d:false}];s.com=[{who:"ML",when:"2024-09-11",text:"Training and Consulting are live. PMO next week."}];s.fol=[ME]}
     s=tk("I2-2");if(s)s.com=[{who:"DN",when:"2024-09-10",text:"Courses 1 to 6 are done; the rest slip two weeks because the vendor changed the editor."}];
@@ -2450,7 +2485,7 @@ function setTask(id,f,v){var r=taskById(id);if(!r)return;var t=r.t,x=r.x,old=t[f
   var lab={n:"renamed the task",o:"assigned it to "+sname(v),st:"set the status to "+v,pri:"set the priority to "+v,dd:"set the due date to "+dFmt(v,1),sd:"set the start date to "+dFmt(v,1),est:"set the estimate to "+v+" h",desc:"updated the description"}[f]||"updated the task";
   t.act.unshift({who:ME,when:tISO(),what:lab});if(f==="dd")t.due=qOf(v);if(f==="o"&&t.fol.indexOf(v)<0)t.fol.push(v);
   if(f==="o"&&ruleOn("R1")){var me=notify(v,"assign","Olivia Adams assigned you “"+t.n+"”","task:"+t.id);rlog("R1","Notified "+sname(v)+" about “"+t.n+"”");if(!me)toast("Notified "+sname(v))}
-  if(f==="st"&&v==="Done"){feed("completed “"+t.n+"”","task:"+t.id,x.n);
+  if(f==="st"&&v==="Done"){var wb=blockers(t);if(wb.length){t.act[0].what+=" while it was still waiting on “"+wb[0].t.n+"”";setTimeout(function(){toast("Heads up: “"+t.n+"” was still waiting on “"+wb[0].t.n+"”")},400)}feed("completed “"+t.n+"”","task:"+t.id,x.n);
     if(ruleOn("R3"))allTasks().forEach(function(o){if(o.t.deps.indexOf(t.id)>=0&&o.t.st!=="Done"&&!isBlocked(o.t)){notify(o.t.o,"rule","“"+o.t.n+"” can start: its blocker is done","task:"+o.t.id);rlog("R3","Told "+sname(o.t.o)+" that “"+o.t.n+"” can start")}});
     if(ruleOn("R4")&&x.tasks.every(function(o){return o.st==="Done"})&&x.stg!=="Closing"){x.stg="Closing";rlog("R4",x.n+" moved to Closing");toast(x.n+" moved to Closing")}}
 }
@@ -2657,16 +2692,16 @@ function viewWkRules(){return pageHead("Automation","Rules that do routine follo
 function wkTaskNew(forMe,initId){var opts=INIT.map(function(x){return [x.id,x.n]});openForm({title:forMe?"Add a task for me":"Add task",fields:[{k:"n",l:"Task",req:1,full:1},{k:"x",l:"Initiative",t:"select",o:opts,v:initId||ST.initSel||INIT[0].id},{k:"o",l:"Assignee",t:"select",o:personOpts(),v:forMe?ME:"ML"},{k:"dd",l:"Due",t:"date",v:dAdd(tISO(),7),req:1},{k:"pri",l:"Priority",t:"select",o:["Urgent","High","Normal","Low"],v:"Normal"},{k:"est",l:"Estimate (hours)",t:"number",min:0,v:"8"}],submit:"Add task",done:"Task added",
   save:function(v){var x=initById(v.x),n=x.tasks.length+1;while(x.tasks.some(function(t){return t.id===x.id+"-"+n}))n++;var t={id:x.id+"-"+n,n:v.n,o:v.o,dd:v.dd,sd:dAdd(v.dd,-7)<tISO()?tISO():dAdd(v.dd,-7),due:qOf(v.dd),st:"Not started",pri:v.pri,est:+v.est||0,subs:[],deps:[],com:[],fol:[ME],desc:"",act:[{who:ME,when:tISO(),what:"created the task"}]};
     if(t.sd>t.dd)t.sd=t.dd;x.tasks.push(t);feed("added “"+t.n+"”","task:"+t.id,x.n);if(v.o!==ME&&ruleOn("R1")){rlog("R1","Notified "+sname(v.o)+" about “"+t.n+"”")}}})}
-function writeSU(tg){var isPg=tg.indexOf("PG")===0,nm=isPg?progById(tg).n+" programme":initById(tg).n,last=lastSU(tg);var since=last?last.when:dAdd(tISO(),-14),scope=isPg?progInits(tg):[initById(tg)],dn=0,odn=0;scope.forEach(function(x){(x.tasks||[]).forEach(function(t){if(t.st==="Done"&&t.act.some(function(a){return a.when>=since&&/Done|completed/.test(a.what)}))dn++;if(isOverdue(t))odn++})});
+function writeSU(tg,pre){var isPg=tg.indexOf("PG")===0,nm=isPg?progById(tg).n+" programme":initById(tg).n,last=lastSU(tg);var since=last?last.when:dAdd(tISO(),-14),scope=isPg?progInits(tg):[initById(tg)],dn=0,odn=0;scope.forEach(function(x){(x.tasks||[]).forEach(function(t){if(t.st==="Done"&&t.act.some(function(a){return a.when>=since&&/Done|completed/.test(a.what)}))dn++;if(isOverdue(t))odn++})});
   openForm({title:"Status update: "+nm,intro:"Since "+(last?"the last update on "+dFmt(last.when,1):"two weeks ago")+": "+dn+" task"+(dn===1?"":"s")+" completed and "+odn+" overdue. Pick a status, write a one-line summary, then add highlights, blockers and next steps, one per line.",
-  fields:[{k:"st",l:"Status",t:"select",o:[["on","On track"],["risk","At risk"],["off","Off track"]],v:last?last.st:"on"},{k:"sum",l:"Summary",t:"textarea",req:1},{k:"hi",l:"Highlights",t:"textarea"},{k:"bl",l:"Blockers",t:"textarea"},{k:"nx",l:"Next steps",t:"textarea"}],submit:"Post update",done:"Status update posted",
+  fields:[{k:"st",l:"Status",t:"select",o:[["on","On track"],["risk","At risk"],["off","Off track"]],v:pre?pre.st:last?last.st:"on"},{k:"sum",l:"Summary",t:"textarea",req:1,v:pre?pre.sum:""},{k:"hi",l:"Highlights",t:"textarea",v:pre?pre.hi.join("\n"):""},{k:"bl",l:"Blockers",t:"textarea",v:pre?pre.bl.join("\n"):""},{k:"nx",l:"Next steps",t:"textarea",v:pre?pre.nx.join("\n"):""}],submit:"Post update",done:"Status update posted",
   save:function(v){var lines=function(s){return (s||"").split("\n").map(function(l){return l.trim()}).filter(Boolean)};SU.push({id:"SU"+Date.now(),tg:tg,st:v.st,who:ME,when:tISO(),sum:v.sum,hi:lines(v.hi),bl:lines(v.bl),nx:lines(v.nx),com:[]});
     if(!isPg){var x=initById(tg);x.st={on:"On track",risk:"At risk",off:"Off track"}[v.st]}feed("posted an "+SUL[v.st][0]+" update","init:"+tg,nm);
     if(v.st==="off"&&ruleOn("R6")){var n=RAID.filter(function(r){return r[1]==="Issue"}).length+1,ref="I-"+(n<10?"00":"0")+n;RAID.push([ref,"Issue",nm+": off track – "+v.sum.slice(0,60),isPg?PK[0]:(PK[initById(tg).proj]||PK[0]),isPg?progById(tg).lead:initById(tg).o,"High","Open","Within 2 weeks"]);if(!isPg)RAID_INIT[ref]=tg;rlog("R6","Logged "+ref+" for "+nm);toast("Rule: logged "+ref+" in the RAID log")}}})}
 function gateMove(id,dir){var x=initById(id),i=STAGES.indexOf(x.stg),to=STAGES[i+(dir==="next"?1:-1)];if(!to)return;
   openForm({title:(dir==="next"?"Approve: ":"Send back: ")+x.n,intro:(dir==="next"?"Gate question for "+to+": "+STAGE_GATE[x.stg]:"It returns to "+to+"."),fields:[{k:"by",l:"Decision by",t:"select",o:personOpts(),v:"DM"},{k:"c",l:"Reason or conditions",t:"textarea",req:dir!=="next"}],submit:dir==="next"?"Approve to "+to:"Send back",done:x.n+" moved to "+to,
-    save:function(v){x.stg=to;if(to==="Delivery"&&x.st==="Planned")x.st="On track";(x.gl=x.gl||[]).push({to:to,by:v.by,when:tISO(),c:v.c});feed((dir==="next"?"approved ":"sent back ")+x.n+" to "+to,"init:"+x.id,x.n,v.by)}})}
-function openRef(ref){var p=ref.split(":");if(p[0]==="task"){if(taskById(p[1]))drawerOpen(p[1]);else toast("That task no longer exists")}else if(p[0]==="init"){ST.initSel=p[1];go("st-init")}else go(p[0])}
+    save:function(v){x.stg=to;if(to==="Delivery"&&x.st==="Planned")x.st="On track";(x.gl=x.gl||[]).push({to:to,by:v.by,when:tISO(),c:v.c});logDecision({t:(dir==="next"?"Approve ":"Send back ")+x.n+" to "+to,src:"Stage gate",ref:"init:"+x.id,prop:x.o,st:dir==="next"?"Approved":"Sent back",by:v.by,when:tISO(),why:v.c||"Gate question answered: "+STAGE_GATE[STAGES[i]]});feed((dir==="next"?"approved ":"sent back ")+x.n+" to "+to,"init:"+x.id,x.n,v.by)}})}
+function openRef(ref){var p=ref.split(":");if(p[0]==="task"){if(taskById(p[1]))drawerOpen(p[1]);else toast("That task no longer exists")}else if(p[0]==="init"){ST.initSel=p[1];go("st-init")}else if(p[0]==="kpi"){go("st-kpis");openKpi(p[1])}else if(p[0]==="go")go(p[1]);else go(p[0])}
 function wkUi(p){
   if(p[0]==="ibk"){ST.ibK=p[1];rerender();return true}
   if(p[0]==="pcst"){var fl=ST.flt[ST.route]=ST.flt[ST.route]||{};fl.Status=fl.Status&&fl.Status[0]===p[1]?[]:[p[1]];rerender();return true}
@@ -2692,12 +2727,14 @@ var WORK_NAV=[
   {sec:"Me"},
   {id:"wk-my",label:"My work",icon:"check",sub:"Your tasks by due date, your inbox and what the team is doing."},
   {sec:"Portfolio"},
+  {id:"wk-intake",label:"Requests",icon:"send",sub:"New ideas and requests, scored against the strategy before they enter the portfolio."},
   {id:"wk-portfolio",label:"Portfolio control",icon:"grid",sub:"Health, budget, schedule and stage gates for every programme and initiative."},
   {id:"wk-program",label:"Programmes",icon:"layers",sub:"One programme: its initiatives, timeline, status updates, risks and what is due."},
+  {id:"wk-decisions",label:"Decisions and actions",icon:"flag",sub:"Every decision from steering groups and stage gates, and the actions that follow."},
   {sec:"Delivery"},
   {id:"wk-tasks",label:"Tasks",icon:"kanban",sub:"Every task as a list, board, timeline, calendar or workload view."},
   {id:"wk-rules",label:"Automation",icon:"toggles",sub:"Rules that notify people and keep the portfolio up to date."}];
-var WKV={"wk-my":viewWkMy,"wk-portfolio":viewWkPortfolio,"wk-program":viewWkProgram,"wk-tasks":viewWkTasks,"wk-rules":viewWkRules};
+var WKV={"wk-intake":viewWkIntake,"wk-decisions":viewWkDecisions,"wk-my":viewWkMy,"wk-portfolio":viewWkPortfolio,"wk-program":viewWkProgram,"wk-tasks":viewWkTasks,"wk-rules":viewWkRules};
 function isWork(id){return /^wk-/.test(id||"")}
 function wkNav(id){return WORK_NAV.filter(function(n){return n.id===id})[0]}
 function wkNavHtml(id,tag){return WORK_NAV.map(function(n){if(n.sec)return '<div class="nav-label">'+n.sec+'</div>';
@@ -2719,6 +2756,402 @@ document.addEventListener("change",function(e){var t=e.target;if(!t.hasAttribute
 document.addEventListener("keydown",function(e){var t=e.target;if(e.key==="Enter"&&t&&t.id&&t.id.indexOf("suc-")===0){e.preventDefault();var b=t.parentNode.querySelector("[data-ui]");if(b)b.click()}});
 ST.myTab="tasks";ST.pcTab="health";ST.pcPg="all";ST.wkView="list";ST.wkGroup="init";ST.wkPreset="all";ST.wkPg="all";ST.pgSel="PG1";ST.wkCap="6";ST.wkMonth=0;ST.ibK="all";
 
+/* ================= MEASUREMENT ENGINE: status follows progress, check-ins are dated ================= */
+var TOL={on:15,risk:30};
+function yearFrac(){var y=TODAY.getFullYear(),s=new Date(y-1,11,31),e=new Date(y,11,31);return Math.max(0,Math.min(1,(TODAY-s)/(e-s)))}
+function progOf(b,a,t){b=+b;a=+a;t=+t;if(t===b)return 100;return Math.round((a-b)/(t-b)*100)}
+function calcSt(b,a,t){var p=progOf(b,a,t),exp=Math.round(yearFrac()*100);if(p>=100)return "on";var d=exp-p;return d<=TOL.on?"on":d<=TOL.risk?"risk":"off"}
+function recalcStatus(){OBJ.forEach(function(o){o.st=o.ovr||calcSt(o.b,o.a,o.t)});KPIS.forEach(function(k){if(!k.primary&&k.a!=null)k.st=k.ovr||calcSt(k.b,k.a,k.tg["2024"])})}
+function stWhy(k){var cur=k.primary?kObj(k):k,p=Math.max(0,progOf(k.b,kA(k),k.tg["2024"])),exp=Math.round(yearFrac()*100);
+  return (cur.ovr?"Status set by the owner. Calculated it would be "+OST[calcSt(k.b,kA(k),k.tg["2024"])][0].toLowerCase()+". ":"Status is calculated. ")+p+"% of the way from the baseline to the 2024 target, where "+exp+"% would be on plan today. On track within "+TOL.on+" points of plan, at risk within "+TOL.risk+"."}
+var MONTHS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function periodOpts(){var o=[];for(var i=0;i<4;i++){var d=new Date(TODAY.getFullYear(),TODAY.getMonth()-i,1);o.push(MONTHS[d.getMonth()]+" "+d.getFullYear())}return o}
+function kpiCheckIn(id){var k=kpiById(id),o=kObj(k),cur=k.primary?o:k,t=k.tg["2024"];
+  openForm({title:"Check in: "+k.n,intro:"Record the value for a period. Target for 2024: "+kFmt(k,t)+". The status is calculated from the target unless you set it yourself.",fields:[
+    {k:"p",l:"Period",t:"select",o:periodOpts(),v:periodOpts()[0]},{k:"a",l:"Value"+(k.u?" ("+k.u+")":""),t:"number",step:"any",v:kA(k),req:1},
+    {k:"st",l:"Status",t:"select",o:[["auto","Calculate from the target"],["on","On track (set by owner)"],["risk","At risk (set by owner)"],["off","Off track (set by owner)"]],v:cur.ovr||"auto"},
+    {k:"c",l:"Comment",t:"textarea",v:"",ph:"What moved the number, and what happens next?"}],submit:"Save check-in",done:"Check-in saved",
+    save:function(v){var a=+v.a,c=(v.c||"").trim();if(isNaN(a))return "Enter a number.";if(v.st!=="auto"&&!c)return "Say why you are setting the status yourself.";
+      cur.a=a;cur.ovr=v.st==="auto"?null:v.st;if(c)cur.c=c;cur.tr=(cur.tr||[a]).slice(1).concat([a]);recalcStatus();
+      (k.hist=k.hist||[]).unshift({p:v.p,a:a,st:cur.st,by:ME,when:tISO(),c:c,ovr:!!cur.ovr});feed("checked in "+k.n+" at "+kFmt(k,a),"kpi:"+k.id,k.n)}})}
+function kHistHtml(k){var h=k.hist||[];return '<h3 class="kd-h3">Check-ins ('+h.length+')</h3>'+(h.length?'<ul class="kd-hist">'+h.slice(0,6).map(function(e){
+  return '<li><b>'+esc(e.p)+'</b><span>'+(e.t?'<span class="pill mute">Targets changed</span>':kFmt(k,e.a)+' '+opill({st:e.st})+(e.ovr?' <small>set by owner</small>':''))+'</span><small>'+sname(e.by)+' · '+dFmt(e.when,1)+'</small>'+(e.c?'<p>'+esc(e.c)+'</p>':'')+'</li>'}).join("")+'</ul>':'<p class="kd-none">No check-ins recorded in OrgCue yet. Earlier values are in the chart.</p>')}
+/* OKR check-ins with confidence */
+function okrKr(path){var p=path.split("."),c=OKRS[+p[0]],o=+p[1]<0?c:c.kids[+p[1]];return {o:o,k:o.kr[+p[2]]}}
+function okrCheck(path){var r=okrKr(path),k=r.k;openForm({title:"Check in: "+k[0],intro:"Objective: "+r.o.o+". Target "+k[2]+" by the end of the quarter.",fields:[{k:"v",l:"Current value",t:"number",step:"any",v:k[1],req:1},{k:"cf",l:"How confident are you that we will hit the target?",t:"select",o:["High","Medium","Low"],v:k[3]||"Medium"},{k:"c",l:"Note",t:"textarea",v:k[5]||"",ph:"What changed, and what will you do next?"}],submit:"Save check-in",done:"Check-in saved",
+  save:function(v){var n=+v.v;if(isNaN(n))return "Enter a number.";k[1]=n;k[3]=v.cf;k[4]=tISO();k[5]=(v.c||"").trim();feed("checked in “"+k[0]+"” ("+v.cf.toLowerCase()+" confidence)","go:st-okr",r.o.o)}})}
+function cfDot(k){return k[3]?'<i class="cf cf-'+k[3].toLowerCase()+'" title="'+k[3]+' confidence'+(k[4]?', checked in '+ago(k[4]):'')+'"></i>':'<i class="cf" title="No check-in yet"></i>'}
+
+/* ================= DECISIONS AND ACTIONS ================= */
+var DECS=[
+  {id:"D-14",t:"Approve £1.2M for the Nordics market entry from Q1 2025",src:"Q3 2024 review",ref:"init:I7",prop:"PR",st:"Pending",gate:1},
+  {id:"D-15",t:"Move the leadership academy to Q2 2025 to free trainers for certification",src:"Q3 2024 review",ref:"init:I10",prop:"DN",st:"Pending"},
+  {id:"D-16",t:"Make the standard delivery method the default for new projects from January",src:"Q3 2024 review",ref:"init:I6",prop:"ML",st:"Pending"},
+  {id:"D-13",t:"Fund a second vendor to build courses",src:"Q2 2024 review",ref:"init:I2",prop:"JK",st:"Rejected",by:"DM",when:"2024-07-15",why:"Use internal trainers first; revisit in Q4."},
+  {id:"D-12",t:"Extend the market survey by three weeks",src:"Q2 2024 review",ref:"init:I4",prop:"PR",st:"Approved",by:"DM",when:"2024-07-15",why:"The response rate is below 20%; the recommendation moves to Q4."},
+  {id:"D-11",t:"Approve the standard delivery method to start in Q4 2024",src:"Stage gate",ref:"init:I6",prop:"ML",st:"Approved",by:"DM",when:"2024-07-08",why:"Fits objective P1, and the templates reuse the management system."},
+  {id:"D-10",t:"Replace the CRM this year",src:"Requests",ref:"req:RQ-3",prop:"JK",st:"Rejected",by:"DM",when:"2024-06-20",why:"Wait for the shared data platform."}];
+var ACTS=[
+  {id:"A-24",t:"Report the survey results to the steering group",o:"PR",due:"2024-10-15",st:"Open",src:"D-12",when:"2024-07-15"},
+  {id:"A-23",t:"Bring a revised course plan using internal trainers",o:"JK",due:"2024-09-30",st:"Open",src:"D-13",when:"2024-07-15"},
+  {id:"A-22",t:"Share the Nordic hiring plan with the steering group",o:"PR",due:"2024-09-13",st:"Open",src:"Q2 2024 review",when:"2024-07-15"},
+  {id:"A-21",t:"Publish the delivery method playbook",o:"ML",due:"2024-08-30",st:"Done",src:"D-11",when:"2024-07-08"}];
+var DST={Pending:"warn",Approved:"good",Rejected:"bad",Deferred:"mute","Sent back":"mute"};
+function decById(id){return DECS.filter(function(d){return d.id===id})[0]}
+function actById(id){return ACTS.filter(function(d){return d.id===id})[0]}
+function nextId(list,pre){var n=0;list.forEach(function(x){var m=+String(x.id).split("-")[1];if(m>n)n=m});return pre+"-"+(n+1)}
+function refName(ref){if(!ref)return "";var p=ref.split(":");if(p[0]==="init"){var x=initById(p[1]);return x?x.n:""}if(p[0]==="req"){var r=reqById(p[1]);return r?r.n:""}return ""}
+function refBtn(ref){var n=refName(ref);if(!n)return '<span class="amb-s">–</span>';var p=ref.split(":");return p[0]==="init"?'<button class="link rl" data-go="st-init" data-init="'+p[1]+'">'+esc(n)+'</button>':'<button class="link rl" data-go="wk-intake">'+esc(n)+'</button>'}
+function logDecision(d){d.id=nextId(DECS,"D");DECS.unshift(d);return d}
+function decide(id){var d=decById(id);if(!d)return;openForm({title:"Record decision",intro:d.t+" · proposed by "+sname(d.prop)+(d.src?" · "+d.src:""),fields:[{k:"st",l:"Decision",t:"select",o:["Approved","Rejected","Deferred"],v:"Approved"},{k:"by",l:"Decided by",t:"select",o:personOpts(),v:"DM"},{k:"why",l:"Rationale and conditions",t:"textarea",req:1,full:1},{k:"at",l:"Follow-up action (optional)",full:1},{k:"ao",l:"Action owner",t:"select",o:personOpts(),v:d.prop},{k:"ad",l:"Action due",t:"date",v:dAdd(tISO(),14)}],submit:"Record decision",done:"Decision recorded",
+  save:function(v){d.st=v.st;d.by=v.by;d.when=tISO();d.why=v.why;var at=(v.at||"").trim();if(at)ACTS.unshift({id:nextId(ACTS,"A"),t:at,o:v.ao,due:v.ad,st:"Open",src:d.id,when:tISO()});
+    if(d.st==="Approved"&&d.gate){var x=initById(d.ref.split(":")[1]);if(x&&STAGES.indexOf(x.stg)<STAGES.indexOf("Approved")){x.stg="Approved";(x.gl=x.gl||[]).push({to:"Approved",by:v.by,when:tISO(),c:v.why})}}
+    feed((d.st==="Approved"?"approved":d.st==="Rejected"?"rejected":"deferred")+" “"+d.t+"”",d.ref&&d.ref.indexOf("init:")===0?d.ref:"go:wk-decisions",d.t,v.by)}})}
+function decNew(){openForm({title:"Log a decision",fields:[{k:"t",l:"Decision or proposal",req:1,full:1},{k:"ref",l:"About",t:"select",o:[["","Nothing specific"]].concat(INIT.map(function(x){return ["init:"+x.id,x.n]})),v:""},{k:"src",l:"Forum",t:"select",o:["Q3 2024 review","Steering group","Programme board","Stage gate"],v:"Steering group"},{k:"prop",l:"Proposed by",t:"select",o:personOpts(),v:ME},{k:"st",l:"Status",t:"select",o:["Pending","Approved","Rejected","Deferred"],v:"Pending"},{k:"why",l:"Rationale",t:"textarea"}],submit:"Log decision",done:"Decision logged",
+  save:function(v){var d={t:v.t,ref:v.ref,src:v.src,prop:v.prop,st:v.st};if(v.st!=="Pending"){d.by=ME;d.when=tISO();d.why=v.why}logDecision(d)}})}
+function actForm(id){var a=id?actById(id):null;openForm({title:a?"Edit action":"Add action",fields:[{k:"t",l:"Action",v:a?a.t:"",req:1,full:1},{k:"o",l:"Owner",t:"select",o:personOpts(),v:a?a.o:ME},{k:"due",l:"Due",t:"date",v:a?a.due:dAdd(tISO(),14),req:1},{k:"src",l:"From",t:"select",o:[["","No decision"]].concat(DECS.map(function(d){return [d.id,d.id+" "+d.t]})).concat([["Q3 2024 review","Q3 2024 review"]]),v:a?a.src:""}],submit:a?"Save action":"Add action",done:a?"Action saved":"Action added",
+  danger:a?"Delete action":null,onDanger:function(){ACTS.splice(ACTS.indexOf(a),1);toast("Action deleted")},
+  save:function(v){if(a){a.t=v.t;a.o=v.o;a.due=v.due;a.src=v.src}else ACTS.unshift({id:nextId(ACTS,"A"),t:v.t,o:v.o,due:v.due,st:"Open",src:v.src,when:tISO()})}})}
+function srcBtn(s){if(!s)return '<span class="amb-s">–</span>';var d=decById(s);return d?'<button class="link rl" data-ui="decview:'+s+'" title="'+esc(d.t)+'">'+s+'</button>':'<span class="amb-s">'+esc(s)+'</span>'}
+function actRow(a){var od=a.st==="Open"&&a.due<tISO(),dn=a.st==="Done";
+  return '<tr data-q="'+esc((a.t+" "+sname(a.o)).toLowerCase())+'"'+ffs({Owner:sname(a.o),Status:dn?"Done":od?"Overdue":"Open"})+'><td style="width:40px"><button class="cb'+(dn?' on':'')+'" data-ui="actdone:'+a.id+'" aria-pressed="'+dn+'" aria-label="Mark '+esc(a.t)+' '+(dn?'open':'done')+'">'+(dn?icon("tick"):'')+'</button></td><td><button class="link rl'+(dn?' done':'')+'" data-ui="actedit:'+a.id+'">'+esc(a.t)+'</button><div class="amb-s">'+a.id+'</div></td><td>'+avs([a.o])+'</td><td class="'+(od?'od':'')+'">'+dFmt(a.due,1)+(od?' · overdue':'')+'</td><td>'+srcBtn(a.src)+'</td></tr>'}
+function actTable(list){return '<section class="card"><div class="tbl-wrap"><table class="live-rows" style="min-width:760px"><thead><tr><th></th><th>Action</th><th>Owner</th><th>Due</th><th>From</th></tr></thead><tbody>'+(list.length?list.map(actRow).join(""):'<tr><td colspan="5" class="pad amb-s" style="text-align:center">No actions.</td></tr>')+'</tbody></table></div></section>'}
+function viewWkDecisions(){var tab=ST.decTab||"dec",pend=DECS.filter(function(d){return d.st==="Pending"}),openA=ACTS.filter(function(a){return a.st==="Open"}),odA=openA.filter(function(a){return a.due<tISO()});
+  var tiles='<div class="kpi-row k4"><div class="kc'+(pend.length?'':' gray')+'"><div class="l">Waiting for a decision</div><div class="v">'+pend.length+'</div><div class="amb-s">for the next steering group</div></div><div class="kc"><div class="l">Decided this quarter</div><div class="v">'+DECS.filter(function(d){return d.when&&d.when>="2024-07-01"}).length+'</div><div class="amb-s">with a recorded rationale</div></div>'+
+    '<div class="kc"><div class="l">Open actions</div><div class="v">'+openA.length+'</div><div class="amb-s">'+ACTS.filter(function(a){return a.st==="Done"}).length+' done</div></div><div class="kc"><div class="l">Overdue actions</div><div class="v'+(odA.length?' bad':'')+'">'+odA.length+'</div><div class="amb-s">past their due date</div></div></div>';
+  var body;
+  if(tab==="dec")body='<div class="toolbar">'+liveSearch("Search decisions")+'<span class="grow"></span>'+fltBtn()+setBtn()+'</div><section class="card"><div class="tbl-wrap"><table class="live-rows" style="min-width:1000px"><thead><tr><th>Decision</th><th>About</th><th>Proposed by</th><th>Status</th><th>Decided</th><th>Rationale</th><th></th></tr></thead><tbody>'+
+    DECS.map(function(d){return '<tr data-q="'+esc((d.id+" "+d.t+" "+refName(d.ref)).toLowerCase())+'"'+ffs({Status:d.st,Forum:d.src})+'><td><b>'+esc(d.t)+'</b><div class="amb-s">'+d.id+' · '+esc(d.src||"")+'</div></td><td>'+refBtn(d.ref)+'</td><td>'+avs([d.prop])+'</td><td><span class="pill '+(DST[d.st]||"mute")+'">'+d.st+'</span></td><td>'+(d.when?sname(d.by)+'<div class="amb-s">'+dFmt(d.when,1)+'</div>':'–')+'</td><td class="dec-why">'+esc(d.why||"")+'</td><td>'+(d.st==="Pending"?'<button class="btn primary sm-b" data-ui="decide:'+d.id+'">Record decision</button>':'')+'</td></tr>'}).join("")+'</tbody></table></div></section>';
+  else body='<div class="toolbar">'+liveSearch("Search actions")+'<span class="grow"></span>'+fltBtn()+'</div>'+actTable(ACTS.slice().sort(function(a,b){return a.st===b.st?(a.due<b.due?-1:1):a.st==="Open"?-1:1}));
+  return pageHead("Decisions and actions","Every decision from steering groups and stage gates, why it was made, and the actions that follow.",'<button class="btn ghost" data-ui="actnew">'+icon("plus")+'Add action</button><button class="btn primary" data-ui="decnew">'+icon("plus")+'Log a decision</button>')+tiles+
+    tabs("decTab",[["dec","Decisions ("+DECS.length+")","flag"],["act","Actions ("+openA.length+" open)","check"]],tab)+body}
+/* the strategy review reads its decisions and actions from the log */
+function revDecs(){return DECS.filter(function(d){return d.src===REVIEW.q+" review"})}
+function revDecHtml(){var l=revDecs();return '<section class="card pad rv-s"><h3>Decisions for the steering group</h3>'+l.map(function(d){return '<div class="rv-d"><span class="chip">'+d.id+'</span><div style="flex:1;min-width:0"><b>'+esc(d.t)+'</b><div style="color:var(--muted);font-size:12px">Proposed by '+sname(d.prop)+(d.when?' · decided by '+sname(d.by)+' on '+dFmt(d.when,1):'')+'</div></div>'+(d.st==="Pending"?'<button class="btn primary sm-b" data-ui="decide:'+d.id+'">Record decision</button>':'<span class="pill '+DST[d.st]+'">'+d.st+'</span>')+'</div>'}).join("")+'<button class="link" data-go="wk-decisions" style="margin-top:8px">All decisions and actions</button></section>'}
+function revActHtml(){var l=ACTS.filter(function(a){return a.st==="Open"});return '<h2 class="st-h2">Actions from earlier reviews <span style="color:var(--muted);font-size:13px">'+l.length+' open</span></h2>'+actTable(l)}
+
+/* ================= REQUESTS (DEMAND INTAKE) ================= */
+var REQS=[
+  {id:"RQ-7",n:"Client portal for project status",by:"ML",when:"2024-09-02",prob:"Clients ask for status by email; a portal would save account managers about six hours a week.",obj:["C3","C1"],val:7,eff:5,cost:180,risk:"Low",st:"New"},
+  {id:"RQ-6",n:"Automate timesheet approvals",by:"LM",when:"2024-08-21",prob:"Approvals take four days on average and delay invoicing.",obj:["P2","F2"],val:6,eff:3,cost:60,risk:"Low",st:"Screening"},
+  {id:"RQ-5",n:"Open a Benelux office",by:"PR",when:"2024-08-12",prob:"Dutch prospects from the market study want local delivery.",obj:["C2","F3"],val:6,eff:9,cost:1500,risk:"High",st:"Screening"},
+  {id:"RQ-4",n:"AI assistant for proposal writing",by:"TW",when:"2024-08-05",prob:"Proposals take two days each; most content is reused.",obj:["F1"],val:5,eff:4,cost:120,risk:"Medium",st:"New"},
+  {id:"RQ-3",n:"Replace the CRM",by:"JK",when:"2024-06-03",prob:"The CRM is slow and poorly adopted.",obj:["L3"],val:4,eff:8,cost:700,risk:"High",st:"Rejected",dec:"D-10"}];
+var RQST={New:"info",Screening:"warn",Accepted:"good",Rejected:"bad"};
+function reqById(id){return REQS.filter(function(r){return r.id===id})[0]}
+function reqFit(r){var n=0;r.obj.forEach(function(id){var o=objById(id);if(o)n+=o.st==="off"?4:o.st==="risk"?3:2});return Math.min(10,n)}
+function reqScore(r){var rk={Low:9,Medium:6,High:3}[r.risk]||6;return Math.round((r.val*0.4+reqFit(r)*0.3+(11-r.eff)*0.2+rk*0.1)*10)/10}
+function viewWkIntake(){var open=REQS.filter(function(r){return r.st==="New"||r.st==="Screening"}).sort(function(a,b){return reqScore(b)-reqScore(a)}),done=REQS.filter(function(r){return r.st==="Accepted"||r.st==="Rejected"});
+  var row=function(r){var sc=reqScore(r);return '<tr data-q="'+esc((r.n+" "+r.prob+" "+sname(r.by)).toLowerCase())+'"'+ffs({Stage:r.st,Sponsor:sname(r.by),Risk:r.risk})+'><td><b>'+esc(r.n)+'</b><div class="amb-s">'+esc(r.prob)+'</div></td><td>'+avs([r.by])+'</td><td><div class="chips rq-o">'+r.obj.map(function(id){return objChip(id)}).join("")+'</div></td><td class="num">'+r.val+'</td><td class="num">'+reqFit(r)+'</td><td class="num">'+r.eff+'</td><td class="num">£'+r.cost+'k<div class="amb-s">'+r.risk+' risk</div></td><td style="width:110px">'+stBar(Math.round(sc*10),'var(--accent)').replace('>'+Math.round(sc*10)+'%<','>'+sc+'<')+'</td><td><span class="pill '+RQST[r.st]+'">'+r.st+'</span></td><td class="rq-a">'+
+    (r.st==="New"?'<button class="btn ghost sm-b" data-ui="reqscreen:'+r.id+'">Start screening</button>':r.st==="Screening"?'<button class="btn ghost sm-b" data-ui="reqreject:'+r.id+'">Reject</button><button class="btn primary sm-b" data-ui="reqaccept:'+r.id+'">Accept</button>':r.init&&initById(r.init)?'<button class="link rl" data-go="st-init" data-init="'+r.init+'">Open initiative</button>':r.dec?srcBtn(r.dec):'')+'</td></tr>'};
+  var head='<thead><tr><th>Request</th><th>Sponsor</th><th>Objectives</th><th class="num">Value</th><th class="num">Fit</th><th class="num">Effort</th><th class="num">Cost</th><th>Score</th><th>Stage</th><th></th></tr></thead>';
+  return pageHead("Requests","New ideas and requests, scored against the strategy before they enter the portfolio.",'<button class="btn primary" data-ui="reqnew">'+icon("plus")+'Submit a request</button>')+
+    '<div class="kpi-row k4"><div class="kc gray"><div class="l">New</div><div class="v">'+REQS.filter(function(r){return r.st==="New"}).length+'</div><div class="amb-s">waiting for screening</div></div><div class="kc"><div class="l">In screening</div><div class="v">'+REQS.filter(function(r){return r.st==="Screening"}).length+'</div><div class="amb-s">ready for a decision</div></div><div class="kc"><div class="l">Accepted</div><div class="v">'+REQS.filter(function(r){return r.st==="Accepted"}).length+'</div><div class="amb-s">now initiatives at the business case gate</div></div><div class="kc"><div class="l">Rejected</div><div class="v">'+REQS.filter(function(r){return r.st==="Rejected"}).length+'</div><div class="amb-s">with a recorded reason</div></div></div>'+
+    '<div class="toolbar">'+liveSearch("Search requests")+'<span class="grow"></span>'+fltBtn()+setBtn()+'</div><section class="card"><div class="tbl-wrap"><table class="live-rows rq-t" style="min-width:1060px">'+head+'<tbody><tr><td colspan="10" class="grp-h">Open, highest score first <span style="font-weight:600">· '+open.length+'</span></td></tr>'+open.map(row).join("")+'<tr><td colspan="10" class="grp-h">Decided <span style="font-weight:600">· '+done.length+'</span></td></tr>'+done.map(row).join("")+'</tbody></table></div></section>'+
+    '<div class="legend" style="margin-top:10px"><span><b>Score</b> = 40% value + 30% strategic fit + 20% ease (11 − effort) + 10% low risk, out of 10.</span><span><b>Fit</b> rises when a request supports objectives that are off track or at risk.</span></div>'}
+function reqNew(){openForm({title:"Submit a request",intro:"Describe the problem and how it supports the strategy. The portfolio office screens new requests every two weeks.",fields:[{k:"n",l:"Request",req:1,full:1},{k:"prob",l:"Problem or opportunity",t:"textarea",req:1,full:1},{k:"by",l:"Sponsor",t:"select",o:personOpts(),v:ME},{k:"risk",l:"Delivery risk",t:"select",o:["Low","Medium","High"],v:"Medium"},{k:"val",l:"Value (1 to 10)",t:"number",min:1,max:10,v:"6",req:1},{k:"eff",l:"Effort (1 to 10)",t:"number",min:1,max:10,v:"5",req:1},{k:"cost",l:"Rough cost (£k)",t:"number",min:0,v:"100"},{k:"obj",l:"Objectives it supports",t:"checks",o:OBJ.slice().sort(byId).map(function(o){return [o.id,o.id+" "+o.n]}),v:[]}],submit:"Submit request",done:"Request submitted",
+  save:function(v){var val=+v.val,eff=+v.eff;if(!(val>=1&&val<=10&&eff>=1&&eff<=10))return "Value and effort must be between 1 and 10.";if(!(v.obj||[]).length)return "Pick at least one objective it supports.";REQS.unshift({id:nextId(REQS,"RQ"),n:v.n,by:v.by,when:tISO(),prob:v.prob,obj:v.obj,val:val,eff:eff,cost:+v.cost||0,risk:v.risk,st:"New"});feed("submitted the request “"+v.n+"”","go:wk-intake",v.n)}})}
+function reqAccept(id){var r=reqById(id),q=QTR.map(function(n,i){return [String(i),n]});openForm({title:"Accept: "+r.n,intro:"It becomes an initiative at the business case gate. Score "+reqScore(r)+" of 10.",fields:[{k:"pg",l:"Programme",t:"select",o:PROGS.map(function(p){return [p.id,p.n]}),v:"PG1"},{k:"o",l:"Owner",t:"select",o:personOpts(),v:r.by},{k:"s",l:"Starts",t:"select",o:q,v:"4"},{k:"by",l:"Decided by",t:"select",o:personOpts(),v:"DM"},{k:"why",l:"Rationale",t:"textarea",req:1}],submit:"Accept request",done:"Request accepted",
+  save:function(v){var n=1;while(initById("I"+n))n++;var iid="I"+n,s=+v.s,e=Math.min(QTR.length-1,s+3),o=objById(r.obj[0]);
+    INIT.push({id:iid,n:r.n,p:o?o.p:"F",obj:r.obj.slice(),s:s,e:e,st:"Planned",o:v.o,cost:r.cost,val:r.val,eff:r.eff,risk:r.risk,proj:null,ms:[e],kpi:[],tasks:[],spent:0,desc:r.prob,pg:v.pg,stg:"Business case",bs:s,be:e,eac:r.cost,dep:[],fol:[ME]});
+    r.st="Accepted";r.init=iid;var d=logDecision({t:"Accept the request “"+r.n+"”",src:"Requests",ref:"init:"+iid,prop:r.by,st:"Approved",by:v.by,when:tISO(),why:v.why});r.dec=d.id;feed("accepted the request “"+r.n+"”","init:"+iid,r.n,v.by)}})}
+function reqReject(id){var r=reqById(id);openForm({title:"Reject: "+r.n,fields:[{k:"by",l:"Decided by",t:"select",o:personOpts(),v:"DM"},{k:"why",l:"Reason",t:"textarea",req:1}],submit:"Reject request",done:"Request rejected",
+  save:function(v){r.st="Rejected";var d=logDecision({t:"Reject the request “"+r.n+"”",src:"Requests",ref:"req:"+r.id,prop:r.by,st:"Rejected",by:v.by,when:tISO(),why:v.why});r.dec=d.id}})}
+
+/* ================= ONE RECORD: project cards follow their initiative ================= */
+function syncProjects(){INIT.forEach(function(x){if(x.proj==null)return;var p=PROJECTS[x.proj];if(!p)return;
+  var lines=BUD.filter(function(b){return b.proj===p.name}),end=qEnd(QTR[Math.min(x.e,QTR.length-1)]),wk=Math.round(dDiff(dISO(end),tISO())/7);
+  if(lines.length)x.spent=Math.round(lines.reduce(function(s,b){return s+b.spent},0)/1000);
+  p.bud=x.cost;p.spent=x.spent;p.due=(end.getMonth()+1)+"/"+end.getDate()+"/"+end.getFullYear();p.weeks=wk>0?wk+" weeks":"0 day";
+  if(p.status!=="Complete"){p.status=x.st==="Off track"?"Delayed":x.st==="Planned"?"Planned":x.st;p.bs={"On track":"dark","At risk":"over","Off track":"wd"}[x.st]||p.bs}})}
+
+/* first visit: seed check-in history and OKR confidence */
+function relNormalize(){recalcStatus();
+  KPIS.forEach(function(k){if(!k.hist)k.hist=[{p:"Aug 2024",a:kA(k),st:kSt(k),by:k.own,when:"2024-09-05",c:"Month-end figure."}]});
+  OKRS.forEach(function(c){[c].concat(c.kids).forEach(function(o){o.kr.forEach(function(k){if(!k[3]){var p=Math.min(100,Math.round(k[1]/k[2]*100));k[3]=p>=70?"High":p>=55?"Medium":"Low";k[4]="2024-09-09"}})})});syncProjects()}
+
+/* ================= ASSISTANT: answers from the data in this workspace ================= */
+var AI_DRAFT=null;
+function aiIntent(q){q=q.toLowerCase();
+  if(/draft|write .*update|status update for/.test(q))return "draft";
+  if(/money|budget|cost|spend|overrun|forecast/.test(q))return "money";
+  if(/update/.test(q)&&/overdue|missing|stale|late|who|whose/.test(q))return "updates";
+  if(/decision|action/.test(q))return "decisions";
+  if(/my (tasks|work)|what should i|today/.test(q))return "mine";
+  if(/overdue|late task/.test(q))return "overdue";
+  if(/off track|behind|at risk|red|why|problem|slipp/.test(q))return "offtrack";
+  if(/gap|uncovered|target|measure|kpi/.test(q))return "gaps";
+  if(/brief|summary|summar|how are we|steering|board|overview/.test(q))return "brief";
+  return ""}
+function aiBtn(label,small,attr){return '<button type="button" '+attr+'>'+esc(label)+(small?'<small>'+esc(small)+'</small>':'')+'</button>'}
+function aiActive(){return INIT.filter(function(x){return ["Approved","Delivery","Closing"].indexOf(x.stg)>=0})}
+function aiInsight(key,q){var out="",res=[];if(!key)return false;
+  if(key==="offtrack"){var l=INIT.filter(function(x){var u=lastSU(x.id);return u?u.st!=="on":x.st==="At risk"||x.st==="Off track"});
+    var obj=OBJ.filter(function(o){return o.st==="off"});
+    out=l.length+" initiative"+(l.length===1?" is":"s are")+" not on track, and "+obj.length+" objective"+(obj.length===1?" is":"s are")+" off track ("+obj.map(function(o){return o.id}).join(", ")+").";
+    res=l.map(function(x){var u=lastSU(x.id);return aiBtn(x.n+" · "+(u?SUL[u.st][0]:x.st),u?(u.bl[0]?"Blocker: "+u.bl[0]:u.sum):"No status update yet",'data-go="st-init" data-init="'+x.id+'"')})}
+  else if(key==="money"){var over=INIT.filter(function(x){return x.eac>x.cost}),act=aiActive(),risk=act.filter(function(x){return x.st==="At risk"||x.st==="Off track"}),rm=risk.reduce(function(s,x){return s+x.cost},0);
+    out="Approved work at risk or off track holds £"+(rm/1000).toFixed(2)+"M of budget. "+over.length+" initiative"+(over.length===1?" is":"s are")+" forecast over budget by £"+over.reduce(function(s,x){return s+x.eac-x.cost},0)+"k in total.";
+    res=over.map(function(x){return aiBtn(x.n+": +£"+(x.eac-x.cost)+"k","Forecast £"+x.eac+"k against £"+x.cost+"k",'data-go="st-init" data-init="'+x.id+'"')}).concat(risk.filter(function(x){return over.indexOf(x)<0}).map(function(x){return aiBtn(x.n+" · "+x.st,"£"+x.cost+"k approved",'data-go="st-init" data-init="'+x.id+'"')}))}
+  else if(key==="updates"){var st=INIT.filter(function(x){return (x.stg==="Delivery"||x.stg==="Closing")}).filter(function(x){var u=lastSU(x.id);return !u||dDiff(tISO(),u.when)>21});
+    out=st.length?st.length+" initiative"+(st.length===1?" has":"s have")+" had no status update for three weeks or more:":"Every initiative in delivery has a recent status update.";
+    res=st.map(function(x){var u=lastSU(x.id);return aiBtn(x.n+" · "+sname(x.o),u?"Last update "+ago(u.when):"Never updated",'data-go="st-init" data-init="'+x.id+'"')})}
+  else if(key==="overdue"){var od=allTasks().filter(function(o){return isOverdue(o.t)}).sort(function(a,b){return a.t.dd<b.t.dd?-1:1});
+    out=od.length+" task"+(od.length===1?" is":"s are")+" overdue.";res=od.slice(0,6).map(function(o){return aiBtn(o.t.n,sname(o.t.o)+" · due "+dFmt(o.t.dd)+" · "+o.x.n,'data-ui="openref:task:'+o.t.id+'"')})}
+  else if(key==="mine"){var mine=allTasks().filter(function(o){return o.t.o===ME&&o.t.st!=="Done"&&o.t.dd<=dAdd(tISO(),7)}).sort(function(a,b){return a.t.dd<b.t.dd?-1:1});
+    out="You have "+mine.length+" open task"+(mine.length===1?"":"s")+" due in the next seven days"+(mine.some(function(o){return isOverdue(o.t)})?", some already overdue.":".");res=mine.map(function(o){return aiBtn(o.t.n,"Due "+dFmt(o.t.dd)+" · "+o.x.n,'data-ui="openref:task:'+o.t.id+'"')})}
+  else if(key==="gaps"){var g=KPIS.filter(function(k){return kCover(k)<60});
+    out=g.length+" measure"+(g.length===1?" has":"s have")+" less than 60% of the 2026 gap covered by planned initiatives.";res=g.map(function(k){return aiBtn(k.n+" · "+kCover(k)+"% covered",kInits(k).length?kInits(k).length+" initiative(s) behind it":"No initiative behind it",'data-rec="kpi:'+k.id+'"')})}
+  else if(key==="decisions"){var p=DECS.filter(function(d){return d.st==="Pending"}),oa=ACTS.filter(function(a){return a.st==="Open"&&a.due<tISO()});
+    out=p.length+" decision"+(p.length===1?" is":"s are")+" waiting for the steering group, and "+oa.length+" action"+(oa.length===1?" is":"s are")+" overdue.";
+    res=p.map(function(d){return aiBtn(d.id+" "+d.t,"Proposed by "+sname(d.prop),'data-go="wk-decisions"')}).concat(oa.map(function(a){return aiBtn(a.t,sname(a.o)+" · due "+dFmt(a.due),'data-go="wk-decisions"')}))}
+  else if(key==="brief"){var c={on:0,risk:0,off:0};OBJ.forEach(function(o){c[o.st]++});var act2=aiActive(),onT=act2.filter(function(x){return x.st==="On track"}).length,pd=DECS.filter(function(d){return d.st==="Pending"}).length,
+      worstO=OBJ.filter(function(o){return o.st==="off"}).map(function(o){return o.n.toLowerCase()}),mr=act2.filter(function(x){return x.st==="At risk"||x.st==="Off track"}).reduce(function(s,x){return s+x.cost},0);
+    out="<b>Objectives:</b> "+c.on+" on track, "+c.risk+" at risk, "+c.off+" off track"+(worstO.length?" ("+esc(worstO.slice(0,3).join(", "))+")":"")+".<br><b>Initiatives:</b> "+onT+" of "+act2.length+" approved initiatives are on track; £"+(mr/1000).toFixed(2)+"M of budget sits in those at risk or off track.<br><b>For decision:</b> "+pd+" item"+(pd===1?"":"s")+".";
+    res=[aiBtn("Open the strategy review","The quarterly pack",'data-go="st-review"'),aiBtn("Decisions and actions",pd+" waiting",'data-go="wk-decisions"')];aiPush("bot",out+'<div class="ai-res">'+res.join("")+'</div><small class="ai-src">Answered from this workspace’s data.</small>');return true}
+  else if(key==="draft"){var x=null,ql=(q||"").toLowerCase();INIT.forEach(function(i){if(!x&&ql.indexOf(i.n.toLowerCase())>=0)x=i});
+    if(!x){x=INIT.filter(function(i){return i.stg==="Delivery"||i.stg==="Closing"}).sort(function(a,b){var ua=lastSU(a.id),ub=lastSU(b.id);return (ua?ua.when:"0")<(ub?ub.when:"0")?-1:1})[0]}
+    var last=lastSU(x.id),since=last?last.when:dAdd(tISO(),-14),ts=x.tasks||[],done=ts.filter(function(t){return t.st==="Done"&&(t.act||[]).some(function(a){return a.when>=since&&/Done|completed/.test(a.what)})}),
+      prog=ts.filter(function(t){return t.st==="In progress"}),od2=ts.filter(isOverdue),bl=ts.filter(isBlocked),nxt=ts.filter(function(t){return t.st!=="Done"&&t.dd>=tISO()}).sort(function(a,b){return a.dd<b.dd?-1:1}).slice(0,3),h=health(x);
+    var stv=od2.length>1||h.sch==="r"||h.bud==="r"?"off":od2.length||bl.length||h.bud==="a"||h.sch==="a"?"risk":"on";
+    AI_DRAFT={tg:x.id,st:stv,sum:ts.filter(function(t){return t.st==="Done"}).length+" of "+ts.length+" tasks done ("+itProg(x)+"%), "+prog.length+" in progress"+(od2.length?", "+od2.length+" overdue":"")+". Forecast £"+x.eac+"k against a £"+x.cost+"k budget.",
+      hi:done.length?done.map(function(t){return "Completed: "+t.n}):prog.slice(0,2).map(function(t){return "Under way: "+t.n}),bl:od2.map(function(t){return "Overdue: "+t.n+" ("+sname(t.o)+")"}).concat(bl.map(function(t){return "Waiting: "+t.n})),nx:nxt.map(function(t){return t.n+" by "+dFmt(t.dd)})};
+    aiPush("bot","Here is a draft update for <b>"+esc(x.n)+"</b>"+(last?", covering the time since "+dFmt(last.when):"")+'. Suggested status: <b>'+SUL[stv][0]+'</b>.<div class="ai-draft"><p>'+esc(AI_DRAFT.sum)+'</p>'+[["Highlights",AI_DRAFT.hi],["Blockers",AI_DRAFT.bl],["Next steps",AI_DRAFT.nx]].map(function(g){return g[1].length?'<b>'+g[0]+'</b><ul>'+g[1].map(function(v){return '<li>'+esc(v)+'</li>'}).join("")+'</ul>':''}).join("")+'</div><button type="button" class="ai-act" data-ai="post:1">Review and post</button><small class="ai-src">Drafted from the initiative’s tasks, budget and last update. Name another initiative to draft its update.</small>');return true}
+  else return false;
+  aiPush("bot",out+(res.length?'<div class="ai-res">'+res.join("")+'</div>':'')+'<small class="ai-src">Answered from this workspace’s data.</small>');return true}
+
+/* ================= FIRST RUN: welcome and guided tours ================= */
+var TOURS={strategy:{n:"Strategy tour",s:[["st-ambition","Ambition","Where we are on the road to the 2026 ambition, and which initiatives close the gap."],["st-map","Strategy map","Objectives in four perspectives. Click one to see its measures and initiatives."],["st-kpis","Measures and targets","Every measure with yearly targets. Status is calculated from progress; click one to check in."],["st-portfolio","Initiative portfolio","Initiatives grouped by the targets they move, with the gaps no one covers."],["st-review","Strategy review","The quarterly pack: exceptions only, decisions to record and actions that carry over."]]},
+  pmo:{n:"Portfolio tour",s:[["wk-intake","Requests","New ideas, scored against the strategy before they enter the portfolio."],["wk-portfolio","Portfolio control","Health, budget, baselines and stage gates for every initiative."],["wk-program","Programmes","One programme with its timeline, status updates and risks."],["wk-tasks","Tasks","All work as a list, board, timeline, calendar or workload."],["wk-decisions","Decisions and actions","What the steering group decided, and who does what next."]]}};
+function welcomeHtml(){return '<section class="card welcome"><button class="mx wl-x" data-ui="welcomex" aria-label="Close the welcome">'+icon("x")+'</button><div><small>Welcome to OrgCue</small><h2>One thread from the board’s ambition to this week’s tasks</h2><p>This is a sample company, MosaicX. Everything you change is saved in your browser. Where would you like to start?</p></div><div class="wl-o">'+
+  '<button data-ui="tour:strategy">'+icon("compass")+'<b>I lead strategy</b><small>CEO, strategy office: a five-step tour from ambition to the review pack</small></button>'+
+  '<button data-ui="tour:pmo">'+icon("layers")+'<b>I run the portfolio</b><small>PMO, COO: requests, health, programmes, tasks and decisions</small></button>'+
+  '<button data-ui="welcomego:wk-my">'+icon("check")+'<b>I deliver the work</b><small>Team lead: my tasks, inbox and team activity</small></button></div></section>'}
+function tourBar(){var o=$("#tourBar");if(o)o.remove();if(!ST.tour||ST.route==="login")return;var t=TOURS[ST.tour.k];if(!t)return;var i=ST.tour.i,s=t.s[i];
+  document.body.insertAdjacentHTML("beforeend",'<div class="tour" id="tourBar" role="region" aria-label="'+esc(t.n)+'"><div class="tour-s"><small>'+esc(t.n)+' · step '+(i+1)+' of '+t.s.length+'</small><b>'+esc(s[1])+'</b><span>'+esc(s[2])+'</span></div><div class="tour-a"><button class="btn ghost sm-b" data-ui="tourstep:-1"'+(i?'':' disabled')+'>Back</button>'+(i<t.s.length-1?'<button class="btn primary sm-b" data-ui="tourstep:1">Next</button>':'<button class="btn primary sm-b" data-ui="tourend">Finish</button>')+'<button class="mx" data-ui="tourend" aria-label="End the tour">'+icon("x")+'</button></div></div>')}
+function relUi(p){
+  if(p[0]==="krcheck"){okrCheck(p[1]);return true}
+  if(p[0]==="decide"){decide(p[1]);return true}
+  if(p[0]==="decnew"){decNew();return true}
+  if(p[0]==="decview"){ST.decTab="dec";closePop();go("wk-decisions");return true}
+  if(p[0]==="actnew"){actForm(null);return true}
+  if(p[0]==="actedit"){actForm(p[1]);return true}
+  if(p[0]==="actdone"){var a=actById(p[1]);a.st=a.st==="Done"?"Open":"Done";rerender();toast(a.st==="Done"?"Action done":"Action reopened");return true}
+  if(p[0]==="reqnew"){reqNew();return true}
+  if(p[0]==="reqscreen"){var r=reqById(p[1]);r.st="Screening";rerender();toast("Moved to screening");return true}
+  if(p[0]==="reqaccept"){reqAccept(p[1]);return true}
+  if(p[0]==="reqreject"){reqReject(p[1]);return true}
+  if(p[0]==="welcomex"){ST.welcomed=true;rerender();return true}
+  if(p[0]==="welcomego"){ST.welcomed=true;go(p[1]);return true}
+  if(p[0]==="tour"){ST.welcomed=true;ST.tour={k:p[1],i:0};if(MODAL)closeModal();go(TOURS[p[1]].s[0][0]);return true}
+  if(p[0]==="tourstep"){var t=TOURS[ST.tour.k];ST.tour.i=Math.max(0,Math.min(t.s.length-1,ST.tour.i+(+p[1])));go(t.s[ST.tour.i][0]);return true}
+  if(p[0]==="tourend"){var done=ST.tour&&ST.tour.i===TOURS[ST.tour.k].s.length-1;ST.tour=null;tourBar();saveState();toast(done?"Tour finished. Help has both tours":"Tour ended");return true}
+  return false}
+ST.decTab="dec";ST.welcomed=false;ST.tour=null;
+
+/* ================= PRODUCT ROADMAP: what is built, what comes next, and how we compare ================= */
+var RM_H=[["now","Now","This quarter, with what just shipped"],["next","Next","Next one to two quarters"],["later","Later","Later this year and beyond"]];
+var RM_AREAS=["Strategy","Portfolio","Work","Collaboration","Reporting","AI","Platform","Integrations"];
+var RM_ST={Shipped:"good",Building:"info",Planned:"warn",Exploring:"mute"};
+function rmById(id){return RM_ITEMS.filter(function(r){return r.id===id})[0]}
+function rmVotes(r){return (r.v||0)+((ST.rmVote||{})[r.id]?1:0)}
+function rmCard(r){var mine=(ST.rmVote||{})[r.id];
+  return '<div class="kcard rm-c" style="--bt:'+(RM_COL[r.area]||"#7c4ddb")+'" data-ui="rmopen:'+r.id+'" role="button" tabindex="0"'+ffs({Area:r.area,Status:r.st,Panel:(r.by||[]).join(",")||"Research"})+' data-q="'+esc((r.t+" "+r.why+" "+(r.ref||[]).join(" ")).toLowerCase())+'">'+
+    '<div class="rm-top"><span class="chip sm" style="background:'+(RM_COL[r.area]||"#7c4ddb")+'1f;color:'+(RM_COL[r.area]||"#7c4ddb")+'">'+r.area+'</span><span class="pill '+RM_ST[r.st]+'">'+r.st+'</span></div><b>'+esc(r.t)+'</b><div class="r">'+esc(r.why)+'</div>'+
+    '<div class="foot"><span class="rm-ref">'+(r.ref&&r.ref.length?'Bar set by '+esc(r.ref.slice(0,3).join(", ")):'')+'</span><button class="rm-vote'+(mine?' on':'')+'" data-ui="rmvote:'+r.id+'" aria-pressed="'+!!mine+'" aria-label="Vote for '+esc(r.t)+'" title="'+(mine?'Remove your vote':'I want this')+'">'+icon("thumb")+rmVotes(r)+'</button></div></div>'}
+function viewRoadmap(){var tab=ST.rmTab||"board",body="";
+  var shipped=RM_SHIPPED.reduce(function(s,a){return s+a.f.length},0),open=RM_ITEMS.filter(function(r){return r.st!=="Shipped"});
+  var cov=RM_CAT.filter(function(c){return c.us==="yes"}).length,part=RM_CAT.filter(function(c){return c.us==="partial"}).length;
+  var tiles='<div class="kpi-row k4"><div class="kc gray"><div class="l">Shipped capabilities</div><div class="v">'+shipped+'</div><div class="amb-s">across '+RM_SHIPPED.length+' areas, '+(STRAT_NAV.filter(function(n){return n.id&&!n.hidden}).length+WORK_NAV.filter(function(n){return n.id}).length+NAV.length)+' pages</div></div>'+
+    '<div class="kc"><div class="l">Market features covered</div><div class="v">'+Math.round((cov+part/2)/RM_CAT.length*100)+'%</div><div class="amb-s">'+cov+' in full and '+part+' in part, of '+RM_CAT.length+' features leading vendors offer</div></div>'+
+    '<div class="kc"><div class="l">On the roadmap</div><div class="v">'+open.length+'</div><div class="amb-s">'+RM_H.map(function(h){return open.filter(function(r){return r.h===h[0]}).length+' '+h[1].toLowerCase()}).join(", ")+'</div></div>'+
+    '<div class="kc"><div class="l">Vendors researched</div><div class="v">'+RM_VENDORS.reduce(function(s,v){return s+v.n.split(/, | and (?=[A-Z])/).length},0)+'</div><div class="amb-s">in strategy, portfolio and work management</div></div></div>';
+  if(tab==="board"){body='<div class="toolbar">'+liveSearch("Search the roadmap")+'<span class="grow"></span>'+fltBtn()+'<button class="btn primary" data-ui="rmsuggest">'+icon("plus")+'Suggest a feature</button></div>'+
+      '<div class="kb rm-b">'+RM_H.map(function(h){var l=RM_ITEMS.filter(function(r){return r.h===h[0]}).sort(function(a,b){return (a.st==="Shipped")!==(b.st==="Shipped")?(a.st==="Shipped"?-1:1):rmVotes(b)-rmVotes(a)});return '<div class="kb-col"><div class="kb-h" style="background:'+{now:"#7c4ddb",next:"#2f6fd8",later:"#7d7d86"}[h[0]]+'"><span>'+h[1]+'<small>'+l.length+' · '+h[2]+'</small></span></div><div class="kb-cards">'+l.map(rmCard).join("")+'</div></div>'}).join("")+'</div>'+
+      '<div class="legend" style="margin-top:10px"><span>Vote for what matters to you; shipped items come first, then the most wanted. Click a card for the detail and the vendors that set the bar.</span></div>'}
+  else if(tab==="shipped"){body='<div class="rm-sh">'+RM_SHIPPED.map(function(a){return '<section class="card pad"><h3>'+icon(a.i)+esc(a.a)+' <small>'+a.f.length+'</small></h3><ul class="ul yes">'+a.f.map(function(f){return '<li>'+icon("tick")+(f[1]?'<button class="link rm-l" data-go="'+f[1]+'">'+esc(f[0])+'</button>':esc(f[0]))+'</li>'}).join("")+'</ul></section>'}).join("")+'</div>'}
+  else if(tab==="coverage"){var cls={T:["Table stakes","bad"],E:["Expected","warn"],D:["Differentiator","info"]},us={yes:["Yes","good"],partial:["In part","warn"],no:["Not yet","mute"]};
+    body='<div class="toolbar">'+liveSearch("Search features")+'<span class="grow"></span>'+fltBtn()+setBtn()+'</div><section class="card"><div class="tbl-wrap"><table class="live-rows rm-t" style="min-width:980px"><thead><tr><th>Feature</th><th>Area</th><th>Class</th><th>OrgCue</th><th>Leading vendors</th><th>Roadmap</th></tr></thead><tbody>'+
+      RM_AREAS.map(function(ar){var l=RM_CAT.filter(function(c){return c.a===ar});if(!l.length)return "";return '<tr><td colspan="6" class="grp-h">'+ar+' <span style="font-weight:600">· '+l.length+'</span></td></tr>'+l.map(function(c){var r=c.rm&&rmById(c.rm);
+        return '<tr data-q="'+esc((c.f+" "+c.d+" "+c.v).toLowerCase())+'"'+ffs({Area:ar,Class:cls[c.c][0],OrgCue:us[c.us][0]})+'><td><b>'+esc(c.f)+'</b><div class="amb-s">'+esc(c.d)+'</div></td><td>'+ar+'</td><td><span class="pill '+cls[c.c][1]+'">'+cls[c.c][0]+'</span></td><td><span class="pill '+us[c.us][1]+'">'+us[c.us][0]+'</span>'+(c.go?' <button class="link rm-l" data-go="'+c.go+'">Open</button>':'')+'</td><td class="rm-v">'+esc(c.v)+'</td><td>'+(r?'<button class="chip sm" data-ui="rmopen:'+r.id+'">'+RM_H.filter(function(h){return h[0]===r.h})[0][1]+'</button>':'')+'</td></tr>'}).join("")}).join("")+'</tbody></table></div></section>'+
+      '<div class="legend" style="margin-top:10px"><span><b>Table stakes:</b> most leaders have it.</span><span><b>Expected:</b> buyers in this segment look for it.</span><span><b>Differentiator:</b> few have it; it can win deals.</span></div>'}
+  else if(tab==="vendors"){body='<div class="toolbar">'+liveSearch("Search vendors")+'<span class="grow"></span>'+fltBtn()+'</div><section class="card"><div class="tbl-wrap"><table class="live-rows" style="min-width:900px"><thead><tr><th>Vendor</th><th>Area</th><th>Known for</th><th>What we learn from them</th></tr></thead><tbody>'+
+      RM_VENDORS.map(function(v){return '<tr data-q="'+esc((v.n+" "+v.k+" "+v.l).toLowerCase())+'"'+ffs({Area:v.a})+'><td><b>'+esc(v.n)+'</b></td><td><span class="chip sm">'+esc(v.a)+'</span></td><td>'+esc(v.k)+'</td><td>'+esc(v.l)+'</td></tr>'}).join("")+'</tbody></table></div></section>'}
+  else{body='<p class="amb-s rm-note">Four reviewers looked at OrgCue in November 2026: a strategy consultant, a PMO director, a SaaS founder and a market analyst. They are AI reviewers working in those roles, using the live product and public information about vendors.</p><section class="card pad rm-cons"><h3>'+icon("spark")+'What the panel agreed</h3><ol class="rv-ol">'+RM_PANEL.agree.map(function(a){return '<li>'+esc(a)+'</li>'}).join("")+'</ol></section><div class="rm-pn">'+RM_PANEL.people.map(function(p){
+      return '<section class="card pad"><div class="person" style="margin-bottom:10px"><span class="av" style="background:'+p.c+'">'+p.ini+'</span><div><b>'+esc(p.role)+'</b><small>'+esc(p.lens)+'</small></div></div><div class="lbl">Strongest today</div><ul class="ul yes">'+p.good.map(function(g){return '<li>'+icon("tick")+esc(g)+'</li>'}).join("")+'</ul><div class="lbl">Biggest gaps</div><ul class="ul">'+p.gaps.map(function(g){return '<li>'+esc(g)+'</li>'}).join("")+'</ul><div class="lbl">Build now</div><div class="chips">'+p.now.map(function(id){var r=rmById(id);return r?'<button class="chip" data-ui="rmopen:'+id+'">'+esc(r.t)+'</button>':''}).join("")+'</div><blockquote class="rm-q">“'+esc(p.quote)+'”</blockquote></section>'}).join("")+'</div>'}
+  return pageHead("Product roadmap","What OrgCue does today, what we build next, and how we compare with the leading strategy, portfolio and work-management tools.",'<button class="btn ghost" data-act="print">'+icon("print")+'Print</button>')+tiles+
+    tabs("rmTab",[["board","Roadmap","kanban"],["shipped","Shipped","check"],["coverage","Feature coverage","table"],["vendors","Vendors","building"],["panel","Panel review","users"]],tab)+body}
+function rmOpen(id){var r=rmById(id);if(!r)return;var cat=RM_CAT.filter(function(c){return c.rm===id});
+  openForm({title:r.t,submit:false,html:'<div class="rm-d"><div class="chips"><span class="chip">'+r.area+'</span><span class="pill '+RM_ST[r.st]+'">'+r.st+'</span><span class="chip" style="background:var(--head);color:var(--ink)">'+RM_H.filter(function(h){return h[0]===r.h})[0][1]+': '+RM_H.filter(function(h){return h[0]===r.h})[0][2]+'</span></div>'+
+    '<p><b>Why:</b> '+esc(r.why)+'</p>'+(r.what?'<p><b>What it does:</b> '+esc(r.what)+'</p>':'')+(r.ref&&r.ref.length?'<p><b>The bar is set by:</b> '+esc(r.ref.join(", "))+'</p>':'')+(r.by&&r.by.length?'<p><b>Asked for by:</b> '+esc(r.by.map(function(b){return {S:"the strategy consultant",P:"the PMO director",F:"the SaaS founder",U:"you"}[b]||b}).join(", "))+'</p>':'')+
+    (cat.length?'<p><b>Closes these gaps:</b> '+esc(cat.map(function(c){return c.f}).join(", "))+'</p>':'')+(r.go?'<button type="button" class="btn ghost" data-go="'+r.go+'">'+icon("chevr")+'See it in OrgCue</button> ':'')+'<button type="button" class="btn '+((ST.rmVote||{})[r.id]?'ghost':'primary')+'" data-ui="rmvote:'+r.id+'">'+icon("thumb")+((ST.rmVote||{})[r.id]?'Remove my vote':'I want this')+' · '+rmVotes(r)+'</button></div>'})}
+function rmSuggest(){openForm({title:"Suggest a feature",intro:"Tell us what would make OrgCue more useful. It goes on the roadmap as Exploring, and others can vote for it.",fields:[{k:"t",l:"Feature",req:1,full:1},{k:"a",l:"Area",t:"select",o:RM_AREAS,v:"Work"},{k:"why",l:"What problem does it solve?",t:"textarea",req:1}],submit:"Add to roadmap",done:"Thanks. Your idea is on the roadmap",
+  save:function(v){var n=RM_ITEMS.length+1;while(rmById("RM"+n))n++;RM_ITEMS.push({id:"RM"+n,t:v.t,area:v.a,h:"later",st:"Exploring",why:v.why,ref:[],by:["U"],v:0});ST.rmVote=ST.rmVote||{};ST.rmVote["RM"+n]=true}})}
+function rmUi(p){
+  if(p[0]==="rmopen"){rmOpen(p[1]);return true}
+  if(p[0]==="rmvote"){ST.rmVote=ST.rmVote||{};if(ST.rmVote[p[1]])delete ST.rmVote[p[1]];else ST.rmVote[p[1]]=true;var on=!!ST.rmVote[p[1]];if(MODAL){closeModal();rerender();rmOpen(p[1])}else rerender();toast(on?"Vote added":"Vote removed");return true}
+  if(p[0]==="rmsuggest"){rmSuggest();return true}
+  return false}
+document.addEventListener("keydown",function(e){var t=e.target;if((e.key==="Enter"||e.key===" ")&&t&&t.classList&&t.classList.contains("rm-c")){e.preventDefault();rmOpen(t.getAttribute("data-ui").split(":")[1])}});
+var RM_COL={Strategy:"#6a2bc4",Portfolio:"#2f6fd8",Work:"#17946a",Collaboration:"#c2409f",Reporting:"#c77a0a",AI:"#e255c9",Platform:"#5b6577",Integrations:"#3b6fe0"};
+
+var RM_SHIPPED=[
+  {a:"Strategy",i:"compass",f:[["Strategy on a page","st-house"],["Strategy map with live status","st-map"],["Balanced scorecard","st-scorecard"],["OKR alignment","st-okr"],["OGSM","st-ogsm"],["Hoshin X-matrix","st-xmatrix"],["V2MOM","st-v2mom"],["Strategy canvas, business model canvas, SWOT and PESTLE","st-canvas"],["Value driver tree","st-tree"],["Strategy heat map and organisation alignment","st-heat"],["Quarterly strategy review pack with decisions and actions","st-review"],["OKR check-ins with confidence","st-okr"]]},
+  {a:"Purpose and value",i:"heart",f:[["Ambition tracker with gap to target","st-ambition"],["Purpose and values as behaviours","st-purpose"],["Values recognition and pulse","st-kudos"],["Value creation for each stakeholder","st-value"]]},
+  {a:"Measures",i:"target",f:[["Measures with baseline, trend and yearly targets","st-kpis"],["Check-ins with calculated status and history","st-kpis"],["Target edits with a record of changes","st-kpis"],["Initiatives linked to measures with expected impact","st-portfolio"],["Target coverage: covered, partly covered, big gap","st-portfolio"]]},
+  {a:"Portfolio and programmes",i:"layers",f:[["Programmes with leads and status updates","wk-program"],["Portfolio health: schedule, budget, progress, risk","wk-portfolio"],["Baselines, forecast cost and dependency clashes","wk-portfolio"],["Stage gates with approvals","wk-portfolio"],["Requests with scoring and acceptance","wk-intake"],["Decisions and actions log","wk-decisions"],["Initiative roadmap and prioritisation","st-roadmap"],["RAID log, budgets, benefits, governance","raid"],["Project closure, retrospectives, pre-launch checklist","closure"]]},
+  {a:"Projects and tasks",i:"kanban",f:[["Project plan as table, Kanban, Gantt, team, KPI and calendar","plan-table"],["Tasks as list, board, timeline, calendar and workload","wk-tasks"],["Task panel: subtasks, dependencies, estimates","wk-tasks"],["My work by due date","wk-my"],["Resources and capacity","resources"]]},
+  {a:"Collaboration",i:"users",f:[["Comments with @mentions","wk-tasks"],["Inbox with filters","wk-my"],["Follow tasks and initiatives","wk-my"],["Team activity feed","wk-my"],["Replies on status updates","wk-program"]]},
+  {a:"Automation and AI",i:"spark",f:[["Six automation rules with a run log","wk-rules"],["Assistant that answers from live data and drafts updates",""]]},
+  {a:"Platform",i:"gear",f:[["Global search, favourites and recent pages",""],["Filters, column settings and CSV export",""],["Light and dark themes, phone layouts",""],["Welcome card and two guided tours","dashboard"],["Workspaces, notifications and account settings","settings-workspaces"]]}];
+
+var RM_ITEMS=[
+  {id:"RM1",t:"Measures with calculated status and dated check-ins",area:"Strategy",h:"now",st:"Shipped",go:"st-kpis",v:14,by:["S"],ref:["Cascade","ClearPoint","Spider Impact"],why:"Status was typed by hand, so the same number got different verdicts on different pages.",what:"Status follows progress against the plan, with tolerance bands; owners can override with a reason. Each check-in has a period, comment and history."},
+  {id:"RM2",t:"OKR check-ins with confidence",area:"Strategy",h:"now",st:"Shipped",go:"st-okr",v:11,by:["S"],ref:["WorkBoard","Perdoo","Profit.co"],why:"OKRs were static; leaders need a weekly signal of confidence, not just progress.",what:"Click a key result to record its value, your confidence and a note."},
+  {id:"RM3",t:"Decision and action log",area:"Reporting",h:"now",st:"Shipped",go:"wk-decisions",v:16,by:["S","P"],ref:["WorkBoard","Planview","ClearPoint"],why:"Steering decisions were fixed text, and nothing carried over to the next review.",what:"Record decisions with rationale, create follow-up actions, and see open actions in the strategy review. Stage gates and requests log their decisions too."},
+  {id:"RM4",t:"Requests: demand intake with scoring",area:"Portfolio",h:"now",st:"Shipped",go:"wk-intake",v:13,by:["P"],ref:["ServiceNow SPM","Planview","monday.com"],why:"New ideas had no front door, so prioritisation could not see what was coming.",what:"Submit a request, score it on value, strategic fit, ease and risk, then accept it into the portfolio or reject it with a reason."},
+  {id:"RM5",t:"One initiative record, first step",area:"Platform",h:"now",st:"Shipped",go:"dashboard",v:12,by:["P","F"],ref:["Planview","Smartsheet"],why:"Project cards, the steering pack and Work showed different dates, budgets and stages for the same work.",what:"Project cards, spend, the review pack and prioritisation now read the initiative. Running work is shown as committed."},
+  {id:"RM6",t:"Assistant that answers from live data",area:"AI",h:"now",st:"Shipped",v:15,by:["F"],ref:["Linear","Asana","WorkBoard"],why:"The demo assistant searched file names; asked what was off track, it returned a meeting.",what:"Ask what is off track, where money is at risk, whose updates are overdue or for a steering brief, and get a draft status update for any initiative."},
+  {id:"RM7",t:"Guided first run and tours",area:"Platform",h:"now",st:"Shipped",go:"dashboard",v:8,by:["F"],ref:["Asana","monday.com"],why:"First-time visitors landed on a project dashboard with no idea where to start.",what:"Pick your role on the welcome card and follow a five-step tour; both tours are in Help."},
+  {id:"RM8",t:"Real accounts and shared data",area:"Platform",h:"now",st:"Planned",v:21,by:["F"],ref:["All leaders"],why:"Everything lives in one browser today, so no team can use it together.",what:"Store the workspace in Supabase with sign-in, invitations and live updates."},
+  {id:"RM9",t:"Roles and permissions",area:"Platform",h:"now",st:"Planned",v:12,by:["F","P"],ref:["Asana","Planview","monday.com"],why:"Board members, PMO and teams need different rights over targets, budgets and tasks."},
+  {id:"RM10",t:"Monthly budgets, actuals and forecast",area:"Portfolio",h:"now",st:"Planned",go:"budgets",v:15,by:["P"],ref:["Broadcom Clarity","Planview","Asana"],why:"The first thing a CFO checks: phased budget, actuals, forecast, capex and opex, approved against committed."},
+  {id:"RM11",t:"One task list: fold project plans into initiatives",area:"Work",h:"now",st:"Planned",go:"wk-tasks",v:13,by:["P","F"],ref:["Asana","Smartsheet"],why:"Projects and Work still keep separate task lists for the same initiatives."},
+  {id:"RM12",t:"Business unit scorecards and a real cascade",area:"Strategy",h:"now",st:"Planned",go:"st-heat",v:11,by:["S"],ref:["WorkBoard","Cascade","Spider Impact"],why:"Units should own targets linked to company objectives, not just a heat map."},
+  {id:"RM13",t:"Gate criteria and named approvers",area:"Portfolio",h:"next",st:"Planned",go:"wk-portfolio",v:9,by:["P"],ref:["Planisware","Planview","Wrike"],why:"Each gate needs a checklist, required approvers and an any/all rule."},
+  {id:"RM14",t:"Capacity by role and what-if scenarios",area:"Portfolio",h:"next",st:"Planned",go:"st-priority",v:12,by:["P"],ref:["Tempus Resource","Planview","Smartsheet"],why:"Funding choices need demand against capacity by role, without changing the live plan."},
+  {id:"RM15",t:"KPI data connectors",area:"Integrations",h:"next",st:"Planned",v:10,by:["S"],ref:["Profit.co","Cascade","Perdoo"],why:"Measures should update from finance, CRM and BI, not by hand."},
+  {id:"RM16",t:"Slack and Microsoft Teams",area:"Integrations",h:"next",st:"Planned",v:11,by:["F"],ref:["WorkBoard","Asana","Linear"],why:"Check-ins, mentions and approvals where people already work."},
+  {id:"RM17",t:"Two-way sync with Jira and Azure DevOps",area:"Integrations",h:"next",st:"Planned",v:9,by:["F"],ref:["monday.com","Planview","Jira Align"],why:"OrgCue sits above delivery tools; teams keep their tools, leaders see the thread."},
+  {id:"RM18",t:"Board pack export and scheduled digests",area:"Reporting",h:"next",st:"Planned",go:"st-review",v:10,by:["S"],ref:["ClearPoint","Cascade","WorkBoard"],why:"The review pack should go out as PowerPoint or PDF, frozen for each period."},
+  {id:"RM19",t:"Custom fields and saved views",area:"Work",h:"next",st:"Planned",go:"wk-tasks",v:8,ref:["Asana","ClickUp","Linear"],why:"Table stakes in work management; every team tracks something extra."},
+  {id:"RM20",t:"Strategic risks and risk appetite",area:"Strategy",h:"next",st:"Planned",v:7,by:["S"],ref:["Cascade","ClearPoint"],why:"The review's top risks are project risks; boards want strategic risks against an appetite."},
+  {id:"RM21",t:"SSO, SCIM and audit log",area:"Platform",h:"next",st:"Planned",go:"settings-workspaces",v:9,by:["F"],ref:["Asana","Linear","Atlassian"],why:"Required to pass enterprise security reviews."},
+  {id:"RM22",t:"Import from Excel and Jira",area:"Platform",h:"next",st:"Planned",v:8,by:["F"],ref:["monday.com","Smartsheet"],why:"Most strategies and portfolios start life in spreadsheets."},
+  {id:"RM23",t:"Change requests and re-baselining",area:"Portfolio",h:"next",st:"Planned",v:6,by:["P"],ref:["Microsoft Planner","Planisware","Celoxis"],why:"Scope, date and budget changes need approval and a new baseline with history."},
+  {id:"RM24",t:"AI agents that chase updates and prepare reviews",area:"AI",h:"later",st:"Exploring",v:10,ref:["WorkBoard","Asana","Planview"],why:"Leaders expect agents to nudge owners, flag drift and assemble the pack, within the user's permissions."},
+  {id:"RM25",t:"Public API, webhooks and an MCP server",area:"Integrations",h:"later",st:"Exploring",v:7,ref:["Linear","Asana","Atlassian"],why:"Lets customers and outside AI agents read and update OrgCue safely."},
+  {id:"RM26",t:"Strategy scenarios",area:"Strategy",h:"later",st:"Exploring",go:"st-tree",v:6,by:["S"],ref:["Planview","Jibility"],why:"Compare strategic options and their effect on targets before committing."},
+  {id:"RM27",t:"Benefit profiles and realisation tracking",area:"Portfolio",h:"later",st:"Exploring",go:"benefits",v:6,by:["P"],ref:["Shibumi","Broadcom Clarity"],why:"Few tools do this well; it can set OrgCue apart."},
+  {id:"RM28",t:"Timesheets",area:"Work",h:"later",st:"Exploring",v:4,by:["P"],ref:["Planview","Clarity","Teamwork.com"],why:"Needed for actual effort against capacity, mainly in services firms."},
+  {id:"RM29",t:"Phone apps",area:"Platform",h:"later",st:"Exploring",v:5,ref:["Asana","WorkBoard"],why:"Check-ins and approvals on the go."},
+  {id:"RM30",t:"Power BI and Tableau connector",area:"Reporting",h:"later",st:"Exploring",v:6,ref:["WorkBoard","Planview","Smartsheet"],why:"Finance and the PMO want the data in their BI tool."},
+  {id:"RM31",t:"Critical path and cross-project impact",area:"Portfolio",h:"later",st:"Exploring",go:"wk-portfolio",v:5,by:["P"],ref:["Microsoft Planner","Smartsheet","Wrike"],why:"Show which slips move the end date and which programmes they hit."},
+  {id:"RM32",t:"Governance calendar and meeting cadence",area:"Strategy",h:"later",st:"Exploring",go:"governance",v:5,by:["S"],ref:["WorkBoard","ClearPoint"],why:"Tie reviews, check-in deadlines and period locks to one calendar."},
+  {id:"RM33",t:"EU and UK data residency",area:"Platform",h:"later",st:"Exploring",v:4,ref:["Asana","Cascade","ClickUp"],why:"Expected by European enterprise and public sector buyers."}];
+var RM_CAT=[
+  {a:"Strategy",f:"Strategy map",c:"E",us:"yes",go:"st-map",d:"Perspectives, objectives and cause-and-effect links with live status.",v:"Cascade, Spider Impact, ClearPoint, Profit.co"},
+  {a:"Strategy",f:"Framework flexibility (BSC, OKR, Hoshin, OGSM)",c:"E",us:"yes",go:"st-house",d:"Several ways to express one strategy.",v:"Cascade, ClearPoint, Spider, Profit.co, i-nexus"},
+  {a:"Strategy",f:"Objectives and key results",c:"T",us:"yes",go:"st-okr",d:"Company and team OKRs with progress.",v:"WorkBoard, Perdoo, Profit.co, Asana, Lattice"},
+  {a:"Strategy",f:"Check-ins with confidence",c:"T",us:"yes",go:"st-okr",d:"Regular updates with progress, confidence and a note.",v:"WorkBoard, Perdoo, Profit.co, Weekdone",rm:"RM2"},
+  {a:"Strategy",f:"Goal cascade across units and teams",c:"T",us:"partial",go:"st-okr",d:"Parent-child goals with roll-up.",v:"WorkBoard, Perdoo, Asana, Atlassian, Lattice",rm:"RM12"},
+  {a:"Strategy",f:"KPIs with targets and tolerance bands",c:"E",us:"yes",go:"st-kpis",d:"Time-series targets and calculated status.",v:"Cascade, ClearPoint, Spider, Profit.co",rm:"RM1"},
+  {a:"Strategy",f:"Automatic KPI data feeds",c:"E",us:"no",d:"Measures update from BI, CRM and finance.",v:"Profit.co, Cascade, Perdoo",rm:"RM15"},
+  {a:"Strategy",f:"Balanced scorecard",c:"E",us:"yes",go:"st-scorecard",d:"Perspectives, objectives, measures and initiatives.",v:"Spider, ClearPoint, Profit.co, Cascade"},
+  {a:"Strategy",f:"Hoshin X-matrix",c:"D",us:"yes",go:"st-xmatrix",d:"Breakthrough and annual objectives cross-linked.",v:"i-nexus, Profit.co"},
+  {a:"Strategy",f:"Initiatives linked to targets with expected impact",c:"E",us:"yes",go:"st-portfolio",d:"How much each initiative should move each measure.",v:"Cascade, Perdoo, WorkBoard, Jibility"},
+  {a:"Strategy",f:"Alignment scoring",c:"D",us:"partial",go:"wk-intake",d:"Score how well work maps to priorities.",v:"Cascade, Planview, ServiceNow"},
+  {a:"Strategy",f:"Strategic risks and appetite",c:"E",us:"no",d:"Board-level risks against an agreed appetite.",v:"Cascade, ClearPoint",rm:"RM20"},
+  {a:"Strategy",f:"Strategy scenarios",c:"D",us:"no",d:"Compare strategic options before committing.",v:"Planview, Jibility",rm:"RM26"},
+  {a:"Portfolio",f:"Portfolio roll-up and health",c:"T",us:"yes",go:"wk-portfolio",d:"Status, health, budget and progress across programmes.",v:"Planview, Asana, monday.com, Smartsheet, Linear"},
+  {a:"Portfolio",f:"Programmes",c:"E",us:"yes",go:"wk-program",d:"Group initiatives with their own lead and updates.",v:"Planview, Clarity, Linear, Wrike"},
+  {a:"Portfolio",f:"Demand intake and scoring",c:"E",us:"yes",go:"wk-intake",d:"Requests, scoring criteria and approval.",v:"Planview, ServiceNow, Celoxis, monday.com",rm:"RM4"},
+  {a:"Portfolio",f:"Prioritisation",c:"E",us:"yes",go:"st-priority",d:"Weighted criteria, value against effort, ranking.",v:"Planview, ServiceNow, Jira Align"},
+  {a:"Portfolio",f:"What-if funding scenarios",c:"E",us:"partial",go:"st-priority",d:"Compare funding options without changing live plans.",v:"Planview, Smartsheet, Tempus",rm:"RM14"},
+  {a:"Portfolio",f:"Stage gates and approvals",c:"E",us:"partial",go:"wk-portfolio",d:"Phases with gate criteria, approvers and decisions.",v:"Planisware, Planview, ServiceNow",rm:"RM13"},
+  {a:"Portfolio",f:"Budgets by period, forecast and actuals",c:"T",us:"partial",go:"budgets",d:"Phased budgets, capex and opex, variance.",v:"Clarity, Planview, ServiceNow, Asana",rm:"RM10"},
+  {a:"Portfolio",f:"Benefits realisation",c:"D",us:"partial",go:"benefits",d:"Planned against realised value with owners.",v:"Shibumi, Clarity, Planview",rm:"RM27"},
+  {a:"Portfolio",f:"Capacity by role",c:"E",us:"no",d:"Demand against capacity by role, months ahead.",v:"Tempus, Planview, Smartsheet",rm:"RM14"},
+  {a:"Portfolio",f:"Baselines",c:"E",us:"yes",go:"wk-portfolio",d:"Compare the forecast with the approved plan.",v:"Microsoft Planner, Planisware, Smartsheet"},
+  {a:"Portfolio",f:"Critical path",c:"E",us:"no",d:"Highlight the tasks that drive the end date.",v:"Microsoft Planner, Smartsheet, Wrike",rm:"RM31"},
+  {a:"Portfolio",f:"Cross-project dependencies",c:"E",us:"yes",go:"wk-portfolio",d:"Links between initiatives with clash warnings.",v:"Jira Plans, Planview, Wrike, Asana"},
+  {a:"Portfolio",f:"RAID log",c:"E",us:"yes",go:"raid",d:"Risks, assumptions, issues and dependencies.",v:"Planview, Clarity, ServiceNow, Celoxis"},
+  {a:"Portfolio",f:"Status updates with history",c:"T",us:"yes",go:"wk-program",d:"Structured updates with health and staleness.",v:"Asana, Linear, Planview, monday.com"},
+  {a:"Portfolio",f:"Change control",c:"E",us:"no",d:"Approve scope, date and budget changes and re-baseline.",v:"Planisware, Celoxis, Microsoft Planner",rm:"RM23"},
+  {a:"Work",f:"List, board, timeline and calendar views",c:"T",us:"yes",go:"wk-tasks",d:"The same tasks in the view that suits the job.",v:"Asana, monday.com, ClickUp, Wrike"},
+  {a:"Work",f:"Subtasks and dependencies",c:"T",us:"yes",go:"wk-tasks",d:"Break work down and say what waits on what.",v:"Asana, ClickUp, Linear, Jira"},
+  {a:"Work",f:"Workload by person",c:"E",us:"yes",go:"wk-tasks",d:"Hours per person per week against capacity.",v:"Asana, monday.com, ClickUp, Wrike"},
+  {a:"Work",f:"Custom fields",c:"T",us:"no",d:"Typed fields on tasks, projects and goals.",v:"Asana, monday.com, ClickUp, Jira",rm:"RM19"},
+  {a:"Work",f:"Saved views",c:"T",us:"partial",go:"wk-tasks",d:"Personal and shared filtered views.",v:"Asana, Linear, ClickUp, Notion",rm:"RM19"},
+  {a:"Work",f:"Forms",c:"T",us:"partial",go:"wk-intake",d:"Forms that create tasks or requests.",v:"Asana, monday.com, Smartsheet, Jira"},
+  {a:"Work",f:"Templates",c:"T",us:"no",d:"Reusable project and task templates.",v:"Asana, monday.com, ClickUp, Smartsheet"},
+  {a:"Work",f:"Recurring tasks",c:"T",us:"no",d:"Tasks that repeat on a schedule.",v:"Asana, ClickUp, monday.com, Wrike"},
+  {a:"Work",f:"Time tracking",c:"E",us:"no",d:"Timers and timesheets.",v:"ClickUp, Teamwork.com, Wrike, Planview",rm:"RM28"},
+  {a:"Work",f:"Automation rules",c:"T",us:"yes",go:"wk-rules",d:"When this happens, do that, with a run log.",v:"Asana, monday.com, ClickUp, Jira"},
+  {a:"Work",f:"My work and inbox",c:"T",us:"yes",go:"wk-my",d:"Personal queue of work and notifications.",v:"Asana, Linear, monday.com, ClickUp"},
+  {a:"Collaboration",f:"Comments and @mentions",c:"T",us:"yes",go:"wk-tasks",d:"Threads on tasks and updates.",v:"All leaders"},
+  {a:"Collaboration",f:"Follow and notifications",c:"T",us:"yes",go:"wk-my",d:"Follow work and get notified of changes.",v:"Asana, Linear, Atlassian"},
+  {a:"Collaboration",f:"Guest access",c:"E",us:"no",d:"Invite clients or partners with limited rights.",v:"Asana, monday.com, Smartsheet, Basecamp",rm:"RM9"},
+  {a:"Collaboration",f:"Docs linked to work",c:"E",us:"partial",go:"documents",d:"Briefs and wikis next to the work.",v:"Notion, ClickUp, Confluence"},
+  {a:"Collaboration",f:"Recognition tied to values",c:"D",us:"yes",go:"st-kudos",d:"Kudos linked to company values.",v:"Lattice, Profit.co, Weekdone"},
+  {a:"Reporting",f:"Dashboards",c:"T",us:"partial",go:"dashboard",d:"Configurable widgets across projects and goals.",v:"Asana, monday.com, Smartsheet, Cascade"},
+  {a:"Reporting",f:"Review and meeting packs",c:"E",us:"yes",go:"st-review",d:"Generated review pages with exceptions and decisions.",v:"WorkBoard, Cascade, ClearPoint"},
+  {a:"Reporting",f:"Decision and action log",c:"E",us:"yes",go:"wk-decisions",d:"Decisions, rationale and follow-up actions.",v:"WorkBoard, Planview, ClearPoint",rm:"RM3"},
+  {a:"Reporting",f:"Board pack export",c:"E",us:"partial",go:"st-review",d:"PDF and PowerPoint exports, briefing books.",v:"ClearPoint, Spider, Cascade",rm:"RM18"},
+  {a:"Reporting",f:"Scheduled digests",c:"E",us:"no",d:"Email or chat summaries on a schedule.",v:"ServiceNow, Profit.co, Asana",rm:"RM18"},
+  {a:"Reporting",f:"Export to BI",c:"E",us:"partial",d:"CSV today; Power BI and Tableau connectors later.",v:"WorkBoard, Planview, Smartsheet",rm:"RM30"},
+  {a:"AI",f:"Questions over portfolio and goal data",c:"T",us:"yes",d:"Ask in plain words, get answers from live data.",v:"Planview Anvi, monday.com, ClickUp, Lattice",rm:"RM6"},
+  {a:"AI",f:"Drafted status updates",c:"T",us:"yes",go:"wk-program",d:"Updates written from activity, for the owner to review.",v:"Linear, Asana, WorkBoard",rm:"RM6"},
+  {a:"AI",f:"Summaries",c:"T",us:"partial",d:"Summaries of projects, goals and threads.",v:"Asana, monday.com, Notion, Jira"},
+  {a:"AI",f:"Risk and drift detection",c:"E",us:"partial",go:"wk-portfolio",d:"Flag delays, anomalies and drift from plan.",v:"Planisware, Cascade, Smartsheet"},
+  {a:"AI",f:"Agents",c:"T",us:"no",d:"Agents that take assigned work and act across tools.",v:"Asana, ClickUp, monday.com, WorkBoard",rm:"RM24"},
+  {a:"Platform",f:"Shared multi-user workspace",c:"T",us:"no",d:"Real accounts with shared, live data.",v:"All leaders",rm:"RM8"},
+  {a:"Platform",f:"Roles and permissions",c:"T",us:"no",d:"Object and field level rights, custom roles.",v:"ServiceNow, Planview, Asana, monday.com",rm:"RM9"},
+  {a:"Platform",f:"SSO and SCIM",c:"T",us:"no",d:"Enterprise sign-in and user provisioning.",v:"Asana, Linear, Notion, monday.com",rm:"RM21"},
+  {a:"Platform",f:"Audit log",c:"E",us:"partial",go:"wk-tasks",d:"Who changed what; activity exists per task.",v:"Asana, Linear, monday.com",rm:"RM21"},
+  {a:"Platform",f:"Import",c:"E",us:"no",d:"Bring data in from Excel and Jira.",v:"monday.com, Smartsheet, Asana",rm:"RM22"},
+  {a:"Platform",f:"Phone apps",c:"E",us:"partial",d:"The web app works at phone width; no native apps.",v:"Asana, monday.com, WorkBoard",rm:"RM29"},
+  {a:"Platform",f:"Data residency",c:"E",us:"no",d:"Choose the hosting region.",v:"Asana, Cascade, ClickUp",rm:"RM33"},
+  {a:"Integrations",f:"Slack and Teams",c:"T",us:"no",d:"Notifications, check-ins and approvals in chat.",v:"Nearly all leaders",rm:"RM16"},
+  {a:"Integrations",f:"Jira two-way sync",c:"E",us:"no",d:"Keep delivery in Jira, see it in the portfolio.",v:"monday.com, Planview, Cascade",rm:"RM17"},
+  {a:"Integrations",f:"Public API, webhooks and MCP",c:"T",us:"no",d:"Programmatic and agent access.",v:"Linear, Asana, Atlassian, monday.com",rm:"RM25"}];
+var RM_VENDORS=[
+  {n:"Cascade",a:"Strategy",k:"Strategy maps, plans and KPIs with Tapestry AI",l:"Strategy and execution on one model; AI reports and meetings."},
+  {n:"WorkBoard (with Quantive)",a:"Strategy",k:"OKRs, scorecards, business reviews and agents",l:"Running business reviews from live data; bought Quantive in 2025."},
+  {n:"Perdoo",a:"Strategy",k:"OKRs, KPIs and strategy pillars for growing firms",l:"Simple check-ins with confidence; KPI history against prior periods."},
+  {n:"Profit.co",a:"Strategy",k:"OKR, KPI, BSC, Hoshin and PPM in one suite",l:"Breadth across frameworks, with Athena AI agents."},
+  {n:"ClearPoint Strategy",a:"Strategy",k:"Scorecards and briefing books for the public sector",l:"Board-ready reports and AI narratives."},
+  {n:"Spider Impact",a:"Strategy",k:"Balanced scorecard and KPIs, also self-hosted",l:"Scorecard Insights: red measures with no initiative."},
+  {n:"Jibility",a:"Strategy",k:"Capability-based strategic roadmaps",l:"Capability gaps tied to initiatives."},
+  {n:"i-nexus",a:"Strategy",k:"Hoshin Kanri, X-matrix and bowling charts",l:"Lean strategy deployment, monthly bowling charts."},
+  {n:"Betterworks, Lattice, Leapsome",a:"Strategy",k:"Goals inside HR and performance suites",l:"Goals tied to people and reviews."},
+  {n:"Mooncamp, Weekdone",a:"Strategy",k:"Lightweight OKRs for small teams",l:"Weekly rhythm and simple onboarding."},
+  {n:"Atlassian Goals and Focus",a:"Strategy",k:"Goals and projects, strategy in the Strategy Collection",l:"Follow goals and projects; weekly digests."},
+  {n:"Microsoft Viva Goals",a:"Strategy",k:"Retired at the end of 2025",l:"Customers are moving; a window for alternatives."},
+  {n:"Planview",a:"Portfolio",k:"The broadest SPM suite, with Anvi AI; bought Sciforma in 2025",l:"Intake, scenarios, capacity, financials end to end."},
+  {n:"Planisware",a:"Portfolio",k:"Enterprise and R&D PPM; Orchestra SaaS",l:"Gates, scheduling depth, AI anomaly detection."},
+  {n:"Broadcom Clarity",a:"Portfolio",k:"Deep financials and investment hierarchies",l:"Time-phased cost plans and benefit plans."},
+  {n:"ServiceNow SPM",a:"Portfolio",k:"Demand, portfolio planning and OKRs on the Now Platform",l:"Demand intake with scoring, tied to IT workflows."},
+  {n:"Smartsheet",a:"Portfolio",k:"Spreadsheet-like work and portfolios, vsActual",l:"Blueprints and portfolio roll-ups; drift against plan."},
+  {n:"Microsoft Planner and Project",a:"Portfolio",k:"Planner absorbed Project for the web",l:"Critical path and baselines for M365 customers."},
+  {n:"Jira Align",a:"Portfolio",k:"Enterprise agile planning",l:"Strategy to epics for SAFe organisations."},
+  {n:"Adobe Workfront",a:"Portfolio",k:"Work management for marketing operations",l:"Request queues and approvals."},
+  {n:"Celoxis",a:"Portfolio",k:"All-in-one PPM for services",l:"Proposal scoring and resource views."},
+  {n:"Tempus Resource",a:"Portfolio",k:"Resource capacity and what-if",l:"Demand against capacity by role."},
+  {n:"Shibumi",a:"Portfolio",k:"Programme and benefits tracking; powers Wrike SPM",l:"Value realisation as a first-class object."},
+  {n:"Bizzdesign Alfabet",a:"Portfolio",k:"SPM from enterprise architecture",l:"Portfolio choices tied to the application landscape."},
+  {n:"monday.com",a:"Work",k:"AI work platform with a portfolio solution",l:"Flexible boards, automations and agents."},
+  {n:"Wrike",a:"Work",k:"Enterprise work management with SPM and agents",l:"Request forms with approvals."},
+  {n:"Asana",a:"Work",k:"Goals, portfolios and AI Teammates",l:"Portfolio status updates and the task model."},
+  {n:"ClickUp",a:"Work",k:"All-in-one app with Brain and Super Agents",l:"Breadth and workload views."},
+  {n:"Notion",a:"Work",k:"Docs-first workspace with databases and agents",l:"Docs and work in one place."},
+  {n:"Linear",a:"Work",k:"Product development for teams and agents",l:"Initiatives, project health and drafted updates."},
+  {n:"Jira",a:"Work",k:"Issue tracking with Plans and Rovo",l:"Cross-team dependencies at scale."},
+  {n:"Trello, Basecamp, Teamwork.com",a:"Work",k:"Simple boards, calm collaboration, client work",l:"Simplicity wins small teams."},
+  {n:"Airtable",a:"Work",k:"App-building database with AI agents",l:"Teams build their own trackers."}];
+var RM_PANEL={agree:[
+  "The thread from objective to measure, initiative and task, with gap coverage, is rare and worth leading with.",
+  "The biggest weakness was consistency: the same initiative had different dates, budgets and statuses on different pages. This release makes the initiative the master record for projects, spend and the review pack.",
+  "Strategy needs a running system, not only views: calculated status, dated check-ins, OKR confidence and a decision log. All four shipped in this release.",
+  "Next comes real multi-user data, permissions and budgets by month. Without them OrgCue stays a demo.",
+  "Position OrgCue as the strategy-to-delivery layer above Asana, monday.com and Jira, and integrate with them rather than compete on tasks."],
+  people:[
+  {role:"Strategy consultant",ini:"SC",c:"#6a2bc4",lens:"Strategy formulation and execution with executive teams",good:["Target coverage on the initiative portfolio","The exceptions-first strategy review","The initiative page and ambition tracker"],gaps:["Status typed by hand; no dated history","OKRs without check-ins or confidence","No decision or action log","No real cascade to business units","No strategic risks or scenarios"],now:["RM1","RM3","RM12"],quote:"The views are good; what was missing is the system that runs strategy month after month."},
+  {role:"PMO director",ini:"PD",c:"#2f6fd8",lens:"Enterprise PMOs and transformation offices",good:["Four health signals with baselines","Initiatives linked to KPIs with expected impact","Structured status updates with staleness","The task panel is as good as Asana's"],gaps:["Projects and initiatives kept separate records","No intake or business case","Gates with one question and no criteria","No monthly budgets or capex and opex view","No capacity by role or change control"],now:["RM5","RM4","RM10"],quote:"Governance is what a PMO buys PPM for. Make every number come from one record."},
+  {role:"SaaS founder",ini:"SF",c:"#17946a",lens:"Built and scaled two collaboration SaaS companies",good:["One line from the board to this week's tasks","The review pack is a sharp wedge","Portfolio control looks credible"],gaps:["No real multi-user back end","No first-run experience","Three areas that model the same thing twice","An AI assistant that did not use the data","No integrations, permissions or SSO"],now:["RM7","RM5","RM6"],quote:"Sell the quarterly review pack that writes itself, to the COO and the strategy office, and sit above Asana and Jira."},
+  {role:"Market analyst",ini:"MA",c:"#c77a0a",lens:"Researched more than 40 vendors across the three markets",good:["Hoshin and benefits tracking are rare differentiators","Strategy, portfolio and work in one product matches where the market is going"],gaps:["AI agents are now table stakes","Integrations and an API or MCP server are expected","Enterprise trust features are expected"],now:["RM6","RM8","RM16"],quote:"Large vendors are converging strategy, portfolio and work by acquisition. OrgCue has it in one model; now it needs the platform."}]};
+
+ST.rmTab="board";
 /* login + settings */
 function viewLogin(){
   return '<div class="login"><form class="lcard" id="loginForm" novalidate><div class="brand"><span><svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><circle cx="12" cy="5.5" r="3.4"/><circle cx="5.5" cy="12" r="3.4"/><circle cx="18.5" cy="12" r="3.4"/><circle cx="12" cy="18.5" r="3.4"/></svg></span>OrgCue</div>'+
@@ -2772,6 +3205,7 @@ var TPL_GROUPS=[
   ["Project Plan",NAV.filter(function(n){return n.view}).map(function(n){return n.id})],
   ["Portfolio",NAV.filter(function(n){return !n.view}).map(function(n){return n.id})],
   ["Settings",["settings-account","settings-devices","settings-company","settings-workspaces","settings-notifications","settings-workspace","settings-billing"]],
+  ["About OrgCue",["roadmap"]],
   ["Account",["login"]]
 ];
 function routeInfo(id){
@@ -2783,6 +3217,7 @@ function routeInfo(id){
   if(n)return {title:n.label,sub:n.sub,crumb:n.label};
   if(id==="login")return {title:"Login",sub:"Welcome back screen with Google, LinkedIn and email sign-in.",crumb:"Login"};
   if(id==="templates")return {title:"Templates",sub:"",crumb:"Templates"};
+  if(id==="roadmap")return {title:"Product roadmap",sub:"What OrgCue does today, what comes next, and how it compares with leading vendors.",crumb:"Product roadmap"};
   var s=SET_NAV.filter(function(x){return x.id===id})[0];
   if(s)return {title:s.label==="Plan & Billing"?"Plan & Billing":s.label,sub:"Settings page",crumb:s.label};
   return null;
@@ -2801,6 +3236,7 @@ function viewHtml(id){
   if(id==="retro")return viewRetro();
   if(id==="benefits")return viewBenefits();
   if(id==="login")return viewLogin();
+  if(id==="roadmap")return viewRoadmap();
   if(isWork(id))return WKV[id]();
   if(isStrat(id))return STV[id]();
   if(isPlan(id))return viewPlan(ST.planProj||0);
@@ -2825,6 +3261,7 @@ function renderPanel(){
     h='<div class="panel-head">Settings</div><div class="nav-scroll">'+SET_NAV.map(function(n){
       if(n.sec)return '<div class="nav-label">'+n.sec+'</div>';
       return '<button class="nav-item'+(n.id===id?' active':'')+'" data-go="'+n.id+'">'+icon(n.icon)+'<span>'+n.label+'</span></button>'}).join("")+'</div>';
+  }else if(id==="roadmap"){h='<div class="panel-head">'+icon("flag")+'<span>About OrgCue</span></div><div class="nav-scroll"><div class="nav-label">Product roadmap</div>'+[["board","Roadmap","kanban"],["shipped","Shipped","check"],["coverage","Feature coverage","table"],["vendors","Vendors","building"],["panel","Panel review","users"]].map(function(t){return '<button class="nav-item'+((ST.rmTab||"board")===t[0]?' active':'')+'" data-tab="rmTab:'+t[0]+'">'+icon(t[2])+'<span>'+t[1]+'</span></button>'}).join("")+'<div class="sep"></div><button class="nav-item" data-go="templates">'+icon("toggles")+'<span>All pages</span></button><button class="nav-item" data-ui="help">'+icon("help")+'<span>Help and tours</span></button></div>';
   }else if(isWork(id)){h=wkPanelHtml(id);
   }else if(isStrat(id)){
     h='<div class="panel-head">'+icon("compass")+'<span>Strategy</span></div><label class="search">'+icon("search")+'<input type="search" id="panelSearch" placeholder="Search strategy pages" aria-label="Search menu"></label><div class="nav-scroll">'+stNavHtml(id,"b")+'</div>';
@@ -2843,7 +3280,7 @@ function projListHtml(id){
 }
 function renderCrumbs(){
   var id=ST.route,info=routeInfo(id)||{crumb:""};
-  $("#crumbs").innerHTML=isWork(id)?'<button data-go="dashboard">Home</button><span>/</span><button data-go="wk-my">Work</button><span>/</span><b>'+esc(info.crumb)+'</b>':isStrat(id)?'<button data-go="dashboard">Home</button><span>/</span><button data-go="st-house">Strategy</button><span>/</span><b>'+esc(info.crumb)+'</b>':isSettings(id)?'<button data-go="dashboard">Home</button><span>/</span><button data-go="settings-workspaces">Settings</button><span>/</span><b>'+esc(info.crumb)+'</b>':
+  $("#crumbs").innerHTML=id==="roadmap"?'<button data-go="dashboard">Home</button><span>/</span><b>Product roadmap</b>':isWork(id)?'<button data-go="dashboard">Home</button><span>/</span><button data-go="wk-my">Work</button><span>/</span><b>'+esc(info.crumb)+'</b>':isStrat(id)?'<button data-go="dashboard">Home</button><span>/</span><button data-go="st-house">Strategy</button><span>/</span><b>'+esc(info.crumb)+'</b>':isSettings(id)?'<button data-go="dashboard">Home</button><span>/</span><button data-go="settings-workspaces">Settings</button><span>/</span><b>'+esc(info.crumb)+'</b>':
     '<button data-go="dashboard">Home</button><span>/</span><button data-go="plan-table">My projects</button><span>/</span><b>'+esc(info.crumb)+'</b>';
 }
 function viewTemplates(){
@@ -2862,12 +3299,12 @@ function fitMinis(){
   $$(".shot").forEach(function(s){var m=s.firstElementChild,w=s.clientWidth;if(!w||!m)return;var k=w/1280;m.style.transform="scale("+k+")";s.style.height=(800*k)+"px"});
 }
 function render(){
-  var id=ST.route;
+  var id=ST.route;syncProjects();
   app.classList.toggle("auth",id==="login");
   renderPanel();renderCrumbs();
-  content.innerHTML=id==="templates"?viewTemplates():viewHtml(id);
+  content.innerHTML=id==="templates"?viewTemplates():viewHtml(id);if(id==="dashboard"&&!ST.welcomed)content.insertAdjacentHTML("afterbegin",welcomeHtml());tourBar();
   $("#railSettings").classList.toggle("active",isSettings(id));
-  $("#railProjects").classList.toggle("active",!isSettings(id)&&!isStrat(id)&&!isWork(id)&&id!=="templates"&&id!=="login");$("#railWork").classList.toggle("active",isWork(id));$("#railStrategy").classList.toggle("active",isStrat(id));$("#railTpl").classList.toggle("active",id==="templates");
+  $("#railProjects").classList.toggle("active",!isSettings(id)&&!isStrat(id)&&!isWork(id)&&id!=="templates"&&id!=="roadmap"&&id!=="login");$("#railWork").classList.toggle("active",isWork(id));$("#railStrategy").classList.toggle("active",isStrat(id));$("#railTpl").classList.toggle("active",id==="templates");$("#railRoadmap").classList.toggle("active",id==="roadmap");
   var inf=routeInfo(id);try{document.title=(inf?inf.title+" · ":"")+"OrgCue"}catch(e){}
   content.classList.toggle("flush",id==="dashboard"||id==="login");
   $("#aiFab").hidden=id==="login";if(id==="login")aiClose();
@@ -2879,7 +3316,7 @@ function render(){
 }
 function rerender(){var y=content.scrollTop;render();content.scrollTop=y}
 function go(id,fromHash){
-  if(!validRoute(id))id="dashboard";
+  if(!validRoute(id))id="dashboard";if(MODAL)closeModal();
   ST.recent=[id].concat((ST.recent||[]).filter(function(r){return r!==id})).slice(0,6);
   if(isPlan(id))ST.planTab=PLAN_VIEWS[id];
   ST.route=id;
@@ -2917,12 +3354,12 @@ function openSpaces(btn){
 /* ---------- AI assistant: a demo with canned answers over the sample data on this page ---------- */
 var AI={open:false,started:false,applied:false,added:false};
 function aiPush(who,html){var b=$("#aiBody");b.insertAdjacentHTML("beforeend",'<div class="ai-m '+who+'">'+html+'</div>');b.scrollTop=b.scrollHeight}
-var AI_CHIPS='<div class="ai-chips"><button type="button" data-ai="opt">Suggest optimizations / improvements</button><button type="button" data-ai="meet">Suggest / Add new meetings</button><button type="button" data-ai="docs">Find documents</button></div>';
+var AI_CHIPS='<div class="ai-chips"><button type="button" data-ai="q:offtrack">What is off track, and why?</button><button type="button" data-ai="q:money">Where is money at risk?</button><button type="button" data-ai="q:updates">Whose updates are overdue?</button><button type="button" data-ai="q:brief">Brief me for the steering group</button><button type="button" data-ai="q:draft">Draft a status update</button><button type="button" data-ai="opt">Suggest optimizations / improvements</button><button type="button" data-ai="meet">Suggest / Add new meetings</button><button type="button" data-ai="docs">Find documents</button></div>';
 function aiOpen(){AI.open=true;$("#ai").hidden=false;$("#aiFab").setAttribute("aria-expanded","true");
-  if(!AI.started){AI.started=true;aiPush("bot","Hi! I'm here to help with your projects, meetings and documents. What would you like to do?"+AI_CHIPS)}
+  if(!AI.started){AI.started=true;aiPush("bot","Hi! I answer from the live data in this workspace: strategy, initiatives, tasks, budgets, decisions and risks. Ask a question or pick one below."+AI_CHIPS)}
   setTimeout(function(){var i=$("#aiIn");if(i)i.focus()},0)}
 function aiClose(){if(!AI.open)return;AI.open=false;$("#ai").hidden=true;$("#aiFab").setAttribute("aria-expanded","false")}
-function aiAction(a){
+function aiAction(a){if(a.indexOf("q:")===0){var lab={offtrack:"What is off track, and why?",money:"Where is money at risk?",updates:"Whose updates are overdue?",brief:"Brief me for the steering group",draft:"Draft a status update"}[a.slice(2)];aiPush("me",esc(lab||a));aiInsight(a.slice(2),"");return}if(a.indexOf("post:")===0){if(AI_DRAFT){aiClose();writeSU(AI_DRAFT.tg,AI_DRAFT)}return}
   if(a==="opt"){aiPush("me","Suggest optimizations / improvements");
     if(AI.applied){aiPush("bot","I've already applied those changes. Anything else?"+AI_CHIPS);return}
     aiPush("bot","Here are 3 options for optimizing meetings that you can try."+
@@ -2952,7 +3389,7 @@ function aiAction(a){
 }
 var AI_STOP=["the","and","for","our","with","that","about","find","looking","information","related","recent","show","what","are","any","document","documents","please","can","you","need","want"];
 function aiAsk(q){
-  aiPush("me",esc(q));
+  aiPush("me",esc(q));if(aiInsight(aiIntent(q),q))return;
   var words=q.toLowerCase().split(/[^a-z0-9æøå]+/).filter(function(w){return w.length>=3&&AI_STOP.indexOf(w)<0});
   var idx=[];
   FILES.forEach(function(f){idx.push([f.n.replace(/_/g," ")+"."+f.e,"Document · "+f.d,"documents"])});
@@ -2962,7 +3399,7 @@ function aiAsk(q){
   BEN.forEach(function(b){idx.push([b[0],"Project benefit · "+PK[b[1]],"benefits"])});
   BASE.forEach(function(t){idx.push([t[0]+" "+t[1],"Task · "+t[2],"plan-table"])});
   var hits=words.length?idx.filter(function(x){var h=(x[0]+" "+x[1]).toLowerCase();return words.some(function(w){return h.indexOf(w)>=0})}).slice(0,5):[];
-  if(!hits.length){aiPush("bot","I couldn't find anything matching \""+esc(q)+"\". I'm a demo assistant, so I only search the sample projects, documents, meetings, budgets and RAID log in this workspace.");return}
+  if(!hits.length){aiPush("bot","I couldn't find anything matching \""+esc(q)+"\". Try asking what is off track, where money is at risk, whose updates are overdue, for a steering brief, or for a draft update on an initiative. I also search documents, meetings, budgets and the RAID log.");return}
   aiPush("bot","I found "+(hits.length===1?"one item":hits.length+" items")+" that may contain what you're looking for."+'<div class="ai-res">'+hits.map(function(x){return '<button type="button" data-go="'+x[2]+'">'+esc(x[0])+'<small>'+esc(x[1])+'</small></button>'}).join("")+'</div>');
 }
 
@@ -2993,14 +3430,14 @@ function baseF(){return ST.budBase==="1"?0.9:0.95}
 
 /* saving: everything the visitor changes is kept in this browser */
 function saveState(){try{var st={};for(var k in ST)if(k!=="route")st[k]=ST[k];
-  localStorage.setItem(STORE_KEY,JSON.stringify({ST:st,KPIS:KPIS,SU:SU,INBOX:INBOX,FEED:FEED,RLOG:RLOG,RULES:RULES,RAID_INIT:RAID_INIT,SG:SG,VALS:VALS,KUDOS:KUDOS,PULSE:PULSE,V2:V2,PROJECTS:PROJECTS,PK:PK,TASKS:TASKS,DASH_T:DASH_T,DASH_A:DASH_A,BUD:BUD,FILES:FILES,GOV:GOV,PEOPLE:PEOPLE,HEAT:HEAT,COL:COL,RAID:RAID,SCOPE:SCOPE,CLOSE:CLOSE,RETROS:RETROS,BEN:BEN,OBJ:OBJ,INIT:INIT,SPACES:SPACES,DEVICES:DEVICES,AI:{applied:AI.applied,added:AI.added}}))}catch(e){}}
+  localStorage.setItem(STORE_KEY,JSON.stringify({ST:st,KPIS:KPIS,DECS:DECS,ACTS:ACTS,REQS:REQS,OKRS:OKRS,RMU:RM_ITEMS.filter(function(r){return (r.by||[]).indexOf("U")>=0}),SU:SU,INBOX:INBOX,FEED:FEED,RLOG:RLOG,RULES:RULES,RAID_INIT:RAID_INIT,SG:SG,VALS:VALS,KUDOS:KUDOS,PULSE:PULSE,V2:V2,PROJECTS:PROJECTS,PK:PK,TASKS:TASKS,DASH_T:DASH_T,DASH_A:DASH_A,BUD:BUD,FILES:FILES,GOV:GOV,PEOPLE:PEOPLE,HEAT:HEAT,COL:COL,RAID:RAID,SCOPE:SCOPE,CLOSE:CLOSE,RETROS:RETROS,BEN:BEN,OBJ:OBJ,INIT:INIT,SPACES:SPACES,DEVICES:DEVICES,AI:{applied:AI.applied,added:AI.added}}))}catch(e){}}
 function loadState(){try{var d=JSON.parse(localStorage.getItem(STORE_KEY)||"null");if(!d)return;
   for(var k in d.ST)ST[k]=d.ST[k];
   PROJECTS=d.PROJECTS||PROJECTS;PK=d.PK||PK;TASKS=d.TASKS||TASKS;DASH_T=d.DASH_T||DASH_T;DASH_A=d.DASH_A||DASH_A;BUD=d.BUD||BUD;FILES=d.FILES||FILES;GOV=d.GOV||GOV;PEOPLE=d.PEOPLE||PEOPLE;HEAT=d.HEAT||HEAT;
   if(d.COL)for(var c in d.COL)COL[c]=d.COL[c];
   RAID=d.RAID||RAID;SCOPE=d.SCOPE||SCOPE;CLOSE=d.CLOSE||CLOSE;RETROS=d.RETROS||RETROS;BEN=d.BEN||BEN;OBJ=d.OBJ||OBJ;INIT=d.INIT||INIT;SPACES=d.SPACES||SPACES;DEVICES=d.DEVICES||DEVICES;
   if(d.AI){AI.applied=d.AI.applied;AI.added=d.AI.added}
-  if(d.SG)for(var sk in d.SG)SG[sk]=d.SG[sk];VALS=d.VALS||VALS;KPIS=d.KPIS||KPIS;SU=d.SU||SU;INBOX=d.INBOX||INBOX;FEED=d.FEED||FEED;RLOG=d.RLOG||RLOG;if(d.RULES)d.RULES.forEach(function(r){var o=RULES.filter(function(x){return x.id===r.id})[0];if(o)o.on=r.on});if(d.RAID_INIT)RAID_INIT=d.RAID_INIT;KUDOS=d.KUDOS||KUDOS;PULSE=d.PULSE||PULSE;V2=d.V2||V2;
+  if(d.SG)for(var sk in d.SG)SG[sk]=d.SG[sk];VALS=d.VALS||VALS;KPIS=d.KPIS||KPIS;DECS=d.DECS||DECS;ACTS=d.ACTS||ACTS;REQS=d.REQS||REQS;OKRS=d.OKRS||OKRS;if(d.RMU)d.RMU.forEach(function(r){if(!rmById(r.id))RM_ITEMS.push(r)});SU=d.SU||SU;INBOX=d.INBOX||INBOX;FEED=d.FEED||FEED;RLOG=d.RLOG||RLOG;if(d.RULES)d.RULES.forEach(function(r){var o=RULES.filter(function(x){return x.id===r.id})[0];if(o)o.on=r.on});if(d.RAID_INIT)RAID_INIT=d.RAID_INIT;KUDOS=d.KUDOS||KUDOS;PULSE=d.PULSE||PULSE;V2=d.V2||V2;
   if(ST.theme)document.documentElement.setAttribute("data-theme",ST.theme);
 }catch(e){}}
 function resetDemo(){try{localStorage.removeItem(STORE_KEY)}catch(e){}location.hash="dashboard";location.reload()}
@@ -3084,7 +3521,7 @@ function setBtn(){return '<button class="chipbtn" data-ui="settings" aria-haspop
 function searchIndex(){var a=[];NAV.forEach(function(n){if(!n.view)a.push([n.label,"Page","go",n.id])});STRAT_NAV.forEach(function(n){if(n.id&&!n.hidden)a.push([n.label,"Strategy page","go",n.id])});KPIS.forEach(function(k){a.push([k.n,"Measure · "+k.id,"go","st-kpis"])});SET_NAV.forEach(function(n){if(n.id&&n.id!=="login")a.push([n.label,"Settings","go",n.id])});
   PK.forEach(function(n,i){a.push([n,"Project","proj",i])});TASKS.forEach(function(ts,i){ts.forEach(function(t,k){a.push([t.name,"Task · "+PK[i],"task","plan:"+i+":"+k])})});
   RAID.forEach(function(r){a.push([r[0]+" "+r[2],"RAID log · "+r[3],"go","raid"])});FILES.forEach(function(f){a.push([f.n.replace(/_/g," "),"Document · "+f.e,"go","documents"])});GOV.forEach(function(g){a.push([g.t,"Governance group","go","governance"])});
-  BUD.forEach(function(b){a.push([b.id+" "+b.detail,"Budget item · "+b.proj,"go","budgets"])});INIT.forEach(function(x){a.push([x.n,"Initiative · "+x.st,"init",x.id])});PROGS.forEach(function(p){a.push([p.n+" programme","Programme · "+sname(p.lead),"pg",p.id])});allTasks().forEach(function(o){a.push([o.t.n,"Task · "+o.x.n,"wk",o.t.id])});VALS.forEach(function(v){a.push([v.n,"Company value · "+v.d,"go","st-purpose"])});OBJ.forEach(function(o){a.push([o.id+" "+o.n,"Objective · "+o.kpi,"obj",o.id])});return a}
+  BUD.forEach(function(b){a.push([b.id+" "+b.detail,"Budget item · "+b.proj,"go","budgets"])});INIT.forEach(function(x){a.push([x.n,"Initiative · "+x.st,"init",x.id])});PROGS.forEach(function(p){a.push([p.n+" programme","Programme · "+sname(p.lead),"pg",p.id])});allTasks().forEach(function(o){a.push([o.t.n,"Task · "+o.x.n,"wk",o.t.id])});a.push(["Product roadmap","Page","go","roadmap"]);RM_ITEMS.forEach(function(r){a.push([r.t,"Roadmap · "+r.area+" · "+r.st,"go","roadmap"])});DECS.forEach(function(d){a.push([d.id+" "+d.t,"Decision · "+d.st,"go","wk-decisions"])});REQS.forEach(function(r){a.push([r.n,"Request · "+r.st,"go","wk-intake"])});VALS.forEach(function(v){a.push([v.n,"Company value · "+v.d,"go","st-purpose"])});OBJ.forEach(function(o){a.push([o.id+" "+o.n,"Objective · "+o.kpi,"obj",o.id])});return a}
 function globalSearch(q,show){q=(q||"").trim().toLowerCase();var inp=$("#topSearch");if(!q){if(pop.getAttribute("data-for")==="search")closePop();return}
   var hits=searchIndex().filter(function(x){return (x[0]+" "+x[1]).toLowerCase().indexOf(q)>=0}).slice(0,8);pop.setAttribute("data-for","search");
   pop.innerHTML='<div class="sp-h">Results for “'+esc(q)+'”</div>'+(hits.length?hits.map(function(x){var at=x[2]==="go"?' data-go="'+x[3]+'"':x[2]==="proj"?' data-go="plan-table" data-proj="'+x[3]+'"':x[2]==="obj"?' data-go="st-map" data-sobj="'+x[3]+'"':x[2]==="init"?' data-go="st-init" data-init="'+x[3]+'"':x[2]==="pg"?' data-go="wk-program" data-pg="'+x[3]+'"':x[2]==="wk"?' data-ui="openref:task:'+x[3]+'"':' data-searchtask="'+x[3]+'"';
@@ -3095,7 +3532,7 @@ function globalSearch(q,show){q=(q||"").trim().toLowerCase();var inp=$("#topSear
 function openHelp(){openForm({title:"Help",submit:false,html:'<div class="help"><p>This is the OrgCue demo workspace. Everything you add or change is saved in this browser only.</p>'+
   '<h3>Shortcuts</h3><ul class="ul"><li><kbd>/</kbd> Search everything</li><li><kbd>?</kbd> Open this help</li><li><kbd>Esc</kbd> Close a dialog, menu or the assistant</li></ul>'+
   '<h3>Tips</h3><ul class="ul"><li>Click any task, budget item, risk or benefit to edit it.</li><li>Drag cards between columns on the Kanban board.</li><li>Use Filters and Settings above a table to narrow rows and choose columns.</li><li>The sparkle button opens the AI assistant (a demo).</li></ul>'+
-  '<h3>Demo data</h3><p>Start again with the original sample data.</p><button type="button" class="btn ghost" data-ui="reset">'+icon("history")+'Reset demo data</button></div>'})}
+  '<h3>Get started</h3><p class="help-t"><button type="button" class="btn ghost" data-ui="tour:strategy">'+icon("compass")+'Strategy tour</button> <button type="button" class="btn ghost" data-ui="tour:pmo">'+icon("layers")+'Portfolio tour</button> <button type="button" class="btn ghost" data-go="roadmap">'+icon("flag")+'Product roadmap</button></p>'+'<h3>Demo data</h3><p>Start again with the original sample data.</p><button type="button" class="btn ghost" data-ui="reset">'+icon("history")+'Reset demo data</button></div>'})}
 function openNotifs(btn){if(pop.getAttribute("data-for")==="notifs"){closePop();return}pop.setAttribute("data-for","notifs");
   pop.innerHTML='<div class="sp-h">Notifications</div>'+(INBOX.length?INBOX.slice(0,6).map(function(n,i){return '<button class="sp sr'+(n.read?'':' unread')+'" data-ui="inboxopen:'+i+'"><span><b>'+esc(n.text)+'</b><small>'+ago(n.when)+'</small></span></button>'}).join(""):'<p style="color:var(--muted);padding:4px 8px">You are all caught up.</p>')+'<button class="sp" data-ui="openinbox">'+icon("mail")+'Open inbox</button>'+
     '<div class="menu-sep"></div><button class="sp" data-ui="markread">'+icon("tick")+'Mark all as read</button><button class="sp" data-go="settings-notifications">'+icon("gear")+'Notification settings</button>';
@@ -3126,7 +3563,8 @@ function addProject(){openForm({title:"Add new project",fields:[{k:"name",l:"Pro
     PROJECTS.push({name:v.name,label:v.name,owner:PN_ALL[v.owner]||v.owner,due:(d.getMonth()+1)+"/"+(d.getDate()<10?"0":"")+d.getDate()+"/"+d.getFullYear(),weeks:wk+" weeks",ring:100,ringc:"#7c4ddb",comp:0,done:0,total:0,more:0,status:"On track",bs:"dark",bud:+v.bud||0,spent:0,team:[v.owner],seg:[0,0,0]});
     PK.push(v.name);TASKS.push([]);SCOPE.push({obj:"New project: describe what it will deliver.",inn:[],out:[]});CLOSE.push([0,"Delivering",""]);ST.planProj=PK.length-1}})}
 function editProject(i){var p=PROJECTS[i];openForm({title:"Edit "+PK[i],fields:[{k:"owner",l:"Owner",v:p.owner,req:1},{k:"due",l:"Due date (M/DD/YYYY)",v:p.due,req:1},{k:"weeks",l:"Time left",v:p.weeks},{k:"status",l:"Status",t:"select",o:["On track","At risk","Delayed","Complete"],v:p.status}],submit:"Save project",done:"Project saved",
-  save:function(v){p.owner=v.owner;p.due=v.due;p.weeks=v.weeks;p.status=v.status;p.bs={"On track":"dark","At risk":"over","Delayed":"wd","Complete":"done"}[v.status]}})}
+  save:function(v){p.owner=v.owner;p.due=v.due;p.weeks=v.weeks;p.status=v.status;p.bs={"On track":"dark","At risk":"over","Delayed":"wd","Complete":"done"}[v.status];
+    var x=INIT.filter(function(y){return y.proj===i})[0];if(x){x.st={"On track":"On track","At risk":"At risk","Delayed":"Off track"}[v.status]||x.st;var dp=String(v.due).split("/");if(dp.length===3){var qi=QTR.indexOf("Q"+(Math.floor((+dp[0]-1)/3)+1)+" "+dp[2]);if(qi>=x.s)x.e=qi}}}})}
 var BTYPES=["Resource","Vendor","Expenses","Hardware","Software","Training","Other"];
 function budgetForm(b,ix){var isNew=!b;b=b||{id:"B-"+(BUD.length<9?"00":"0")+(BUD.length+1),type:"Resource",detail:"",proj:BUD_PROJ[0],cls:"Opex",spread:"Monthly",bud:10000,fc:10000,spent:0};
   openForm({title:isNew?"Add budget item":b.id+" · Edit budget item",fields:[{k:"type",l:"Cost type",t:"select",o:BTYPES,v:b.type},{k:"detail",l:"Cost details",v:b.detail,req:1},{k:"proj",l:"Project",t:"select",o:BUD_PROJ,v:b.proj},{k:"cls",l:"Classification",t:"select",o:["Opex","Capex"],v:b.cls},{k:"spread",l:"Cost spread",t:"select",o:["Monthly","Manual","One-off"],v:b.spread},
@@ -3170,14 +3608,14 @@ function connectItems(i){var g=GOV[i],cand=[];TASKS.forEach(function(ts){ts.slic
 function editInit(id){var x=initById(id);if(!x)return;var q=QTR.map(function(n,i){return [String(i),n]});
   openForm({title:x.n,intro:"Supports "+x.obj.join(", ")+". Owner: "+sname(x.o)+".",fields:[{k:"st",l:"Status",t:"select",o:["On track","At risk","Off track","Planned"],v:x.st},{k:"s",l:"Starts",t:"select",o:q,v:String(x.s)},{k:"e",l:"Ends",t:"select",o:q,v:String(x.e)},{k:"cost",l:"Cost (£k)",t:"number",min:0,v:x.cost}],submit:"Save initiative",done:"Initiative saved",
     save:function(v){if(+v.e<+v.s)return "The end quarter must be after the start quarter.";x.st=v.st;x.s=+v.s;x.e=+v.e;x.cost=+v.cost||x.cost}})}
-function editObj(id){var o=objById(id);openForm({title:o.id+" · "+o.n,intro:"Record the latest value for “"+esc(o.kpi)+"” (target "+ofmt(o,o.t)+").",fields:[{k:"a",l:"Actual",t:"number",step:"any",v:o.a,req:1},{k:"st",l:"Status",t:"select",o:[["on","On track"],["risk","At risk"],["off","Off track"]],v:o.st},{k:"c",l:"Comment",t:"textarea",v:o.c}],submit:"Save update",done:"Objective updated",
+function editObj(id){var hk=KPIS.filter(function(k){return k.obj===id&&k.primary})[0];if(hk){kpiCheckIn(hk.id);return}var o=objById(id);openForm({title:o.id+" · "+o.n,intro:"Record the latest value for “"+esc(o.kpi)+"” (target "+ofmt(o,o.t)+").",fields:[{k:"a",l:"Actual",t:"number",step:"any",v:o.a,req:1},{k:"st",l:"Status",t:"select",o:[["on","On track"],["risk","At risk"],["off","Off track"]],v:o.st},{k:"c",l:"Comment",t:"textarea",v:o.c}],submit:"Save update",done:"Objective updated",
   save:function(v){o.a=+v.a;o.st=v.st;o.c=v.c;o.tr=o.tr.slice(1).concat([+v.a])}})}
 function changePlan(){openForm({title:"Change plan",intro:"Pick the plan that fits your team. Your sales contact confirms any change.",fields:[{k:"plan",l:"Plan",t:"radios",o:PLANS,v:ST.plan}],submit:"Request change",done:"Plan change requested",save:function(v){if(v.plan)ST.plan=v.plan}})}
 function newSpace(){openForm({title:"Create new space",fields:[{k:"n",l:"Space name",req:1,full:1}],submit:"Create space",done:"Space created",save:function(v){var id="ws"+Date.now(),ini=v.n.split(/\s+/).map(function(w){return w[0]||""}).join("").slice(0,2).toUpperCase();SPACES.push([id,v.n,ini,["#2f7be8","#1f9d6b","#e0a030","#c0524a"][SPACES.length%4]]);ST.space=id}})}
 function viewPhoto(i){openForm({title:"Photo "+(i+1)+" · November 2, 2023",submit:false,html:'<div class="ph-big" style="background:'+(i?'linear-gradient(135deg,#d9a77a,#7a4b3a)':'linear-gradient(135deg,#6b8fb5,#2d3f66)')+'"></div>'})}
 
 /* buttons that do not fit a record */
-function uiAction(a,el){var p=a.split(":");if(pvUi(p)||kpUi(p)||wkUi(p))return;
+function uiAction(a,el){var p=a.split(":");if(pvUi(p)||kpUi(p)||wkUi(p)||relUi(p)||rmUi(p))return;
   if(p[0]==="close"){closeModal();return}
   if(p[0]==="danger"){if(MODAL&&MODAL.onDanger){var f=MODAL.onDanger;closeModal();f();rerender()}return}
   if(p[0]==="filters"){if(pop.getAttribute("data-for")==="filters"){closePop();return}openFilters(el);return}
@@ -3296,7 +3734,7 @@ document.addEventListener("submit",function(e){
 });
 
 /* ---------- start ---------- */
-loadState();normalizeData();workNormalize();
+loadState();normalizeData();workNormalize();relNormalize();
 var h0=(location.hash||"").slice(1);
 ST.route=validRoute(h0)?h0:"dashboard";ST.recent=[ST.route];if(isPlan(ST.route))ST.planTab=PLAN_VIEWS[ST.route];
 if(window.innerWidth<=700)app.classList.add("collapsed");

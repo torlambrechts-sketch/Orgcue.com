@@ -35,6 +35,11 @@ The **Work** section (checklist icon, or `/#wk-my`) manages programmes, initiati
 Portfolio control (health, budget forecast, baselines, stage gates), a page per programme with status updates,
 Tasks as a list, board, timeline, calendar or workload, and Automation rules. Any task opens in a side panel with
 subtasks, dependencies, comments with @mentions and followers. See `docs/work-management.md`.
+Work also has **Requests** (`/#wk-intake`, scored demand intake) and **Decisions and actions** (`/#wk-decisions`), which feed
+the strategy review. Measures calculate their status from progress against plan and keep a dated check-in history.
+
+The **Product roadmap** (flag icon, or `/#roadmap`) shows what has shipped, what comes next with voting, how OrgCue covers
+the features leading vendors offer, and the advisory panel's review. See `docs/product-review.md` and `docs/vendor-landscape.md`.
 
 Everything a visitor adds or changes is saved in their own browser only; Help → Reset demo data restores the sample.
 
