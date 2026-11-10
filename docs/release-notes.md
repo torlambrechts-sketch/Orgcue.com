@@ -1,5 +1,81 @@
 # Release notes
 
+## November 2026: the planned collaboration, strategy, portfolio and work features
+
+This release builds the 22 Planned items on the Product roadmap (`/#roadmap`) that need no outside service. They are now in the roadmap's Shipped column. Their records live in 39 new database tables (see `docs/database.md`), and the demo company has sample data for each of them.
+
+### Collaboration
+- **Owners, contributors and followers** (RM40). Every task, measure, objective, initiative, decision, risk and action has one owner, plus contributors, people to consult and followers. The Who does what page (`/#wk-raci`) shows this as a RACI grid and flags records with no owner or two owners.
+- **Accept, decline or propose a new date** (RM41). New tasks, actions and hand-overs wait for the assignee to accept, decline with a reason, or propose another date. The date they commit to is kept apart from the due date.
+- **Comment threads on every object** (RM42). Threads have replies, @mentions, reactions, resolve and reopen. You can turn a comment into an action or a thread into a decision. Pages open the shared discussion panel from their header.
+- **An inbox you can act from** (RM50). My work's inbox bundles updates per item. You can reply, accept, approve and snooze from the inbox, and set quiet hours.
+
+### Strategy
+- **Catchball and target agreement** (RM44, `/#st-agree`). Unit owners draft, propose, counter-propose, agree and lock objectives, targets and key results. They can send alignment requests to the parent owner. A shared key result has contributions that each team accepts.
+- **Review meetings that produce owned work** (RM45, `/#st-meet`).
+  - A meeting has attendees, an agenda built from the exceptions and a pre-read deadline.
+  - Its minutes produce actions. Each action lands in its owner's My work and carries forward until done.
+- **Committed and stretch targets** (RM49, `/#st-commit`). Status uses the committed target. A say/do rate is shown per owner and team for each period.
+- **One status model** (RM61). OGSM, V2MOM, the X-matrix, the ambition and the heat map all read the same calculated statuses, targets and baselines.
+
+### Portfolio
+- **Milestones with acceptance and evidence** (RM43). A milestone has an accepter, criteria and evidence, and is met only when accepted. Late milestones roll up to the initiative and flag the key results that depend on them.
+- **Resource requests** (RM46, `/#wk-capacity`).
+  - A project manager requests a role or person for a period.
+  - The line manager confirms, proposes another person or time, or declines.
+  - Bookings go from soft to hard and show beside capacity.
+- **Approved date changes move dependent work** (RM63). Approving a later end date offers to move each dependent initiative, or to raise a change request for it.
+- **Capex and opex by month** (RM64). The finance grid and the budget totals split capex and opex month by month.
+
+### Work
+- **Absence cover and hand-over** (RM47, `/#wk-teams`). Time off has a named cover, who receives new assignments, approvals and check-in reminders. A hand-over moves ownership with a note, and takes effect when the new owner accepts.
+- **Team triage queues** (RM48, `/#wk-teams`).
+  - Each team has a queue with accept, decline, merge and snooze.
+  - A triage owner rotates, and you can swap turns.
+  - Round robin skips people who are away.
+- **Workload you can act on** (RM51, `/#wk-tasks`, Workload view). It shows overdue work carried forward, a row for unassigned work and time off. You can drag work to reassign it, and you are warned before overloading someone.
+- **Done criteria and review** (RM52). A task can have done criteria and a reviewer. A reviewed task completes only when the reviewer approves.
+- **Templates** (RM65, `/#wk-templates`). Save an initiative or project as a template with its tasks, phases, roles and gates, then start new work from it.
+- **Recurring tasks** (RM66). Tasks can repeat weekly, every two weeks, monthly or every three months. Completing one creates the next.
+- **Live dashboard actions and assistant search** (RM69). The dashboard's Actions widget and the assistant's search read live tasks, actions and records.
+
+### Platform
+- **Accounts linked to people** (RM60).
+  - Each member of a shared workspace is linked to a person, set when they accept an invitation or by an admin on the members list.
+  - New members get a new person.
+  - Their assignments, comments, check-ins and approvals now carry their own name instead of the demo person's.
+- **Live demo dates** (RM67).
+  - The demo company is stored as of 16 September 2024. Each new demo session, reset or shared workspace copied from the demo moves every date forward by whole years, so the demo's "today" falls in the current year. In November 2026 that date is 16 September 2026.
+  - The code no longer assumes fixed years: target years come from the planning horizon or the targets themselves.
+  - Stale sample data (resource data and RAID review dates) has been brought up to date.
+- **One date format** (RM68, `/#settings-pl-dates`). Dates follow a workspace setting everywhere, including project cards: day first (the default), month first or ISO.
+
+### Database
+- Migrations `20261110100000_platform2_member_people.sql` (person links), `20261110100100_platform2_shift_years.sql` (`orgcue_shift_years` and the shifted demo copies), `20261110100200_planned_tables.sql` and `20261110100300_planned_demo_data.sql`.
+- There are now 202 tables, with 113 enforced parent-child keys and 288 indexed references.
+
+### Known limits
+- **Shifted demo dates.** Shifted demo dates keep their calendar date, not their weekday. So in a shifted demo a few sample days off fall partly on a weekend: for example, Marta's day off on 20 September is a Sunday in 2026.
+- **Earlier demo sessions keep their data.** Demo sessions started before this release keep their 2024 dates and have no sample data for the new features. Help › Reset demo data brings them up to date.
+- **Invitations are still not emailed** (RM62, Planned).
+
+### What is still on the roadmap
+- **Planned, needing an outside service:** KPI data connectors, Slack and Teams, Jira and Azure DevOps sync, single sign-on and SCIM, scheduled email digests and invitation emails.
+- **Exploring:**
+  - AI agents;
+  - the public API and MCP server;
+  - phone apps;
+  - BI connectors;
+  - data residency;
+  - agreed baselines and benefit hand-over;
+  - celebrating finished work;
+  - a rule builder;
+  - a portfolio planning cycle;
+  - a dashboard builder;
+  - linked documents;
+  - guest access;
+  - presence.
+
 ## November 2026: everything database driven
 
 - **Database:** every record now lives in typed tables in Supabase: 163 tables across strategy, portfolio, work, projects, platform and product content, with 80 enforced parent-child keys and 190 indexed references. See `docs/database.md`.
@@ -98,5 +174,5 @@ Everything not built here is on the roadmap page (`/#roadmap`):
   - set the Site URL to `https://www.orgcue.com`;
   - add `https://www.orgcue.com/**` to the redirect URLs.
 - **Live updates are partly tested.** The Realtime push could not be tested from the build environment. The regular version check is tested.
-- **Activity is linked to the demo person.** In shared workspaces, task and check-in activity is credited to the demo person, Olivia Adams. The audit log shows the signed-in account.
+- **Activity is linked to the demo person.** In shared workspaces, task and check-in activity is credited to the demo person, Olivia Adams. The audit log shows the signed-in account. (Fixed by RM60 in the next release: members are now linked to their own person.)
 - **Invitations are not emailed.** An invited person signs in with the invited address and chooses Join.

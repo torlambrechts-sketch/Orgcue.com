@@ -2,6 +2,85 @@
 
 Generated from the table declarations in the app (`node scripts/db/gen.js`). A solid line is an enforced parent-child key; a dotted line is a soft reference. See `docs/database.md` for the design.
 
+
+### Collaboration
+
+```mermaid
+erDiagram
+  assignment_requests {
+    text id PK
+    text ref
+    text kind
+    text from_id FK
+    text to_id FK
+    date asked_on
+    date target_date
+    text note
+    text status
+    date answered_on
+    text reason
+    date proposed_date
+    date committed_date
+    date decided_on
+    date nudged_on
+  }
+  comment_reactions {
+    text id PK
+    text comment_id FK
+    text person_id FK
+    text reaction
+  }
+  comment_replies {
+    text id PK
+    text comment_id FK
+    text reply_to_id FK
+  }
+  comment_threads {
+    text id PK
+    text comment_id FK
+    text status
+    text resolved_by FK
+    date resolved_on
+    text action_id FK
+    text decision_id FK
+  }
+  inbox_preferences {
+    text id PK
+    text person_id FK
+    bool bundle
+    bool quiet
+    text quiet_from
+    text quiet_to
+    bool quiet_weekends
+  }
+  inbox_snoozes {
+    text id PK
+    text person_id FK
+    text ref
+    date snoozed_on
+    date until_date
+  }
+  object_roles {
+    text id PK
+    text ref
+    text person_id FK
+    text role
+  }
+  people |o..o{ assignment_requests : "from_id"
+  people |o..o{ assignment_requests : "to_id"
+  comments ||--o{ comment_reactions : "comment_id"
+  people |o..o{ comment_reactions : "person_id"
+  comments ||--o{ comment_replies : "comment_id"
+  comments ||--o{ comment_replies : "reply_to_id"
+  comments ||--o{ comment_threads : "comment_id"
+  people |o..o{ comment_threads : "resolved_by"
+  actions |o..o{ comment_threads : "action_id"
+  decisions |o..o{ comment_threads : "decision_id"
+  people ||--o{ inbox_preferences : "person_id"
+  people ||--o{ inbox_snoozes : "person_id"
+  people |o..o{ object_roles : "person_id"
+```
+
 ### Platform
 
 ```mermaid
@@ -254,6 +333,19 @@ erDiagram
     text measure_id FK
     text unit
   }
+  change_request_followups {
+    text id PK
+    text change_request_id FK
+    text initiative_id FK
+    text action
+    text follow_up_id FK
+    int old_start_q
+    int old_end_q
+    int new_start_q
+    int new_end_q
+    text decided_by FK
+    date decided_on
+  }
   change_requests {
     text id PK
     text initiative_id FK
@@ -292,6 +384,12 @@ erDiagram
     text decided_by FK
     date decided_on
     text rationale
+  }
+  finance_month_capex {
+    text id PK
+    text initiative_id FK
+    int month
+    num capex_pct
   }
   finance_months {
     text id PK
@@ -364,6 +462,20 @@ erDiagram
     text measure_id FK
     num impact
   }
+  initiative_milestones {
+    text id PK
+    text initiative_id FK
+    text name
+    text owner_id FK
+    text accepter_id FK
+    text criteria
+    date baseline_date
+    date forecast_date
+    text status
+    text key_result_id FK
+    date accepted_on
+    text accepted_by FK
+  }
   initiative_objectives {
     text id PK
     text initiative_id FK
@@ -389,6 +501,25 @@ erDiagram
     num effort
     text risk
     text project_id FK
+  }
+  milestone_events {
+    text id PK
+    text milestone_id FK
+    text action
+    text by_person FK
+    date acted_on
+    text comment
+    date from_date
+    date to_date
+  }
+  milestone_evidence {
+    text id PK
+    text milestone_id FK
+    text kind
+    text label
+    text url
+    text added_by FK
+    date added_on
   }
   milestones {
     text id PK
@@ -429,6 +560,41 @@ erDiagram
     text status
     text initiative_id FK
     text decision_id FK
+  }
+  resource_request_events {
+    text id PK
+    text request_id FK
+    text action
+    text by_person FK
+    date acted_on
+    text comment
+    jsonb before
+    jsonb after
+  }
+  resource_requests {
+    text id PK
+    text initiative_id FK
+    text role_id FK
+    text person_id FK
+    num fte
+    int from_q
+    int to_q
+    text note
+    text requested_by FK
+    date requested_on
+    text manager_id FK
+    text status
+    text proposed_person_id FK
+    num proposed_fte
+    int proposed_from_q
+    int proposed_to_q
+    text proposal_note
+    date answered_on
+  }
+  role_managers {
+    text id PK
+    text role_id FK
+    text manager_id FK
   }
   stages {
     text id PK
@@ -504,6 +670,10 @@ erDiagram
   initiatives ||--o{ benefits : "initiative_id"
   people |o..o{ benefits : "owner_id"
   measures |o..o{ benefits : "measure_id"
+  change_requests ||--o{ change_request_followups : "change_request_id"
+  initiatives ||--o{ change_request_followups : "initiative_id"
+  change_requests |o..o{ change_request_followups : "follow_up_id"
+  people |o..o{ change_request_followups : "decided_by"
   initiatives ||--o{ change_requests : "initiative_id"
   people |o..o{ change_requests : "requested_by"
   people |o..o{ change_requests : "approver_id"
@@ -511,6 +681,7 @@ erDiagram
   people |o..o{ comments : "author_id"
   people |o..o{ decisions : "proposed_by"
   people |o..o{ decisions : "decided_by"
+  initiatives ||--o{ finance_month_capex : "initiative_id"
   initiatives ||--o{ finance_months : "initiative_id"
   stages ||--o{ gate_approvers : "stage_id"
   people |o..o{ gate_approvers : "person_id"
@@ -530,6 +701,11 @@ erDiagram
   people |o..o{ initiative_followers : "person_id"
   initiatives ||--o{ initiative_measures : "initiative_id"
   measures |o..o{ initiative_measures : "measure_id"
+  initiatives ||--o{ initiative_milestones : "initiative_id"
+  people |o..o{ initiative_milestones : "owner_id"
+  people |o..o{ initiative_milestones : "accepter_id"
+  key_results |o..o{ initiative_milestones : "key_result_id"
+  people |o..o{ initiative_milestones : "accepted_by"
   initiatives ||--o{ initiative_objectives : "initiative_id"
   objectives |o..o{ initiative_objectives : "objective_id"
   perspectives |o..o{ initiatives : "perspective_id"
@@ -537,6 +713,10 @@ erDiagram
   stages |o..o{ initiatives : "stage"
   people |o..o{ initiatives : "owner_id"
   projects |o..o{ initiatives : "project_id"
+  initiative_milestones ||--o{ milestone_events : "milestone_id"
+  people |o..o{ milestone_events : "by_person"
+  initiative_milestones ||--o{ milestone_evidence : "milestone_id"
+  people |o..o{ milestone_evidence : "added_by"
   initiatives ||--o{ milestones : "initiative_id"
   people |o..o{ programmes : "lead_id"
   initiatives ||--o{ purchase_orders : "initiative_id"
@@ -545,6 +725,16 @@ erDiagram
   people |o..o{ requests : "sponsor_id"
   initiatives |o..o{ requests : "initiative_id"
   decisions |o..o{ requests : "decision_id"
+  resource_requests ||--o{ resource_request_events : "request_id"
+  people |o..o{ resource_request_events : "by_person"
+  initiatives ||--o{ resource_requests : "initiative_id"
+  roles |o..o{ resource_requests : "role_id"
+  people |o..o{ resource_requests : "person_id"
+  people |o..o{ resource_requests : "requested_by"
+  people |o..o{ resource_requests : "manager_id"
+  people |o..o{ resource_requests : "proposed_person_id"
+  roles ||--o{ role_managers : "role_id"
+  people |o..o{ role_managers : "manager_id"
   status_updates ||--o{ status_update_items : "status_update_id"
   people |o..o{ status_updates : "author_id"
   tasks ||--o{ subtasks : "task_id"
@@ -884,6 +1074,21 @@ erDiagram
     text factor_id FK
     num score
   }
+  commitment_targets {
+    text id PK
+    text ref
+    text name
+    text period
+    num committed
+    num stretch
+    num baseline
+    int direction
+    text owner FK
+    text team_id FK
+    text unit_id FK
+    num result
+    date closed_on
+  }
   company_values {
     text id PK
     text name
@@ -910,6 +1115,20 @@ erDiagram
     num target
     text confidence
     date checked_on
+    text note
+  }
+  kr_contributions {
+    text id PK
+    text key_result_id FK
+    text team_id FK
+    text owner FK
+    num asked
+    num amount
+    num current
+    text state
+    text requested_by FK
+    date requested_on
+    date answered_on
     text note
   }
   kudos {
@@ -1052,6 +1271,26 @@ erDiagram
     text quarter
     num response_rate
   }
+  review_actions {
+    text id PK
+    text action_id FK
+    text meeting_id FK
+    text agenda_item_id FK
+    date first_due
+    date done_on
+  }
+  review_agenda_items {
+    text id PK
+    text meeting_id FK
+    text section
+    text ref
+    text title
+    text owner FK
+    int minutes
+    text commentary
+    date commentary_on
+    text notes
+  }
   review_focus {
     text id PK
     text text
@@ -1059,6 +1298,27 @@ erDiagram
   review_headlines {
     text id PK
     text text
+  }
+  review_meeting_attendees {
+    text id PK
+    text meeting_id FK
+    text person_id FK
+    text role
+    date read_on
+    text question
+    date asked_on
+  }
+  review_meetings {
+    text id PK
+    text title
+    text period
+    date meets_on
+    date preread_due
+    text chair FK
+    text state
+    date pack_sent_on
+    text minutes
+    date published_on
   }
   review_proposals {
     text id PK
@@ -1118,6 +1378,12 @@ erDiagram
     text headline
     text story
   }
+  status_links {
+    text id PK
+    text framework
+    text item_id
+    text ref
+  }
   strategic_risks {
     text id PK
     text name
@@ -1134,6 +1400,34 @@ erDiagram
     text id PK
     text quadrant
     text text
+  }
+  target_proposal_steps {
+    text id PK
+    text proposal_id FK
+    text action
+    text by_person FK
+    date acted_on
+    num target
+    num weight
+    text note
+    text resources
+  }
+  target_proposals {
+    text id PK
+    text kind
+    text ref
+    text unit_id FK
+    text parent_ref
+    text name
+    num target
+    int year
+    text period
+    num weight
+    text state
+    text proposed_by FK
+    text parent_owner FK
+    text resources
+    date updated_on
   }
   team_objectives {
     text id PK
@@ -1283,8 +1577,15 @@ erDiagram
   people |o..o{ board_packs : "frozen_by"
   canvas_curves ||--o{ canvas_scores : "curve_id"
   canvas_factors ||--o{ canvas_scores : "factor_id"
+  people |o..o{ commitment_targets : "owner"
+  teams |o..o{ commitment_targets : "team_id"
+  units |o..o{ commitment_targets : "unit_id"
   people |o..o{ company_values : "champion"
   okr_objectives ||--o{ key_results : "okr_objective_id"
+  key_results |o..o{ kr_contributions : "key_result_id"
+  teams |o..o{ kr_contributions : "team_id"
+  people |o..o{ kr_contributions : "owner"
+  people |o..o{ kr_contributions : "requested_by"
   people |o..o{ kudos : "from_person"
   people |o..o{ kudos : "to_person"
   company_values |o..o{ kudos : "value_name"
@@ -1312,6 +1613,14 @@ erDiagram
   company_values |o..o{ pulse_scores : "value_name"
   units |o..o{ pulse_scores : "unit_id"
   company_values |o..o{ pulse_statements : "value_name"
+  actions ||--o{ review_actions : "action_id"
+  review_meetings |o..o{ review_actions : "meeting_id"
+  review_agenda_items |o..o{ review_actions : "agenda_item_id"
+  review_meetings ||--o{ review_agenda_items : "meeting_id"
+  people |o..o{ review_agenda_items : "owner"
+  review_meetings ||--o{ review_meeting_attendees : "meeting_id"
+  people |o..o{ review_meeting_attendees : "person_id"
+  people |o..o{ review_meetings : "chair"
   people |o..o{ review_proposals : "owner"
   strategic_risks ||--o{ risk_mitigations : "risk_id"
   people |o..o{ risk_mitigations : "owner"
@@ -1321,6 +1630,11 @@ erDiagram
   people |o..o{ risk_reviews : "by_person"
   stakeholders ||--o{ stakeholder_measures : "stakeholder_id"
   people |o..o{ strategic_risks : "owner"
+  target_proposals ||--o{ target_proposal_steps : "proposal_id"
+  people |o..o{ target_proposal_steps : "by_person"
+  units |o..o{ target_proposals : "unit_id"
+  people |o..o{ target_proposals : "proposed_by"
+  people |o..o{ target_proposals : "parent_owner"
   teams ||--o{ team_objectives : "team_id"
   objectives |o..o{ team_objectives : "objective_id"
   units ||--o{ teams : "unit_id"
@@ -1384,6 +1698,11 @@ erDiagram
     date created_on
     bool read
   }
+  person_capacity {
+    text id PK
+    text person_id FK
+    num hours_per_week
+  }
   rule_runs {
     text id PK
     text rule_id FK
@@ -1401,6 +1720,60 @@ erDiagram
     text group_by
     text search
     jsonb filters
+    date created_on
+  }
+  task_done_criteria {
+    text id PK
+    text task_id FK
+    text text
+    bool met
+    text met_by FK
+    date met_on
+  }
+  task_handovers {
+    text id PK
+    text task_id FK
+    text from_id FK
+    text to_id FK
+    text note
+    text status
+    date handed_on
+    date answered_on
+    text reason
+    text time_off_id FK
+  }
+  task_recurrences {
+    text id PK
+    text task_id FK
+    text frequency
+    int day_of_month
+    date ends_on
+    date started_on
+    text created_by FK
+    int done_count
+    jsonb previous_task_ids
+  }
+  task_reviews {
+    text id PK
+    text task_id FK
+    text reviewer_id FK
+    text state
+    text requested_by FK
+    date requested_on
+    text decided_by FK
+    date decided_on
+    text note
+  }
+  time_off {
+    text id PK
+    text person_id FK
+    date starts_on
+    date ends_on
+    text kind
+    text cover_id FK
+    bool route_to_cover
+    text note
+    text created_by FK
     date created_on
   }
   timesheet_approvals {
@@ -1432,15 +1805,144 @@ erDiagram
     date submitted_on
     date decided_on
   }
+  triage_items {
+    text id PK
+    text queue_id FK
+    text title
+    text detail
+    text requested_by FK
+    date received_on
+    text source
+    text priority
+    num estimate_hours
+    text status
+    date snooze_until
+    text merged_into FK
+    text decided_by FK
+    date decided_on
+    text reason
+    text task_id FK
+  }
+  triage_queue_members {
+    text id PK
+    text queue_id FK
+    text person_id FK
+  }
+  triage_queues {
+    text id PK
+    text name
+    text team_id FK
+    text description
+    text rotation
+    date rotation_start
+    bool round_robin
+    text last_assignee_id FK
+    text initiative_id FK
+  }
+  triage_rota_swaps {
+    text id PK
+    text queue_id FK
+    date week_start
+    text person_id FK
+  }
+  work_template_gates {
+    text id PK
+    text template_id FK
+    text stage FK
+    int day
+    text approver_role_ref FK
+    jsonb criteria
+  }
+  work_template_phases {
+    text id PK
+    text template_id FK
+    text name
+  }
+  work_template_roles {
+    text id PK
+    text template_id FK
+    text name
+    text role_id FK
+  }
+  work_template_tasks {
+    text id PK
+    text template_id FK
+    text name
+    text phase
+    text role_ref FK
+    int start_day
+    int duration_days
+    text priority
+    num estimate_hours
+    text reviewer_role_ref FK
+    jsonb done_criteria
+    jsonb subtasks
+    jsonb depends_on
+    text repeat
+  }
+  work_templates {
+    text id PK
+    text name
+    text kind
+    text description
+    text source_ref
+    text created_by FK
+    date created_on
+    text start_stage FK
+    text programme_id FK
+    text perspective_id FK
+    num budget
+  }
   people |o..o{ activity_feed : "actor_id"
   custom_fields ||--o{ custom_field_options : "field_id"
   people |o..o{ notifications : "recipient_id"
+  people ||--o{ person_capacity : "person_id"
   automation_rules ||--o{ rule_runs : "rule_id"
   people |o..o{ saved_views : "owner_id"
+  tasks ||--o{ task_done_criteria : "task_id"
+  people |o..o{ task_done_criteria : "met_by"
+  tasks ||--o{ task_handovers : "task_id"
+  people |o..o{ task_handovers : "from_id"
+  people |o..o{ task_handovers : "to_id"
+  time_off |o..o{ task_handovers : "time_off_id"
+  tasks ||--o{ task_recurrences : "task_id"
+  people |o..o{ task_recurrences : "created_by"
+  tasks ||--o{ task_reviews : "task_id"
+  people |o..o{ task_reviews : "reviewer_id"
+  people |o..o{ task_reviews : "requested_by"
+  people |o..o{ task_reviews : "decided_by"
+  people ||--o{ time_off : "person_id"
+  people |o..o{ time_off : "cover_id"
+  people |o..o{ time_off : "created_by"
   timesheet_weeks ||--o{ timesheet_approvals : "week_id"
   people |o..o{ timesheet_approvals : "actor_id"
   timesheet_weeks ||--o{ timesheet_entries : "week_id"
   tasks |o..o{ timesheet_entries : "task_id"
   people |o..o{ timesheet_weeks : "person_id"
   people |o..o{ timesheet_weeks : "decided_by"
+  triage_queues ||--o{ triage_items : "queue_id"
+  people |o..o{ triage_items : "requested_by"
+  triage_items |o..o{ triage_items : "merged_into"
+  people |o..o{ triage_items : "decided_by"
+  tasks |o..o{ triage_items : "task_id"
+  triage_queues ||--o{ triage_queue_members : "queue_id"
+  people ||--o{ triage_queue_members : "person_id"
+  teams |o..o{ triage_queues : "team_id"
+  people |o..o{ triage_queues : "last_assignee_id"
+  initiatives |o..o{ triage_queues : "initiative_id"
+  triage_queues ||--o{ triage_rota_swaps : "queue_id"
+  people |o..o{ triage_rota_swaps : "person_id"
+  work_templates ||--o{ work_template_gates : "template_id"
+  stages |o..o{ work_template_gates : "stage"
+  work_template_roles |o..o{ work_template_gates : "approver_role_ref"
+  work_templates ||--o{ work_template_phases : "template_id"
+  work_templates ||--o{ work_template_roles : "template_id"
+  roles |o..o{ work_template_roles : "role_id"
+  work_templates ||--o{ work_template_tasks : "template_id"
+  work_template_roles |o..o{ work_template_tasks : "role_ref"
+  work_template_roles |o..o{ work_template_tasks : "reviewer_role_ref"
+  people |o..o{ work_templates : "created_by"
+  stages |o..o{ work_templates : "start_stage"
+  programmes |o..o{ work_templates : "programme_id"
+  perspectives |o..o{ work_templates : "perspective_id"
 ```

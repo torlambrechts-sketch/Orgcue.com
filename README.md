@@ -45,13 +45,18 @@ Later additions:
 - shared workspaces with sign-in, roles, an audit log and import (Settings);
 - monthly finance, gate criteria, change requests, benefits, capacity and scenarios;
 - unit scorecards, strategic risks, a governance calendar and frozen board packs;
-- one task list, custom fields, saved views and timesheets.
+- one task list, custom fields, saved views and timesheets;
+- owners, contributors and followers on every record, comment threads, an inbox you can act from, and accept, decline or new-date answers;
+- target agreement, review meetings with owned actions, and committed and stretch targets with say/do;
+- milestones with acceptance, resource requests, capex and opex by month, and date changes that move dependent work;
+- absence cover and hand-over, team triage queues, workload actions, done criteria and review, templates and recurring tasks;
+- accounts linked to people, live demo dates and one date format.
 
 See `docs/release-notes.md`; the collaboration research is in `docs/collaboration-research.md`.
 
 Every record lives in the Supabase database; the page holds no sample data. A visitor without an account gets a private
 demo session (a copy of the demo company, kept 14 days after the last visit); Help → Reset demo data restores it. Signed-in
-users can create shared team workspaces. See `docs/database.md` for the design (163 tables) and the access functions.
+users can create shared team workspaces. See `docs/database.md` for the design (202 tables) and the access functions.
 
 `npm run build` makes a production build and `npm run lint` runs ESLint.
 Pushes to `claude/relaxed-goldberg-yjnnay` deploy to https://orgcue.vercel.app.
