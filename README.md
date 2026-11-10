@@ -41,12 +41,24 @@ the strategy review. Measures calculate their status from progress against plan 
 The **Product roadmap** (flag icon, or `/#roadmap`) shows what has shipped, what comes next with voting, how OrgCue covers
 the features leading vendors offer, and the advisory panel's review. See `docs/product-review.md` and `docs/vendor-landscape.md`.
 
+Later additions:
+- shared workspaces with sign-in, roles, an audit log and import (Settings);
+- monthly finance, gate criteria, change requests, benefits, capacity and scenarios;
+- unit scorecards, strategic risks, a governance calendar and frozen board packs;
+- one task list, custom fields, saved views and timesheets.
+
+See `docs/release-notes.md`; the collaboration research is in `docs/collaboration-research.md`.
+
 Everything a visitor adds or changes is saved in their own browser only; Help → Reset demo data restores the sample.
 
 `npm run build` makes a production build and `npm run lint` runs ESLint.
 Pushes to `claude/relaxed-goldberg-yjnnay` deploy to https://orgcue.vercel.app.
 
 ## Supabase
+
+Shared workspaces use the tables in `supabase/migrations/` (row level security on every table). The static page reads the
+public URL and publishable key from `/api/public-config`. Set the project's auth Site URL to the live domain so that
+confirmation emails link to it.
 
 The app talks to the Supabase project `qlzlnsjkacjqagvxlbvq` with its publishable key, which is safe in the browser.
 Never put the secret or service-role key in a `NEXT_PUBLIC_` variable.
