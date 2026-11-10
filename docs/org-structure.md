@@ -177,7 +177,7 @@ Ids are text. The 5 existing business units keep their ids ("Delivery"), and so 
     - this unit;
     - this unit and below (the default);
     - everything I can see.
-  - It is remembered per person and starts at their primary unit.
+  - It is remembered per person. It starts at "everything I can see", and the visibility scope in 3.4 limits that for people inside a portfolio company. "My unit" is one click away. (The panel proposed starting at the person's own unit. In the build that left most pages nearly empty for people in small teams, so the chair changed the default.)
   - Every list (objectives, measures, initiatives, tasks, finance, capacity, risks, reviews, dashboards) gets an owning-unit filter and column, and reads the scope.
 - **Unit page (`org-unit`).**
   - A header: level, head, deputies, members and breadcrumb.
