@@ -1,5 +1,96 @@
 # Release notes
 
+## November 2026: the Exploring features: cycles, rules, dashboards, docs, guests and presence
+
+This release builds the 8 Exploring items on the Product roadmap that need no phone app, outside service or AI model. They are now in the roadmap's Shipped column. Their records live in 18 new database tables, and the demo company has sample data for each.
+
+### Portfolio
+- **Agreed baselines** (RM53, on the initiative page's Gates and changes tab).
+  - A new baseline is a proposal: the start and end quarters, the budget, a reason and optional scope.
+  - The named contributors confirm it or raise a concern. Then the sponsor signs it off or sends it back with a reason.
+  - Only sign-off changes the baseline. It re-spreads the monthly budget and logs a decision.
+  - Approving a change request still updates the plan at once, but now opens a baseline proposal instead of re-baselining straight away.
+- **Benefit hand-over** (RM53, the Benefits page and the initiative's Benefits tab). When an initiative is in delivery or closing, each benefit is offered to a named operations owner. They accept it and become its owner, or decline with a reason.
+- **Planning cycles** (RM56, `/#wk-cycles`).
+  - A cycle has a window, the quarters it funds, a budget and people appetite, and an owner.
+  - Its candidates are open requests, proposed initiatives and continuing work. They are scored with the intake score and ranked, with a cut line where the appetite runs out.
+  - Each candidate is funded, dropped or deferred to another cycle, with a reason. Every outcome is written to the decision log.
+  - Funding a request creates the initiative with its first baseline.
+
+### Work and reporting
+- **Rule builder** (RM55, `/#wk-rules`).
+  - Build rules as When, If and Then.
+  - **When:**
+    - a task is created, changes status, owner or due date;
+    - a status update is posted;
+    - an initiative moves stage;
+    - a milestone is accepted;
+    - a request is submitted;
+    - a measure or key result is checked in;
+    - a risk goes above appetite;
+    - time-based checks: overdue, due soon, a milestone past its date, or no check-in for a number of days.
+  - **Then:** notify someone, assign, set a field, create a task or an action, add a comment, or move the initiative to a stage.
+  - There are 14 templates, test runs that change nothing, and a run log of the last 300 runs. The six built-in rules show in the same form.
+  - Rules run after a change is saved (or with Run now), never while you are just browsing, and a rule's own changes do not start more rules.
+- **Dashboard builder** (RM70, `/#wk-dashboards`).
+  - Build dashboards from widgets: numbers, lists, bar, line and donut charts, tables, measure trends, and budget against actuals.
+  - Widgets draw on measures, objectives, unit measures, initiatives, tasks, budgets, actions and risks, with filters for owner (including "me"), unit, programme, status and period.
+  - Arrange widgets by dragging, and choose small, medium or wide.
+  - Keep a dashboard private, share it with the workspace, or share it with named people who can view or edit. You can duplicate any dashboard you can see.
+  - Figures are live and match the pages they come from.
+
+### Collaboration
+- **Briefs and papers** (RM71, `/#wk-docs`).
+  - Write briefs, business cases and meeting notes from templates. A template fills in what the app already knows: targets, milestones, risks, budget, or a meeting's attendees, decisions and actions.
+  - The editor needs no plug-ins and keeps only safe formatting: headings, lists, bold, italic and links.
+  - A document goes from draft to review to approval by a named approver. Comments attach to a passage and use the same threads as everywhere else.
+  - Every save is a version you can view or restore.
+  - Documents show on the initiative page, the Documents page, review meetings and My work.
+- **Celebrate finished work** (RM54, Values in action, Celebrations tab, and on the dashboard).
+  - When a milestone is accepted, a measure or key result reaches its target, or a project closes, OrgCue offers a celebration that names the people.
+  - Others react or give kudos linked to a value.
+  - Nothing is posted until someone chooses to.
+- **Presence** (RM73).
+  - In a shared workspace, the top bar shows who else is on the same page.
+  - A form or task panel says when someone else has the same record open.
+  - It uses a private Realtime channel that only members can join; demo sessions show nobody.
+
+### Platform
+- **Guest access** (RM72, Settings › Workspace and sign-in › Guests).
+  - An admin invites a client or partner by email to chosen initiatives, either to view only, or to comment and update the tasks assigned to them.
+  - A guest lands on "Shared with you" and sees only those initiatives, their tasks, milestones, documents and comments.
+  - Finance, staffing, gates, decisions and the rest of the strategy stay hidden.
+  - The database itself serves a guest only their rows and refuses any other change, so this does not depend on the page.
+
+### Database
+- Migrations:
+  - `20261110134500_access_guests.sql`: the guest role, guest scopes and invites;
+  - `20261110134600_access_guest_load_apply.sql`: what a guest can load and save;
+  - `20261110134700_access_presence.sql`: the presence channel policy;
+  - `20261110140000_exploring_tables.sql`: new tables and columns;
+  - `20261110140100_exploring_demo_data.sql`: demo rows and roadmap.
+
+### Known limits
+- **Presence and public channels.** Presence uses a private channel. Supabase's Realtime setting "Allow public access" is still on, because the existing live updates use a public channel. Turning it off would also need those updates moved to a private channel.
+- **Rules run in the browser.** Rules run in the browser of the person whose change triggers them, not on a server.
+- **Initiatives without a baseline.** Initiatives created before this release with no baseline still get a first one automatically, without sign-off.
+- **Guests have their own card.** Guests are invited from the Guests card, not from the role menu on the member list.
+
+### What is still on the roadmap
+- **Planned, needing an outside service:**
+  - KPI data connectors;
+  - Slack and Teams;
+  - Jira and Azure DevOps sync;
+  - single sign-on and SCIM;
+  - scheduled email digests;
+  - invitation emails.
+- **Exploring, needing an outside service, an AI model or a phone app:**
+  - AI agents;
+  - the public API and MCP server;
+  - phone apps;
+  - BI connectors;
+  - data residency.
+
 ## November 2026: the planned collaboration, strategy, portfolio and work features
 
 This release builds the 22 Planned items on the Product roadmap (`/#roadmap`) that need no outside service. They are now in the roadmap's Shipped column. Their records live in 39 new database tables (see `docs/database.md`), and the demo company has sample data for each of them.

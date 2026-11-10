@@ -24,6 +24,34 @@ erDiagram
     date decided_on
     date nudged_on
   }
+  celebration_kudos {
+    text id PK
+    text celebration_id FK
+    text kudos_id FK
+  }
+  celebration_people {
+    text id PK
+    text celebration_id FK
+    text person_id FK
+  }
+  celebration_reactions {
+    text id PK
+    text celebration_id FK
+    text person_id FK
+    text reaction
+  }
+  celebrations {
+    text id PK
+    text kind
+    text ref
+    text period
+    text title
+    text message
+    text value_name
+    text posted_by FK
+    date posted_on
+    text status
+  }
   comment_reactions {
     text id PK
     text comment_id FK
@@ -43,6 +71,31 @@ erDiagram
     date resolved_on
     text action_id FK
     text decision_id FK
+  }
+  document_anchors {
+    text id PK
+    text comment_id FK
+    text document_id FK
+    int passage
+    text quote
+  }
+  document_events {
+    text id PK
+    text document_id FK
+    text action
+    text by_person FK
+    date acted_on
+    text comment
+  }
+  document_versions {
+    text id PK
+    text document_id FK
+    int version
+    text title
+    jsonb body
+    text saved_by FK
+    date saved_on
+    text note
   }
   inbox_preferences {
     text id PK
@@ -66,8 +119,32 @@ erDiagram
     text person_id FK
     text role
   }
+  work_documents {
+    text id PK
+    text kind
+    text title
+    text status
+    text owner_id FK
+    text approver_id FK
+    text initiative_id FK
+    text project_id FK
+    text meeting_id FK
+    jsonb body
+    date created_on
+    date updated_on
+    date submitted_on
+    date approved_on
+    text approved_by FK
+  }
   people |o..o{ assignment_requests : "from_id"
   people |o..o{ assignment_requests : "to_id"
+  celebrations ||--o{ celebration_kudos : "celebration_id"
+  kudos |o..o{ celebration_kudos : "kudos_id"
+  celebrations ||--o{ celebration_people : "celebration_id"
+  people |o..o{ celebration_people : "person_id"
+  celebrations ||--o{ celebration_reactions : "celebration_id"
+  people |o..o{ celebration_reactions : "person_id"
+  people |o..o{ celebrations : "posted_by"
   comments ||--o{ comment_reactions : "comment_id"
   people |o..o{ comment_reactions : "person_id"
   comments ||--o{ comment_replies : "comment_id"
@@ -76,9 +153,21 @@ erDiagram
   people |o..o{ comment_threads : "resolved_by"
   actions |o..o{ comment_threads : "action_id"
   decisions |o..o{ comment_threads : "decision_id"
+  comments ||--o{ document_anchors : "comment_id"
+  work_documents ||--o{ document_anchors : "document_id"
+  work_documents ||--o{ document_events : "document_id"
+  people |o..o{ document_events : "by_person"
+  work_documents ||--o{ document_versions : "document_id"
+  people |o..o{ document_versions : "saved_by"
   people ||--o{ inbox_preferences : "person_id"
   people ||--o{ inbox_snoozes : "person_id"
   people |o..o{ object_roles : "person_id"
+  people |o..o{ work_documents : "owner_id"
+  people |o..o{ work_documents : "approver_id"
+  initiatives |o..o{ work_documents : "initiative_id"
+  projects |o..o{ work_documents : "project_id"
+  review_meetings |o..o{ work_documents : "meeting_id"
+  people |o..o{ work_documents : "approved_by"
 ```
 
 ### Platform
@@ -305,6 +394,32 @@ erDiagram
     date happened_on
     text what
   }
+  baseline_confirmations {
+    text id PK
+    text proposal_id FK
+    text person_id FK
+    text status
+    text comment
+    date answered_on
+  }
+  baseline_proposals {
+    text id PK
+    text initiative_id FK
+    int start_q
+    int end_q
+    num budget
+    text scope
+    text reason
+    text change_request_id FK
+    text proposed_by FK
+    date proposed_on
+    text sponsor_id FK
+    text status
+    date decided_on
+    text decision_comment
+    int baseline_version
+    text decision_id FK
+  }
   baselines {
     text id PK
     text initiative_id FK
@@ -316,6 +431,17 @@ erDiagram
     text reason
     text set_by FK
     text change_request_id FK
+  }
+  benefit_handovers {
+    text id PK
+    text benefit_id FK
+    text from_person FK
+    text to_person FK
+    date offered_on
+    text note
+    text status
+    date answered_on
+    text answer
   }
   benefit_values {
     text id PK
@@ -372,6 +498,24 @@ erDiagram
     text author_id FK
     date posted_on
     text body
+  }
+  cycle_candidates {
+    text id PK
+    text cycle_id FK
+    text kind
+    text request_id FK
+    text initiative_id FK
+    num cost
+    num capacity_fte
+    int priority
+    text decision
+    text reason
+    text decided_by FK
+    date decided_on
+    text decision_id FK
+    text deferred_to FK
+    text carried_from FK
+    text note
   }
   decisions {
     text id PK
@@ -526,6 +670,20 @@ erDiagram
     text initiative_id FK
     int quarter
   }
+  planning_cycles {
+    text id PK
+    text name
+    int start_q
+    int end_q
+    date opens_on
+    date closes_on
+    num budget
+    num capacity_fte
+    text owner_id FK
+    text status
+    date closed_on
+    text note
+  }
   programmes {
     text id PK
     text name
@@ -663,9 +821,19 @@ erDiagram
   }
   people |o..o{ actions : "owner_id"
   people |o..o{ activity : "actor_id"
+  baseline_proposals ||--o{ baseline_confirmations : "proposal_id"
+  people |o..o{ baseline_confirmations : "person_id"
+  initiatives ||--o{ baseline_proposals : "initiative_id"
+  change_requests |o..o{ baseline_proposals : "change_request_id"
+  people |o..o{ baseline_proposals : "proposed_by"
+  people |o..o{ baseline_proposals : "sponsor_id"
+  decisions |o..o{ baseline_proposals : "decision_id"
   initiatives ||--o{ baselines : "initiative_id"
   people |o..o{ baselines : "set_by"
   change_requests |o..o{ baselines : "change_request_id"
+  benefits ||--o{ benefit_handovers : "benefit_id"
+  people |o..o{ benefit_handovers : "from_person"
+  people |o..o{ benefit_handovers : "to_person"
   benefits ||--o{ benefit_values : "benefit_id"
   initiatives ||--o{ benefits : "initiative_id"
   people |o..o{ benefits : "owner_id"
@@ -679,6 +847,13 @@ erDiagram
   people |o..o{ change_requests : "approver_id"
   people |o..o{ change_requests : "decided_by"
   people |o..o{ comments : "author_id"
+  planning_cycles ||--o{ cycle_candidates : "cycle_id"
+  requests |o..o{ cycle_candidates : "request_id"
+  initiatives |o..o{ cycle_candidates : "initiative_id"
+  people |o..o{ cycle_candidates : "decided_by"
+  decisions |o..o{ cycle_candidates : "decision_id"
+  planning_cycles |o..o{ cycle_candidates : "deferred_to"
+  cycle_candidates |o..o{ cycle_candidates : "carried_from"
   people |o..o{ decisions : "proposed_by"
   people |o..o{ decisions : "decided_by"
   initiatives ||--o{ finance_month_capex : "initiative_id"
@@ -718,6 +893,7 @@ erDiagram
   initiative_milestones ||--o{ milestone_evidence : "milestone_id"
   people |o..o{ milestone_evidence : "added_by"
   initiatives ||--o{ milestones : "initiative_id"
+  people |o..o{ planning_cycles : "owner_id"
   people |o..o{ programmes : "lead_id"
   initiatives ||--o{ purchase_orders : "initiative_id"
   requests ||--o{ request_objectives : "request_id"
@@ -1011,6 +1187,52 @@ erDiagram
   retrospectives ||--o{ retro_participants : "retro_id"
   people |o..o{ retro_participants : "person_id"
   project_scopes ||--o{ scope_items : "scope_id"
+```
+
+### Reporting
+
+```mermaid
+erDiagram
+  dashboard_shares {
+    text id PK
+    text dashboard_id FK
+    text person_id FK
+    bool can_edit
+  }
+  dashboard_widgets {
+    text id PK
+    text dashboard_id FK
+    text kind
+    text title
+    text source
+    text metric
+    text group_by
+    text chart_type
+    text measure_id FK
+    text size
+    int row_limit
+    text owner_filter
+    text unit_filter FK
+    text programme_filter FK
+    text status_filter
+    text period_filter
+  }
+  dashboards {
+    text id PK
+    text name
+    text description
+    text owner_id FK
+    text visibility
+    date created_on
+    date updated_on
+  }
+  dashboards ||--o{ dashboard_shares : "dashboard_id"
+  people |o..o{ dashboard_shares : "person_id"
+  dashboards ||--o{ dashboard_widgets : "dashboard_id"
+  measures |o..o{ dashboard_widgets : "measure_id"
+  units |o..o{ dashboard_widgets : "unit_filter"
+  programmes |o..o{ dashboard_widgets : "programme_filter"
+  people |o..o{ dashboards : "owner_id"
 ```
 
 ### Strategy
@@ -1673,11 +1895,39 @@ erDiagram
     text title
     date created_on
   }
+  automation_rule_actions {
+    text id PK
+    text rule_id FK
+    text action
+    text person_role
+    text person_id FK
+    text field
+    text value
+    text message
+    int days
+    text initiative_id FK
+  }
+  automation_rule_conditions {
+    text id PK
+    text rule_id FK
+    text field
+    text operator
+    text value
+  }
   automation_rules {
     text id PK
     text trigger_text
     text action_text
     bool enabled
+    text name
+    text description
+    text trigger
+    int trigger_days
+    text match_mode
+    text template_id
+    text created_by FK
+    date created_on
+    date updated_on
   }
   custom_field_options {
     text id PK
@@ -1708,6 +1958,11 @@ erDiagram
     text rule_id FK
     date ran_on
     text message
+    text trigger
+    text ref
+    text actor_id FK
+    text outcome
+    jsonb details
   }
   saved_views {
     text id PK
@@ -1894,10 +2149,16 @@ erDiagram
     num budget
   }
   people |o..o{ activity_feed : "actor_id"
+  automation_rules ||--o{ automation_rule_actions : "rule_id"
+  people |o..o{ automation_rule_actions : "person_id"
+  initiatives |o..o{ automation_rule_actions : "initiative_id"
+  automation_rules ||--o{ automation_rule_conditions : "rule_id"
+  people |o..o{ automation_rules : "created_by"
   custom_fields ||--o{ custom_field_options : "field_id"
   people |o..o{ notifications : "recipient_id"
   people ||--o{ person_capacity : "person_id"
   automation_rules ||--o{ rule_runs : "rule_id"
+  people |o..o{ rule_runs : "actor_id"
   people |o..o{ saved_views : "owner_id"
   tasks ||--o{ task_done_criteria : "task_id"
   people |o..o{ task_done_criteria : "met_by"

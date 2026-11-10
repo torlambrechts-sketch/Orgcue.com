@@ -2,11 +2,11 @@
 
 Every record in OrgCue lives in the database. The page holds no sample data: at start it loads the workspace's rows, rebuilds the app's data from them, and from then on sends only the rows that change. The sample company, MosaicX, is demo data stored in the database like any customer's data.
 
-There are 202 tables, all generated from one set of declarations in the app:
-- 190 tables hold workspace data;
+There are 220 tables, all generated from one set of declarations in the app:
+- 208 tables hold workspace data;
 - 12 hold OrgCue's own product content (the roadmap, feature coverage, vendors and the advisory panel review).
 
-The schema has 113 enforced parent-child keys and 288 indexed references. The demo company has 2,607 rows.
+The schema has 128 enforced parent-child keys and 338 indexed references. The demo company has 2,787 rows.
 
 ## Workspaces
 
@@ -16,7 +16,7 @@ Each data row has a `workspace_id`. A workspace has a kind:
 | --- | --- | --- |
 | `demo` | The demo company, MosaicX. It is the source for new demo sessions and team workspaces. | Read-only, for everyone |
 | `sandbox` | A visitor's private copy of the demo. It lasts 14 days after the last visit, and Help › Reset demo data restores it. | Only the browser holding its secret token; only a hash of the token is stored |
-| `team` | A shared workspace with members and roles (admin, editor, contributor, viewer). It is created by a signed-in user as a copy of their demo session or of another workspace. | Members, through `workspace_members` |
+| `team` | A shared workspace with members and roles (admin, editor, contributor, viewer, and guest for outside people limited to chosen initiatives). It is created by a signed-in user as a copy of their demo session or of another workspace. | Members, through `workspace_members` |
 | `product` | OrgCue's product content. | Read-only, for everyone |
 
 Opening the site without an account starts a demo session. Signing in and creating a shared workspace copies the current data into a team workspace. Switching back returns to the demo session.
@@ -34,6 +34,19 @@ Opening the site without an account starts a demo session. Signing in and creati
 - by an admin, through `orgcue_link_person`.
 
 `orgcue_load` returns it as `person`, and the page uses it as "me".
+
+**Guests.** A member with role `guest` has a row in `workspace_guest_scopes`: the initiatives shared with them, and their rights, `view` or `contribute`.
+- **What a guest loads.** `orgcue_load` works out the guest's rows from the column references in `orgcue_tables`:
+  - the shared initiatives;
+  - the rows that point at them, directly or through tasks, milestones, documents and comments;
+  - the people those rows name;
+  - the configuration the pages need.
+  Finance, staffing, gates, decisions, intake and the rest of the strategy are never included.
+- **What a guest saves.** `orgcue_apply` accepts from a guest only:
+  - comments and reactions;
+  - status changes on tasks assigned to them, and ticks on their subtasks;
+  - follows.
+  It refuses any other change.
 
 ## How the app talks to the database
 
@@ -80,6 +93,11 @@ The migrations in `supabase/migrations/`:
 | `20261110100100_platform2_shift_years.sql` | Moves demo dates by whole years (`orgcue_shift_years`); new demo sessions, resets and copies of the demo follow today |
 | `20261110100200_planned_tables.sql` | 39 tables for the planned features, with their keys and indexes, and the refreshed data dictionary |
 | `20261110100300_planned_demo_data.sql` | Demo rows for the planned features and the updated roadmap |
+| `20261110134500_access_guests.sql` | The guest role, guest scopes (`workspace_guest_scopes`), guest invites and their acceptance |
+| `20261110134600_access_guest_load_apply.sql` | `orgcue_load` serves a guest only the rows of their initiatives; `orgcue_apply` refuses other changes |
+| `20261110134700_access_presence.sql` | Presence: only members may join a workspace's private Realtime channel |
+| `20261110140000_exploring_tables.sql` | 18 tables and 14 columns for the Exploring features, and the refreshed data dictionary |
+| `20261110140100_exploring_demo_data.sql` | Demo rows for the Exploring features and the updated roadmap |
 
 The relationship diagrams for each domain are in `docs/database-erd.md`.
 
@@ -166,19 +184,23 @@ The "Demo rows" column counts the rows the demo company has.
 | `xmatrix_items` | A row of the Hoshin X-matrix: S breakthrough, W annual objective, N priority, E measure, R owner | quadrant, name, owner → people | 22 |
 | `xmatrix_links` | A correlation between two X-matrix items (1 weak, 2 strong) | from_item_id → xmatrix_items (cascade), to_item_id → xmatrix_items (cascade), strength | 43 |
 
-### Portfolio and programmes (43 tables)
+### Portfolio and programmes (48 tables)
 
 | Table | What a row is | Columns | Demo rows |
 | --- | --- | --- | --- |
-| `actions` | A follow-up action, often from a decision | title, owner_id → people, due_date, status, source, created_on | 16 |
+| `actions` | A follow-up action, often from a decision | title, owner_id → people, due_date, status, source, created_on | 19 |
 | `activity` | A change made to any record; ref names it, for example task:I7-1 | ref, actor_id → people, happened_on, what | 93 |
+| `baseline_confirmations` | A named contributor's answer to a baseline proposal. status: Waiting, Confirmed or Concern (with a comment). id = proposal:person | proposal_id → baseline_proposals (cascade), person_id → people, status, comment, answered_on | 7 |
+| `baseline_proposals` | A proposed plan (quarter indexes and budget in £k) that becomes an initiative's baseline only when every named contributor confirms it and the sponsor signs it off. status: Agreeing, With sponsor, Signed off, Sent back or Withdrawn; baseline_version is the baseline it became | initiative_id → initiatives (cascade), start_q, end_q, budget, scope, reason, change_request_id → change_requests, proposed_by → people, proposed_on, sponsor_id → people, status, decided_on, decision_comment, baseline_version, decision_id → decisions | 3 |
 | `baselines` | An approved version of an initiative's dates and budget | initiative_id → initiatives (cascade), version, start_q, end_q, budget, set_on, reason, set_by → people, change_request_id → change_requests | 11 |
+| `benefit_handovers` | A benefit offered at closure to a named operations owner. status: Offered, Accepted, Declined (answer holds the reason) or Withdrawn. On acceptance the benefit's owner becomes to_person | benefit_id → benefits (cascade), from_person → people, to_person → people, offered_on, note, status, answered_on, answer | 3 |
 | `benefit_values` | Planned and realised value of a benefit in one quarter | benefit_id → benefits (cascade), quarter, planned, realised | 105 |
 | `benefits` | A benefit profile of an initiative | initiative_id → initiatives (cascade), name, kind, owner_id → people, measure_id → measures, unit | 13 |
 | `change_request_followups` | What happened to a dependent initiative when a date change was approved: moved, change_request (a follow-up request was raised) or left | change_request_id → change_requests (cascade), initiative_id → initiatives (cascade), action, follow_up_id → change_requests, old_start_q, old_end_q, new_start_q, new_end_q, decided_by → people, decided_on | 0 |
 | `change_requests` | A request to change the end date, budget or scope of an initiative | initiative_id → initiatives (cascade), requested_by → people, requested_on, changes, new_end_q, new_budget, new_scope, reason, impact, approver_id → people, status, old_end_q, old_budget, old_scope, decided_by → people, decided_on, decision_comment | 3 |
-| `comments` | A comment on any record; ref names it, for example task:I7-1 or su:SU2 | ref, author_id → people, posted_on, body | 21 |
-| `decisions` | A decision from a steering group, review or stage gate | title, forum, about_ref, proposed_by → people, status, from_gate, decided_by → people, decided_on, rationale | 7 |
+| `comments` | A comment on any record; ref names it, for example task:I7-1 or su:SU2 | ref, author_id → people, posted_on, body | 26 |
+| `cycle_candidates` | A request, proposed initiative or continuing initiative competing for funding in a planning cycle, with its cost (£k) and people (FTE) in the cycle. kind: request, proposed or continuing; decision: Open, Fund, Drop or Defer; priority is a manual rank (empty = by score) | cycle_id → planning_cycles (cascade), kind, request_id → requests, initiative_id → initiatives, cost, capacity_fte, priority, decision, reason, decided_by → people, decided_on, decision_id → decisions, deferred_to → planning_cycles, carried_from → cycle_candidates, note | 21 |
+| `decisions` | A decision from a steering group, review or stage gate | title, forum, about_ref, proposed_by → people, status, from_gate, decided_by → people, decided_on, rationale | 16 |
 | `finance_month_capex` | Share (%) of one month's actual or forecast spend that is capital expenditure; months without a row use the initiative's capex share. id = initiative:m<month> | initiative_id → initiatives (cascade), month, capex_pct | 57 |
 | `finance_months` | Budget, actual and forecast of an initiative for one month (0 = the first month of the horizon), £k | initiative_id → initiatives (cascade), month, budget, actual, forecast | 141 |
 | `gate_approvers` | A person who must approve leaving a stage | stage_id → stages (cascade), person_id → people | 8 |
@@ -197,6 +219,7 @@ The "Demo rows" column counts the rows the demo company has.
 | `milestone_events` | One step in a milestone's history: submitted, accepted, rejected or moved (with the old and new forecast date) | milestone_id → initiative_milestones (cascade), action, by_person → people, acted_on, comment, from_date, to_date | 9 |
 | `milestone_evidence` | A link, file or note that shows a milestone meets its criteria; kind: link, file or note | milestone_id → initiative_milestones (cascade), kind, label, url, added_by → people, added_on | 6 |
 | `milestones` | A milestone quarter of an initiative | initiative_id → initiatives (cascade), quarter | 16 |
+| `planning_cycles` | A portfolio planning cycle: the quarters it funds (indexes into the planning horizon), the window for deciding, and the funding appetite (budget in £k, people in FTE). status: Open or Closed | name, start_q, end_q, opens_on, closes_on, budget, capacity_fte, owner_id → people, status, closed_on, note | 2 |
 | `programmes` | A group of initiatives with a lead and a colour | name, lead_id → people, color, description | 4 |
 | `purchase_orders` | Money committed to a supplier against an initiative budget, £k | initiative_id → initiatives (cascade), ref, description, supplier, amount, raised_on | 11 |
 | `request_objectives` | An objective a request supports | request_id → requests (cascade), objective_id → objectives | 8 |
@@ -214,17 +237,19 @@ The "Demo rows" column counts the rows the demo company has.
 | `task_followers` | A person who follows a task | task_id → tasks (cascade), person_id → people | 66 |
 | `tasks` | A task of an initiative (linked project plans read these too) | initiative_id → initiatives (cascade), name, owner_id → people, status, withdrawn, priority, phase, start_date, due_date, due_quarter, estimate_hours, description, plan_ref | 90 |
 
-### Work (25 tables)
+### Work (27 tables)
 
 | Table | What a row is | Columns | Demo rows |
 | --- | --- | --- | --- |
 | `activity_feed` | One entry of the workspace activity feed: who did what, on which object (ref), newest first. | actor_id → people, action, ref, title, created_on | 6 |
-| `automation_rules` | A workspace automation rule and whether it is on. The behaviour of each rule id is built into the app. | trigger_text, action_text, enabled | 6 |
+| `automation_rule_actions` | One action (Then) of an automation rule: notify, assign, set a field, create a task or an action, add a comment or move the stage. person_role is owner, initowner, who (the person who made the change) or person (person_id). | rule_id → automation_rules (cascade), action, person_role, person_id → people, field, value, message, days, initiative_id → initiatives | 8 |
+| `automation_rule_conditions` | One condition (If) of an automation rule: a field of the record, an operator (is, not, contains, ncontains, gte, lte) and a value, in order. | rule_id → automation_rules (cascade), field, operator, value | 4 |
+| `automation_rules` | A workspace automation rule and whether it is on. Built-in rules (R1 to R6) have no trigger: their behaviour is built into the app. Your own rules have a trigger (When), conditions (If, all or any) and actions (Then). | trigger_text, action_text, enabled, name, description, trigger, trigger_days, match_mode, template_id, created_by → people, created_on, updated_on | 12 |
 | `custom_field_options` | One option of a single-select custom field, in order. | field_id → custom_fields (cascade), label | 4 |
 | `custom_fields` | A custom field every task in the workspace can have (text, number, single select, date or person), in display order. | name, field_type | 2 |
-| `notifications` | One item in a person's inbox: a mention, an assignment, a request or a rule message. ref points at what it is about (task:I7-1, init:I2, go:wk-time). | recipient_id → people, kind, message, ref, created_on, read | 8 |
+| `notifications` | One item in a person's inbox: a mention, an assignment, a request or a rule message. ref points at what it is about (task:I7-1, init:I2, go:wk-time). | recipient_id → people, kind, message, ref, created_on, read | 12 |
 | `person_capacity` | Hours a week a person has for portfolio work; id = person. People without a row use the workload view's default | person_id → people (cascade), hours_per_week | 5 |
-| `rule_runs` | One run of an automation rule, newest first, with what it did. | rule_id → automation_rules (cascade), ran_on, message | 3 |
+| `rule_runs` | One run of an automation rule, newest first: what it did, the record it was about (ref), whose change started it, the outcome (done, partly or failed) and one line per action. | rule_id → automation_rules (cascade), ran_on, message, trigger, ref, actor_id → people, outcome, details | 6 |
 | `saved_views` | A saved view of the Tasks page: view type, preset, programme, grouping, search and filters; personal or shared with the workspace. | name, owner_id → people, shared, view_type, preset, programme, group_by, search, filters, created_on | 2 |
 | `task_done_criteria` | One criterion of a task's definition of done, and whether it is met | task_id → tasks (cascade), text, met, met_by → people, met_on | 15 |
 | `task_handovers` | A request to take over a task, with a hand-over note; ownership moves when the new owner accepts (status waiting, accepted or declined) | task_id → tasks (cascade), from_id → people, to_id → people, note, status, handed_on, answered_on, reason, time_off_id → time_off | 3 |
@@ -244,17 +269,33 @@ The "Demo rows" column counts the rows the demo company has.
 | `work_template_tasks` | A task of a template: its phase, role, start day and length counted from the start, done criteria, reviewer role and repeat | template_id → work_templates (cascade), name, phase, role_ref → work_template_roles, start_day, duration_days, priority, estimate_hours, reviewer_role_ref → work_template_roles, done_criteria, subtasks, depends_on, repeat | 22 |
 | `work_templates` | A reusable plan for an initiative or a project: phases, roles, tasks and gates | name, kind, description, source_ref, created_by → people, created_on, start_stage → stages, programme_id → programmes, perspective_id → perspectives, budget | 2 |
 
-### Collaboration (7 tables)
+### Collaboration (15 tables)
 
 | Table | What a row is | Columns | Demo rows |
 | --- | --- | --- | --- |
 | `assignment_requests` | A request to accept a task, an action, a hand-over or the ownership of a record. Status: open, accepted, declined, proposed (a new date waits for the asker) or withdrawn. The committed date is kept apart from the record's due date. | ref, kind, from_id → people, to_id → people, asked_on, target_date, note, status, answered_on, reason, proposed_date, committed_date, decided_on, nudged_on | 8 |
+| `celebration_kudos` | Kudos given from a celebration; the kudos itself, with the value it shows, is in the recognition feed. | celebration_id → celebrations (cascade), kudos_id → kudos | 1 |
+| `celebration_people` | A person named in a celebration. | celebration_id → celebrations (cascade), person_id → people | 4 |
+| `celebration_reactions` | A person's reaction to a celebration: tada, clap, heart or rocket. | celebration_id → celebrations (cascade), person_id → people, reaction | 6 |
+| `celebrations` | A post that celebrates finished work. kind: ms (milestone accepted), kpi (measure met its target), kr (key result met), close (project closed) or win. ref names the record (ms:MS-1, kpi:K05, kr:OKR1:kr2, proj:P5, init:I3); period is the target year for a measure. status: posted, or skipped when someone chose not to celebrate it. | kind, ref, period, title, message, value_name, posted_by → people, posted_on, status | 2 |
 | `comment_reactions` | A person's reaction to a comment (up, yes, eyes or tada). | comment_id → comments (cascade), person_id → people, reaction | 5 |
-| `comment_replies` | Marks a comment as a reply in the thread that starts with another comment on the same record; id is the reply's comment id. | comment_id → comments (cascade), reply_to_id → comments (cascade) | 10 |
-| `comment_threads` | The state of a thread, keyed by its first comment: resolved or open, who resolved it, and the action or decision it turned into. | comment_id → comments (cascade), status, resolved_by → people, resolved_on, action_id → actions, decision_id → decisions | 3 |
+| `comment_replies` | Marks a comment as a reply in the thread that starts with another comment on the same record; id is the reply's comment id. | comment_id → comments (cascade), reply_to_id → comments (cascade) | 11 |
+| `comment_threads` | The state of a thread, keyed by its first comment: resolved or open, who resolved it, and the action or decision it turned into. | comment_id → comments (cascade), status, resolved_by → people, resolved_on, action_id → actions, decision_id → decisions | 4 |
+| `document_anchors` | Ties a comment thread on a document to a passage: the passage number (headings, paragraphs and list items in order) and the words quoted. id = the thread's first comment. | comment_id → comments (cascade), document_id → work_documents (cascade), passage, quote | 3 |
+| `document_events` | One step in a document's approval: created, submitted, approved, returned (with the reason), withdrawn, reopened (edited after approval) or restored. | document_id → work_documents (cascade), action, by_person → people, acted_on, comment | 16 |
+| `document_versions` | Every saved version of a document: its number, title and text (the same blocks as the document), who saved it, when, and what changed. id = document:v<version>. | document_id → work_documents (cascade), version, title, body, saved_by → people, saved_on, note | 11 |
 | `inbox_preferences` | How a person's inbox works: bundling updates per record and quiet hours (HH:MM, local time). id is the person. | person_id → people (cascade), bundle, quiet, quiet_from, quiet_to, quiet_weekends | 1 |
 | `inbox_snoozes` | Everything in a person's inbox about one record is hidden until a date. | person_id → people (cascade), ref, snoozed_on, until_date | 1 |
 | `object_roles` | A person's role on any record other than its owner: contributor (does the work), consulted or follower. ref names the record, for example obj:C2 or task:I7-1. Task and initiative followers live in their own tables. | ref, person_id → people, role | 36 |
+| `work_documents` | A brief, business case or meeting notes linked to an initiative, a project or a review meeting. kind: brief, case or notes. status: draft, review or approved (by the named approver). body holds the sanitised text as blocks: {t:h2\|h3\|p, r:[runs]} or {t:ul\|ol, li:[[runs]]}, where a run is {x:text, b:true, i:true, a:http(s) or mailto link} or {br:true}. | kind, title, status, owner_id → people, approver_id → people, initiative_id → initiatives, project_id → projects, meeting_id → review_meetings, body, created_on, updated_on, submitted_on, approved_on, approved_by → people | 6 |
+
+### Reporting (3 tables)
+
+| Table | What a row is | Columns | Demo rows |
+| --- | --- | --- | --- |
+| `dashboard_shares` | A person a dashboard is shared with, and whether they can change it. id is dashboard id:person id | dashboard_id → dashboards (cascade), person_id → people, can_edit | 7 |
+| `dashboard_widgets` | One widget of a dashboard, in grid order (sort). kind: number, list, chart, table, trend or budget. source: measures, objectives, umeasures, initiatives, tasks, budgets, actions or risks. size: s, m or w. owner_filter is a person id or @me (whoever is viewing) | dashboard_id → dashboards (cascade), kind, title, source, metric, group_by, chart_type, measure_id → measures, size, row_limit, owner_filter, unit_filter → units, programme_filter → programmes, status_filter, period_filter | 39 |
+| `dashboards` | A personal or shared dashboard of widgets. visibility: private (only the owner), workspace (everyone can view) or people (the people in dashboard_shares) | name, description, owner_id → people, visibility, created_on, updated_on | 5 |
 
 ### Projects (29 tables)
 
@@ -309,7 +350,7 @@ The "Demo rows" column counts the rows the demo company has.
 | `product_roadmap_horizons` (product) | A column of the product roadmap (done, now, next, later) | name, description | 4 |
 | `product_roadmap_items` (product) | A product capability: shipped, building, planned or exploring | title, area → product_roadmap_areas, horizon → product_roadmap_horizons, status, go, votes, asked_by, refs, why, what, collab | 66 |
 | `product_shipped_areas` (product) | A group of shipped capabilities | name, icon | 8 |
-| `product_shipped_items` (product) | A shipped capability with the page that shows it | area_id → product_shipped_areas (cascade), name, go | 87 |
+| `product_shipped_items` (product) | A shipped capability with the page that shows it | area_id → product_shipped_areas (cascade), name, go | 95 |
 | `product_vendors` (product) | A vendor researched for the roadmap | name, area, known_for, lesson | 33 |
 | `roadmap_suggestions` | A feature someone in this workspace suggested for the product roadmap | title, area → product_roadmap_areas, horizon → product_roadmap_horizons, status, go, votes, asked_by, refs, why, what, collab | 0 |
 | `roadmap_votes` | A person's vote for a roadmap item or suggestion (item_id is a product_roadmap_items or roadmap_suggestions id) | item_id, person_id → people | 0 |
