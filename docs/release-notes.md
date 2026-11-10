@@ -261,9 +261,7 @@ Everything not built here is on the roadmap page (`/#roadmap`):
   - a dashboard builder, linked documents, guest access and presence.
 
 ### Known limits
-- **Auth site URL (needs a setting change).** The Supabase project's auth site URL is still `http://localhost:3000`, so confirmation and magic-link emails point there. To fix it, open Authentication › URL Configuration in the Supabase dashboard:
-  - set the Site URL to `https://www.orgcue.com`;
-  - add `https://www.orgcue.com/**` to the redirect URLs.
+- **Auth site URL (fixed since).** The Supabase project's auth site URL was `http://localhost:3000`, so confirmation and magic-link emails pointed there. It is now `https://www.orgcue.com`, and `https://www.orgcue.com/**` is an allowed redirect URL.
 - **Live updates are partly tested.** The Realtime push could not be tested from the build environment. The regular version check is tested.
 - **Activity is linked to the demo person.** In shared workspaces, task and check-in activity is credited to the demo person, Olivia Adams. The audit log shows the signed-in account. (Fixed by RM60 in the next release: members are now linked to their own person.)
 - **Invitations are not emailed.** An invited person signs in with the invited address and chooses Join.

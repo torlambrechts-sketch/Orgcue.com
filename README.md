@@ -65,8 +65,8 @@ Pushes to `claude/relaxed-goldberg-yjnnay` deploy to https://orgcue.vercel.app.
 ## Supabase
 
 Shared workspaces use the tables in `supabase/migrations/` (row level security on every table). The static page reads the
-public URL and publishable key from `/api/public-config`. Set the project's auth Site URL to the live domain so that
-confirmation emails link to it.
+public URL and publishable key from `/api/public-config`. The project's auth Site URL is `https://www.orgcue.com`, with
+`https://www.orgcue.com/**` allowed as a redirect URL, so confirmation emails link to the live site.
 
 The app talks to the Supabase project `qlzlnsjkacjqagvxlbvq` with its publishable key, which is safe in the browser.
 Never put the secret or service-role key in a `NEXT_PUBLIC_` variable.
