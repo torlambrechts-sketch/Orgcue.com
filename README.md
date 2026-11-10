@@ -49,7 +49,9 @@ Later additions:
 
 See `docs/release-notes.md`; the collaboration research is in `docs/collaboration-research.md`.
 
-Everything a visitor adds or changes is saved in their own browser only; Help → Reset demo data restores the sample.
+Every record lives in the Supabase database; the page holds no sample data. A visitor without an account gets a private
+demo session (a copy of the demo company, kept 14 days after the last visit); Help → Reset demo data restores it. Signed-in
+users can create shared team workspaces. See `docs/database.md` for the design (163 tables) and the access functions.
 
 `npm run build` makes a production build and `npm run lint` runs ESLint.
 Pushes to `claude/relaxed-goldberg-yjnnay` deploy to https://orgcue.vercel.app.

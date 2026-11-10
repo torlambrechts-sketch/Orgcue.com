@@ -1,5 +1,18 @@
 # Release notes
 
+## November 2026: everything database driven
+
+- **Database:** every record now lives in typed tables in Supabase: 163 tables across strategy, portfolio, work, projects, platform and product content, with 80 enforced parent-child keys and 190 indexed references. See `docs/database.md`.
+- **No hardcoded data:** the page no longer contains sample data or seeding code. It loads the workspace's rows at start, and after each change it sends only the rows that changed, with a version check.
+- **Demo data:** the sample company is stored in the database as a read-only demo workspace.
+  - A visitor without an account gets a private demo session, which is a copy kept for 14 days after the last visit.
+  - Reset demo data restores it.
+  - Signed-in users can copy their session into a shared team workspace.
+- **The demo's "today":** the demo company is dated 16 September 2024, and that date is stored as data. A workspace without that date uses the real date.
+- **Empty workspaces:** every page works with no data, showing empty states.
+- **Security:** data tables are reached only through functions that check access first. Text loaded from the database cannot inject markup.
+
+
 ## November 2026: shared workspaces, finance, governance and planning
 
 This release builds the Planned and Exploring items on the Product roadmap (`/#roadmap`) that need no AI, phone app or outside service. Each item now sits in the roadmap's Shipped column.
